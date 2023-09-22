@@ -6,6 +6,6 @@
     <title>Add System user</title>
 </head>
 <body>
-    <h1>Admin dash</h1>
+    <h1>Add system user</h1>
 </body>
 </html>
