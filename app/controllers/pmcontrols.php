@@ -2,7 +2,7 @@
 
     class PmControls extends Controller{
 
-        function index($id){
+        function index($id=null){
             echo "this is pmcontrols.php".$id;
         }
     }

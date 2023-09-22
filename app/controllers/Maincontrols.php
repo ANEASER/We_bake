@@ -1,9 +1,9 @@
 <?php
 
-    class MainControls extends Controller{
+class MainControls extends Controller{
 
-        function index($id){
-            echo "this is maincontrols.php".$id;
+        function index($id=null){
+            echo $this->view("main/home");
         }
     }
 ?>
