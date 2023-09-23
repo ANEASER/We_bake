@@ -7,5 +7,9 @@
 </head>
 <body>
     <h1>HOME</h1>
+    <?php
+       //3 view data from controller
+       print_r($rows);
+    ?>
 </body>
 </html>
