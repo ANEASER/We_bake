@@ -1,0 +1,41 @@
+        // Load table
+        $systemuser = new Systemuser();
+
+
+        $errors = array();
+
+        // Find by where condition ("column", "value")
+        $data = $systemuser->where('UserName', 'admin');
+
+        // Get all data in table
+        $data2 = $systemuser->findall();
+
+        // Attempt to insert data with a duplicate 'UserName'
+        $arr["Name"] = "kasun";
+        $arr['UserName'] = 'kasun'; // This will trigger the error
+        $arr['Password'] = 'kasun';
+        $arr['NIC'] = '20001112223V';
+        $arr['Email'] = 'abc@xyz.com';
+        $arr['role'] = 'receptionist';
+
+        // Insert data
+        $nameToCheck = $arr['Name'];
+        $nameExists = $systemuser->where('UserName',$nameToCheck);
+
+        if (!$nameExists) {
+                $systemuser->insert($arr);
+                $this->redirect('admincontrols');
+        } else {
+            $errors = "Name already exists in the database";
+        }
+
+       
+        // Update data
+        $arr2["Name"] = "Sadun";
+        $systemuser->update("Nadun", 'Name', $arr2);
+        
+        // Delete data
+        $systemuser->delete("Sadun", 'Name');
+       
+        // send to the view and pass data, including the error message
+        $this->view("common/home", ['byvalue' => $data, 'rows' => $data2, 'errors' => $errors]);

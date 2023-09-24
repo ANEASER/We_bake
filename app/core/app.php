@@ -2,7 +2,7 @@
  
     class App{
 
-        protected $controller = "maincontrols"; //default controller
+        protected $controller = "commoncontrols"; //default controller
         protected $method = "index";
         protected $params = array();
 
