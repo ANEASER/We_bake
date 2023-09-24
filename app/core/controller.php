@@ -1,6 +1,7 @@
 <?php
     class Controller{
 
+        // load view
        public function view($viewname,$data=[])
         {  
            extract($data);
@@ -10,6 +11,24 @@
            }else{
             return file_get_contents("../app/views/main/404view.php");
            } }
+
+        // load model
+        public function loadmodel($modelname)
+        {
+            if(file_exists("../app/models/".$modelname.".php")){
+                require ("../app/models/".$modelname.".php");
+                return $modelname = new $modelname();
+            }else{
+                return file_get_contents("../app/views/main/404view.php");
+            }
+        }
+
+        // redirect
+        public function redirect($link)
+        {
+            header("Location: ".trim($link,"/"));
+            exit();
+        }
     }
 
 ?>

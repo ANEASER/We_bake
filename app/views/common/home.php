@@ -9,7 +9,11 @@
     <h1>HOME</h1>
     <?php
        //3 view data from controller
+       print_r($byvalue);
+       echo "<br>";
        print_r($rows);
+       echo "<br>";
+       print_r($errors);
     ?>
 </body>
 </html>
