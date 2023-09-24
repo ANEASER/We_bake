@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store</title>
+    <title>Add System user</title>
 </head>
 <body>
-    <h1>Store Manager Profile</h1>
+    <h1>Add system user</h1>
 </body>
 </html>
