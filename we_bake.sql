@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 21, 2023 at 09:48 AM
+-- Generation Time: Sep 24, 2023 at 09:24 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -240,7 +240,8 @@ CREATE TABLE `systemuser` (
   `Address` varchar(100) NOT NULL,
   `UserID` int(11) NOT NULL,
   `Role` varchar(20) NOT NULL,
-  `UserName` varchar(10) NOT NULL
+  `UserName` varchar(10) NOT NULL,
+  `Email` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -356,7 +357,8 @@ ALTER TABLE `supplyrequest`
 -- Indexes for table `systemuser`
 --
 ALTER TABLE `systemuser`
-  ADD PRIMARY KEY (`UserID`);
+  ADD PRIMARY KEY (`UserID`),
+  ADD UNIQUE KEY `unique_uname` (`UserName`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -426,7 +428,7 @@ ALTER TABLE `supplyrequest`
 -- AUTO_INCREMENT for table `systemuser`
 --
 ALTER TABLE `systemuser`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- Constraints for dumped tables

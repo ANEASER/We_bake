@@ -7,13 +7,20 @@
 </head>
 <body>
     <h1>HOME</h1>
-    <?php
-       //3 view data from controller
-       print_r($byvalue);
-       echo "<br>";
-       print_r($rows);
-       echo "<br>";
-       print_r($errors);
-    ?>
+    
+    <button onclick="loadLogin()">Login</button>
+
+    <button onclick="loadRegister()">Register</button>
+    
+    <script>
+        function loadLogin() {
+            window.location.href = "CommonControls/loadLoginView";
+        }
+
+        function loadRegister() {
+            window.location.href = "CommonControls/loadRegisterView";
+        }
+
+    </script>
 </body>
 </html>
