@@ -18,6 +18,7 @@ class CommonControls extends Controller {
     
         if (count($_POST) > 0) {
             $systemuser = new Systemuser();
+            $customer = new Customer();
     
             if ($row = $systemuser->where("UserName", $_POST["username"])) {
                 if (is_array($row) && count($row) > 0) {
@@ -28,13 +29,12 @@ class CommonControls extends Controller {
                         $role = $user->Role;
                         
                         if ($_POST["password"] == $user->Password) {
-                            var_dump($user);
                             Auth::authenticate($user);
                             
                             if ($role == 'admin') {
                                 $this->redirect("../admincontrols");
                             } elseif ($role == 'storemanager') {
-                                $this->redirect("../storemanagercontrols");
+                                $this->redirect("../storecontrols");
                             } elseif ($role == 'receptionist') {
                                 $this->redirect("../Recieptioncontrols");
                             }elseif ($role == 'billingclerk') {
@@ -46,12 +46,29 @@ class CommonControls extends Controller {
                             $errors[] = "Invalid password";
                         }
                     } else {
-                        $this->redirect("../customercontrols");
+                        $errors[] = "User data does not contain a password";
                     }
                     } else {
                         $errors[] = "User data does not contain a password";
                     }
-                } else {
+                }
+                elseif ($row = $customer->where("UserName", $_POST["username"])) {
+                    
+                    if (is_array($row) && count($row) > 0) {
+                    
+                        $user = $row[0];
+                            
+                            if ($_POST["password"] == $user->Password) {
+                                Auth::authenticate($user);
+                                $this->redirect("../customercontrols");
+                            } else {
+                                $errors[] = "Invalid password";
+                            }
+                        } else {
+                            $errors[] = "User data does not contain a password";
+                        }
+
+                }else {
                     $errors[] = "User not found";
                 }
             } else {

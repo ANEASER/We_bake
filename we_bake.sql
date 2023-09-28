@@ -247,19 +247,6 @@ CREATE TABLE `systemuser` (
 --
 -- Triggers `systemuser`
 --
-DELIMITER $$
-CREATE TRIGGER `GenerateGenericUserIDBefore` BEFORE INSERT ON `systemuser` FOR EACH ROW BEGIN
-  DECLARE role_prefix VARCHAR(2);
-  DECLARE next_id INT;
-  
-  SET role_prefix = SUBSTRING(NEW.Role, 1, 2);
-  
-  SELECT COALESCE(MAX(SUBSTRING(`UserID`, 3)) + 1, 1) INTO next_id FROM `systemuser` WHERE `Role` = NEW.Role;
-  
-  SET NEW.UserID = CONCAT(role_prefix, LPAD(next_id, 3, '0'));
-END
-$$
-DELIMITER ;
 
 --
 -- Indexes for dumped tables
