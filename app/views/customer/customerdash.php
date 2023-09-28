@@ -7,5 +7,10 @@
 </head>
 <body>
     <h1>Customer Profile</h1>
+    <?php
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
+    ?>
 </body>
 </html>
