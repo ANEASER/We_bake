@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Stock Item</title>
+</head>
+<body style="font-weight: 800">
+    <h1 style="background-color: #BAA484; text-align: center; padding: 2%;">Add Stock Item</h1>
+    <div style="display: flex; flex-direction: row;">
+        <div style="width: 30%; text-align: center;">
+            <a href="/admin" style="padding: 2% 40% 2% 40%; background-color: #BAA484; text-decoration: none; color: black;">Back</a>
+        </div>
+
+        <div style="width: 70%;">
+            <form action="process_stocks.php" method="POST" style="padding: 3%;">
+    
+                <label for="minimum">Minimum:</label><br>
+                <input type="number" id="minimum" name="minimum" required><br><br>
+
+                <label for="critical">Critical:</label><br>
+                <input type="number" id="critical" name="critical" required><br><br>
+
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</body>
+</html>
