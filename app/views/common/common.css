@@ -233,13 +233,13 @@ button:hover {
     padding: 20px;
 }
 
-.advert-space {
+/*.advert-space {
     background-color: #f0f0f0;
     border: 1px solid #ddd;
     padding: 20px;
     text-align: center;
     font-size: 18px;
-}
+}*/
 
 /* Customize styles for each advert space */
 .advert-space:nth-child(odd) {
