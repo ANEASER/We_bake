@@ -152,11 +152,12 @@ class CommonControls extends Controller {
                         session_start();
                     }
                     $_SESSION['arr'] = $arr;
-                    $this->otpvalidation();
+                    $this->redirect("../commoncontrols/otpvalidation");
                     }
                 }
             }
-        }
-}
+    }
+        
+    }
 
 ?>

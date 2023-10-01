@@ -4,6 +4,6 @@
     define("DB_PASSWORD","");
     define("DB_NAME","we bake");
 
-    define("BASE_URL","localhost/webake/public/");
-    define("ASSETS_URL","http://localhost/webake/public/assets/")
+    define("BASE_URL","localhost/We_bake/public/");
+    define("ASSETS_URL","http://localhost/We_bake/public/assets/")
 ?>
