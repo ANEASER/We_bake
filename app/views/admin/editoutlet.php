@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Outlet</title>
+    <link rel="stylesheet" href="../../../public/css/main.css">
 </head>
-<body style="font-weight: 800">
-    <h1 style="background-color: #BAA484; text-align: center; padding: 2%;">Edit Outlet</h1>
-    <div style="display: flex; flex-direction: row;">
-        <div style="width: 30%; text-align: center;">
-            <a href="/admin" style="padding: 2% 40% 2% 40%; background-color: #BAA484; text-decoration: none; color: black;">Back</a>
+<body>
+    <h1 class="header">Edit Outlet</h1>
+    <div class="container">
+        <div class="sub-container navbar">
+            <a href="/admin" class="navbutton">Back</a>
         </div>
 
-        <div style="width: 70%;">
-            <form action="process_outlet.php" method="POST" style="padding: 3%;">
+        <div class="sub-container content">
+            <form class="form-group" method="POST" style="padding: 3%;">
                 <label for="DOS">Date of Establishment:</label><br>
                 <input type="date" id="DOS" name="DOS" required><br><br>
 
@@ -38,7 +39,7 @@
                 <label for="Manager">Manager:</label><br>
                 <input type="text" id="Manager" name="Manager" required><br><br>
 
-                <input type="submit" value="Submit">
+                <input class="button" type="submit" value="Submit">
             </form>
         </div>
     </div>
