@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../public/css/main.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
     <title>Add Outlet</title>
 </head>
 <body style="font-weight: 800">

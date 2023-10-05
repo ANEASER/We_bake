@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../public/css/main.css">
-    <title>Add Product Item</title>
+    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
+    <title>Edit Product Item</title>
 </head>
-<body style="font-weight: 800">
-    <h1 class="header">Add Product Item</h1>
+<body>
+    <h1 class="header">Edit Product Item</h1>
     <div class="container">
-        <div class="sub-container" style="width: 20%;">
-            <a href="admindash" style="padding: 2% 40% 2% 40%; background-color: #BAA484; text-decoration: none; color: black;">Back</a>
+        <div class="sub-container navbar">
+            <a href="/admin" class="navbutton">Back</a>
         </div>
 
-        <div class="sub-container" style="width: 80%;">
+        <div class="sub-container content">
             <form class="form-group" method="POST" style="padding: 3%;">
                 <label for="itemid">Item ID:</label><br>
                 <input type="text" id="itemid" name="itemid" required><br><br>
@@ -27,7 +27,7 @@
                 <label for="itemdescription">Item Description:</label><br>
                 <textarea id="itemdescription" name="itemdescription" rows="4" required></textarea><br><br>
 
-                <input class="button"  type="submit" value="Submit">
+                <input class="button" type="submit" value="Submit">
             </form>
         </div>
     </div>

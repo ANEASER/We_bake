@@ -3,24 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
     <title>Create Add</title>
 </head>
-<body style="font-weight: 800">
-    <h1 style="background-color: #BAA484; text-align: center; padding: 2%;">Create Add</h1>
-    <div style="display: flex; flex-direction: row;">
-        <div style="width: 30%; text-align: center;">
-            <a href="/admin" style="padding: 2% 40% 2% 40%; background-color: #BAA484; text-decoration: none; color: black;">Back</a>
+<body>
+    <h1 class="header" >Create Add</h1>
+    <div class="container">
+        <div class="sub-container navbar">
+            <a href="/admin" class="navbutton">Back</a>
         </div>
 
-        <div style="width: 70%;">
-            <form action="upload.php" method="POST" enctype="multipart/form-data">
+        <div class="sub-container content">
+            <form class="form-group" method="POST" enctype="multipart/form-data">
                 <label for="image1">Upload Image 1:</label>
                 <input type="file" name="image1" id="image1" accept="image/*" required><br><br>
         
                 <label for="image2">Upload Image 2:</label>
                 <input type="file" name="image2" id="image2" accept="image/*" required><br><br>
         
-                <input type="submit" name="submit" value="Upload">
+                <input class="button" type="submit" name="submit" value="Upload">
             </form>
         </div>
     </div>

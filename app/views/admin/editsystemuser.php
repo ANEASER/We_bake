@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../../public/css/main.css">
-    <title>Add System user</title>
+    <title>Edit System user</title>
 </head>
-<body>
-    <h1 class="header">Add System User</h1>
+<body >
+    <h1 class="header">Edit System User</h1>
     <div class="container">
         <div class="sub-container navbar">
-            <a href="/admin" style="padding: 2% 40% 2% 40%; background-color: #BAA484; text-decoration: none; color: black;">Back</a>
+            <a href="/admin" class="navbutton">Back</a>
         </div>
 
         <div class="sub-container content">
@@ -52,7 +52,7 @@
                 <input type="password" id="Password2" name="Password2" required><br><br>
 
 
-                <input type="submit" value="Submit">
+                <input class="button" type="submit" value="Submit">
             </form>
         </div>
     </div>
