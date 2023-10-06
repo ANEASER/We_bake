@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Product Item</title>
+    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
+    <title>Add Product Item</title>
 </head>
 <body style="font-weight: 800">
-    <h1 style="background-color: #BAA484; text-align: center; padding: 2%;">Edit Product Item</h1>
-    <div style="display: flex; flex-direction: row;">
-        <div style="width: 30%; text-align: center;">
-            <a href="/admin" style="padding: 2% 40% 2% 40%; background-color: #BAA484; text-decoration: none; color: black;">Back</a>
+    <h1 class="header">Add Product Item</h1>
+    <div class="container">
+        <div class="sub-container" style="width: 20%;">
+            <button class="navbutton" onclick="back()">Back</button>
         </div>
 
-        <div style="width: 70%;">
-            <form action="process_productitem.php" method="POST" style="padding: 3%;">
+        <div class="sub-container" style="width: 80%;">
+            <form class="form-group" method="POST" style="padding: 3%;">
                 <label for="itemid">Item ID:</label><br>
                 <input type="text" id="itemid" name="itemid" required><br><br>
 
@@ -26,9 +27,14 @@
                 <label for="itemdescription">Item Description:</label><br>
                 <textarea id="itemdescription" name="itemdescription" rows="4" required></textarea><br><br>
 
-                <input type="submit" value="Submit">
+                <input class="button"  type="submit" value="Submit">
             </form>
         </div>
     </div>
+    <script>
+        function back() {
+            window.location.href = "../AdminControls";
+        }
+    </script>
 </body>
 </html>

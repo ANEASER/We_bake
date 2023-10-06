@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
     <title>Customer Registration</title>
 </head>
 <body>
-    <h2>Customer Registration Form</h2>
+    <h2 class="header">Customer Registration Form</h2>
     <?php
         if (isset($error)){
         echo "<p style='color:red'>$error</p>";}
     ?>
     
-    <form method="POST" action="register">
+    <form class="form-group" method="POST" action="register">
         <label for="Name">Name:</label>
         <input type="text" name="Name" required><br><br>
         
@@ -36,7 +37,7 @@
         <input type="password" name="Password2" required><br><br>
 
 
-        <input type="submit" value="Submit">
+        <input class="button" type="submit" value="Submit">
     </form>
 </body>
 </html>
