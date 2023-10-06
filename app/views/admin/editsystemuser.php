@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../public/css/main.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
     <title>Edit System user</title>
 </head>
 <body >
     <h1 class="header">Edit System User</h1>
     <div class="container">
         <div class="sub-container navbar">
-            <a href="/admin" class="navbutton">Back</a>
+            <button class="navbutton" onclick="back()">Back</button>
         </div>
 
         <div class="sub-container content">
@@ -56,5 +56,10 @@
             </form>
         </div>
     </div>
+    <script>
+        function back() {
+            window.location.href = "../AdminControls";   
+        }
+    </script>
 </body>
 </html>
