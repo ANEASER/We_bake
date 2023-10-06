@@ -26,25 +26,18 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Row 1, Column 1</td>
-                        <td>Row 1, Column 2</td>
-                        <td>Row 1, Column 3</td>
-                        <td>Row 1, Column 4</td>
-                        <td>Row 1, Column 5</td>
+                        <td>Row 1</td>
+                        <td>Row 1</td>
+                        <td>Row 1</td>
+                        <td><button onclick="edit()">Edit</button></td>
+                        <td>Row 1</td>
                     </tr>
                     <tr>
-                        <td>Row 2, Column 1</td>
-                        <td>Row 2, Column 2</td>
-                        <td>Row 2, Column 3</td>
-                        <td>Row 2, Column 4</td>
-                        <td>Row 2, Column 5</td>
-                    </tr>
-                    <tr>
-                        <td>Row 3, Column 1</td>
-                        <td>Row 3, Column 2</td>
-                        <td>Row 3, Column 3</td>
-                        <td>Row 3, Column 4</td>
-                        <td>Row 3, Column 5</td>
+                        <td>Row 2</td>
+                        <td>Row 2</td>
+                        <td>Row 2</td>
+                        <td><button onclick="edit()">Edit</button></td>
+                        <td>Row 2</td>
                     </tr>
                 </tbody>
             </table>
@@ -52,7 +45,11 @@
     </div>
     <script>
         function back() {
-            window.location.href = "../AdminControls";
+            window.location.href = "../AdminControls";   
+        }
+
+        function edit() {
+            window.location.href = "../AdminControls/editStock";
         }
     </script>
 </body>
