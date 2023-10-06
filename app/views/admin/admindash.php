@@ -15,6 +15,7 @@
             <button class="navbutton" onclick="loadStocks()">Stocks</button>
             <button class="navbutton" onclick="loadVehicles()">Vehicles</button>
             <button class="navbutton" onclick="loadUsers()">Users</button>
+            <button class="navbutton" onclick="advertiesments()">Advertiesments</button>
         </div>
 
         <div class="sub-container content">
@@ -42,6 +43,10 @@
 
         function loadUsers() {
             window.location.href = "AdminControls/loadUsersView";
+        }
+
+        function advertiesments() {
+            window.location.href = "AdminControls/AddAdvertiesment";
         }
     </script>
 </body>

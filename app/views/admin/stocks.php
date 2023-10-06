@@ -10,10 +10,10 @@
     <h1 class="header">Stocks</h1>
     <div class="container">
         <div class="sub-container navbar">
-            <a style="padding: 2% 40% 2% 40%; background-color: #BAA484; text-decoration: none; color: black;" onclick="back()">Back</a>
+            <button class="navbutton" onclick="back()">Back</button>
         </div>
 
-        <div>
+        <div class="sub-container content">
             <table>
                 <thead>
                     <tr>

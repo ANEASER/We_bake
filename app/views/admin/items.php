@@ -10,10 +10,12 @@
     <h1 class="header">Items</h1>
     <div class="container">
         <div class="sub-container navbar">
-            <a style="padding: 2% 40% 2% 40%; background-color: #BAA484; text-decoration: none; color: black;" onclick="back()">Back</a>
+            <button class="navbutton" onclick="back()">Back</button>
+            <button class="navbutton" onclick="add()">Add</button>
+            
         </div>
 
-        <div>
+        <div class="sub-container content">
             <table>
                 <thead>
                     <tr>
@@ -54,6 +56,10 @@
     <script>
         function back() {
             window.location.href = "../AdminControls";
+        }
+
+        function add() {
+            window.location.href = "../AdminControls/AddItem";
         }
     </script>
 

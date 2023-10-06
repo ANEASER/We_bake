@@ -10,7 +10,7 @@
     <h1 class="header">Add System User</h1>
     <div class="container">
         <div class="sub-container navbar">
-            <a href="/admin" style="padding: 2% 40% 2% 40%; background-color: #BAA484; text-decoration: none; color: black;">Back</a>
+            <button class="navbutton" onclick="back()">Back</button>
         </div>
 
         <div class="sub-container content">
@@ -56,5 +56,10 @@
             </form>
         </div>
     </div>
+    <script>
+        function back() {
+            window.location.href = "../AdminControls";
+        }
+    </script>
 </body>
 </html>
