@@ -10,10 +10,11 @@
     <h1 class="header">Admin dash</h1>
     <div class="container">
         <div class="sub-container navbar" style="display: flex; flex-direction:column;">
-            <a href="/admin" class="navbutton">Items</a>
-            <a href="/admin" class="navbutton">Vehicle</a>
-            <a href="/admin" class="navbutton">Outlets</a>
-            <a href="/admin" class="navbutton">Users</a>
+            <button class="navbutton" onclick="laodItems()">Items</button>
+            <button class="navbutton" onclick="loadOutlets()">Outlets</button>
+            <button class="navbutton" onclick="loadStocks()">Stocks</button>
+            <button class="navbutton" onclick="loadVehicles()">Vehicles</button>
+            <button class="navbutton" onclick="loadUsers()">Users</button>
         </div>
 
         <div class="sub-container content">
@@ -22,7 +23,26 @@
             ?>
         </div>
     </div>
+    <script>
+        function laodItems() {
+            window.location.href = "AdminControls/loadItemsView";
+        }
 
-    
+        function loadOutlets() {
+            window.location.href = "AdminControls/loadOutletsView";
+        }
+
+        function loadStocks() {
+            window.location.href = "AdminControls/loadStocksView";
+        }
+
+        function loadVehicles() {
+            window.location.href = "AdminControls/loadVehiclesView";
+        }
+
+        function loadUsers() {
+            window.location.href = "AdminControls/loadUsersView";
+        }
+    </script>
 </body>
 </html>

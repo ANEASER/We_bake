@@ -12,5 +12,25 @@
 
             echo $this->view("admin/admindash",[ "data" => $data]);
         }
+
+        function loadItemsView(){
+            echo $this->view("admin/items");
+        }
+
+        function loadOutletsView(){
+            echo $this->view("admin/outlets");
+        }
+
+        function loadStocksView(){
+            echo $this->view("admin/stocks");
+        }
+
+        function loadVehiclesView(){
+            echo $this->view("admin/vehicles");
+        }
+
+        function loadUsersView(){
+            echo $this->view("admin/systemusers");
+        }
     }
 ?>
