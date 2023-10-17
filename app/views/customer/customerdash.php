@@ -9,17 +9,54 @@
 <body>
 <div class="header">
         <h1>Customer Dashboard</h1>
-    </div>
-    <div class="container">
-
-        <?php
-        include "sidebar.php"
-        ?>
+</div>
+<div class="container">
     
-    <?php
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-    ?>
+    <div class="image-container">
+        <div >
+            <a href="viewmenu.php">
+                <img src="customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image"  width="300" height="300">
+                <a href="viewmenu.php" class="button">View Menu</a>
+            </a>
+        </div>
+        <div>
+        <a href="viewprofile.php">
+                <img src="customermedia\viewprofile.jpg.avif" alt="View Profile" class="image" width="300" height="300">
+                <a href="viewprofile.php" class="button">View Profile</a>
+            </a>
+        </div>
+    </div>
+    
+    <div class="image-container">
+        <div>
+            <a href="placeorder.php">
+                <img src="customermedia\placeorder.jpg.avif" alt="Place Order" class="image"  width="300" height="300">
+                <a href="placeorder.php"class="button" >Place Order</a>
+            </a>
+        </div>
+        <div>
+            <a href="editprofile.php">
+                <img src="customermedia\editprofile.jpg.avif" alt="Edit Profile" class="image" width="300" height="300">
+                <a href="editprofile.php" class="button">Edit Profile</a>
+            </a>
+        </div>
+    </div> 
+
+    <div class="image-container">
+        <div >
+            <a href="purchasehistory.php">
+                <img src="customermedia\purchasehistory.jpg.avif" alt="Purchase History" class="image"  width="300" height="300">
+                <a  href="purchasehistory.php" class="button">Purchase History</a>
+            </a>
+        </div>
+        <div >
+            <a href="makeinquiry.php">
+                <img src="customermedia\makeinquiry.jpg.avif" alt="Make Inquiry" class="image"  width="300" height="300">
+                <a href="makeinquiry.php" class="button">Make Inquiry</a>
+            </a>
+        </div>
+    </div>
+   
+</div>
 </body>
 </html>
