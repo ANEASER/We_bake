@@ -10,7 +10,7 @@
     <h1 class="header">Add Delivery Vehicle</h1>
     <div class="container">
         <div class="sub-container navbar">
-            <a href="/admin" class="navbutton">Back</a>
+            <button class="navbutton" onclick="back()">Back</button>
         </div>
 
         <div class="sub-container content">
@@ -40,5 +40,10 @@
             </form>
         </div>
     </div>
+    <script>
+        function back() {
+            window.location.href = "../AdminControls";
+        }
+    </script>
 </body>
 </html>
