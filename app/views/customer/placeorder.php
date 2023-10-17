@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Place Order - Bakery</title>
-    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
+    <link rel="stylesheet" type="text/css" href="cutomersytles.css">
 </head>
 <body>
     <div class="header">
