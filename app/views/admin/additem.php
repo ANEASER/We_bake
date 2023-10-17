@@ -10,7 +10,7 @@
     <h1 class="header">Add Product Item</h1>
     <div class="container">
         <div class="sub-container" style="width: 20%;">
-            <a href="admindash" class="navbutton">Back</a>
+            <button class="navbutton" onclick="back()">Back</button>
         </div>
 
         <div class="sub-container" style="width: 80%;">
@@ -31,5 +31,10 @@
             </form>
         </div>
     </div>
+    <script>
+        function back() {
+            window.location.href = "../AdminControls";
+        }
+    </script>
 </body>
 </html>
