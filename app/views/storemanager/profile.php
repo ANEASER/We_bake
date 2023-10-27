@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="smstyle.css">
-    <title>Store Manager</title>
+    <title>Store Manager_Profile</title>
 </head>
 <body>
 <div class="navbar">
@@ -17,14 +17,8 @@
         </ul>
     </div>
     <div class="content">
-            <div class="tile">
-                <h2><a href="supplier.php"> Suppliers </a></h2>
-                
-            </div>
-            <div class="tile">
-                <h2><a href="stocks.php"> Stocks </a></h2>
-                
-            </div>
+        <h1>Profile</h1>
+            
     </div>
     <script src="script.js"></script>
 </body>
