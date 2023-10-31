@@ -39,7 +39,9 @@ class CommonControls extends Controller {
                                 $this->redirect("../Recieptioncontrols");
                             }elseif ($role == 'billingclerk') {
                                 $this->redirect("../billingcontrols");
-                            }else {
+                            } elseif($role=="outletmanager"){
+                                $this->redirect("../outletcontrols");}
+                            else {
                                 $this->redirect("../pmcontrols");
                             }
                         } else {
@@ -152,11 +154,12 @@ class CommonControls extends Controller {
                         session_start();
                     }
                     $_SESSION['arr'] = $arr;
-                    $this->otpvalidation();
+                    $this->redirect("../commoncontrols/otpvalidation");
                     }
                 }
             }
-        }
-}
+    }
+        
+    }
 
 ?>

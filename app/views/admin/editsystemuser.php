@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
-    <title>Add System user</title>
+    <title>Edit System user</title>
 </head>
-<body>
-    <h1 class="header">Add System User</h1>
+<body >
+    <h1 class="header">Edit System User</h1>
     <div class="container">
         <div class="sub-container navbar">
             <button class="navbutton" onclick="back()">Back</button>
@@ -58,7 +58,7 @@
     </div>
     <script>
         function back() {
-            window.location.href = "../AdminControls";
+            window.location.href = "../AdminControls";   
         }
     </script>
 </body>
