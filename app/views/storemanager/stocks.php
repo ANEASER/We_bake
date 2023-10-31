@@ -14,7 +14,7 @@
         <h1>Stocks</h1>
 
         <div class="suppdash">
-            <button onclick="window.location.href='addstock.php'">Add New Stock Item</button>
+            <button class="formbutton" onclick="window.location.href='addstock.php'">Add New Stock Item</button>
         </div>
         <div>
         <table>
@@ -59,8 +59,8 @@
             <td>Address 1</td>
             <td>email1@email.com</td>
             <td>4</td>
-            <td><button onclick="window.location.href='updatesupplier.php'">Update</button></td>
-            <td><button onclick="window.location.href='deletesupplier.php'">Delete</button></td>
+            <td><button class="formbutton" onclick="window.location.href='updatesupplier.php'">Update</button></td>
+            <td><button class="formbutton" onclick="window.location.href='deletesupplier.php'">Delete</button></td>
             
         </tr>
         </table>

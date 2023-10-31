@@ -64,7 +64,7 @@
                 <input type="text" id="SupplierRating" name="Ratings" required>
             </div>
             <div class="button-container">
-                <button type="submit">Save</button>
+                <button class="formbutton" type="submit">Save</button>
             </div>
 
         </form>

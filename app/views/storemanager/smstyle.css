@@ -12,6 +12,19 @@ body, ul, li {
     display: block;
     text-align: left;
 }
+
+.dashbutton {
+    background-color: #BAA484;
+    color: white;
+    padding: 30px 400px;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    font-size: 20px;
+    font-family:serif;
+
+}
+
 /* Style the vertical navbar */
 .navbar {
     background-color: #BAA484;
@@ -42,6 +55,21 @@ body, ul, li {
     background-color: #897546;
 }
 
+.navbutton{
+    background-color: #BAA484;
+    color: white;
+    padding: 10px 130px;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    font-size: 15px;
+    font-family:serif; 
+}
+
+.navbutton:hover {
+    background-color: #897546;
+}
+
 /* Style the page content */
 .content {
     margin-left: 25%; /* Adjust for the width of the navbar */
@@ -52,7 +80,7 @@ body, ul, li {
 
 .tile{
     flex: 1;
-    background: linear-gradient(45deg, #D4B996, #BAA484);
+    background:#BAA484;
     border: 1px solid #9C8363;
     border-radius: 5px;
     padding: 60px;
@@ -91,7 +119,7 @@ input[type="email"]
     align-self: center;
 }
 
-button {
+.formbutton {
     background-color: #bc9b72;
     color: white;
     padding: 10px 30px;
@@ -100,6 +128,7 @@ button {
     cursor: pointer;
     align-self: center;
 }
+
 
 button:hover {
     background-color: #9b7b54;
