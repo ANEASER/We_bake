@@ -10,5 +10,6 @@
             <li><a href="stocks.php">Stocks</a></li>
         </ul>
 </div>
+
 </body>
 </html>
