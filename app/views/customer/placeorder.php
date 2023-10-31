@@ -16,7 +16,7 @@
 
         <div class="sub-container">
             <h2 align=center >Order Details</h2>
-            <form action="dashboard.php">
+            <form action="customerdash.php">
                 <div class="form-group">
                     <label for="item">Select Item:</label>
                     <select id="item" name="item">

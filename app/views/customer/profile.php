@@ -17,12 +17,20 @@
     <div class="sub-container" >
         <div>
             <div>
-                <a href="viewprofile.php" class="buttonedit">View Profile</a>
+                <button onclick="viewprofile()" class="buttonedit">View Profile</button>
             </div>
             <div>
-                <a href="editprofile.php" class="buttonedit">Edit Profile</a>
+                <button onclick="editprofile()" class="buttonedit">Edit Profile</button>
             </div>
             
     </div>
+<script>
+    function viewprofile(){
+            window.location.href = "customercontrols/viewprofile";
+}
+    function editprofile(){
+            window.location.href = "customercontrols/editprofile";
+}
+</script>
 </body>
 </html>

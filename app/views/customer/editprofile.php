@@ -17,11 +17,19 @@
     <div class="sub-container" >
         <div>
             <div>
-                <a href="editprofiledetails.php" class="buttonedit">Edit Profile Details</a>
+                <button onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
             </div>
             <div>
-                <a href="changepassword.php" class="buttonedit">Change Password</a>
+                <button onclick="changepassword()" class="buttonedit">Change Password</button>
             </div>
     </div>
+    <script>
+    function editprofiledetails(){
+            window.location.href = "customercontrols/editprofiledetails";
+}
+    function changepassword(){
+            window.location.href = "customercontrols/changepassword";
+}
+</script>
 </body>
 </html>
