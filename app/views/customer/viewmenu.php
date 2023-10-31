@@ -16,35 +16,74 @@
         include "sidebar.php"
         ?>
     
-    <div class="image-container">
-        <div >
-            <a href="bread.php">
-                <img src="customermedia\bread.avif" alt="Bread" class="image"  width="300" height="300">
-                <a href="bread.php" class="button">Bread</a>
-            </a>
-        </div>
         <div>
-        <a href="cake.php">
-                <img src="customermedia\cake.jpg" alt="Cakes" class="image" width="300" height="300">
-                <a href="cake.php" class="button">Cakes</a>
-            </a>
-        </div>
+        <table>
+            <tr>
+                <th>Product Code</th>
+                <th>Product Name</th>
+                <th>Product Image</th>
+                <th>Product Price</th>
+                <th>Product Description</th>
+
+            </tr>
+            <?php
+            // Include the database connection file
+            /*require('database.php');
+
+            // SQL query to retrieve supplier details
+            $sql = "SELECT * FROM suppllier";
+
+            $result = $conn->query($sql);
+
+            if ($result->num_rows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td>" . $row["name"] . "</td>";
+                    echo "<td>" . $row["contactno"] . "</td>";
+                    echo "<td>" . $row["address"] . "</td>";
+                    echo "<td>" . $row["email"] . "</td>";
+                    echo "<td>" . $row["Rating"] . "</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='5'>No suppliers found.</td></tr>";
+            }
+
+            // Close the database connection
+            $conn->close();*/
+            ?>
+            <tr>
+            <td>C01</td>
+            <td>Item 1</td>
+            <td><img src="customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.200</td>
+            <td>Buns</td>
+
+            <tr>
+            <td>C02</td>
+            <td>Item 2</td>
+            <td><img src="customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.400</td>
+            <td>Buns</td>
+
+            <tr>
+            <td>C03</td>
+            <td>Item 3</td>
+            <td><img src="customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.150</td>
+            <td>Buns</td>
+            
+        </tr>
+        </table>
+
+        </div>       
+            
     </div>
-    
-    <div class="image-container">
-        <div>
-            <a href="bun.php">
-                <img src="customermedia\bun.avif" alt="Buns" class="image"  width="300" height="300">
-                <a href="bun.php"class="button" >Buns</a>
-            </a>
-        </div>
-        <div>
-            <a href="shorteat.php">
-                <img src="customermedia\shorteat.avif" alt="Other Short Eats" class="image" width="300" height="300">
-                <a href="shorteat.php" class="button">Other Short Eats</a>
-            </a>
-        </div>
-    </div> 
+    <script src="script.js"></script>
+</body>
+</html>
+
+
    
 </div>
 </body>
