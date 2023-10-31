@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="smstyle.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/storemanager/smstyle.css">
     <title>Store Manager_ Suppliers</title>
 </head>
 <body>
@@ -13,7 +13,7 @@
     <div class="content">
         <h1>Suppliers</h1>
         <div class="suppdash">
-            <button onclick="window.location.href='addsupplier.php'">Add New Suppliers</button>
+            <button onclick="addSuppliers()">Add New Suppliers</button>
         </div>
         <div>
         <table>
@@ -67,6 +67,10 @@
 
         </div>        
     </div>
-    <script src="script.js"></script>
+    <script>
+        function addSuppliers() {
+            window.location.href = "../StoreControls/addsupplier";
+        }
+    </script>
 </body>
 </html>
