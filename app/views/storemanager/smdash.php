@@ -7,7 +7,10 @@
     <title>Store Manager</title>
 </head>
 <body>
-<div class="navbar">
+    <?php
+        include "nvbar.php";
+    ?>
+<!--<div class="navbar">
         <h1 class="dashboard"> Store Manager Dashboard</h1>
         <ul>
             <li><a href="smdash.php">Home</a></li>
@@ -15,7 +18,7 @@
             <li><a href="supplier.php">Suppliers</a></li>
             <li><a href="stocks.php">Stocks</a></li>
         </ul>
-    </div>
+    </div>-->
     <div class="content">
             <div class="tile">
                 <h2><a href="supplier.php"> Suppliers </a></h2>
