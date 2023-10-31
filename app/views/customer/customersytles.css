@@ -22,6 +22,7 @@
     
 }
 .form-group {
+    margin-left: 280px;
     margin-bottom: 15px;
 }
 label {
@@ -103,6 +104,13 @@ select, input[type="number"], input[type="text"] {
     max-height: 200px;
     
 }
+.image1 {
+    margin-top: 10%;
+    margin-bottom: 10%;
+    max-width: 100px;
+    max-height: 100px;
+    
+}
 /* Style the vertical navbar */
 .navbar {
     background-color: #BAA484;
@@ -140,5 +148,35 @@ select, input[type="number"], input[type="text"] {
     display: block;
     text-align: center;
 }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-left: 200px;
+    margin-top: 30px;
+}
 
+table th {
+    background-color: #bc9b72;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table td {
+    padding: 5px;
+    border: 1px solid #ddd;
+    text-align: center;
+    margin-top: 10px;
+}
+
+table td[colspan="5"] {
+    text-align: center;
+    padding: 10px;
+    color: #d9534f;
+}
 

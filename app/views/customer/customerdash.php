@@ -22,7 +22,7 @@
     </div>
     <div class="image-container">
         <div>
-        <a href="viewprofile.php">
+        <a href="profile.php">
                 <img src="customermedia\viewprofile.jpg.avif" alt="Profile" class="image" width="300" height="300">
                 <a href="profile.php" class="button">Profile</a>
             </a>

@@ -21,19 +21,19 @@
         <h2 align="center">Inquiry Details</h2>
 
             <div class="formcontent" >
-                    <div>
+                    <div class="form-group">
                         <h4>Customer ID:</h4>
                         <label>
                             <input name="CID" type="text" id="CID" value="<?php echo $row['CustomerID'];?>" required />
                         </label>
                     </div>
-                    <div>
+                    <div class="form-group">
                         <h4>Customer Name:</h4>
                         <label>
                             <input name="customername" type="text" id="customername" value="<?php echo $row['CustomerName'];?>" required />
                         </label>
                     </div>
-                    <div>
+                    <div class="form-group">
                         <h4>Email Address:</h4>
                         <label>
                             <input name="customeremail" type="email" id="customeremail" value="<?php echo $row['CustomerEmail'];?>" required />
