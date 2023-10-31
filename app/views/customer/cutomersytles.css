@@ -1,5 +1,5 @@
 
-body {
+.body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -33,6 +33,7 @@ select, input[type="number"], input[type="text"] {
     border: 1px solid #000000;
     border-radius: 5px;
 }
+/*Side bar buttons*/
 .buttons {
     flex: 0 0 20%;
 }
@@ -82,7 +83,7 @@ select, input[type="number"], input[type="text"] {
     flex-wrap: wrap;
     justify-content: center;
 }
-/*.dashboard-item {
+.dashboard-item {
     width: 30%;
     margin: 1%;
     text-align: center;
@@ -98,32 +99,3 @@ select, input[type="number"], input[type="text"] {
     
 }
 
-/* Style the vertical navbar */
-.navbar {
-    background-color: #BAA484;
-    width: 20%;
-    height: 100%;
-    position: fixed;
-    overflow: auto;
-}
-
-
-.navbar ul {
-    padding: 0;
-}
-
-.navbar li {
-    padding: 10px 0;
-}
-
-.navbar a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 10px;
-    text-align: center;
-}
-
-.navbar a:hover {
-    background-color: #897546;
-}
