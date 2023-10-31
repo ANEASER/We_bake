@@ -17,7 +17,7 @@
         ?>
     
     <div class="sub-container" >
-    <form action="dashboard.php">
+    <form action="customerdash.php">
         <h2 align="center">Inquiry Details</h2>
 
             <div class="formcontent" >

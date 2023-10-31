@@ -10,51 +10,59 @@
 <div class="header">
         <h1>Customer Dashboard</h1>
 </div>
-<div class="container">
+<div class="container1">
 
     <div class="image-container">
         <div >
-            <a href="viewmenu.php">
-                <img src="customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image"  width="300" height="300">
-                <a href="viewmenu.php" class="button">View Menu</a>
-            </a>
+                <img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image"  width="300" height="300">
+                <button onclick="viewmenu()" class="button1">View Menu</button>
         </div>
     </div>
     <div class="image-container">
         <div>
-        <a href="profile.php">
-                <img src="customermedia\viewprofile.jpg.avif" alt="Profile" class="image" width="300" height="300">
-                <a href="profile.php" class="button">Profile</a>
-            </a>
+                <img src="http://localhost\we_bake\app\views\customer\customermedia\viewprofile.jpg.avif" alt="Profile" class="image" width="300" height="300">
+                <button onclick="profile()" class="button1">Profile</button>
         </div>
     </div>
     
     <div class="image-container">
         <div>
-            <a href="placeorder.php">
-                <img src="customermedia\placeorder.jpg.avif" alt="Place Order" class="image"  width="300" height="300">
-                <a href="placeorder.php"class="button" >Place Order</a>
-            </a>
+                <img src="http://localhost\we_bake\app\views\customer\customermedia\placeorder.jpg.avif" alt="Place Order" class="image"  width="300" height="300">
+                <button onclick="placeorder()" class="button1" >Place Order</button>
         </div>
     </div>
 
     <div class="image-container">
         <div >
-            <a href="purchasehistory.php">
-                <img src="customermedia\purchasehistory.jpg.avif" alt="Purchase History" class="image"  width="300" height="300">
-                <a  href="purchasehistory.php" class="button">Purchase History</a>
-            </a>
+                <img src="http://localhost\we_bake\app\views\customer\customermedia\purchasehistory.jpg.avif" alt="Purchase History" class="image"  width="300" height="300">
+                <button onclick="purchasehistory()" class="button1">Purchase History</button>
         </div>
     </div>
     <div class="image-container">
         <div >
-            <a href="makeinquiry.php">
-                <img src="customermedia\makeinquiry.jpg.avif" alt="Make Inquiry" class="image"  width="300" height="300">
-                <a href="makeinquiry.php" class="button">Make Inquiry</a>
-            </a>
+                <img src="http://localhost\we_bake\app\views\customer\customermedia\makeinquiry.jpg.avif" alt="Make Inquiry" class="image"  width="300" height="300">
+                <button onclick="makeinquiry()" class="button1">Make Inquiry</button>
         </div>
     </div>
    
 </div>
+<script>
+    function viewmenu(){
+            window.location.href = "customercontrols/viewmenu";
+}
+    function profile(){
+            window.location.href = "customercontrols/profile";
+}
+    function placeorder(){
+            window.location.href = "customercontrols/placeorder";
+}
+    function purchasehistory(){
+            window.location.href = "customercontrols/purchasehistory";
+}
+    function makeinquiry(){
+            window.location.href = "customercontrols/makeinquiry";
+}
+</script>
 </body>
 </html>
+ 
