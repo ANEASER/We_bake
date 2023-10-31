@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="cutomersytles.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
 <body>
 <div class="header">
         <h1>Customer Dashboard</h1>
 </div>
 <div class="container">
-    
+
     <div class="image-container">
         <div >
             <a href="viewmenu.php">
@@ -19,10 +19,12 @@
                 <a href="viewmenu.php" class="button">View Menu</a>
             </a>
         </div>
+    </div>
+    <div class="image-container">
         <div>
         <a href="viewprofile.php">
-                <img src="customermedia\viewprofile.jpg.avif" alt="View Profile" class="image" width="300" height="300">
-                <a href="viewprofile.php" class="button">View Profile</a>
+                <img src="customermedia\viewprofile.jpg.avif" alt="Profile" class="image" width="300" height="300">
+                <a href="profile.php" class="button">Profile</a>
             </a>
         </div>
     </div>
@@ -34,13 +36,7 @@
                 <a href="placeorder.php"class="button" >Place Order</a>
             </a>
         </div>
-        <div>
-            <a href="editprofile.php">
-                <img src="customermedia\editprofile.jpg.avif" alt="Edit Profile" class="image" width="300" height="300">
-                <a href="editprofile.php" class="button">Edit Profile</a>
-            </a>
-        </div>
-    </div> 
+    </div>
 
     <div class="image-container">
         <div >
@@ -49,6 +45,8 @@
                 <a  href="purchasehistory.php" class="button">Purchase History</a>
             </a>
         </div>
+    </div>
+    <div class="image-container">
         <div >
             <a href="makeinquiry.php">
                 <img src="customermedia\makeinquiry.jpg.avif" alt="Make Inquiry" class="image"  width="300" height="300">

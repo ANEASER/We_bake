@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile Details</title>
 
-    <link rel="stylesheet" type="text/css" href="cutomersytles.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
 <body>
 </div>
-    <div class="header">
-        <h1>Edit Your Profile</h1>
-    </div>
+    
     <div class="container">
 
         <?php
