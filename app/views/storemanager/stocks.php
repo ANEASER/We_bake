@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php
-        include "nvbar.php";
+        include "smnavbar.php";
     ?>
     <div class="content">
         <h1>Stocks</h1>
