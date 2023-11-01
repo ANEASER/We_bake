@@ -18,32 +18,32 @@
             <form method="POST">
             <div class="form-group">
                 <label for="Name">Name:</label><br>
-                <input type="text" id="Name" name="Name" required><br><br>
+                <input type="text" id="Name" name="Name" ><br><br>
             </div>    
             
             <div class="form-group">
                 <label for="NIC">NIC:</label><br>
-                <input type="text" id="NIC" name="NIC" required><br><br>
+                <input type="text" id="NIC" name="NIC"><br><br>
             </div>
             
             <div class="form-group">      
                 <label for="DOB">Date of Birth:</label><br>
-                <input type="date" id="DOB" name="DOB" required><br><br>
+                <input type="date" id="DOB" name="DOB" ><br><br>
             </div>
 
             <div class="form-group">
                 <label for="Email">Email:</label><br>
-                <input type="email" id="Email" name="Email" required><br><br>
+                <input type="email" id="Email" name="Email" ><br><br>
             </div>
 
             <div class="form-group">
                 <label for="contactNo">Contact No:</label><br>
-                <input type="text" id="contactNo" name="contactNo" required><br><br>
+                <input type="text" id="contactNo" name="contactNo"><br><br>
             </div>
 
             <div class="form-group">
                 <label for="Address">Address:</label><br>
-                <input type="text" id="Address" name="Address" required><br><br>
+                <input type="text" id="Address" name="Address" ><br><br>
             </div>
             
             <div class="form-group">      

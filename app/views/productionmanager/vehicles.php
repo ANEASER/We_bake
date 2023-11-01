@@ -62,15 +62,15 @@
     </div>
     <script>
         function back() {
-            window.location.href = "../AdminControls";
+            window.location.href = "../pmControls";
         }
 
         function add() {
-            window.location.href = "../AdminControls/addVehicle";
+            window.location.href = "../pmControls/addVehicle";
         }
 
         function edit() {
-            window.location.href = "../AdminControls/editVehicle";
+            window.location.href = "../pmControls/editVehicle";
         }
     </script>
 </body>

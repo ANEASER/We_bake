@@ -20,36 +20,34 @@
             </div>
 
             <div>
-            <table>
-                <tr>
+                
+            <?php
+                echo '<table>';
+                echo '<tr>
                     <th>Item ID</th>
                     <th>Retail Price</th>
                     <th>Stock Price</th>
                     <th>Item Description</th>
+                    <th>Item Name</th>
                     <th>Update</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>10</td>
-                    <td>5</td>
-                    <td>Product A - Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                    <td><button class="formbutton" onclick="edit()">Update</button></td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>15</td>
-                    <td>8</td>
-                    <td>Product B - Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
-                    <td><button class="formbutton" onclick="edit()">Update</button></td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>20</td>
-                    <td>12</td>
-                    <td>Product C - Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</td>
-                    <td><button class="formbutton" onclick="edit()">Update</button></td>
-                </tr>
-                </table>
+                    <th>Delete</th>
+
+                </tr>';
+                
+                foreach ($items as $item) {
+                    echo '<tr>';
+                    echo '<td>' . $item->itemid . '</td>';
+                    echo '<td>' . $item->retailprice . '</td>';
+                    echo '<td>' . $item->stockprice . '</td>';
+                    echo '<td>' . $item->itemdescription . '</td>';
+                    echo '<td>' . $item->itemname . '</td>';
+                    echo '<td><button onclick="edit(' . $item->itemid . ')">Update</button></td>';
+                    echo '<td><button onclick="del(' . $item->itemid . ')">Delete</button></td>';
+                    echo '</tr>';
+                }
+                
+                echo '</table>';
+                ?>
             </div>
         </div>
     </div>
@@ -63,8 +61,12 @@
             window.location.href = "../AdminControls/AddItem";
         }
 
-        function edit() {
-            window.location.href = "../AdminControls/EditItem";
+        function edit(itemid) {
+            window.location.href = "../AdminControls/EditItem/"+itemid;
+        }
+
+        function del(itemid) {
+            window.location.href = "../AdminControls/deleteproduct/"+itemid;
         }
     </script>
 

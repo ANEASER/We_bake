@@ -8,9 +8,15 @@
     <link rel="stylesheet" href="http://localhost/we_bake/app/views/outlet/outletmanager.css">
 </head>
 <body>
-    <?php
-        include "omnavbar.php";
-    ?>
+    <div class="navbar">
+    <h1 class="dashboard"> Outlet Manager Dashboard</h1>
+            <ul>
+                <li><button onclick = "PlaceOrder()">Place Order</button></li>
+                <li><button onclick = "PurchaseHistory()">Purchase History</button></li>
+                <li><button onclick = "EditContainOrder()">Edit Contain Order</button></li>
+                <li><button onclick = "EditProfile()">Edit Profile</button></li>
+            </ul>
+    </div>
  <div class="content">
  <h1>Outlet Dash</h1>
         <div>
@@ -69,7 +75,21 @@
         </div>        
     </div>
     
-    <script src="script.js"></script>
+    <script>
+
+            function PlaceOrder() {
+                window.location.href = "http://localhost/we_bake/public/outletControls/placeorder"};
+
+            function PurchaseHistory() {
+                window.location.href = "http://localhost/we_bake/public/outletControls/purchasehistory"};
+
+            function EditContainOrder() {
+                window.location.href = "http://localhost/we_bake/public/outletControls/editcontainorder"};
+
+            function EditProfile() {
+                window.location.href = "http://localhost/we_bake/public/outletControls/editprofile"};
+        
+</script>
     
 </body>
 </html>   
