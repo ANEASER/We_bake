@@ -7,6 +7,13 @@
     <title>Login</title>
 </head>
 <body>
+    <?php
+        if (isset($errors)) {
+            foreach ($errors as $error) {
+                echo "<p style='color:red;'>$error</p>";
+            }
+        }
+    ?>
     <h1 class="header">Login</h1>
     <form class="form-group" method="POST" action="login">
         <label for="username">Username:</label>

@@ -25,17 +25,43 @@
 
             $productitem->insert($arr);
 
-            $this->redirect("AdminControls/loadItemsView");
+            $this->redirect("http://localhost/we_bake/public/AdminControls/loadItemsView");
 
         }
-        
 
+        function loadItemsView(){
+            $productitem = new ProductItem();
+            $items = $productitem->findall();
+            echo $this->view("admin/items", [ "items" => $items]);
+        }
+
+        function editproduct(){
+            
+            $productitem = new ProductItem();
+            $id = $_POST['id'];
+            if (!empty($_POST['itemname'])){
+                $data['itemname'] = $_POST['itemname'];
+            } 
+            if (!empty($_POST['retailprice'])){
+                $data['retailprice'] = $_POST['retailprice'];
+            }
+            if (!empty($_POST['stockprice'])){
+                $data['stockprice'] = $_POST['stockprice'];
+            }
+            if (!empty($_POST['itemdescription'])){
+                $data['itemdescription'] = $_POST['itemdescription'];
+            }
+            echo $productitem->update($id,"itemid",$data);
+            $this->redirect("http://localhost/we_bake/public/AdminControls/loadItemsView");
+        }
+
+        function deleteproduct($id){
+            $productitem = new ProductItem();
+            $productitem->delete($id,"itemid");
+            $this->redirect("http://localhost/we_bake/public/AdminControls/loadItemsView");
+        }
         
         //view table unctions
-        function loadItemsView(){
-            echo $this->view("admin/items");
-        }
-
         function loadOutletsView(){
             echo $this->view("admin/outlets");
         }
@@ -44,9 +70,6 @@
             echo $this->view("admin/stocks");
         }
 
-        function loadVehiclesView(){
-            echo $this->view("admin/vehicles");
-        }
 
         function loadUsersView(){
             echo $this->view("admin/systemusers");
@@ -65,10 +88,6 @@
             echo $this->view("admin/addstock");
         }
 
-        function AddVehicle(){
-            echo $this->view("admin/addvehicle");
-        }
-
         function AddUser(){
             echo $this->view("admin/addsystemuser");
         }
@@ -78,8 +97,8 @@
         }
 
         //view edit functions
-        function EditItem(){
-            echo $this->view("admin/edititem");
+        function EditItem($id){
+            echo $this->view("admin/edititem", ["id" => $id]);
         }
 
         function EditOutlet(){
@@ -88,10 +107,6 @@
 
         function EditStock(){
             echo $this->view("admin/editstockalertlevels");
-        }
-
-        function EditVehicle(){
-            echo $this->view("admin/editvehicle");
         }
 
         function EditUser(){

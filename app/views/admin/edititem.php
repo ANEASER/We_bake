@@ -15,19 +15,28 @@
         </div>
 
         <div class="content">
-            <form  method="POST" style="padding: 3%;">
-                 
+            <?php echo $id; ?>
+
+            <form  method="POST" style="padding: 3%;" action="http://localhost/we_bake/public/AdminControls/editproduct">
+
+                <input type="hidden" name="id" value="<?php echo $id; ?>"> 
+                
+                <div class="form-group">
+                <label for="itemname">Item Name:</label><br>
+                    <input type="text" id="itemname" name="itemname" require><br><br>
+                </div>
+
                 <div class="form-group"> 
                     <label for="retailprice">Retail Price:</label><br>
-                    <input type="number" id="retailprice" name="retailprice" required><br><br>
+                    <input type="number" id="retailprice" name="retailprice"><br><br>
                 </div> 
                 <div class="form-group"> 
                     <label for="stockprice">Stock Price:</label><br>
-                    <input type="number" id="stockprice" name="stockprice" required><br><br>
+                    <input type="number" id="stockprice" name="stockprice"><br><br>
                 </div>
                 <div class="form-group"> 
                     <label for="itemdescription">Item Description:</label><br>
-                    <textarea id="itemdescription" name="itemdescription" rows="4" required></textarea><br><br>
+                    <textarea id="itemdescription" name="itemdescription" rows="4"></textarea><br><br>
                 </div>
                 <div class="button-container" style="align-self: left"> 
                     <input class="formbutton" type="submit" value="Submit">
@@ -37,7 +46,7 @@
     </div>
     <script>
         function back() {
-            window.location.href = "../AdminControls";   
+            window.location.href = "http://localhost/we_bake/public/AdminControls/loadItemsView";   
         }
     </script>
 </body>
