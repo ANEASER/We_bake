@@ -8,12 +8,15 @@
 
 </head>
 <body>
+<div class="header">
+        <h1>Customer Profile</h1>
+    </div>
     <div class="container">
 
-        <?php
+       <!-- <?php
         include "sidebar.php"
         ?>
-    
+    -->
     <div class="sub-container" >
         <div>
             <div>
