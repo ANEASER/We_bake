@@ -13,10 +13,10 @@
     </div>
     <div class="container">
 
-       <!-- <?php
+        <?php
         include "sidebar.php"
         ?>
-    -->
+    
     <div class="sub-container" >
         <div>
             <div>
