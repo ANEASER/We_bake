@@ -19,20 +19,20 @@ function loadDash() {
 }
 
 function loadProfile() {
-    window.location.href = "../StoreControls/viewProfile";
+    window.location.href = "http://localhost/We_bake/public/StoreControls/viewProfile";
 }
 
 function loadSuppliers() {
-    window.location.href = "../StoreControls/viewSupplier";
+    window.location.href = "http://localhost/We_bake/public/StoreControls/viewSupplier";
 }
 
 function loadStocks() {
-    window.location.href = "../StoreControls/viewStocks";
+    window.location.href = "http://localhost/We_bake/public/StoreControls/viewStocks";
 }
 
 function logout() {
-            window.location.href = "CommonControls/logout";
-        }
+    window.location.href = "CommonControls/logout";
+}
 
 </script>
 
