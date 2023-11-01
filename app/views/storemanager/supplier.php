@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/storemanager/smstyle.css">
     <title>Store Manager_ Suppliers</title>
 </head>
-<body>
+<body onload=getSupplierData()>
     <?php
         include "smnavbar.php";
     ?>
@@ -28,7 +29,7 @@
                 <th>Delete</th>
             </tr>
             
-        <tr>
+        <!-- <tr>
             <td>Supplier 1</td>
             <td>0771234567</td>
             <td>Address 1</td>
@@ -37,7 +38,24 @@
             <td><button class="formbutton" onclick="updateSuppliers()">Update</button></td>
             <td><button class="formbutton" onclick="window.location.href='deletesupplier.php'">Delete</button></td>
             <td><button class="formbutton" onclick="window.location.href='requestsupplier.php'">Place order</button></td>
-        </tr>
+        </tr> -->
+
+        <?php
+        foreach ($data as $val) {
+            echo "<tr>
+        <td>".$val->name."</td>
+            <td>".$val->contactno."</td>
+            <td>".$val->address."</td>
+            <td>".$val->email."</td>
+            <td>".$val->Ratings."</td>
+            <td><button class='formbutton' onclick=\"updateSuppliers()\">Update</button></td>
+            <td><button class='formbutton' onclick=\"window.location.href='deletesupplier.php'\">Delete</button></td>
+            <td><button class='formbutton' onclick=\"window.location.href='requestsupplier.php'\">Place order</button></td>
+        </tr>";
+         }
+         ?>
+        
+        
         </table>
 
         </div>        
@@ -49,6 +67,10 @@
 
         function updateSuppliers() {
             window.location.href = "../StoreControls/updateSupplier";
+        }
+        function getSupplierData() {
+            // die('error');
+            window.location.href = "../StoreControls/getSupplierData";
         }
     </script>
 </body>

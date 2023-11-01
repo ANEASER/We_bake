@@ -59,7 +59,11 @@ class StoreControls extends Controller {
         $this->redirect("../StoreControls/viewSupplier");
     }
 
-    
-    
+    //View Supplier
+    function getSupplierData(){
+        $supplier = new Supplier();
+        $data = $supplier->findall();
+        echo $this->view("storemanager/supplier",$data);
+    }    
 }
 ?>
