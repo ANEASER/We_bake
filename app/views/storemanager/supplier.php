@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/storemanager/smstyle.css">
     <title>Store Manager_ Suppliers</title>
 </head>
-<body onload=getSupplierData()>
+<body>
     <?php
         include "smnavbar.php";
     ?>
@@ -24,9 +24,9 @@
                 <th>Address</th>
                 <th>Email</th>
                 <th>Rating</th>
-                <th>Place order</th>
                 <th>Update</th>
                 <th>Delete</th>
+                <th>Place order</th>
             </tr>
             
         <!-- <tr>
@@ -49,8 +49,8 @@
             <td>".$val->email."</td>
             <td>".$val->Ratings."</td>
             <td><button class='formbutton' onclick=\"updateSuppliers()\">Update</button></td>
-            <td><button class='formbutton' onclick=\"window.location.href='deletesupplier.php'\">Delete</button></td>
-            <td><button class='formbutton' onclick=\"window.location.href='requestsupplier.php'\">Place order</button></td>
+            <td><button class='formbutton' onclick=\"deleteSuppliers(".$val->id.")\">Delete</button></td>
+            <td><button class='formbutton' onclick=\"window.location.href='requestsupplier.php'\">Request</button></td>
         </tr>";
          }
          ?>
@@ -61,6 +61,8 @@
         </div>        
     </div>
     <script>
+
+// getSupplierData();
         function addSuppliers() {
             window.location.href = "../StoreControls/addSupplier";
         }
@@ -69,9 +71,13 @@
             window.location.href = "../StoreControls/updateSupplier";
         }
         function getSupplierData() {
-            // die('error');
             window.location.href = "../StoreControls/getSupplierData";
         }
+
+        function deleteSuppliers(id) {
+            window.location.href = "../StoreControls/deleteSupplierData/id/"+id;
+        }
+
     </script>
 </body>
 </html>

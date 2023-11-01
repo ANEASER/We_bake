@@ -31,7 +31,7 @@ function loadStocks() {
 }
 
 function logout() {
-    window.location.href = "CommonControls/logout";
+    window.location.href = "http://localhost/We_bake/public/CommonControls/logout";
 }
 
 </script>
