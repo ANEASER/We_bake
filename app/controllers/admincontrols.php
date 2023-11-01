@@ -13,6 +13,24 @@
             echo $this->view("admin/admindash",[ "data" => $data]);
         }
 
+        // CRUDS
+        function addproductitem(){
+
+            $productitem = new ProductItem();
+
+            $arr["itemname"] = $_POST["itemname"];
+            $arr["retailprice"] = $_POST["retailprice"];
+            $arr["stockprice"] = $_POST["stockprice"];
+            $arr["itemdescription"] = $_POST["itemdescription"];
+
+            $productitem->insert($arr);
+
+            $this->redirect("AdminControls/loadItemsView");
+
+        }
+        
+
+        
         //view table unctions
         function loadItemsView(){
             echo $this->view("admin/items");

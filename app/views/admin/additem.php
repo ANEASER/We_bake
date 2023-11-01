@@ -13,10 +13,11 @@
             <button class="navbutton" onclick="back()">Back</button>
         </div>
 
-        <div class="sub-container" style="width: 80%;">
-            <form class="form-group" method="POST" style="padding: 3%;">
-                <label for="itemid">Item ID:</label><br>
-                <input type="text" id="itemid" name="itemid" required><br><br>
+        <div class="sub-container" style="width: 80%;" >
+            <form class="form-group" method="POST" style="padding: 3%;" action="addproductitem">
+
+                <label for="itemname">Item Name:</label><br>
+                <input type="text" id="itemname" name="itemname" required><br><br>
 
                 <label for="retailprice">Retail Price:</label><br>
                 <input type="number" id="retailprice" name="retailprice" required><br><br>

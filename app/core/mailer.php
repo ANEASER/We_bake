@@ -9,7 +9,8 @@ require '../vendor/phpmailer/src/PHPMailer.php';
 require '../vendor/phpmailer/src/SMTP.php';
 
 class Mailer {
-    function sendMail($email, $otp, $subject="subject", $body="body") {
+    function sendMail($email, $subject="subject", $body="body") {
+
     
         $mail = new PHPMailer;
         $mail->isSMTP();
@@ -18,7 +19,7 @@ class Mailer {
         $mail->SMTPAuth = true;
         $mail->SMTPSecure = 'ssl'; 
         $mail->Username = 'easermailsender@gmail.com'; 
-        $mail->Password = 'ygherqgqmcpqbemw'; 
+        $mail->Password = 'ukcfnsmuraevcmtm'; 
         $mail->setFrom('easermailsender@gmail.com','We bake');
         $mail->addAddress($email);
         $mail->isHTML(true);
