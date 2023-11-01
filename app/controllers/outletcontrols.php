@@ -1,5 +1,5 @@
 <?php
-class outletcontrols extends Controller {
+class outletControls extends Controller {
     
     
     function index($id = null) {

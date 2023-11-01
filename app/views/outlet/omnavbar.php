@@ -5,8 +5,6 @@
 <div class="navbar">
 <h1 class="dashboard"> Outlet Manager Dashboard</h1>
         <ul>
-           
-            <li><button onclick = "Home()">Home</button></li>
             <li><button onclick = "PlaceOrder()">Place Order</button></li>
             <li><button onclick = "PurchaseHistory()">Purchase History</button></li>
             <li><button onclick = "EditContainOrder()">Edit Contain Order</button></li>
@@ -15,9 +13,6 @@
 </div>
 
 <script>
-            function Home() {
-            window.location.href = "../outletControls/"
-            }
 
             function PlaceOrder() {
             window.location.href = "../outletControls/placeorder"};
