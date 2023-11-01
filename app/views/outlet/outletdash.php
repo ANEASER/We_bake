@@ -115,20 +115,3 @@
 </body>
 </html>   
 
-function PlaceOrder() {
-window.location.href = "http://localhost/we_bake/public/outletControls/placeorder"};
-
-function PurchaseHistory() {
-window.location.href = "http://localhost/we_bake/public/outletControls/purchasehistory"};
-
-function EditContainOrder() {
-window.location.href = "http://localhost/we_bake/public/outletControls/editcontainorder"};
-
-function EditProfile() {
-window.location.href = "http://localhost/we_bake/public/outletControls/editprofile"};
-        
-</script>
-
-</body>
-
-</html>   
