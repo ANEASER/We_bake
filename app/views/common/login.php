@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
+    <link rel="stylesheet" type="text/css" href="http:\\localhost\we_bake\app\views\common\commonstyles.css">
     <title>Login</title>
 </head>
 <body>
@@ -15,15 +15,19 @@
         }
     ?>
     <h1 class="header">Login</h1>
-    <form class="form-group" method="POST" action="login">
+
+    <form method="POST" action="login">
+    <div class="form-group">
         <label for="username">Username:</label>
         <input type="text" id="username" name="username" required>
+    </div>
         <br>
+    <div class="form-group">
         <label for="password">Password:</label>
         <input type="password" id="password" name="password" required>
-        <br>
+    </div>  <br>
 
-        <button class="button" type="submit" style="margin-top: 1.5%;">Login</button>
+        <button class="buttonhome" type="submit" style="margin-top: 1.5%;">Login</button>
     </form>
 </body>
 </html>

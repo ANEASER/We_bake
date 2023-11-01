@@ -22,7 +22,7 @@
         <div>
             
             <div>
-                <button onclick="editprofile()" class="button1">Edit Profile</button>
+                <button onclick="editprofile()" class="buttonprofile">Edit Profile</button>
             </div>
             
     </div>
