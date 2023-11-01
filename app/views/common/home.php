@@ -7,16 +7,14 @@
     <title>Home</title>
 </head>
 <body>
-    <!--<h1>HOME</h1>
     
-    <button onclick="loadLogin()">Login</button>
-
-    <button onclick="loadRegister()">Register</button>-->
     <div class="container">
         <div class="left-container">
-            <img src="your-logo.png" alt="WE BAKE Logo" class="logo">
+            <img src="http://localhost\we_bake\app\views\customer\customermedia\logo.png" style="overflow: hidden; border-radius: 50%; border: 1px solid #897546; object-fit: cover;" alt="WE BAKE Logo" width="300" height="300">
             <h1>WE BAKE</h1>
         </div>
+
+        
         <div class="right-container">
             
             <button onclick="loadLogin()" class="buttonhome" style="margin-top: 30%">Login</button>

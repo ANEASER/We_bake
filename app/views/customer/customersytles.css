@@ -36,8 +36,8 @@ label {
     
 
 }
-select, input[type="number"], input[type="text"] {
-    width: 100%;
+select, input[type="number"], input[type="text"], input[type="email"] , input[type="tel"]{
+    width: 80%;
     padding: 10px;
     border: 1px solid #000000;
     border-radius: 5px;
@@ -60,13 +60,27 @@ select, input[type="number"], input[type="text"] {
     border-color: #BAA484;
     border-style: none;
 }
-
+.buttonprofile {
+    display: block;
+    width: 40%;
+    margin-top: 5%;
+    margin-bottom: 10px;
+    margin-left: 30%;
+    padding: 10px;
+    background-color: #BAA484;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-color: #BAA484;
+    border-style: none;
+}
 .buttonedit {  
     display: block;
     width: 60%;
     margin-bottom: 10%;
     margin-top: 10%;
-    padding: 60px;
+    padding: 50px;
     background-color: #BAA484;
     color: #ffffff;
     text-align: center;
@@ -182,7 +196,7 @@ table {
     width: 60%;
     border-collapse: collapse;
     margin-top: 30px;
-    margin-left: 10%;
+    margin-left: 30%;
 }
 
 table th {

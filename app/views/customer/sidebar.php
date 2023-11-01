@@ -32,8 +32,8 @@
             window.location.href = "http://localhost/we_bake/public/customercontrols/makeinquiry";
 }
 
-function logout(){
-            window.location.href = "http://localhost/we_bake/public/customercontrols/logout";
+function logout() {
+    window.location.href = "http://localhost/we_bake/public/CommonControls/logout";
 }
 </script>
 </body>
