@@ -162,7 +162,7 @@ class CommonControls extends Controller {
 
     function logout() {
         Auth::logout();
-        $this->redirect("../common/loadLoginView");
+        $this->redirect("http://localhost/We_bake/public/CommonControls/loadLoginView");
         
     }
 }
