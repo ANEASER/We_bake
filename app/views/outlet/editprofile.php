@@ -1,20 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Customer Profile</title>
     <link rel="stylesheet" href="http://localhost/we_bake/app/views/outlet/outletmanager.css">
-    <title>Outlet Manager</title>
-    
+
 </head>
 <body>
-    <?php
-        include "omnavbar2.php";
-    ?>
-    <div>
-    <h1>Edit Profile</h1>
-    </div>
+    <div class="container">
 
+        <?php
+        include "omnavbar2.php"
+        ?>
     
+    <div class="sub-container" >
+        <div>
+            <div>
+                <button onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
+            </div>
+            <div>
+                <button onclick="changepassword()" class="buttonedit">Change Password</button>
+            </div>
+    </div>
+    <script>
+    function editprofiledetails(){
+            window.location.href = "outletmanagercontrols/editprofiledetails";
+}
+    function changepassword(){
+            window.location.href = "outletmanagercontrols/changepassword";
+}
+</script>
 </body>
 </html>

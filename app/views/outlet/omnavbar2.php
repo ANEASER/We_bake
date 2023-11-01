@@ -12,7 +12,7 @@
 
 <script>
             function back() {
-            window.location.href = "http://localhost/we_bake/public/outletControls"
+              window.location.href = "http://localhost/we_bake/public/outletControls"
             }
         
 </script>
