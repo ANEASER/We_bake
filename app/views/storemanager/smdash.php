@@ -13,11 +13,11 @@
 
     <div class="content">
             <div class="tile">
-                <button onclick="loadSuppliers()"> Suppliers </button>
+                <button class="dashbutton" onclick="loadSuppliers()"> Suppliers </button>
                 
             </div>
             <div class="tile">
-                <button onclick="loadStocks()"> Stocks </button>
+                <button class="dashbutton" onclick="loadStocks()"> Stocks </button>
                 
             </div>
     </div>
