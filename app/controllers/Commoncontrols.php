@@ -45,7 +45,7 @@ class CommonControls extends Controller {
                                 $this->redirect("../pmcontrols");
                             }
                         } else {
-                            $errors[] = "Invalid password";
+                            $errors[] = "Invalid password username or password";
                         }
                     } else {
                         $errors[] = "User data does not contain a password";
@@ -162,7 +162,7 @@ class CommonControls extends Controller {
 
     function logout() {
         Auth::logout();
-        $this->redirect("../common/loadLoginView");
+        $this->redirect("http://localhost/We_bake/public/CommonControls/loadLoginView");
         
     }
 }

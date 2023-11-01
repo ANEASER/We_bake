@@ -8,26 +8,32 @@
             <li><button class="navbutton" onclick="loadProfile()">Profile</button></li>
             <li><button class="navbutton" onclick="loadSuppliers()">Suppliers</button></li>
             <li><button class="navbutton" onclick="loadStocks()">Stocks</button></li>
+            <li><button class="navbutton" onclick="logout()">Logout</button></li>
         </ul>
 </div>
 
 <script>
 
 function loadDash() {
-    window.location.href = "../StoreControls";
+    window.location.href = "http://localhost/We_bake/public/StoreControls";
 }
 
 function loadProfile() {
-    window.location.href = "../StoreControls/viewProfile";
+    window.location.href = "http://localhost/We_bake/public/StoreControls/viewProfile";
 }
 
 function loadSuppliers() {
-    window.location.href = "../StoreControls/viewSupplier";
+    window.location.href = "http://localhost/We_bake/public/StoreControls/viewSupplier";
 }
 
 function loadStocks() {
-    window.location.href = "../StoreControls/viewStocks";
+    window.location.href = "http://localhost/We_bake/public/StoreControls/viewStocks";
 }
+
+function logout() {
+    window.location.href = "CommonControls/logout";
+}
+
 </script>
 
 </body>

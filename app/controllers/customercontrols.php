@@ -42,6 +42,9 @@
         function editprofile(){
             echo $this->view("customer/editprofile");        
         }
+        function logout(){
+            echo $this->view("customer/logout");        
+        }
     }
 
 

@@ -19,12 +19,12 @@
             <form  method="POST">
                 <div class="form-group">
                     <label for="minimum">Minimum:</label><br>
-                    <input type="number" id="minimum" name="minimum" required><br><br>
+                    <input type="number" id="minimum" name="minimum" ><br><br>
                 </div>
 
                 <div class="form-group">
                     <label for="critical">Critical:</label><br>
-                    <input type="number" id="critical" name="critical" required><br><br>
+                    <input type="number" id="critical" name="critical" ><br><br>
                 </div>
 
                 <div class="form-group">

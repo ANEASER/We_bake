@@ -4,7 +4,7 @@
     <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add System user</title>
+    <title>Admin</title>
 </head>
 <body>
     <div class="navbar">

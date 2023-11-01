@@ -10,6 +10,8 @@
             <button onclick="placeorder()">Place Order</button>
             <button onclick="purchasehistory()">Purchase History</button>
             <button onclick="makeinquiry()">Make Inquiry</button>
+            <button onclick="logout()">Log Out</button>
+        
         
 </div>
 </div>
@@ -28,6 +30,10 @@
 }
     function makeinquiry(){
             window.location.href = "customercontrols/makeinquiry";
+}
+
+function logout(){
+            window.location.href = "customercontrols/logout";
 }
 </script>
 </body>

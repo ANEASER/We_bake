@@ -9,7 +9,9 @@
 </head>
 <body>
 </div>
-    
+<div class="header">
+        <h1>Edit Your Profile Details</h1>
+    </div>
     <div class="container">
 
         <?php
