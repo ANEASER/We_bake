@@ -12,7 +12,7 @@
     ?>
          
     <div class="content">
- <h1>Purchase History</h1>
+ <h1>Place order</h1>
         <div>
         <table>
             <tr>

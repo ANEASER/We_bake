@@ -44,7 +44,7 @@
     
 
     <div class="content">
- <h1>Purchase History</h1>
+ <h1>Last Purchases</h1>
         <div>
         <table>
             <tr>

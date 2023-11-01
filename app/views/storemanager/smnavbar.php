@@ -19,7 +19,7 @@ function loadDash() {
 }
 
 function loadProfile() {
-    window.location.href = "StoreControls/viewProfile";
+    window.location.href = "../StoreControls/viewProfile";
 }
 
 function loadSuppliers() {
