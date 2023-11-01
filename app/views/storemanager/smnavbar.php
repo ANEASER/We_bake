@@ -15,7 +15,7 @@
 <script>
 
 function loadDash() {
-    window.location.href = "../StoreControls";
+    window.location.href = "http://localhost/We_bake/public/StoreControls";
 }
 
 function loadProfile() {
