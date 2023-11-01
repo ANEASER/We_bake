@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purchase History</title>
-    <link rel="stylesheet" type="text/css" href="cutomersytles.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
 <body>
 <div class="header">
@@ -16,10 +16,6 @@
         include "sidebar.php"
         ?>
     
-    <?php
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-    ?>
+    
 </body>
 </html>

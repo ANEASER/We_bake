@@ -2,22 +2,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<div class="buttons">
-        <a href="customerdash.php" class="button">Dashboard</a>
-        <a href="placeorder.php" class="button">Place Order</a>
-        <a href="purchasehistory.php" class="button">Purchase History</a>
-        <a href="makeinquiry.php" class="button">Make Inquiry</a>
-        <a href="viewprofile.php" class="button">View Profile</a>
-        <a href="editprofile.php" class="button">Edit Profile</a>
-</div>
-<!--<div class="navbar">
+<div>
+<div class="navbar">
     <h1 class="dashboard"> Customer Dashboard</h1>
-        <ul>
-            <li><a href="smdash.php">Home</a></li>
-            <li><a href="profile.php">Profile</a></li>
-            <li><a href="supplier.php">Order</a></li>
-            <li><a href="stocks.php">Purchase History</a></li>
-        </ul>
-</div>-->
+            <button onclick="customerdash()">Home</button>
+            <button onclick="profile()">Profile</button>
+            <button onclick="placeorder()">Place Order</button>
+            <button onclick="purchasehistory()">Purchase History</button>
+            <button onclick="makeinquiry()">Make Inquiry</button>
+        
+</div>
+</div>
+<script>
+    function customerdash(){
+            window.location.href = "customercontrols/customerdash";
+}
+    function profile(){
+            window.location.href = "customercontrols/profile";
+}
+    function placeorder(){
+            window.location.href = "customercontrols/placeorder";
+}
+    function purchasehistory(){
+            window.location.href = "customercontrols/purchasehistory";
+}
+    function makeinquiry(){
+            window.location.href = "customercontrols/makeinquiry";
+}
+</script>
 </body>
 </html>

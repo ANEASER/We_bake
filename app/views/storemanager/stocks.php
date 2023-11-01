@@ -14,60 +14,78 @@
         <h1>Stocks</h1>
 
         <div class="suppdash">
-            <button onclick="window.location.href='addstock.php'">Add New Stock Item</button>
+            <button class="formbutton" onclick="addStockItem()">Add New Stock Item</button>
         </div>
         <div>
         <table>
             <tr>
-                <th>Supplier Name</th>
-                <th>Contact Number</th>
-                <th>Address</th>
-                <th>Email</th>
-                <th>Rating</th>
+                <th>Item Name</th>
+                <th>Available Amount</th>
+                <th>No. of Units</th>
+                <th>Expire Date</th>
+                <th>Supplier</th>
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
-            <?php
-            // Include the database connection file
-            /*require('database.php');
-
-            // SQL query to retrieve supplier details
-            $sql = "SELECT * FROM suppllier";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row["name"] . "</td>";
-                    echo "<td>" . $row["contactno"] . "</td>";
-                    echo "<td>" . $row["address"] . "</td>";
-                    echo "<td>" . $row["email"] . "</td>";
-                    echo "<td>" . $row["Rating"] . "</td>";
-                    echo "</tr>";
-                }
-            } else {
-                echo "<tr><td colspan='5'>No suppliers found.</td></tr>";
-            }
-
-            // Close the database connection
-            $conn->close();*/
-            ?>
+    
             <tr>
-            <td>Supplier 1</td>
-            <td>0771234567</td>
-            <td>Address 1</td>
-            <td>email1@email.com</td>
-            <td>4</td>
-            <td><button onclick="window.location.href='updatesupplier.php'">Update</button></td>
-            <td><button onclick="window.location.href='deletesupplier.php'">Delete</button></td>
-            
-        </tr>
+            <td>Item 1</td>
+            <td>100</td>
+            <td>75</td>
+            <td>10/3/2024</td>
+            <td>Nimal</td>
+            <td><button class="formbutton" onclick="updateStocks()">Update</button></td>
+            <td><button class="formbutton" onclick="deleteStocks()">Delete</button></td>
+            </tr>
+
+            <tr>
+            <td>Item 2</td>
+            <td>500</td>
+            <td>50</td>
+            <td>10/3/2024</td>
+            <td>Kamal</td>
+            <td><button class="formbutton" onclick="updateStocks()">Update</button></td>
+            <td><button class="formbutton" onclick="deleteStocks()">Delete</button></td>
+            </tr>
+
+            <tr>
+            <td>Item 3</td>
+            <td>850</td>
+            <td>10</td>
+            <td>10/3/2024</td>
+            <td>Hasitha</td>
+            <td><button class="formbutton" onclick="updateStocks()">Update</button></td>
+            <td><button class="formbutton" onclick="deleteStocks()">Delete</button></td>
+            </tr>
+
+            <tr>
+            <td>Item 4</td>
+            <td>200</td>
+            <td>5</td>
+            <td>10/3/2024</td>
+            <td>Sunil</td>
+            <td><button class="formbutton" onclick="updateStocks()">Update</button></td>
+            <td><button class="formbutton" onclick="deleteStocks()">Delete</button></td>
+            </tr>
         </table>
 
         </div>       
             
     </div>
-    <script src="script.js"></script>
+    <script>
+
+        function addStockItem() {
+            window.location.href = "../StoreControls/addStockItem";
+        }
+
+        function updateStocks() {
+            window.location.href = "../StoreControls/updateStocks";
+        }
+
+        function deleteStocks() {
+            window.location.href = "../StoreControls/deleteStocks";
+        }
+
+    </script>
 </body>
 </html>

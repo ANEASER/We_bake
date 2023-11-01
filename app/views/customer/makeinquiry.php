@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make Inquiry</title>
-    <link rel="stylesheet" type="text/css" href="cutomersytles.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
 <body>
     <div class="header">
@@ -17,23 +17,23 @@
         ?>
     
     <div class="sub-container" >
-    <form action="dashboard.php">
+    <form action="customerdash.php">
         <h2 align="center">Inquiry Details</h2>
 
             <div class="formcontent" >
-                    <div>
+                    <div class="form-group">
                         <h4>Customer ID:</h4>
                         <label>
                             <input name="CID" type="text" id="CID" value="<?php echo $row['CustomerID'];?>" required />
                         </label>
                     </div>
-                    <div>
+                    <div class="form-group">
                         <h4>Customer Name:</h4>
                         <label>
                             <input name="customername" type="text" id="customername" value="<?php echo $row['CustomerName'];?>" required />
                         </label>
                     </div>
-                    <div>
+                    <div class="form-group">
                         <h4>Email Address:</h4>
                         <label>
                             <input name="customeremail" type="email" id="customeremail" value="<?php echo $row['CustomerEmail'];?>" required />
