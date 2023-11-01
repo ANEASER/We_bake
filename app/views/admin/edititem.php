@@ -15,15 +15,13 @@
         </div>
 
         <div class="content">
-            <?php echo $id; ?>
-
             <form  method="POST" style="padding: 3%;" action="http://localhost/we_bake/public/AdminControls/editproduct">
 
                 <input type="hidden" name="id" value="<?php echo $id; ?>"> 
                 
                 <div class="form-group">
                 <label for="itemname">Item Name:</label><br>
-                    <input type="text" id="itemname" name="itemname" require><br><br>
+                    <input type="text" id="itemname" name="itemname"><br><br>
                 </div>
 
                 <div class="form-group"> 
