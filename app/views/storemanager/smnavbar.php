@@ -8,13 +8,14 @@
             <li><button class="navbutton" onclick="loadProfile()">Profile</button></li>
             <li><button class="navbutton" onclick="loadSuppliers()">Suppliers</button></li>
             <li><button class="navbutton" onclick="loadStocks()">Stocks</button></li>
+            <li><button class="navbutton" onclick="logout()">Logout</button></li>
         </ul>
 </div>
 
 <script>
 
 function loadDash() {
-    window.location.href = "../StoreControls";
+    window.location.href = "http://localhost/We_bake/public/StoreControls";
 }
 
 function loadProfile() {
@@ -28,6 +29,11 @@ function loadSuppliers() {
 function loadStocks() {
     window.location.href = "../StoreControls/viewStocks";
 }
+
+function logout() {
+            window.location.href = "CommonControls/logout";
+        }
+
 </script>
 
 </body>
