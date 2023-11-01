@@ -34,6 +34,18 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/updatesuppplier");
     }
 
+    function addStockItem(){
+        echo $this->view("storemanager/addstock");
+    }
+
+    function updateStocks(){
+        echo $this->view("storemanager/updatestock");
+    }
+
+    function deleteStocks(){
+        echo $this->view("storemanager/deletestock");
+    }
+
     //CRUD for Supplier
     //Insert Supplier
     function addSupplierData(){
