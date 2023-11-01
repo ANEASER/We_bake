@@ -12,7 +12,7 @@ class outletcontrols extends Controller {
     }
 
     function purchasehistory(){
-        echo $this->view("outlet/purchaseorder");
+        echo $this->view("outlet/purchasehistory");
 
      
     }

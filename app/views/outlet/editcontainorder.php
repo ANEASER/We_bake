@@ -10,15 +10,7 @@
     <?php
         include "omnavbar.php";
     ?>
-    div class="content">
- <h1>Purchase History</h1>
-        <div>
-        <table>
-        <tr>
-        <center>    <th>header 1</th> </center>
-        
-           </tr>
-</dev>
+    <h1>Edit Contain Order</h1>
     
 </body>
 </html>

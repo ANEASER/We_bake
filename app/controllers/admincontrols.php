@@ -87,7 +87,7 @@
         }
 
         function EditStock(){
-            echo $this->view("admin/editstock");
+            echo $this->view("admin/editstockalertlevels");
         }
 
         function EditVehicle(){

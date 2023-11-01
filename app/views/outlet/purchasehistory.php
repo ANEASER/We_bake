@@ -8,7 +8,6 @@
 </head>
 <body>
 <div class="header">
-        <h1>Your Purchase History</h1>
     </div>
     <div class="container">
 
@@ -18,7 +17,7 @@
     
             
     <div class="content">
- <h1>Purchase History</h1>
+    <h1>Purchase History</h1>
         <div>
         <table>
             <tr>

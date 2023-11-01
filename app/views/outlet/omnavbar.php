@@ -15,17 +15,21 @@
 </div>
 
 <script>
-    function PlaceOrder() {
-            window.location.href = "outletControls/placeorder"};
+            function Home() {
+            window.location.href = "../outletControls/"
+            }
+
+            function PlaceOrder() {
+            window.location.href = "../outletControls/placeorder"};
 
             function PurchaseHistory() {
-            window.location.href = "outletControls/purchaseHistory"};
+            window.location.href = "../outletControls/purchasehistory"};
 
             function EditContainOrder() {
-            window.location.href = "outletControls/editcontainorder"};
+            window.location.href = "../outletControls/editcontainorder"};
 
             function EditProfile() {
-            window.location.href = "outletControls/editProfiler"};
+            window.location.href = "../outletControls/editprofile"};
         
 </script>
 
