@@ -17,23 +17,23 @@
 </div>
 <script>
     function customerdash(){
-            window.location.href = "customercontrols/customerdash";
+            window.location.href = "http://localhost/we_bake/public/customercontrols/customerdash";
 }
     function profile(){
-            window.location.href = "customercontrols/profile";
+            window.location.href = "http://localhost/we_bake/public/customercontrols/profile";
 }
     function placeorder(){
-            window.location.href = "customercontrols/placeorder";
+            window.location.href = "http://localhost/we_bake/public/customercontrols/placeorder";
 }
     function purchasehistory(){
-            window.location.href = "customercontrols/purchasehistory";
+            window.location.href = "http://localhost/we_bake/public/customercontrols/purchasehistory";
 }
     function makeinquiry(){
-            window.location.href = "customercontrols/makeinquiry";
+            window.location.href = "http://localhost/we_bake/public/customercontrols/makeinquiry";
 }
 
 function logout(){
-            window.location.href = "customercontrols/logout";
+            window.location.href = "http://localhost/we_bake/public/customercontrols/logout";
 }
 </script>
 </body>

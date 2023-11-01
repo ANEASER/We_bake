@@ -7,9 +7,9 @@
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
 <body>
-<div class="header">
+<!--<div class="header">
         <h1>Our Menu</h1>
-    </div>
+    </div>-->
     <div class="container">
 
     <?php
@@ -17,6 +17,7 @@
         ?>
     
         <div>
+        <h1 style="text-align:center;">Our Menu</h1>
         <table>
             <tr>
                 <th>Product Code</th>
@@ -53,11 +54,11 @@
             $conn->close();*/
             ?>
             <tr>
-            <td>C01</td>
-            <td>Item 1</td>
-            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>B01</td>
+            <td>Bread</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\bread.avif" alt="View Menu" class="image1"  width="300" height="300"></td>
             <td>Rs.200</td>
-            <td>Buns</td>
+            <td>Whole flour bread which weighs 200g</td>
 
             <tr>
             <td>C02</td>

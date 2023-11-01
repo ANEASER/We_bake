@@ -8,9 +8,9 @@
 
 </head>
 <body>
-<div class="header">
+<!--<div class="header">
         <h1>Customer Profile</h1>
-    </div>
+    </div>-->
     <div class="container">
 
         <?php
@@ -18,21 +18,19 @@
         ?>
     
     <div class="sub-container" >
+    <h1 style="text-align:center;">Customer Profile</h1>
         <div>
+            
             <div>
-                <button onclick="viewprofile()" class="buttonedit">View Profile</button>
-            </div>
-            <div>
-                <button onclick="editprofile()" class="buttonedit">Edit Profile</button>
+                <button onclick="editprofile()" class="button1">Edit Profile</button>
             </div>
             
     </div>
 <script>
-    function viewprofile(){
-            window.location.href = "customercontrols/viewprofile";
-}
+    
+
     function editprofile(){
-            window.location.href = "customercontrols/editprofile";
+            window.location.href = "http://localhost/we_bake/public/customercontrols/editprofile";
 }
 </script>
 </body>

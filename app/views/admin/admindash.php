@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="navbar">
-    <h1 class="dashboard">Admin dash</h1>
+    <h1 class="dashboard">Admin Dashboard</h1>
         <ul>
             <li><button class="navbutton" onclick="laodItems()">Items</button></li>
             <li><button class="navbutton" onclick="loadOutlets()">Outlets</button></li>

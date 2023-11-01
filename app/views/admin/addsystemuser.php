@@ -15,7 +15,9 @@
         </div>
 
         <div class="content">
-            <form method="POST" style="padding: 3%;" action="addsystemuser">
+
+            <form method="POST" style="padding: 3%;">
+
                 <div class="form-group">
                 <label for="Name">Name:</label><br>
                 <input type="text" id="Name" name="Name" required><br><br>

@@ -19,6 +19,7 @@
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    margin-top: 0%;
 }
 .sub-container {
     flex: 1;
@@ -47,7 +48,7 @@ select, input[type="number"], input[type="text"] {
 .button1 {
     display: block;
     width: 80%;
-    margin-top: 20%;
+    margin-top: 1%;
     margin-bottom: 10px;
     margin-left: 10px;
     padding: 10px;
@@ -126,6 +127,20 @@ select, input[type="number"], input[type="text"] {
     max-height: 100px;
     
 }
+/*logo*/
+.imagelogo {
+    overflow: hidden; 
+    border-radius: 50%; 
+    border: 2px solid #897546; 
+    max-width: 240px;
+    max-height: 250px;
+    
+    object-fit: cover; 
+    
+    
+}
+
+
 /* Style the vertical navbar */
 .navbar {
     background-color: #BAA484;
@@ -164,10 +179,10 @@ select, input[type="number"], input[type="text"] {
     text-align: center;
 }
 table {
-    width: 70%;
+    width: 60%;
     border-collapse: collapse;
     margin-top: 30px;
-    margin-left: 30%;
+    margin-left: 10%;
 }
 
 table th {
