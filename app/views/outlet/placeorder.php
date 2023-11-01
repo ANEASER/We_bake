@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php
-        include "omnavbar.php";
+        include "omnavbar2.php";
     ?>
          
     <div class="content">

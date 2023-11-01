@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://localhost/we_bake/app/views/outlet/outletmanager.css">
     <title>Outlet Manager</title>
-    <link rel="stylesheet" href="outletmanager.css">
+    
 </head>
 <body>
     <?php
-        include "omnavbar.php";
+        include "omnavbar2.php";
     ?>
     <h1>Edit Contain Order</h1>
     
