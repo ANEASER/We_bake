@@ -12,7 +12,7 @@
     <div class="container">
 
         <?php
-        include "omnavbar.php"
+        include "omnavbar2.php"
         ?>
     
             
