@@ -3,45 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
     <title>Outlet</title>
 </head>
 <body style="font-weight: 800">
-    <h1 class="header">Outlets</h1>
+   
     <div class="container">
         <div class="sub-container navbar">
+            <h1>Outlets</h1>
             <button class="navbutton" onclick="back()">Back</button>
-            <button class="navbutton" onclick="add()">Add</button>
         </div>
 
-        <div class="sub-container content">
-            <table>
-                <thead>
+        <div class="content">
+
+            <div class="suppdash">
+                <button class="formbutton" onclick="add()">Add New Outlets</button>
+            </div>
+
+            <div>
+                <table style="border-collapse: collapse; width: 100%;">
                     <tr>
-                        <th>Column 1</th>
-                        <th>Column 2</th>
-                        <th>Column 3</th>
-                        <th>Column 4</th>
-                        <th>Column 5</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Row 1</td>
-                        <td>Row 1</td>
-                        <td>Row 1</td>
-                        <td><button onclick="edit()">Edit</button></td>
-                        <td>Row 1</td>
+                        <th>Date of Establishment</th>
+                        <th>Contact Number</th>
+                        <th>Active State</th>
+                        <th>Address</th>
+                        <th>Outlet ID</th>
+                        <th>Email</th>
+                        <th>Manager</th>
+                        <th>Update</th>
+                        <th>Delete</th>
                     </tr>
                     <tr>
-                        <td>Row 2</td>
-                        <td>Row 2</td>
-                        <td>Row 2</td>
-                        <td><button onclick="edit()">Edit</button></td>
-                        <td>Row 2</td>
+                        <td>2023-10-01</td>
+                        <td>1234567890</td>
+                        <td>1</td>
+                        <td>123 Main St, City</td>
+                        <td>Outlet1</td>
+                        <td>example@email.com</td>
+                        <td>John Doe</td>
+                        <td><button class="formbutton" onclick="edit()">Update</button></td>
+                        <td><button class="formbutton" onclick="window.location.href='deletesupplier.php'">Delete</button></td>
                     </tr>
-                </tbody>
-            </table>
+                    <tr>
+                        <td>2023-10-01</td>
+                        <td>9876543210</td>
+                        <td>1</td>
+                        <td>456 Elm St, Town</td>
+                        <td>Outlet2</td>
+                        <td>another@email.com</td>
+                        <td>Jane Smith</td>
+                        <td><button class="formbutton" onclick="edit()">Update</button></td>
+                        <td><button class="formbutton" onclick="window.location.href='deletesupplier.php'">Delete</button></td>
+                    </tr>
+                    <!-- Add more rows with dummy data as needed -->
+                </table>
+
+            </div>
+
         </div>
     </div>
 
@@ -55,7 +73,7 @@
         }
 
         function edit() {
-            window.location.href = "../AdminControls/editOutlet";
+            window.location.href = "../AdminControls/EditOutlet";
         }
     </script>
 

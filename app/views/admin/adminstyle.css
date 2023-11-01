@@ -167,6 +167,7 @@ table {
     margin: 20px 0;
 }
 
+
 table th {
     background-color: #bc9b72;
     color: white;
@@ -189,8 +190,6 @@ table td[colspan="5"] {
     padding: 10px;
     color: #d9534f;
 }
-
-
 
 
 
