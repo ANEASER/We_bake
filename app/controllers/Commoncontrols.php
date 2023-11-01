@@ -159,7 +159,13 @@ class CommonControls extends Controller {
                 }
             }
     }
+
+    function logout() {
+        Auth::logout();
+        $this->redirect("../common/loadLoginView");
         
     }
+}
+    
 
 ?>
