@@ -9,15 +9,16 @@
 </head>
 <body>
 </div>
-<div class="header">
+<!--<div class="header">
         <h1>Edit Your Profile Details</h1>
-    </div>
+    </div>-->
     <div class="container">
 
         <?php
         include "sidebar.php"
         ?>
             <div class="sub-container">
+            <h1 style="text-align:center;">Edit Your Profile Details</h1>
             <form action="dashboard.php">
                 <div class="formcontent" >
                     <div class="form-group">

@@ -7,9 +7,9 @@
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
 <body>
-    <div class="header">
+   <!-- <div class="header">
         <h1>Place Your Inquiry Here</h1>
-    </div>
+    </div>-->
     <div class="container">
 
         <?php
@@ -17,6 +17,7 @@
         ?>
     
     <div class="sub-container" >
+    <h1style="text-align:center;">Place Your Inquiry Here</h1style=>
     <form action="customerdash.php">
         <h2 align="center">Inquiry Details</h2>
 

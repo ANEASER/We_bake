@@ -5,9 +5,9 @@
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
 <body>
-    <div class="header">
+   <!-- <div class="header">
         <h1>Place Your Order</h1>
-    </div>
+    </div>-->
     <div class="container">
 
         <?php
@@ -15,6 +15,7 @@
         ?>
 
         <div class="sub-container">
+        <h1 style="text-align:center;">Place Your Order</h1>
             <h2 align=center >Order Details</h2>
             <form action="customerdash.php">
                 <div class="form-group">

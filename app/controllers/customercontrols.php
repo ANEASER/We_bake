@@ -36,9 +36,6 @@
         function changepassword(){
             echo $this->view("customer/changepassword");        
         }
-        function viewprofile(){
-            echo $this->view("customer/viewprofile");
-        }
         function editprofile(){
             echo $this->view("customer/editprofile");        
         }
