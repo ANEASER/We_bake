@@ -27,32 +27,7 @@
                 <th>Update</th>
                 <th>Delete</th>
             </tr>
-            <?php
-            // Include the database connection file
-            /*require('database.php');
-
-            // SQL query to retrieve supplier details
-            $sql = "SELECT * FROM suppllier";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row["name"] . "</td>";
-                    echo "<td>" . $row["contactno"] . "</td>";
-                    echo "<td>" . $row["address"] . "</td>";
-                    echo "<td>" . $row["email"] . "</td>";
-                    echo "<td>" . $row["Rating"] . "</td>";
-                    
-                }
-            } else {
-                echo "<tr><td colspan='5'>No suppliers found.</td></tr>";
-            }
-
-            // Close the database connection
-            $conn->close();*/
-            ?>
+            
         <tr>
             <td>Supplier 1</td>
             <td>0771234567</td>
