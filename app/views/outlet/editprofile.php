@@ -10,6 +10,7 @@
     <?php
         include "omnavbar.php";
     ?>
+    <h1>Edit Profile</h1>
     
 </body>
 </html>
