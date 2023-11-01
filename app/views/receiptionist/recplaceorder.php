@@ -10,7 +10,7 @@
     </div>
     <div class="container">
 
-     <?php
+        <?php
         include "sidebar.php"
         ?>
 

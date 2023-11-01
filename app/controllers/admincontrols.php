@@ -60,6 +60,73 @@
             $productitem->delete($id,"itemid");
             $this->redirect("http://localhost/we_bake/public/AdminControls/loadItemsView");
         }
+
+
+        // System User
+
+        function addsystemuser(){
+            $systemuser = new Systemuser();
+
+            $arr["Name"] = $_POST["Name"];
+            $arr["NIC"] = $_POST["NIC"];
+            $arr["DOB"] = $_POST["DOB"];
+            $arr["Email"] = $_POST["Email"];
+            $arr["contactNo"] = $_POST["contactNo"];
+            $arr["Address"] = $_POST["Address"];
+            $arr["Role"] = $_POST["Role"];
+            $arr["UserName"] = $_POST["UserName"];
+
+            $systemuser->insert($arr);
+
+            $this->redirect("http://localhost/we_bake/public/AdminControls/loadUsersView");
+        }
+
+        function loadUsersView(){
+            $systemuser = new Systemuser();
+            $users = $systemuser->findall();
+            echo $this->view("admin/systemusers", [ "users" => $users]);
+        }
+     
+        function deletesystemuser($id){
+            $systemuser = new Systemuser();
+            $systemuser->delete($id,"UserID");
+            $this->redirect("http://localhost/we_bake/public/AdminControls/loadUsersView");
+        }
+
+        function editsystemuser(){
+            
+            $systemuser = new Systemuser();
+            $id = $_POST['id'];
+            if (!empty($_POST['Name'])){
+                $data['Name'] = $_POST['Name'];
+            } 
+            if (!empty($_POST['NIC'])){
+                $data['NIC'] = $_POST['NIC'];
+            }
+            if (!empty($_POST['DOB'])){
+                $data['DOB'] = $_POST['DOB'];
+            }
+            if (!empty($_POST['Email'])){
+                $data['Email'] = $_POST['Email'];
+            }
+            if (!empty($_POST['contactNo'])){
+                $data['contactNo'] = $_POST['contactNo'];
+            }
+            if (!empty($_POST['Address'])){
+                $data['Address'] = $_POST['Address'];
+            }
+            if (!empty($_POST['Role'])){
+                $data['Role'] = $_POST['Role'];
+            }
+            if (!empty($_POST['UserName'])){
+                $data['UserName'] = $_POST['UserName'];
+            }
+            echo $systemuser->update($id,"UserID",$data);
+            $this->redirect("http://localhost/we_bake/public/AdminControls/loadUsersView");
+        }
+
+
+
         
         //view table unctions
         function loadOutletsView(){
@@ -70,10 +137,6 @@
             echo $this->view("admin/stocks");
         }
 
-
-        function loadUsersView(){
-            echo $this->view("admin/systemusers");
-        }
 
         //view add functions
         function AddItem(){
@@ -109,8 +172,8 @@
             echo $this->view("admin/editstockalertlevels");
         }
 
-        function EditUser(){
-            echo $this->view("admin/editsystemuser");
+        function EditUser($id){
+            echo $this->view("admin/editsystemuser", ["id" => $id]);
         }
 
     }

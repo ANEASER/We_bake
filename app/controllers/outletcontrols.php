@@ -23,12 +23,12 @@ class outletControls extends Controller {
        
     }
 
-
     function editprofile(){
-        echo $this->view("outlet/editprofile");
-
-    
+        echo $this->view("outlet/editprofile");        
     }
 
+    function changepassword(){
+        echo $this->view("outlet/changepassword");        
+    }
 }
 ?>

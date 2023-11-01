@@ -18,62 +18,65 @@
                 <button class="formbutton" onclick="add()">Add New User</button>
             </div>
             <div>
-                <table style="border-collapse: collapse; width: 100%;">
-                            <tr>
-                                <th>Name</th>
-                                <th>NIC</th>
-                                <th>DOB</th>
-                                <th>Contact No</th>
-                                <th>Active State</th>
-                                <th>Address</th>
-                                <th>User ID</th>
-                                <th>Role</th>
-                                <th>User Name</th>
-                                <th>Email</th>
-                                <th>Update</th>
-                            </tr>
-                            <tr>
-                                <td>John Doe</td>
-                                <td>123456789V</td>
-                                <td>1990-05-15</td>
-                                <td>1234567890</td>
-                                <td>1</td>
-                                <td>123 Main St, City</td>
-                                <td>1</td>
-                                <td>Admin</td>
-                                <td>johndoe</td>
-                                <td>johndoe@example.com</td>
-                                <td><button class="formbutton" onclick="edit()">Update</button></td>
-                            </tr>
-                            <tr>
-                                <td>Jane Smith</td>
-                                <td>987654321W</td>
-                                <td>1985-08-20</td>
-                                <td>9876543210</td>
-                                <td>1</td>
-                                <td>456 Elm St, Town</td>
-                                <td>2</td>
-                                <td>User</td>
-                                <td>janesmith</td>
-                                <td>janesmith@example.com</td>
-                                <td><button class="formbutton" onclick="edit()">Update</button></td>
-                            </tr>
-                    </table>
+            
+            <?php
+                echo '<table>';
+                echo '<tr>
+                        <th>Name</th>
+                        <th>NIC</th>
+                        <th>DOB</th>
+                        <th>Contact No</th>
+                        <th>Active State</th>
+                        <th>Address</th>
+                        <th>User ID</th>
+                        <th>Role</th>
+                        <th>User Name</th>
+                        <th>Email</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>';
+
+                    foreach ($users as $user) {
+                        if ($user->Role !== 'admin') {
+                            echo '<tr>';
+                            echo '<td>' . $user->Name . '</td>';
+                            echo '<td>' . $user->NIC . '</td>';
+                            echo '<td>' . $user->DOB . '</td>';
+                            echo '<td>' . $user->contactNo . '</td>';
+                            echo '<td>' . $user->ActiveState . '</td>';
+                            echo '<td>' . $user->Address . '</td>';
+                            echo '<td>' . $user->UserID . '</td>';
+                            echo '<td>' . $user->Role . '</td>';
+                            echo '<td>' . $user->UserName . '</td>';
+                            echo '<td>' . $user->Email . '</td>';
+                            echo '<td><button onclick="edit(' . $user->UserID . ')">Update</button></td>';
+                            echo '<td><button onclick="del(' . $user->UserID . ')">Delete</button></td>';
+                            echo '</tr>';
+                        }
+                    }
+
+                    echo '</table>';
+            ?>
             </div>   
         </div>
     </div>
     <script>
         function back() {
-            window.location.href = "../AdminControls";
+            window.location.href = "http://localhost/we_bake/public/AdminControls";
         }
 
         function add() {
-            window.location.href = "../AdminControls/addUser";
+            window.location.href = "http://localhost/we_bake/public/AdminControls/addUser";
         }
 
-        function edit() {
-            window.location.href = "../AdminControls/editUser";
+        function edit(user) {
+            window.location.href = "http://localhost/we_bake/public/AdminControls/EditUser/"+user;
         }
+
+        function del(user) {
+            window.location.href = "http://localhost/we_bake/public/AdminControls/deletesystemuser/"+user;
+        }
+
     </script>
 </body>
 </html>

@@ -92,7 +92,7 @@ input[type="email"]
 }
 
 button {
-    background-color: #bc9b72;
+    background-color:#9b7b54;
     color: white;
     padding: 10px 30px;
     border: none;
@@ -148,6 +148,12 @@ table th {
 
 table tr:nth-child(even) {
     background-color: #f2f2f2;
+    
+}
+
+table tr {
+    
+    height:70%;
 }
 
 table td {

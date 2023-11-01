@@ -13,7 +13,6 @@
             <li><button class="navbutton" onclick="laodItems()">Items</button></li>
             <li><button class="navbutton" onclick="loadOutlets()">Outlets</button></li>
             <li><button class="navbutton" onclick="loadStocks()">Stocks</button></li>
-            <li><button class="navbutton" onclick="loadVehicles()">Vehicles</button></li>
             <li><button class="navbutton" onclick="loadUsers()">Users</button></li>
             <li><button class="navbutton" onclick="advertiesments()">Advertiesments</button></li>
             <li><button class="navbutton" onclick="logout()">Logout</button></li>
@@ -35,10 +34,6 @@
 
         function loadStocks() {
             window.location.href = "AdminControls/loadStocksView";
-        }
-
-        function loadVehicles() {
-            window.location.href = "AdminControls/loadVehiclesView";
         }
 
         function loadUsers() {
