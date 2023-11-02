@@ -39,6 +39,11 @@
         function editprofile(){
             echo $this->view("customer/editprofile");        
         }
+
+        function viewcart(){
+            echo $this->view("customer/Cart");        
+        }
+
         function logout(){
             echo $this->view("customer/logout");        
         }

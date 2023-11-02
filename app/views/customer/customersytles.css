@@ -59,6 +59,7 @@ select, input[type="number"], input[type="text"], input[type="email"] , input[ty
     font-weight: bold;
     border-color: #BAA484;
     border-style: none;
+    cursor: pointer;
 }
 .buttonprofile {
     display: block;

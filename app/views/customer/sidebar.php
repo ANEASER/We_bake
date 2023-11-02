@@ -8,9 +8,9 @@
             <button onclick="customerdash()">Home</button>
             <button onclick="viewmenu()">View Menu</button>
             <button onclick="profile()">Profile</button>
-            <button onclick="placeorder()">Place Order</button>
             <button onclick="purchasehistory()">Purchase History</button>
             <button onclick="makeinquiry()">Make Inquiry</button>
+            <button onclick="viewCart()">View Cart</button>
             <button onclick="logout()">Log Out</button>
         
         
@@ -26,9 +26,6 @@
 function viewmenu(){
             window.location.href = "http://localhost/we_bake/public/customercontrols/viewmenu";
 }
-    function placeorder(){
-            window.location.href = "http://localhost/we_bake/public/customercontrols/placeorder";
-}
     function purchasehistory(){
             window.location.href = "http://localhost/we_bake/public/customercontrols/purchasehistory";
 }
@@ -39,6 +36,11 @@ function viewmenu(){
 function logout() {
     window.location.href = "http://localhost/we_bake/public/CommonControls/logout";
 }
+
+function viewCart(){
+    window.location.href = "http://localhost/we_bake/public/customercontrols/viewcart";
+}
+
 </script>
 </body>
 </html>

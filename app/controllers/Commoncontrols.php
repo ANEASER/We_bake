@@ -14,7 +14,7 @@ class CommonControls extends Controller {
     }
 
     function login() {
-        $errors = array();
+        $error = "";
     
         if (count($_POST) > 0) {
             $systemuser = new Systemuser();
@@ -45,13 +45,16 @@ class CommonControls extends Controller {
                                 $this->redirect("../pmcontrols");
                             }
                         } else {
-                            $errors[] = "Invalid password username or password";
+                            $error = "Invalid password username or password";
+                            $this->view("common/login",["error"=>$error]);
                         }
                     } else {
-                        $errors[] = "User data does not contain a password";
+                        $error = "User data does not contain a password";
+                        $this->view("common/login",["error"=>$error]);
                     }
                     } else {
-                        $errors[] = "User data does not contain a password";
+                        $error = "User data does not contain a password";
+                        $this->view("common/login",["error"=>$error]);
                     }
                 }
                 elseif ($row = $customer->where("UserName", $_POST["username"])) {
@@ -64,18 +67,19 @@ class CommonControls extends Controller {
                                 Auth::authenticate($user);
                                 $this->redirect("../customercontrols");
                             } else {
-                                $errors[] = "Invalid password";
+                                $error = "Invalid password";
+                                $this->view("common/login",["error"=>$error]);
                             }
                         } else {
-                            $errors[] = "User data does not contain a password";
+                            $error = "User data does not contain a password";
+                            $this->view("common/login",["error"=>$error]);
                         }
 
                 }else {
-                    $errors[] = "User not found";
+                    $error = "User not found";
+                    $this->view("common/login",["error"=>$error]);
                 }
-            } else {
-                $errors[] = "User not found";
-            }
+            } 
     }
 
     public function otpvalidation() {

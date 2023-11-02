@@ -83,11 +83,8 @@
 
 <body>
     <?php
-        if (isset($errors)) {
-            foreach ($errors as $error) {
-                echo "<p style='color:red;'>$error</p>";
-            }
-        }
+        if (isset($error)){
+        echo "<p style='background-color:red; color:white'>$error</p>";}
     ?>
 
     <div  style="width: 50%; margin: 0% 25% 0% 25%;">

@@ -60,6 +60,8 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\bread.avif" alt="Bread" class="image1"  width="300" height="300"></td>
             <td>Rs.200</td>
             <td>Whole flour bread which weighs 200g</td>
+            <td><button onclick="addCart()">add</button></td> 
+            </tr>
             
 
             <tr>
@@ -68,6 +70,8 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\cupcake.avif" alt="Cupcake" class="image1"  width="300" height="300"></td>
             <td>Rs.70</td>
             <td>Flavours and colors can be customised according to your preference</td>
+            <td><button onclick="addCart()">add</button></td> 
+            </tr>
 
             <tr>
             <td>I03</td>
@@ -75,7 +79,9 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\buns.jpg" alt="Fish bun" class="image1"  width="300" height="300"></td>
             <td>Rs.100</td>
             <td>A fish bun is a popular snack consisting of spiced fish filling encased in a soft, baked or fried bread roll.</td>   
-            </tr>
+            <td><button onclick="addCart()">add</button></td> 
+        </tr>
+
 
         <tr>
             <td>I04</td>
@@ -83,6 +89,7 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\buttercake.jpg" alt="Butter Cake" class="image1"  width="300" height="300"></td>
             <td>Rs.700</td>
             <td>Buns</td>
+            <td><button onclick="addCart()">add</button></td> 
             
         </tr>
         <tr>
@@ -91,6 +98,7 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\rolls.jpeg" alt="Rolls" class="image1"  width="300" height="300"></td>
             <td>Rs.150</td>
             <td>Buns</td>
+            <td><button onclick="addCart()">add</button></td> 
             
         </tr>
         <tr>
@@ -99,6 +107,7 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\sweetrolls.jpg" alt="Sweet Roals" class="image1"  width="300" height="300"></td>
             <td>Rs.150</td>
             <td>Buns</td>
+            <td><button onclick="addCart()">add</button></td> 
             
         </tr>
         <tr>
@@ -107,6 +116,7 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\muffins.jpg" alt="Muffins" class="image1"  width="300" height="300"></td>
             <td>Rs.70</td>
             <td>Buns</td>
+            <td><button onclick="addCart()">add</button></td> 
             
         </tr>
         <tr>
@@ -115,6 +125,7 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\garlicbread.jpeg" alt="Garlic Bread" class="image1"  width="300" height="300"></td>
             <td>Rs.200</td>
             <td>Buns</td>
+            <td><button onclick="addCart()">add</button></td> 
             
         </tr>
 
@@ -124,6 +135,7 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\chcake.jpg" alt="Chocolate cake" class="image1"  width="300" height="300"></td>
             <td>Rs.800</td>
             <td>Buns</td>
+            <td><button onclick="addCart()">add</button></td> 
             
         </tr>
         <tr>
@@ -132,6 +144,7 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\chlavacake.jpeg" alt="Chocolate Lava Cake" class="image1"  width="300" height="300"></td>
             <td>Rs.150</td>
             <td>Buns</td>
+            <td><button onclick="addCart()">add</button></td> 
             
         </tr>
 
@@ -141,6 +154,7 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\eggun.jpeg" alt="Egg Bun" class="image1"  width="300" height="300"></td>
             <td>Rs.100</td>
             <td>Buns</td>
+            <td><button onclick="addCart()">add</button></td> 
             
         </tr>
         <tr>
@@ -149,6 +163,7 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\Croissant.jpg" alt="Croissant" class="image1"  width="300" height="300"></td>
             <td>Rs.170</td>
             <td>Buns</td>
+            <td><button onclick="addCart()">add</button></td> 
             
         </tr>
         <tr>
@@ -157,6 +172,7 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\spongecake.jpeg" alt="Sponge Cake" class="image1"  width="300" height="300"></td>
             <td>Rs.190</td>
             <td>Buns</td>
+            <td><button onclick="addCart()">add</button></td> 
             
         </tr>
         <tr>
@@ -165,6 +181,7 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\shorteat.avif" alt="Donuts" class="image1"  width="300" height="300"></td>
             <td>Rs.50</td>
             <td>Buns</td>
+            <td><button onclick="addCart()">add</button></td> 
             
         </tr>
         <tr>
@@ -173,55 +190,19 @@
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\buns.avif" alt="Pastry" class="image1"  width="300" height="300"></td>
             <td>Rs.90</td>
             <td>Buns</td>
+            <td><button onclick="addCart()">add</button></td>  
             
         </tr>
-        <!--<tr>
-            <td>C03</td>
-            <td>Shortbread</td>
-            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
-            <td>Rs.100</td>
-            <td>Buns</td>
-            
-        </tr>
-        <tr>
-            <td>C03</td>
-            <td>Croissant</td>
-            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
-            <td>Rs.150</td>
-            <td>Buns</td>
-            
-        </tr>
-        <tr>
-            <td>C03</td>
-            <td>Tarte Tatin</td>
-            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
-            <td>Rs.130</td>
-            <td>Buns</td>
-            
-        </tr>
-        <tr>
-            <td>C03</td>
-            <td>Tarte Tropezienne</td>
-            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
-            <td>Rs.120</td>
-            <td>Buns</td>
-            
-        </tr>
-        <tr>
-            <td>C03</td>
-            <td>Chocolate Twist</td>
-            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
-            <td>Rs.150</td>
-            <td>Buns</td>
-            
-        </tr>-->
+        
 
         </table>
 
         </div>       
             
     </div>
-    <script src="script.js"></script>
+    <script >
+        
+    </script>
 </body>
 </html>
 
