@@ -17,7 +17,7 @@
         <p class="profile-role">Store Manager</p>
         
         <div class="profile-details">
-            <p><strong>Email:</strong> samanthamahesha@storemanager.com</p>
+            <p><strong>Email:</strong> samanthamahesh@storemanager.com</p>
             <p><strong>Phone:</strong> (123) 456-7890</p>
             <p><strong>Location:</strong> New York, USA</p>
         </div>
