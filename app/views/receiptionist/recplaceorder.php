@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Place Order - Bakery</title>
+    <title>Receptionist_Place Order</title>
     <link rel="stylesheet" type="text/css" href="http:\\localhost\we_bake\app\views\receptionist\receptionist.css">
 </head>
 <body>
