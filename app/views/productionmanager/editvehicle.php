@@ -10,7 +10,7 @@
     
     <div class="container">
         <div class="navbar nav">
-            <h1>Edit Delivery Vehicle</h1>
+            <h1  class="dashboard">Edit Delivery Vehicle</h1>
             <button class="navbutton" onclick="back()">Back</button>
         </div>
 

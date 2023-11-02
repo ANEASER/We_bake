@@ -75,6 +75,7 @@
             $arr["Address"] = $_POST["Address"];
             $arr["Role"] = $_POST["Role"];
             $arr["UserName"] = $_POST["UserName"];
+            $arr["Password"] = $_POST["Password1"];
 
             $systemuser->insert($arr);
 

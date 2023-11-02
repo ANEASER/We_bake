@@ -40,6 +40,16 @@
                 padding: 10px;
                 color: #d9534f;
             }
+
+            button {
+                background-color: #bc9b72;
+                color: white;
+                padding: 10px 13px ;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                align-self: center;
+            }
     </style>
 </head>
 <body>

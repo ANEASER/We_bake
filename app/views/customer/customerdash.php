@@ -17,8 +17,6 @@
                 
                 <button onclick="profile()" class="button1">Profile</button>
                 
-                <button onclick="placeorder()" class="button1" >Place Order</button>
-                
                 <button onclick="purchasehistory()" class="button1">Purchase History</button>
        
                 <button onclick="makeinquiry()" class="button1">Make Inquiry</button>
@@ -68,9 +66,6 @@
 }
     function profile(){
             window.location.href = "http://localhost/we_bake/public/customercontrols/profile";
-}
-    function placeorder(){
-            window.location.href = "http://localhost/we_bake/public/customercontrols/placeorder";
 }
     function purchasehistory(){
             window.location.href = "http://localhost/we_bake/public/customercontrols/purchasehistory";

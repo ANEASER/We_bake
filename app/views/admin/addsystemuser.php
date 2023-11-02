@@ -4,6 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
+    
+    <style>
+            input[type="text"],
+            input[type="password"],
+            input[type="email"],
+            input[type="number"],
+            input[type="date"],
+            select
+            {
+                width: 60%;
+                padding: 10px;
+                margin-bottom: 10px;
+                margin-right: 10px;
+                border: 1px solid #D9D9D9;
+                border-radius: 5px;
+                background: #D9D9D9;
+                align-items: center;
+                align-self: center;
+            }
+
+            .formbutton {
+                background-color: #bc9b72;
+                color: white;
+                padding: 10px 30px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                align-self: center;
+            }
+
+
+            button:hover {
+                background-color: #9b7b54;
+            }
+
+            .form-group {
+                display: flex;
+                align-items: center;
+                margin-bottom: 10px;
+                margin-left: 2px;
+            }
+
+
+    </style>
+    
     <title>Add System user</title>
 </head>
 <body>
@@ -68,13 +113,8 @@
                 <input type="password" id="Password1" name="Password1" required><br><br>
                 </div>
 
-                <div class="form-group">
-                <label for="Password">Password:</label><br>
-                <input type="password" id="Password2" name="Password2" required><br><br>
-                </div>
-
                 <div class="button-container"> 
-                    <input class="button" type="submit" value="Submit">
+                    <input class="formbutton" type="submit" value="Submit">
                 </div>
             </form>
         </div>

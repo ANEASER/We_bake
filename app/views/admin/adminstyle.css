@@ -28,7 +28,6 @@ body, ul, li {
 /* Style the vertical navbar */
 .navbar {
     background-color: #BAA484;
-    width: 20%;
     height: 100%;
     position: fixed;
     overflow: auto;
@@ -40,7 +39,7 @@ body, ul, li {
 }
 
 .navbar li {
-    padding: 10px 0;
+    padding: 0;
 }
 
 .navbar a {
@@ -58,7 +57,7 @@ body, ul, li {
 .navbutton{
     background-color: #BAA484;
     color: white;
-    padding: 10px 130px;
+    padding: 10px 10px;
     border: none;
     cursor: pointer;
     align-self: center;
@@ -105,9 +104,11 @@ body, ul, li {
 }
 
 input[type="text"],
-
-input[type="password"]
-input[type="email"]
+input[type="password"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+select
  {
     width: 60%;
     padding: 10px;
@@ -123,7 +124,7 @@ input[type="email"]
 .formbutton {
     background-color: #bc9b72;
     color: white;
-    padding: 10px 30px;
+    padding: 10px 130px ;
     border: none;
     border-radius: 5px;
     cursor: pointer;

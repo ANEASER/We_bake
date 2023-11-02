@@ -79,7 +79,7 @@
     <h2 class="header">Customer Registration Form</h2>
     <?php
         if (isset($error)){
-        echo "<p style='background-color:red; color:white'>$error</p>";}
+        echo "<p style='background-color:red; color:white;font-size: large; padding:1%'>$error</p>";}
     ?>
 
     <div style="display: flex; flex-direction:row">
