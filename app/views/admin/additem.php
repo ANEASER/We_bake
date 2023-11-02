@@ -6,15 +6,15 @@
     <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
     <title>Add Product Item</title>
 </head>
-<body style="font-weight: 800">
+<body >
     
-    <div class="container">
+    
     <?php
         include "adminnav.php"
     ?>
 
-        <div class="container" style="width: 80%;" >
-            <form class="form-group" method="POST" style="padding: 3%;" action="addproductitem">
+        <div class="sub-container" style="width: 80%;" >
+            <form  method="POST" style="padding: 3%; margin-left:30%;" action="addproductitem">
 
             <div class="form-group">
                 <label for="itemname">Item Name:</label><br>
@@ -36,8 +36,8 @@
                 <textarea id="itemdescription" name="itemdescription" rows="4" required></textarea><br><br>
             </div>
             
-            <div class="button-container">     
-                <input class="button"  type="submit" value="Submit">
+            <div class="button-container" >     
+                <input class="itembutton"  type="submit" value="Submit">
             </div>
             </form>
         </div>

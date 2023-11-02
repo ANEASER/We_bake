@@ -143,6 +143,7 @@ button:hover {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    margin-left: 2px;
 }
 
 .form-group label {
@@ -192,7 +193,19 @@ table td[colspan="5"] {
     color: #d9534f;
 }
 
-
+.itembutton{
+    background-color: #bc9b72;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 20%;
+    margin-top: 5%;
+    margin-bottom: 10px;
+    margin-left: 15%;
+    padding: 10px;
+    
+}
 
 
 
