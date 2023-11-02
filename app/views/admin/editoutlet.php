@@ -4,48 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Outlet</title>
-    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
 </head>
 <body>
-    <h1 class="header">Edit Outlet</h1>
+   
     <div class="container">
-        <div class="sub-container navbar">
-            <button class="navbutton" onclick="back()">Back</button>
-        </div>
+    <?php
+        include "adminnav.php"
+    ?>
 
-        <div class="sub-container content">
-            <form class="form-group" method="POST" style="padding: 3%;">
-                <label for="DOS">Date of Establishment:</label><br>
-                <input type="date" id="DOS" name="DOS" required><br><br>
+        <div class="content">
+            <form method="POST">
+                <div class="form-group">
+                    <label for="DOS">Date of Establishment:</label><br>
+                    <input type="date" id="DOS" name="DOS" ><br><br>
+                </div> 
+                <div class="form-group">
+                    <label for="contactNo">Contact No:</label><br>
+                    <input type="text" id="contactNo" name="contactNo" ><br><br>
+                </div> 
+                <div class="form-group"> 
+                    <label for="ActiveState">Active State:</label><br>
+                    <select id="ActiveState" name="ActiveState" >
+                        <option value="1">Active</option>
+                        <option value="0">Inactive</option>
+                    </select><br><br>
+                </div> 
 
-                <label for="contactNo">Contact No:</label><br>
-                <input type="text" id="contactNo" name="contactNo" required><br><br>
+                <div class="form-group"> 
+                    <label for="Address">Address:</label><br>
+                    <input type="text" id="Address" name="Address" ><br><br>
+                </div>
 
-                <label for="ActiveState">Active State:</label><br>
-                <select id="ActiveState" name="ActiveState" required>
-                    <option value="1">Active</option>
-                    <option value="0">Inactive</option>
-                </select><br><br>
+                <div class="form-group"> 
+                    <label for="OutletID">Outlet ID:</label><br>
+                    <input type="text" id="OutletID" name="OutletID" ><br><br>
+                </div>
 
-                <label for="Address">Address:</label><br>
-                <input type="text" id="Address" name="Address" required><br><br>
+                <div class="form-group"> 
+                    <label for="Email">Email:</label><br>
+                    <input type="email" id="Email" name="Email" ><br><br>
+                </div> 
 
-                <label for="OutletID">Outlet ID:</label><br>
-                <input type="text" id="OutletID" name="OutletID" required><br><br>
+                <div class="form-group"> 
+                    <label for="Manager">Manager:</label><br>
+                    <input type="text" id="Manager" name="Manager" ><br><br>
+                </div> 
 
-                <label for="Email">Email:</label><br>
-                <input type="email" id="Email" name="Email" required><br><br>
-
-                <label for="Manager">Manager:</label><br>
-                <input type="text" id="Manager" name="Manager" required><br><br>
-
-                <input class="button" type="submit" value="Submit">
+                <div class="button-container"> 
+                    <input class="formbutton" type="submit" value="Submit">
+                </div>
             </form>
         </div>
     </div>
     <script>
         function back() {
-            window.location.href = "../AdminControls";   
+            window.location.href = "http://localhost/we_bake/public/AdminControls";   
         }
     </script>    
 </body>

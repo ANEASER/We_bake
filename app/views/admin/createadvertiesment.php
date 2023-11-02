@@ -3,31 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
+    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
     <title>Create Add</title>
 </head>
 <body>
-    <h1 class="header" >Create Add</h1>
+    
     <div class="container">
-        <div class="sub-container navbar">
-            <button class="navbutton" onclick="back()">Back</button>
-        </div>
+    <?php
+        include "adminnav.php"
+    ?>
 
-        <div class="sub-container content">
-            <form class="form-group" method="POST" enctype="multipart/form-data">
+        <div class="content">
+            <form method="POST" enctype="multipart/form-data">
+            
+            <div class="form-group">
                 <label for="image1">Upload Image 1:</label>
                 <input type="file" name="image1" id="image1" accept="image/*" required><br><br>
-        
+            </div>
+
+            <div class="form-group">
                 <label for="image2">Upload Image 2:</label>
                 <input type="file" name="image2" id="image2" accept="image/*" required><br><br>
-        
+            </div> 
+            <div class="button-container"> 
                 <input class="button" type="submit" name="submit" value="Upload">
+            </div> 
             </form>
         </div>
     </div>
     <script>
         function back() {
-            window.location.href = "../AdminControls";
+            window.location.href = "http://localhost/we_bake/public/AdminControls";
         }
     </script>
 </body>

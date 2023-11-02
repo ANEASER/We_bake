@@ -5,14 +5,13 @@
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
 <body>
-    <div class="header">
-        <h1>Change Your Password</h1>
-    </div>
-    <div class="container">
-
+    
         <?php
         include "sidebar.php"
         ?>
+    <div class="sub-container">
+    <h1 style="text-align:center;">Change Your Password</h1>
+    </div>
 </div>
 </body>
 </html>

@@ -7,8 +7,8 @@
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 
 </head>
-<body>
-    <div class="container">
+<body style="font-family: 'Poppins', sans-serif;">
+
 
         <?php
         include "sidebar.php"
@@ -16,6 +16,7 @@
     
     <div class="sub-container" >
         <div>
+        <h1 style="text-align:center;">Edit Your Profile</h1>
             <div>
                 <button onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
             </div>
@@ -25,10 +26,10 @@
     </div>
     <script>
     function editprofiledetails(){
-            window.location.href = "customercontrols/editprofiledetails";
+            window.location.href = "http://localhost/we_bake/public/customercontrols/editprofiledetails";
 }
     function changepassword(){
-            window.location.href = "customercontrols/changepassword";
+            window.location.href = "http://localhost/we_bake/public/customercontrols/changepassword";
 }
 </script>
 </body>

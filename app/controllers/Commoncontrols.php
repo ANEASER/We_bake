@@ -14,7 +14,7 @@ class CommonControls extends Controller {
     }
 
     function login() {
-        $errors = array();
+        $error = "";
     
         if (count($_POST) > 0) {
             $systemuser = new Systemuser();
@@ -40,18 +40,21 @@ class CommonControls extends Controller {
                             }elseif ($role == 'billingclerk') {
                                 $this->redirect("../billingcontrols");
                             } elseif($role=="outletmanager"){
-                                $this->redirect("../outletcontrols");}
+                                $this->redirect("../outletControls");}
                             else {
                                 $this->redirect("../pmcontrols");
                             }
                         } else {
-                            $errors[] = "Invalid password";
+                            $error = "Invalid password username or password";
+                            $this->view("common/login",["error"=>$error]);
                         }
                     } else {
-                        $errors[] = "User data does not contain a password";
+                        $error = "User data does not contain a password";
+                        $this->view("common/login",["error"=>$error]);
                     }
                     } else {
-                        $errors[] = "User data does not contain a password";
+                        $error = "User data does not contain a password";
+                        $this->view("common/login",["error"=>$error]);
                     }
                 }
                 elseif ($row = $customer->where("UserName", $_POST["username"])) {
@@ -64,21 +67,25 @@ class CommonControls extends Controller {
                                 Auth::authenticate($user);
                                 $this->redirect("../customercontrols");
                             } else {
-                                $errors[] = "Invalid password";
+                                $error = "Invalid password";
+                                $this->view("common/login",["error"=>$error]);
                             }
                         } else {
-                            $errors[] = "User data does not contain a password";
+                            $error = "User data does not contain a password";
+                            $this->view("common/login",["error"=>$error]);
                         }
 
                 }else {
-                    $errors[] = "User not found";
+                    $error = "User not found";
+                    $this->view("common/login",["error"=>$error]);
                 }
-            } else {
-                $errors[] = "User not found";
-            }
+            } 
     }
 
     public function otpvalidation() {
+
+        $err = "";  
+
         $mail = new Mail();
     
         // Function to generate OTP
@@ -102,8 +109,8 @@ class CommonControls extends Controller {
                 session_destroy();
                 $this->redirect("../commoncontrols/loadLoginView");
             } else {
-                echo "Invalid OTP"; 
-                $this->view("common/otpverification");
+                $err = "Invalid OTP"; 
+                $this->view("common/otpverification",["err"=>$err]);
             }
         }else{
             $otp = generateOTP();
