@@ -6,6 +6,7 @@
 <div class="navbar">
     <h1 class="dashboard"> Customer Dashboard</h1>
             <button onclick="customerdash()">Home</button>
+            <button onclick="viewmenu()">View Menu</button>
             <button onclick="profile()">Profile</button>
             <button onclick="placeorder()">Place Order</button>
             <button onclick="purchasehistory()">Purchase History</button>
@@ -21,6 +22,9 @@
 }
     function profile(){
             window.location.href = "http://localhost/we_bake/public/customercontrols/profile";
+}
+function viewmenu(){
+            window.location.href = "http://localhost/we_bake/public/customercontrols/viewmenu";
 }
     function placeorder(){
             window.location.href = "http://localhost/we_bake/public/customercontrols/placeorder";
