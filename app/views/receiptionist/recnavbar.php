@@ -6,6 +6,7 @@
         <ul>
             <li><button class="navbutton" onclick="loadDash()">Home</button></li>
             <li><button class="navbutton" onclick="loadProfile()">Profile</button></li>
+            <li><button class="navbutton" onclick="loadHistory()">Purchase History</button></li>
             <li><button class="navbutton" onclick="loadOrders()">Orders</button></li>
             <li><button class="navbutton" onclick="logout()">Logout</button></li>
         </ul>
@@ -14,15 +15,19 @@
 <script>
 
 function loadDash() {
-    window.location.href = "http://localhost/we_bake/public/billingcontrols";
+    window.location.href = "http://localhost/We_bake/public/Recieptioncontrols";
 }
 
 function loadProfile() {
-    window.location.href = "http://localhost/We_bake/public/BillingControls/viewProfile";
+    window.location.href = "http://localhost/We_bake/public/Recieptioncontrols/viewProfile";
+}
+
+function loadHistory() {
+    window.location.href = "http://localhost/We_bake/public/Recieptioncontrols/viewHistory";
 }
 
 function loadOrders() {
-    window.location.href = "http://localhost/We_bake/public/BillingControls/viewOrders";
+    window.location.href = "http://localhost/We_bake/public/Recieptioncontrols/viewOrders";
 }
 
 function logout() {
