@@ -62,19 +62,162 @@
 
             <tr>
             <td>C02</td>
-            <td>Item 2</td>
+            <td>Cup cake</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
-            <td>Rs.400</td>
+            <td>Rs.70</td>
             <td>Buns</td>
 
             <tr>
             <td>C03</td>
-            <td>Item 3</td>
+            <td>Fish bun</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.100</td>
+            <td>Buns</td>
+            
+        </tr>
+
+        <tr>
+            <td>C03</td>
+            <td>Butter Cake</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.700</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Roles</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
             <td>Rs.150</td>
             <td>Buns</td>
             
         </tr>
+        <tr>
+            <td>C03</td>
+            <td>Sweet Roals</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.150</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Muffins</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.70</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Garlic Bread</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.200</td>
+            <td>Buns</td>
+            
+        </tr>
+
+        <tr>
+            <td>C03</td>
+            <td>Chocolate cake</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.800</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Chocolate Lava Cake</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.150</td>
+            <td>Buns</td>
+            
+        </tr>
+
+        <tr>
+            <td>C03</td>
+            <td>Egg Bun</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.100</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Chocolate Lava Cake</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.170</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Sponge Cake</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.190</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Donuts</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.50</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Pastry</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.90</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Shortbread</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.100</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Croissant</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.150</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Tarte Tatin</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.130</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Tarte Tropezienne</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.120</td>
+            <td>Buns</td>
+            
+        </tr>
+        <tr>
+            <td>C03</td>
+            <td>Chocolate Twist</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.150</td>
+            <td>Buns</td>
+            
+        </tr>
+        
+
+
+
         </table>
 
         </div>       
