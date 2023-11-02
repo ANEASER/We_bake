@@ -5,6 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menu</title>
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
+    <style>
+        button{
+            background-color: #bc9b72;
+            color: white;
+            padding: 10px 13px ;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            align-self: center;
+            width: 150px;
+        }
+    </style>
 </head>
 <body style="font-family: 'Poppins', sans-serif; margin-top:0%;">
 <!--<div class="header">
@@ -16,7 +28,6 @@
         ?>
     
     <div class="sub-container" >
-        <h1 style="text-align:center;">Our Menu</h1>
         <table>
             <tr>
                 <th>Product Code</th>
@@ -24,41 +35,18 @@
                 <th>Product Image</th>
                 <th>Product Price</th>
                 <th>Product Description</th>
+                <th>Quantity</th>
                 <th>Add to Cart</th>
 
             </tr>
-            <?php
-            // Include the database connection file
-            /*require('database.php');
-
-            // SQL query to retrieve supplier details
-            $sql = "SELECT * FROM suppllier";
-
-            $result = $conn->query($sql);
-
-            if ($result->num_rows > 0) {
-                while ($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . $row["name"] . "</td>";
-                    echo "<td>" . $row["contactno"] . "</td>";
-                    echo "<td>" . $row["address"] . "</td>";
-                    echo "<td>" . $row["email"] . "</td>";
-                    echo "<td>" . $row["Rating"] . "</td>";
-                    echo "</tr>";
-                }
-            } else {
-                echo "<tr><td colspan='5'>No suppliers found.</td></tr>";
-            }
-
-            // Close the database connection
-            $conn->close();*/
-            ?>
+    
             <tr>
             <td>I01</td>
             <td>Bread</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\bread.avif" alt="Bread" class="image1"  width="300" height="300"></td>
             <td>Rs.200</td>
-            <td>Bread is a staple food made from flour, water, and yeast, often baked into a loaf, roll, or other shapes, serving as a basic source of nutrition worldwide.</td>
+            <td>Whole flour bread which weighs 200g</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             </tr>
             
@@ -68,7 +56,9 @@
             <td>Cup cake</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\cupcake.avif" alt="Cupcake" class="image1"  width="300" height="300"></td>
             <td>Rs.70</td>
-            <td>Cupcake is a small, single-serving cake, typically frosted and decorated, enjoyed as a sweet treat.</td>
+
+            <td>Flavours and colors can be customised according to your preference</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             </tr>
 
@@ -77,7 +67,8 @@
             <td>Fish bun</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\buns.jpg" alt="Fish bun" class="image1"  width="300" height="300"></td>
             <td>Rs.100</td>
-            <td>A fish bun is a popular snack consisting of spiced fish filling encased in a soft, baked or fried bread roll.</td>   
+            <td>A fish bun is a popular snack consisting of spiced fish filling encased in a soft, baked or fried bread roll.</td>  
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
         </tr>
 
@@ -87,7 +78,8 @@
             <td>Butter Cake</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\buttercake.jpg" alt="Butter Cake" class="image1"  width="300" height="300"></td>
             <td>Rs.700</td>
-            <td>Moist and rich dessert made with a generous amount of butter, sugar, eggs, and flour, delivering a delightful, buttery flavor and tender crumb.</td>
+            <td>Buns</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             
         </tr>
@@ -96,7 +88,8 @@
             <td>Roles</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\rolls.jpeg" alt="Rolls" class="image1"  width="300" height="300"></td>
             <td>Rs.150</td>
-            <td>Rolls are small, round, or elongated bread portions, typically baked or steamed, and can be served as a side dish, a sandwich base, or as a breakfast item.</td>
+            <td>Buns</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             
         </tr>
@@ -105,7 +98,8 @@
             <td>Sweet Roals</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\sweetrolls.jpg" alt="Sweet Roals" class="image1"  width="300" height="300"></td>
             <td>Rs.150</td>
-            <td>Sweet rolls are delicious baked treats made from a soft, sweet dough, often filled with ingredients like cinnamon, sugar, and raisins, and typically topped with icing or glaze.</td>
+            <td>Buns</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             
         </tr>
@@ -114,7 +108,8 @@
             <td>Muffins</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\muffins.jpg" alt="Muffins" class="image1"  width="300" height="300"></td>
             <td>Rs.70</td>
-            <td>Muffins are individual-sized, moist and soft baked goods, often with various flavorings such as blueberries or chocolate chips, and can be sweet or savory.</td>
+            <td>Buns</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             
         </tr>
@@ -123,7 +118,8 @@
             <td>Garlic Bread</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\garlicbread.jpeg" alt="Garlic Bread" class="image1"  width="300" height="300"></td>
             <td>Rs.200</td>
-            <td>Garlic bread is a savory bread dish typically made with butter, garlic, and herbs, and often served as an appetizer or side.</td>
+            <td>Buns</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             
         </tr>
@@ -133,7 +129,8 @@
             <td>Chocolate cake</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\chcake.jpg" alt="Chocolate cake" class="image1"  width="300" height="300"></td>
             <td>Rs.800</td>
-            <td>Chocolate cake is a decadent dessert featuring rich chocolate-flavored cake layers often paired with chocolate frosting or ganache.</td>
+            <td>Buns</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             
         </tr>
@@ -142,7 +139,8 @@
             <td>Chocolate Lava Cake</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\chlavacake.jpeg" alt="Chocolate Lava Cake" class="image1"  width="300" height="300"></td>
             <td>Rs.150</td>
-            <td>Chocolate lava cake is a delectable dessert known for its molten, gooey chocolate center when sliced.</td>
+            <td>Buns</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             
         </tr>
@@ -152,7 +150,8 @@
             <td>Egg Bun</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\eggun.jpeg" alt="Egg Bun" class="image1"  width="300" height="300"></td>
             <td>Rs.100</td>
-            <td>Egg bun is a type of bread roll made with eggs, offering a tender texture and a subtle eggy flavor.</td>
+            <td>Buns</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             
         </tr>
@@ -161,7 +160,8 @@
             <td>Croissant</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\Croissant.jpg" alt="Croissant" class="image1"  width="300" height="300"></td>
             <td>Rs.170</td>
-            <td>A croissant is a flaky, buttery pastry originating from France, known for its crescent shape and delicate layers.</td>
+            <td>Buns</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             
         </tr>
@@ -170,7 +170,8 @@
             <td>Sponge Cake</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\spongecake.jpeg" alt="Sponge Cake" class="image1"  width="300" height="300"></td>
             <td>Rs.190</td>
-            <td>Sponge cake is a light and airy dessert made with eggs, sugar, and flour, often served plain or with various toppings and fillings.</td>
+            <td>Buns</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             
         </tr>
@@ -179,7 +180,8 @@
             <td>Donuts</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\shorteat.avif" alt="Donuts" class="image1"  width="300" height="300"></td>
             <td>Rs.50</td>
-            <td>Donuts are deep-fried or baked dough confections, usually ring-shaped, and can be coated with various glazes or toppings.</td>
+            <td>Buns</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 
             
         </tr>
@@ -188,7 +190,8 @@
             <td>Pastry</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\buns.avif" alt="Pastry" class="image1"  width="300" height="300"></td>
             <td>Rs.90</td>
-            <td>Pastry refers to a variety of sweet or savory baked goods made from dough or batter, often with fillings, and served as a dessert or snack.</td>
+            <td>Buns</td>
+            <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td>  
             
         </tr>

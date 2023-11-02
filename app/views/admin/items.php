@@ -40,8 +40,8 @@
                     echo '<td>' . $item->stockprice . '</td>';
                     echo '<td>' . $item->itemdescription . '</td>';
                     echo '<td>' . $item->itemname . '</td>';
-                    echo '<td><button onclick="edit(' . $item->itemid . ')">Update</button></td>';
-                    echo '<td><button onclick="del(' . $item->itemid . ')">Delete</button></td>';
+                    echo '<td><button class="formbutton" onclick="edit(' . $item->itemid . ')">Update</button></td>';
+                    echo '<td><button class="formbutton" onclick="del(' . $item->itemid . ')">Delete</button></td>';
                     echo '</tr>';
                 }
                 

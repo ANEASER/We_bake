@@ -83,7 +83,7 @@
 <body>
     <?php
         if (isset($err)){
-        echo "<p style='background-color:red; color:white'>$err</p>";}
+        echo "<p style='background-color:red; color:white;font-size: large; padding:1%'>$err</p>";}
     ?>
     <div style="width: 50%; margin: 0% 25% 0% 25%;">
         

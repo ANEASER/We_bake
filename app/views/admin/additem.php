@@ -4,6 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/public/css/main.css">
+    <style>
+        input[type="text"],
+        input[type="password"],
+        input[type="email"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select
+        {
+            width: 60%;
+            padding: 10px;
+            margin-bottom: 10px;
+            margin-right: 10px;
+            border: 1px solid #D9D9D9;
+            border-radius: 5px;
+            background: #D9D9D9;
+            align-items: center;
+            align-self: center;
+        }
+
+        .formbutton {
+                background-color: #bc9b72;
+                color: white;
+                padding: 10px 30px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                align-self: center;
+            }
+
+
+            button:hover {
+                background-color: #9b7b54;
+            }
+
+    </style>
     <title>Add Product Item</title>
 </head>
 <body >
@@ -36,8 +72,8 @@
                 <textarea id="itemdescription" name="itemdescription" rows="4" required></textarea><br><br>
             </div>
             
-            <div class="button-container" >     
-                <input class="itembutton"  type="submit" value="Submit">
+            <div class="form-group" >     
+                <input class="formbutton" type="submit" value="Submit">
             </div>
             </form>
         </div>

@@ -10,7 +10,7 @@
     
     <div class="container">
         <div class="navbar">
-            <h1>Vehicles</h1>
+            <h1  class="dashboard">Vehicles</h1>
             <button class="navbutton" onclick="back()">Back</button>
         </div>
 
@@ -43,8 +43,8 @@
                         echo '<td>' . $vehicle->vehicleno  . '</td>';
                         echo '<td>' . $vehicle->enginenumber . '</td>';
                         echo '<td>' . $vehicle->modelname . '</td>';
-                        echo '<td><button onclick="edit(' . $vehicle->vehicleno . ')">Update</button></td>';
-                        echo '<td><button onclick="del(' . $vehicle->vehicleno . ')">Delete</button></td>';
+                        echo '<td><button  class="formbutton" onclick="edit(' . $vehicle->vehicleno . ')">Update</button></td>';
+                        echo '<td><button  class="formbutton" onclick="del(' . $vehicle->vehicleno . ')">Delete</button></td>';
                         echo '</tr>';
                      }
                 

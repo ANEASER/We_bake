@@ -7,14 +7,14 @@
     <title>Admin</title>
 </head>
 <body>
-    <div class="navbar">
+    <div class="navbar" style="width: 21%;">
     <h1 class="dashboard">Admin Dashboard</h1>
         <ul>
             <li><button class="navbutton" onclick="laodItems()">Items</button></li>
             <li><button class="navbutton" onclick="loadOutlets()">Outlets</button></li>
             <li><button class="navbutton" onclick="loadStocks()">Stocks</button></li>
             <li><button class="navbutton" onclick="loadUsers()">Users</button></li>
-            <li><button class="navbutton" onclick="advertiesments()">Advertiesments</button></li>
+            <li style="margin: 0;"><button class="navbutton" onclick="advertiesments()">Advertiesments</button></li>
             <li><button class="navbutton" onclick="logout()">Logout</button></li>
         </ul>
     </div>
