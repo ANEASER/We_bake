@@ -14,7 +14,7 @@
     ?>
 
         <div class="content">
-            <div class="suppdash" style="margin-left:-5%">
+            <div style="margin-left:-5%">
                 <button class="formbutton" onclick="add()">Add New Products</button>
             </div>
 

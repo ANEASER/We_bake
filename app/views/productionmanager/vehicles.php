@@ -15,7 +15,7 @@
         </div>
 
         <div class="content">
-            <div class="suppdash">
+            <div>
                 <button class="formbutton" onclick="add()">Add New Vehicle</button>
             </div>
             <div>

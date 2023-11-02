@@ -124,7 +124,7 @@ select
 .formbutton {
     background-color: #bc9b72;
     color: white;
-    padding: 10px 130px ;
+    width: 60px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -152,17 +152,7 @@ button:hover {
     margin-right: 10px; /* Adjust as needed for spacing between label and input */
 }
 
-.suppdash{
-    background-color: #bc9b72;
-    color: white;
-    padding: 10px 30px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    align-self: center;
-    width: 18%;
-   
-}
+
 
 table {
     width: 100%;

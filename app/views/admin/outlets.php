@@ -15,7 +15,7 @@
 
         <div class="content">
 
-            <div class="suppdash" style="margin-left:-5%">
+            <div style="margin-left:-5%">
                 <button class="formbutton" onclick="add()">Add New Outlets</button>
             </div>
 
@@ -41,7 +41,7 @@
                         <td>example@email.com</td>
                         <td>John Doe</td>
                         <td><button class="formbutton" onclick="edit()">Update</button></td>
-                        <td><button class="formbutton" onclick="window.location.href='deletesupplier.php'">Delete</button></td>
+                        <td><button class="formbutton" >Delete</button></td>
                     </tr>
                     <tr>
                         <td>2023-10-01</td>
@@ -52,7 +52,7 @@
                         <td>another@email.com</td>
                         <td>Jane Smith</td>
                         <td><button class="formbutton" onclick="edit()">Update</button></td>
-                        <td><button class="formbutton" onclick="window.location.href='deletesupplier.php'">Delete</button></td>
+                        <td><button class="formbutton" >Delete</button></td>
                     </tr>
                     <!-- Add more rows with dummy data as needed -->
                 </table>
