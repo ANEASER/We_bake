@@ -27,9 +27,9 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/addsupplier");
     }
 
-    function updateSupplier($id){
-        echo $this->view("storemanager/updatesuppplier", ["id" => $id]);
-    }
+    // function updateSupplier($id){
+    //     echo $this->view("storemanager/updatesuppplier", ["id" => $id]);
+    // }
 
     function addStockItem(){
         echo $this->view("storemanager/addstock");
@@ -61,9 +61,14 @@ class StoreControls extends Controller {
         $supplier = new Supplier();
         $supplier->delete($id,$idcolumn);
         $this->redirect("http://localhost/We_bake/public/StoreControls/viewSupplier");
-        echo $id;
-        echo $idcolumn;
         //viewSupplier();
+    }
+
+    //Single Supplier
+    function updateSupplier($column, $value){
+        $supplier = new Supplier();
+        $data = $supplier->where($column, $value);
+        echo $this->view("storemanager/updatesuppplier",$data);
     }
 
     // View supplier Data - R
@@ -77,8 +82,6 @@ class StoreControls extends Controller {
     function editSupplier(){
         $supplier = new Supplier();
         $id = $_POST['id'];
-
-        echo $id;
 
         if (!empty($_POST['name'])){
             $data['name'] = $_POST['name'];
@@ -95,7 +98,10 @@ class StoreControls extends Controller {
         if (!empty($_POST['Ratings'])){
             $data['Ratings'] = $_POST['Ratings'];
         }
+
+        // die(print_r($data));
         echo $supplier->update($id,"id",$data);
+
         $this->redirect("http://localhost/We_bake/public/StoreControls/viewSupplier");
     }
 }
