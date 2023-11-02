@@ -6,7 +6,7 @@
         <ul>
             <li><button class="navbutton" onclick="loadDash()">Home</button></li>
             <li><button class="navbutton" onclick="loadProfile()">Profile</button></li>
-            <li><button class="navbutton" onclick="loadOrders()">Orders</button></li>
+            <!-- <li><button class="navbutton" onclick="loadOrders()">Orders</button></li> -->
             <li><button class="navbutton" onclick="logout()">Logout</button></li>
         </ul>
 </div>
@@ -21,9 +21,9 @@ function loadProfile() {
     window.location.href = "http://localhost/We_bake/public/BillingControls/viewProfile";
 }
 
-function loadOrders() {
-    window.location.href = "http://localhost/We_bake/public/BillingControls/viewOrders";
-}
+// function loadOrders() {
+//     window.location.href = "http://localhost/We_bake/public/BillingControls/viewOrders";
+// }
 
 function logout() {
     window.location.href = "http://localhost/We_bake/public/CommonControls/logout";
