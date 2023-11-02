@@ -6,7 +6,7 @@
     <title>Customer Dashboard</title>
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
-<body>
+<body style="font-family: 'Poppins', sans-serif;">
 <div class="header">
         <h1>Customer Dashboard</h1>
 </div>
