@@ -10,7 +10,7 @@
             margin: 0;
             padding: 0;}
     
-        .formisland {background: rgba(255, 255, 255, 0.4);
+        .formisland {background: rgba(255, 183, 88, 0.4);
                 box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
                 backdrop-filter: blur(14.3px);
                 -webkit-backdrop-filter: blur(14.3px);
@@ -79,7 +79,7 @@
     <h2 class="header">Customer Registration Form</h2>
     <?php
         if (isset($error)){
-        echo "<p style='color:red'>$error</p>";}
+        echo "<p style='background-color:red; color:white'>$error</p>";}
     ?>
 
     <div style="display: flex; flex-direction:row">

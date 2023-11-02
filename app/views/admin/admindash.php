@@ -19,10 +19,8 @@
         </ul>
     </div>
     <div class="sub-container content">
-            <?php
-                print_r($data);
-            ?>
-        </div>
+        <img src="https://www.syskit.com/wp-content/uploads/2023/05/Power-BI-Dashboard.png" alt="" style="height: 700px;">        
+    </div>
     <script>
         function laodItems() {
             window.location.href = "http://localhost/we_bake/public/AdminControls/loadItemsView";
