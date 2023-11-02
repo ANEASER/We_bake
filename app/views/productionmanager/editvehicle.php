@@ -7,7 +7,7 @@
     <title>Edit Delivery Vehicle</title>
 </head>
 <body style="font-weight: 800">
-    
+
     <div class="container">
         <div class="navbar nav">
             <h1  class="dashboard">Edit Delivery Vehicle</h1>
@@ -17,22 +17,22 @@
         <div class="content">
             <form method="POST" style="padding: 3%;" action="http://localhost/we_bake/public/PmControls/editvehicle">
 
-            <input type="hidden" name="id" value="<?php echo $vehicleid; ?>">
+            <input type="hidden" name="id" value="<?php echo $data[0]->vehicleno; ?>">
 
             <div class="form-group">
                 <label for="registrationnumber">Registration Number:</label><br>
-                <input type="text" id="registrationnumber" name="registrationnumber" ><br><br>
+                <input type="text" id="registrationnumber" name="registrationnumber" placeholder="<?php echo $data[0]->type; ?>"><br><br>
             </div>
                 
             <div class="form-group">
                 <label for="type">Type:</label><br>
-                <input type="text" id="type" name="type" ><br><br>
+                <input type="text" id="type" name="type" placeholder="<?php echo $data[0]->vehicleno; ?>"><br><br>
             </div>
 
 
             <div class="form-group">
                 <label for="capacity">Capacity:</label><br>
-                <input type="number" id="capacity" name="capacity" ><br><br>
+                <input type="number" id="capacity" name="capacity" placeholder="<?php echo $data[0]->capacity; ?>"><br><br>
             </div>
 
             <div class="form-group">
@@ -45,17 +45,17 @@
 
             <div class="form-group">
                 <label for="chassinumber">Chassis Number:</label><br>
-                <input type="text" id="chassinumber" name="chassinumber" ><br><br>
+                <input type="text" id="chassinumber" name="chassinumber" placeholder="<?php echo $data[0]->chassinumber; ?>"><br><br>
             </div>
 
             <div class="form-group">
                 <label for="enginenumber">Engine Number:</label><br>
-                <input type="text" id="enginenumber" name="enginenumber" ><br><br>
+                <input type="text" id="enginenumber" name="enginenumber" placeholder="<?php echo $data[0]->enginenumber; ?>"><br><br>
             </div>
             
             <div class="form-group">
                 <label for="modelname">Model Name:</label><br>
-                <input type="text" id="modelname" name="modelname" ><br><br>
+                <input type="text" id="modelname" name="modelname" placeholder="<?php echo $data[0]->modelname; ?>"><br><br>
             </div>
 
             <div class="button-container">
