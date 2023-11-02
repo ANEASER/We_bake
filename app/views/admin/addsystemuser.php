@@ -16,7 +16,7 @@
 
         <div class="content">
 
-            <form method="POST" style="padding: 3%;">
+            <form method="POST" style="padding: 3%;" action="http://localhost/we_bake/public/AdminControls/addsystemuser">
 
                 <div class="form-group">
                 <label for="Name">Name:</label><br>
