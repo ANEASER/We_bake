@@ -27,16 +27,16 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/addsupplier");
     }
 
-    function updateSupplier(){
-        echo $this->view("storemanager/updatesuppplier");
+    function updateSupplier($id){
+        echo $this->view("storemanager/updatesuppplier", ["id" => $id]);
     }
 
     function addStockItem(){
         echo $this->view("storemanager/addstock");
     }
 
-    function updateStocks(){
-        echo $this->view("storemanager/updatestock");
+    function updateStocks($id){
+        echo $this->view("storemanager/updatestock", ["id" => $id]);
     }
 
     function deleteStocks(){
@@ -71,6 +71,32 @@ class StoreControls extends Controller {
         $supplier = new Supplier();
         $data = $supplier->findall();
         echo $this->view("storemanager/supplier",$data);
+    }
+
+    // Update Supplier Data - U
+    function editSupplier(){
+        $supplier = new Supplier();
+        $id = $_POST['id'];
+
+        echo $id;
+
+        if (!empty($_POST['name'])){
+            $data['name'] = $_POST['name'];
+        } 
+        if (!empty($_POST['contactno'])){
+            $data['contactno'] = $_POST['contactno'];
+        }
+        if (!empty($_POST['address'])){
+            $data['address'] = $_POST['address'];
+        }
+        if (!empty($_POST['email'])){
+            $data['email'] = $_POST['email'];
+        }
+        if (!empty($_POST['Ratings'])){
+            $data['Ratings'] = $_POST['Ratings'];
+        }
+        echo $supplier->update($id,"id",$data);
+        $this->redirect("http://localhost/We_bake/public/StoreControls/viewSupplier");
     }
 }
 ?>

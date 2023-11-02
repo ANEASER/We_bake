@@ -10,8 +10,6 @@
     <?php
         include "smnavbar.php";
     ?>
-    <!-- Nav not visible -->
-    <p>Hello</p>
 
     <div class="content">
             <!--<div class="tile">

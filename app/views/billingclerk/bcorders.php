@@ -13,7 +13,7 @@
 
     <div class="content">
            
-            <h1>Billing Clerk dashboard</h1>
+            <h1>Billing Clerk is displayed with the customer orders</h1>
     
     </div>
    

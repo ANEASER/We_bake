@@ -48,7 +48,7 @@
             <td>".$val->address."</td>
             <td>".$val->email."</td>
             <td>".$val->Ratings."</td>
-            <td><button class='formbutton' onclick=\"updateSuppliers()\">Update</button></td>
+            <td><button class='formbutton' onclick=\"updateSuppliers(".$val->id.")\">Update</button></td>
             <td><button class='formbutton' onclick=\"deleteSuppliers(".$val->id.")\">Delete</button></td>
             <td><button class='formbutton' onclick=\"window.location.href='requestsupplier.php'\">Request</button></td>
         </tr>";
@@ -67,8 +67,8 @@
             window.location.href = "../StoreControls/addSupplier";
         }
 
-        function updateSuppliers() {
-            window.location.href = "../StoreControls/updateSupplier";
+        function updateSuppliers(id) {
+            window.location.href = "../StoreControls/updateSupplier/id/"+id;
         }
         function getSupplierData() {
             window.location.href = "../StoreControls/getSupplierData";
