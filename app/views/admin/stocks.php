@@ -9,13 +9,12 @@
 <body style="font-weight: 800">
    
     <div class="container">
-        <div class="sub-container navbar">
-            <h1 class="dashboard">Stocks</h1>
-            <button class="navbutton" onclick="back()">Back</button>
-        </div>
+    <?php
+        include "adminnav.php"
+    ?>
 
         <div class="sub-container content">
-        <table style="border-collapse: collapse; width: 100%;">
+        <table style="border-collapse: collapse; width: 100%; margin-left:-5%">
             <tr>
                 <th>ID</th>
                 <th>Name</th>

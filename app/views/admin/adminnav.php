@@ -7,13 +7,16 @@
     <title>Admin</title>
 </head>
 <body>
-    <div class="container">
-<?php
-        include "adminnav.php"
-    ?>
-    <div class="sub-container content">
-        <img src="https://www.syskit.com/wp-content/uploads/2023/05/Power-BI-Dashboard.png" alt="" style="height: 700px;">        
-    </div>
+    <div class="navbar">
+    <h1 class="dashboard">Admin Dashboard</h1>
+        <ul>
+            <li><button class="navbutton" onclick="laodItems()">Items</button></li>
+            <li><button class="navbutton" onclick="loadOutlets()">Outlets</button></li>
+            <li><button class="navbutton" onclick="loadStocks()">Stocks</button></li>
+            <li><button class="navbutton" onclick="loadUsers()">Users</button></li>
+            <li><button class="navbutton" onclick="advertiesments()">Advertiesments</button></li>
+            <li><button class="navbutton" onclick="logout()">Logout</button></li>
+        </ul>
     </div>
     <script>
         function laodItems() {

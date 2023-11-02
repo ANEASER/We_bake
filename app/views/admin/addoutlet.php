@@ -9,10 +9,9 @@
 <body style="font-weight: 800">
     
     <div class="container">
-        <div class="sub-container navbar">
-            <h1 class="dashboard">Add Outlet</h1>
-            <button class="navbutton" onclick="back()">Back</button>
-        </div>
+    <?php
+        include "adminnav.php"
+    ?>
 
         <div class="content">
             <form method="POST">

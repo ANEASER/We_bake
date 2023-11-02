@@ -9,10 +9,9 @@
 <body style="font-weight: 800">
     
     <div class="container">
-        <div class="sub-container" style="width: 20%;">
-            <h1 class="dashboard">Add Product Item</h1>
-            <button class="navbutton" onclick="back()">Back</button>
-        </div>
+    <?php
+        include "adminnav.php"
+    ?>
 
         <div class="container" style="width: 80%;" >
             <form class="form-group" method="POST" style="padding: 3%;" action="addproductitem">

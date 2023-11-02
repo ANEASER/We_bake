@@ -9,19 +9,18 @@
 <body style="font-weight: 800">
    
     <div class="container">
-        <div class="sub-container navbar">
-            <h1 class="dashboard">Outlets</h1>
-            <button class="navbutton" onclick="back()">Back</button>
-        </div>
+    <?php
+        include "adminnav.php"
+    ?>
 
         <div class="content">
 
-            <div class="suppdash">
+            <div class="suppdash" style="margin-left:-5%">
                 <button class="formbutton" onclick="add()">Add New Outlets</button>
             </div>
 
             <div>
-                <table style="border-collapse: collapse; width: 100%;">
+                <table style="border-collapse: collapse; width: 100%;margin-left:-5%">
                     <tr>
                         <th>Date of Establishment</th>
                         <th>Contact Number</th>

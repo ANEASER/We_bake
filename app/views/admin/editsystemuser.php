@@ -9,10 +9,9 @@
 <body >
 
     <div class="container">
-        <div class="sub-container navbar">
-            <h1 class="dashboard">Edit System User</h1>
-            <button class="navbutton" onclick="back()">Back</button>
-        </div>
+    <?php
+        include "adminnav.php"
+    ?>
 
         <div class="content">
     
