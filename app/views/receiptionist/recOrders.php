@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/receiptionist/receptionist.css">
-    <title>Store Manager_Profile</title>
+    <title>Receptionist_Orders</title>
 </head>
 <body>
     <?php
