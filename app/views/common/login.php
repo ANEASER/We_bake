@@ -105,7 +105,7 @@
                 <button class="button-home" style="width: 400px;" type="submit">Login</button>
             </form>
 
-            <p>don't have account? <button  class="register-link" onclick="loadRegister()">Register</button></p>
+            <p>Don't have account? <button  class="register-link" onclick="loadRegister()">Register</button></p>
 
     </div>
 

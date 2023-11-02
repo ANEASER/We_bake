@@ -48,7 +48,7 @@
                 <p><span style="font-weight: bolder; font-size:2em">For</span>
                 <span style="font-weight: bolder; font-size:2em"> Your</span><br>
                 <span style="font-weight: bolder; font-size:3em">Greatest </span><br>
-                <span style="font-weight: bolder; font-size:5em"> Tatse....</span></p>
+                <span style="font-weight: bolder; font-size:5em"> Taste....</span></p>
             </div>
 
             
