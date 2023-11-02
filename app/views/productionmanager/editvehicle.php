@@ -8,11 +8,9 @@
 </head>
 <body style="font-weight: 800">
 
-    <div class="container">
-        <div class="navbar nav">
-            <h1  class="dashboard">Edit Delivery Vehicle</h1>
-            <button class="navbutton" onclick="back()">Back</button>
-        </div>
+<?php
+        include "pnavbar.php"
+        ?>
 
         <div class="content">
             <form method="POST" style="padding: 3%;" action="http://localhost/we_bake/public/PmControls/editvehicle">

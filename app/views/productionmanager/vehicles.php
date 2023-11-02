@@ -8,14 +8,12 @@
 </head>
 <body style="font-weight: 800">
     
-    <div class="container">
-        <div class="navbar">
-            <h1  class="dashboard">Vehicles</h1>
-            <button class="navbutton" onclick="back()">Back</button>
-        </div>
+<?php
+        include "pnavbar.php"
+        ?>
 
         <div class="content">
-            <div class="suppdash">
+            <div >
                 <button class="formbutton" onclick="add()">Add New Vehicle</button>
             </div>
             <div>

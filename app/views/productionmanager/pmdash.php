@@ -53,13 +53,9 @@
     </style>
 </head>
 <body>
-    <div class="navbar">
-    <h1 class="dashboard">PM dash</h1>
-        <ul>
-            <li><button class="navbutton" onclick="loadVehicles()">Vehicles</button></li>
-            <li><button class="navbutton" onclick="logout()">Log Out</button></li>
-        </ul>
-    </div>
+<?php
+        include "pnavbar.php"
+        ?>
     <div class="content">
     <div>
         <table>
@@ -93,16 +89,6 @@
         </div>        
     </div>        
     </div>
-    <script>
-
-        function loadVehicles() {
-            window.location.href = "http://localhost/we_bake/public/pmControls/loadVehiclesView";
-        }
-
-        function logout() {
-            window.location.href = "http://localhost/we_bake/public/CommonControls/logout";
-        }
-
-    </script>
+    
 </body>
 </html>
