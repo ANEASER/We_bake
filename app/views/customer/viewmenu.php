@@ -6,7 +6,7 @@
     <title>Menu</title>
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
-<body>
+<body style="font-family: 'Poppins', sans-serif;">
 <!--<div class="header">
         <h1>Our Menu</h1>
     </div>-->
@@ -62,13 +62,20 @@
 
             <tr>
             <td>C02</td>
+
             <td>Cup cake</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
             <td>Rs.70</td>
+
+            <td>Item 2</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\ad.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Rs.400</td>
+
             <td>Buns</td>
 
             <tr>
             <td>C03</td>
+
             <td>Fish bun</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
             <td>Rs.100</td>
@@ -210,6 +217,8 @@
             <td>C03</td>
             <td>Chocolate Twist</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\viewmenu.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
+            <td>Item 3</td>
+            <td><img src="http://localhost\we_bake\app\views\customer\customermedia\ad.jpg.jpg" alt="View Menu" class="image1"  width="300" height="300"></td>
             <td>Rs.150</td>
             <td>Buns</td>
             

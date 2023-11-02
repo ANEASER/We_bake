@@ -6,7 +6,7 @@
     <title>Purchase History</title>
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
-<body>
+<body style="font-family: 'Poppins', sans-serif;">
 <!--<div class="header">
         <h1 style="text-align:center;">Your Purchase History</h1>
     </div>-->
