@@ -8,11 +8,6 @@
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
-</div>
-<!--<div class="header">
-        <h1>Edit Your Profile Details</h1>
-    </div>-->
-    <div class="container">
 
         <?php
         include "sidebar.php"

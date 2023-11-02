@@ -55,9 +55,7 @@
     </style>
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
-   <!-- <div class="header">
-        <h1>Place Your Order</h1>
-    </div>-->
+   
     <div class="container">
 
         <?php

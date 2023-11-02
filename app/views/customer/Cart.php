@@ -6,11 +6,13 @@
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
 <body>
+    
         <?php
         include "sidebar.php"
         ?>
-    <div>
-    <table>
+        
+    <div class="sub-container">
+    <table style="margin-top:5%;">
         <thead>
             <tr>
                 <th>Product</th>

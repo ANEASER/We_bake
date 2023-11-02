@@ -10,8 +10,7 @@
 <!--<div class="header">
         <h1 style="text-align:center;">Your Purchase History</h1>
     </div>-->
-    <div class="container">
-
+    
         <?php
         include "sidebar.php"
         ?>

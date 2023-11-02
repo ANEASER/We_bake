@@ -11,7 +11,7 @@
 <!--<div class="header">
         <h1>Customer Profile</h1>
     </div>-->
-    <div class="container">
+    
 
         <?php
         include "sidebar.php"

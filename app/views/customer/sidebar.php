@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<body style="font-family: 'Poppins', sans-serif;">
+<body style="font-family: 'Poppins', sans-serif;margin-top:0">
 <div>
 <div class="navbar">
     <h1 class="dashboard"> Customer Dashboard</h1>
