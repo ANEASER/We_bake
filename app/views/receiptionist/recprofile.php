@@ -12,6 +12,15 @@
     ?>
     <div class="content">
         <h1>Profile</h1>
+
+        <h1 class="profile-name">Receptionist-Kasun</h1>
+        <p class="profile-role">Receptionist</p>
+        
+        <div class="profile-details">
+            <p><strong>Email:</strong> kasun@storemanager.com</p>
+            <p><strong>Phone:</strong> (123) 456-7890</p>
+            <p><strong>Location:</strong> New York, USA</p>
+        </div>
             
     </div>
     <script src="script.js"></script>
