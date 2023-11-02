@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,6 +14,52 @@
     <div class="content">
            
             <h1>Billing Clerk is displayed with the customer orders</h1>
+
+    <table class="customer-orders-table">
+        <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>001</td>
+                <td>Product A</td>
+                <td>5</td>
+                <td>In Progress</td>
+                <td>
+                    <button class="formbutton">Mark Shipped</button>
+                    <button class="formbutton">Cancel Order</button>
+                </td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>Product B</td>
+                <td>3</td>
+                <td>Processing</td>
+                <td>
+                    <button class="formbutton">Mark Shipped</button>
+                    <button class="formbutton">Cancel Order</button>
+                </td>
+            </tr>
+            <tr>
+                <td>003</td>
+                <td>Product C</td>
+                <td>3</td>
+                <td>Processing</td>
+                <td>
+                    <button class="formbutton">Mark Shipped</button>
+                    <button class="formbutton">Cancel Order</button>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
     
     </div>
    
@@ -21,4 +67,4 @@
 
     </script>
 </body>
-</html>
+</html> -->
