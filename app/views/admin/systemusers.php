@@ -13,7 +13,7 @@
     ?>
 
         <div class="content">
-            <div class="suppdash" style="margin-left:-5%">
+            <div  style="margin-left:-5%">
                 <button class="formbutton"  onclick="add()">Add New User</button>
             </div>
             <div>
@@ -48,8 +48,8 @@
                             echo '<td>' . $user->Role . '</td>';
                             echo '<td>' . $user->UserName . '</td>';
                             echo '<td>' . $user->Email . '</td>';
-                            echo '<td><button class="formbutton" onclick="edit(' . $user->UserID . ')">Update</button></td>';
-                            echo '<td><button class="formbutton" onclick="del(' . $user->UserID . ')">Delete</button></td>';
+                            echo '<td><button class="formbutton1" onclick="edit(' . $user->UserID . ')">Update</button></td>';
+                            echo '<td><button class="formbutton1" onclick="del(' . $user->UserID . ')">Delete</button></td>';
                             echo '</tr>';
                         }
                     }

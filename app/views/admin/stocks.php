@@ -8,7 +8,7 @@
 </head>
 <body style="font-weight: 800">
    
-    <div class="container">
+    
     <?php
         include "adminnav.php"
     ?>
@@ -37,7 +37,7 @@
                 <td>2023-12-31</td>
                 <td>Supplier 1</td>
                 <td>ABC123</td>
-                <td><button class="formbutton" onclick="edit()">Update</button></td>
+                <td><button class="formbutton1" onclick="edit()">Update</button></td>
             </tr>
             <tr>
                 <td>2</td>
@@ -49,7 +49,7 @@
                 <td>2024-05-15</td>
                 <td>Supplier 2</td>
                 <td>XYZ789</td>
-                <td><button class="formbutton" onclick="edit()">Update</button></td>
+                <td><button class="formbutton1" onclick="edit()">Update</button></td>
             </tr>
             </table>
         </div>

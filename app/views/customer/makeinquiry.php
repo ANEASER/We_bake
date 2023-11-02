@@ -55,7 +55,7 @@
                     </div>
             </div>
 
-            <input type="submit" value="Save">
+            <input style="margin-left:50%; margin-top:5%;" type="submit" value="Save">
             <input type="submit" value="Cancle">
         </form>
             
