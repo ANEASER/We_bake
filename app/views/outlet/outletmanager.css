@@ -26,40 +26,27 @@ body, ul, li {
 }
 
 
-.navbar ul {
-    padding: 0;
+.navbar button:hover {
+    background-color: #897546;
 }
 
-.navbar li {
-    padding: 10px 0;
-}
-
-.navbar a {
-    color: white;
+.navbar button{
     text-decoration: none;
     display: block;
-    padding: 10px;
-    text-align: center;
-}
-
-.navbar a:hover {
-    background-color: #897546;
-}
-
-.navbutton{
+    width: 80%;
+    margin-top: 20%;
+    margin-bottom: 20%;
+    margin-left: 10px;
+    padding: 2%;
+    font-size: medium;
     background-color: #BAA484;
-    color: white;
-    padding: 10px 130px;
-    border: none;
-    cursor: pointer;
-    align-self: center;
-    font-size: 15px;
-    font-family:serif; 
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    border-color: #BAA484;
+    border-style: none;
 }
 
-.navbutton:hover {
-    background-color: #897546;
-}
 
 
 /* Style the page content */
@@ -208,17 +195,6 @@ table td[colspan="5"] {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 .body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -324,26 +300,7 @@ select, input[type="number"], input[type="text"], input[type="email"] , input[ty
     font-weight: bold;
 }
 
-.navbar button {
-    text-decoration: none;
-    display: block;
-    width: 80%;
-    margin-top: 20%;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    padding: 0px;
-    font-size: medium;
-    background-color: #BAA484;
-    color: #ffffff;
-    text-align: center;
-    text-decoration: none;
-    border-color: #BAA484;
-    border-style: none;
-}
 
-.navbar button:hover {
-    background-color: #897546;
-}
 /*dashboard text*/
 .dashboard{
     padding: 10px 0px;
