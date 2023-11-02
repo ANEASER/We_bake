@@ -56,6 +56,7 @@
             <td>Cup cake</td>
             <td><img src="http://localhost\we_bake\app\views\customer\customermedia\cupcake.avif" alt="Cupcake" class="image1"  width="300" height="300"></td>
             <td>Rs.70</td>
+
             <td>Flavours and colors can be customised according to your preference</td>
             <td><input type="number" min="0"></td>
             <td><button onclick="addCart()">add</button></td> 

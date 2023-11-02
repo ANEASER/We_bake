@@ -45,7 +45,7 @@
     
     
     </div>
-    <button class="button2" onclick="placeorder()" >Checout</button>
+    <button class="button2" onclick="placeorder()" >Checkout</button>
     <script>
         function placeorder(){
             window.location.href = "http://localhost/we_bake/public/customercontrols/placeorder";
