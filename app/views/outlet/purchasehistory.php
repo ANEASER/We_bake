@@ -32,21 +32,21 @@
         
         <tr>
             <td>All purpose flour</td>
-            <td>Hannafords (pvt) Nugegoda</td>
+            <td>Hannafords Foodmart Nugegoda</td>
             <td>2023.10.05</td>
             <td>70Kg</td>
             <td>1 Kg= LKR 429.79</td>
         </tr>
         <tr>
             <td>Suger</td>
-            <td>Hannafords (pvt) Nugegoda</td>
+            <td>Hannafords Foodmart Nugegoda</td>
             <td>2023.10.05</td>
             <td>50Kg</td>
             <td>1 Kg= LKR 429.79</td>
         </tr>
 
             <td>Coco Powder</td>
-            <td>Hannafords (pvt) Nugegoda</td>
+            <td>Hannafords Foodmart Nugegoda</td>
             <td>2023.10.05</td>
             <td>20Kg</td>
             <td>1 Kg= LKR 375.79</td>
@@ -64,7 +64,7 @@
         </tr>
 
             <td>Butter</td>
-            <td>Hannafords (pvt) Nugegoda</td>
+            <td>Hannafords Foodmart Nugegoda</td>
             <td>2023.10.25</td>
             <td>75Kg</td>
             <td>1 Kg= LKR 850.00</td>
@@ -82,7 +82,7 @@
         </tr>
 
             <td>Icing Sugur</td>
-            <td>Hannafords (pvt) Nugegoda</td>
+            <td>Hannafords Foodmart Nugegoda</td>
             <td>2023.10.05</td>
             <td>72Kg</td>
             <td>1 Kg= LKR 429.79</td>
