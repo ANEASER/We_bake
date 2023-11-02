@@ -1,19 +1,17 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<body style="font-family: 'Poppins', sans-serif;">
+<body style="font-family: 'Poppins', sans-serif;margin-top:0">
 <div>
 <div class="navbar">
     <h1 class="dashboard"> Customer Dashboard</h1>
             <button onclick="customerdash()">Home</button>
             <button onclick="viewmenu()">View Menu</button>
-            <button onclick="profile()">Profile</button>
+            <button onclick="viewCart()">View Cart</button>
             <button onclick="purchasehistory()">Purchase History</button>
             <button onclick="makeinquiry()">Make Inquiry</button>
-            <button onclick="viewCart()">View Cart</button>
-            <button onclick="logout()">Log Out</button>
-        
-        
+            <button onclick="profile()">Profile</button>
+            <button onclick="logout()">Log Out</button>      
 </div>
 </div>
 <script>

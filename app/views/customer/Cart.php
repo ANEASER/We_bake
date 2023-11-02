@@ -6,11 +6,13 @@
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
 <body>
+    
         <?php
         include "sidebar.php"
         ?>
-    <div>
-    <table>
+        
+    <div class="sub-container">
+    <table style="margin-top:5%;">
         <thead>
             <tr>
                 <th>Product</th>
@@ -43,7 +45,7 @@
     
     
     </div>
-    <button class="button1" style="margin-right:50%" onclick="placeorder()" >checout</button>
+    <button class="button2" onclick="placeorder()" >Checout</button>
     <script>
         function placeorder(){
             window.location.href = "http://localhost/we_bake/public/customercontrols/placeorder";

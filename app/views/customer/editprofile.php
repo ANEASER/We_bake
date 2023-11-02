@@ -8,10 +8,7 @@
 
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
-<!--<div class="header">
-        <h1>Edit Your Profile</h1>
-    </div>-->
-    <div class="container">
+
 
         <?php
         include "sidebar.php"

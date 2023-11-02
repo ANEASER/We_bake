@@ -9,20 +9,19 @@
 <body style="font-weight: 800">
    
     <div class="container">
-        <div class="navbar">
-            <h1 class="dashboard">Items</h1>
-            <button class="navbutton" onclick="back()">Back</button>
-        </div>
+    <?php
+        include "adminnav.php"
+    ?>
 
         <div class="content">
-            <div class="suppdash">
+            <div class="suppdash" style="margin-left:-5%">
                 <button class="formbutton" onclick="add()">Add New Products</button>
             </div>
 
             <div>
                 
             <?php
-                echo '<table>';
+                echo '<table style="margin-left:-5%">';
                 echo '<tr>
                     <th>Item ID</th>
                     <th>Retail Price</th>

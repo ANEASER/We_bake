@@ -8,19 +8,18 @@
 </head>
 <body style="font-weight: 800">
     <div class="container">
-        <div class="navbar">
-            <h1 class="dashboard">System Users</h1>
-            <button class="navbutton" onclick="back()">Back</button>
-        </div>
+    <?php
+        include "adminnav.php"
+    ?>
 
         <div class="content">
-            <div class="suppdash">
-                <button class="formbutton" onclick="add()">Add New User</button>
+            <div class="suppdash" style="margin-left:-5%">
+                <button class="formbutton"  onclick="add()">Add New User</button>
             </div>
             <div>
             
             <?php
-                echo '<table>';
+                echo '<table style="margin-left:-5%">';
                 echo '<tr>
                         <th>Name</th>
                         <th>NIC</th>
@@ -49,8 +48,8 @@
                             echo '<td>' . $user->Role . '</td>';
                             echo '<td>' . $user->UserName . '</td>';
                             echo '<td>' . $user->Email . '</td>';
-                            echo '<td><button onclick="edit(' . $user->UserID . ')">Update</button></td>';
-                            echo '<td><button onclick="del(' . $user->UserID . ')">Delete</button></td>';
+                            echo '<td><button class="formbutton" onclick="edit(' . $user->UserID . ')">Update</button></td>';
+                            echo '<td><button class="formbutton" onclick="del(' . $user->UserID . ')">Delete</button></td>';
                             echo '</tr>';
                         }
                     }

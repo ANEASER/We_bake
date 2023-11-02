@@ -6,17 +6,16 @@
     <title>Menu</title>
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
-<body style="font-family: 'Poppins', sans-serif;">
+<body style="font-family: 'Poppins', sans-serif; margin-top:0%;">
 <!--<div class="header">
         <h1>Our Menu</h1>
     </div>-->
-    <div class="container">
-
+    
     <?php
         include "sidebar.php"
         ?>
     
-        <div>
+    <div class="sub-container" >
         <h1 style="text-align:center;">Our Menu</h1>
         <table>
             <tr>
@@ -208,6 +207,4 @@
 
 
    
-</div>
-</body>
-</html>
+

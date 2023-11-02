@@ -9,10 +9,9 @@
 <body>
     
     <div class="container">
-        <div class="sub-container navbar">
-            <h1>Edit Product Item</h1>
-            <button class="navbutton" onclick="back()">Back</button>
-        </div>
+    <?php
+        include "adminnav.php"
+    ?>
 
         <div class="content">
             <form  method="POST" style="padding: 3%;" action="http://localhost/we_bake/public/AdminControls/editproduct">
