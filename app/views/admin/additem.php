@@ -10,7 +10,7 @@
     
     <div class="container">
         <div class="sub-container" style="width: 20%;">
-            <h1 >Add Product Item</h1>
+            <h1 class="dashboard">Add Product Item</h1>
             <button class="navbutton" onclick="back()">Back</button>
         </div>
 
@@ -45,7 +45,7 @@
     </div>
     <script>
         function back() {
-            window.location.href = "../AdminControls";
+            window.location.href = "http://localhost/we_bake/public/AdminControls";
         }
     </script>
 </body>

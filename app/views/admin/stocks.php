@@ -10,7 +10,7 @@
    
     <div class="container">
         <div class="sub-container navbar">
-            <h1 class="header">Stocks</h1>
+            <h1 class="dashboard">Stocks</h1>
             <button class="navbutton" onclick="back()">Back</button>
         </div>
 
@@ -57,11 +57,11 @@
     </div>
     <script>
         function back() {
-            window.location.href = "../AdminControls";   
+            window.location.href = "http://localhost/we_bake/public/AdminControls";   
         }
 
         function edit() {
-            window.location.href = "../AdminControls/EditStock";
+            window.location.href = "http://localhost/we_bake/public/AdminControls/EditStock";
         }
     </script>
 </body>

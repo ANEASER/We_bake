@@ -1,9 +1,14 @@
 
-body {
-    font-family: Arial, sans-serif;
+body{
+    background-image: url('https://png.pngtree.com/background/20230519/original/pngtree-large-display-of-bread-picture-image_2664293.jpg'); 
+    background-repeat: no-repeat;
+    font-family: 'Poppins', sans-serif;        
+    background-size: cover;
     margin: 0;
     padding: 0;
 }
+
+
 .container {
     display: flex;
     justify-content: center;
@@ -18,7 +23,7 @@ body {
     text-align: center;
     color: #ffffff;
     text-decoration: solid;
-    background-color: #BAA484;
+    background-color: #ec8e00;
 }
 
 .right-container {

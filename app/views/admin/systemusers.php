@@ -9,7 +9,7 @@
 <body style="font-weight: 800">
     <div class="container">
         <div class="navbar">
-            <h1>System Users</h1>
+            <h1 class="dashboard">System Users</h1>
             <button class="navbutton" onclick="back()">Back</button>
         </div>
 

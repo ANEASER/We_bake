@@ -69,7 +69,7 @@
     </div>
     <script>
         function back() {
-            window.location.href = "../pmControls";   
+            window.location.href = "http://localhost/we_bake/public/pmControls";   
         }
     </script>
 </body>

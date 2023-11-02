@@ -10,7 +10,7 @@
     
     <div class="container">
         <div class="navbar">
-            <h1 class="header">Edit Stock Alert Levels</h1>
+            <h1 class="dashboard" class="header">Edit Stock Alert Levels</h1>
             <button class="navbutton" onclick="back()">Back</button>
         </div>
 
@@ -36,7 +36,7 @@
     </div>
     <script>
         function back() {
-            window.location.href = "../AdminControls";   
+            window.location.href = "http://localhost/we_bake/public/AdminControls";   
         }
     </script>
 </body>
