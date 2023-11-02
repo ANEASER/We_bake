@@ -168,10 +168,10 @@ select, input[type="number"], input[type="text"], input[type="email"] , input[ty
     text-decoration: none;
     display: block;
     width: 80%;
-    margin-top: 20%;
-    margin-bottom: 10px;
+    margin-top: 12%;
+    margin-bottom: 10%;
     margin-left: 10px;
-    padding: 0px;
+    padding: 2%;
     font-size: medium;
     background-color: #BAA484;
     color: #ffffff;
@@ -183,17 +183,19 @@ select, input[type="number"], input[type="text"], input[type="email"] , input[ty
 
 .navbar button:hover {
     background-color: #897546;
+    cursor: pointer;
+    
 }
 /*dashboard text*/
 .dashboard{
-    padding: 10px 0px;
+    padding: 5px 0px;
     color: white;
     text-decoration: none;
     display: block;
     text-align: center;
 }
 table {
-    width: 60%;
+    width: 65%;
     border-collapse: collapse;
     margin-top: 30px;
     margin-left: 30%;
