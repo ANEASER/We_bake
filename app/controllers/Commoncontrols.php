@@ -79,6 +79,9 @@ class CommonControls extends Controller {
     }
 
     public function otpvalidation() {
+
+        $err = "";  
+
         $mail = new Mail();
     
         // Function to generate OTP
@@ -102,8 +105,8 @@ class CommonControls extends Controller {
                 session_destroy();
                 $this->redirect("../commoncontrols/loadLoginView");
             } else {
-                echo "Invalid OTP"; 
-                $this->view("common/otpverification");
+                $err = "Invalid OTP"; 
+                $this->view("common/otpverification",["err"=>$err]);
             }
         }else{
             $otp = generateOTP();

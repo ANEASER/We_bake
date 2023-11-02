@@ -12,7 +12,7 @@
                 margin: 0;
                 padding: 0;}
         
-            .formisland {background: rgba(255, 255, 255, 0.4);
+            .formisland {background: rgba(255, 183, 88, 0.4);
                     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
                     backdrop-filter: blur(14.3px);
                     -webkit-backdrop-filter: blur(14.3px);
@@ -81,6 +81,10 @@
     <title>Login</title>
 </head>
 <body>
+    <?php
+        if (isset($err)){
+        echo "<p style='background-color:red; color:white'>$err</p>";}
+    ?>
     <div style="width: 50%; margin: 0% 25% 0% 25%;">
         
         <form method="POST" action="otpvalidation" class="formisland">
