@@ -10,7 +10,7 @@
    
     <div class="container">
         <div class="sub-container navbar">
-            <h1>Outlets</h1>
+            <h1 class="dashboard">Outlets</h1>
             <button class="navbutton" onclick="back()">Back</button>
         </div>
 
@@ -65,15 +65,15 @@
 
     <script>
         function back() {
-            window.location.href = "../AdminControls";
+            window.location.href = "http://localhost/we_bake/public/AdminControls";
         }
 
         function add() {
-            window.location.href = "../AdminControls/addOutlet";
+            window.location.href = "http://localhost/we_bake/public/AdminControls/addOutlet";
         }
 
         function edit() {
-            window.location.href = "../AdminControls/EditOutlet";
+            window.location.href = "http://localhost/we_bake/public/AdminControls/EditOutlet";
         }
     </script>
 

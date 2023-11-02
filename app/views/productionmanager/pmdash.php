@@ -21,11 +21,11 @@
     <script>
 
         function loadVehicles() {
-            window.location.href = "pmControls/loadVehiclesView";
+            window.location.href = "http://localhost/we_bake/public/pmControls/loadVehiclesView";
         }
 
         function logout() {
-            window.location.href = "CommonControls/logout";
+            window.location.href = "http://localhost/we_bake/public/CommonControls/logout";
         }
 
     </script>

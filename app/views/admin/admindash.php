@@ -25,27 +25,27 @@
         </div>
     <script>
         function laodItems() {
-            window.location.href = "AdminControls/loadItemsView";
+            window.location.href = "http://localhost/we_bake/public/AdminControls/loadItemsView";
         }
 
         function loadOutlets() {
-            window.location.href = "AdminControls/loadOutletsView";
+            window.location.href = "http://localhost/we_bake/public/AdminControls/loadOutletsView";
         }
 
         function loadStocks() {
-            window.location.href = "AdminControls/loadStocksView";
+            window.location.href = "http://localhost/we_bake/public/AdminControls/loadStocksView";
         }
 
         function loadUsers() {
-            window.location.href = "AdminControls/loadUsersView";
+            window.location.href = "http://localhost/we_bake/public/AdminControls/loadUsersView";
         }
 
         function advertiesments() {
-            window.location.href = "AdminControls/AddAdvertiesment";
+            window.location.href = "http://localhost/we_bake/public/AdminControls/AddAdvertiesment";
         }
 
         function logout() {
-            window.location.href = "CommonControls/logout";
+            window.location.href = "http://localhost/we_bake/public/CommonControls/logout";
         }
 
     </script>
