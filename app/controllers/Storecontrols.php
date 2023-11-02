@@ -18,9 +18,6 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/profile");
     }
 
-    function viewSupplier(){
-        echo $this->view("storemanager/supplier");
-    }
 
     function viewStocks(){
         echo $this->view("storemanager/stocks");
@@ -58,12 +55,22 @@ class StoreControls extends Controller {
         $supplier->insert($arr);
         $this->redirect("../StoreControls/viewSupplier");
     }
+    
+    //Delete Supplier
+    function deleteSupplierData($idcolumn,$id){
+        $supplier = new Supplier();
+        $supplier->delete($id,$idcolumn);
+        $this->redirect("http://localhost/We_bake/public/StoreControls/viewSupplier");
+        echo $id;
+        echo $idcolumn;
+        //viewSupplier();
+    }
 
-    //View Supplier
-    function getSupplierData(){
+    // View supplier Data - R
+    function viewSupplier(){
         $supplier = new Supplier();
         $data = $supplier->findall();
         echo $this->view("storemanager/supplier",$data);
-    }    
+    }
 }
 ?>
