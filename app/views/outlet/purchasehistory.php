@@ -10,7 +10,7 @@
 
 <body>
 
-    <div class="container">
+    
 
         <?php
         include "omnavbar2.php"
@@ -19,7 +19,7 @@
     <div class="content">
     <h1>Purchase History</h1>
         <div>
-        <table>
+        <table  style="margin-left:10%;">
             <tr>
                 <th>Item Name</th>
                 <th>Item Code</th>

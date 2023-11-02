@@ -16,19 +16,10 @@ class outletControls extends Controller {
 
      
     }
+    function outletdash(){
+        echo $this->view("outlet/outletdash");
 
-    function editcontainorder(){
-        echo $this->view("outlet/editcontainorder");
-
-       
-    }
-
-    function editprofile(){
-        echo $this->view("outlet/editprofile");        
-    }
-
-    function changepassword(){
-        echo $this->view("outlet/changepassword");        
+     
     }
 }
 ?>

@@ -16,7 +16,7 @@
     <div class="content">
  <h1>Place order</h1>
         <div>
-        <table>
+        <table style="margin-left:10%;" >
 
         <tr>
                 <th>Customer ID</th>

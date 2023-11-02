@@ -9,20 +9,16 @@
     <link rel="stylesheet" href="http://localhost/we_bake/app/views/outlet/outletmanager.css">
 </head>
 <body>
-    <div class="navbar">
-    <h1 class="dashboard"> Outlet Manager Dashboard</h1>
-            <ul>
-                <li><button onclick = "PlaceOrder()">Place Order</button></li>
-                <li><button onclick = "PurchaseHistory()">Purchase History</button></li>
-                <li><button onclick = "EditContainOrder()">Edit Contain Order</button></li>
-                <li><button onclick = "EditProfile()">Edit Profile</button></li>
-            </ul>
-    </div>
+    <div>
+    <?php
+        include "omnavbar2.php"
+        ?>
+</div>
  <div class="content">
  
- <h1>Outlet Dash</h1>
+ <h1>Outlet Dashboard</h1>
         <div>
-        <table>
+        <table style="margin-left:10%;">
             <tr>
                 <th>Order ID</th>
                 <th>Quantity</th>
@@ -57,7 +53,7 @@
     <div class="content">
  <h1>Last Purchases</h1>
         <div>
-        <table>
+        <table  style="margin-left:10%;">
 
         <tr>
                 <th>Order ID</th>
@@ -96,21 +92,7 @@
         </div>        
     </div>
     
-    <script>
-
-            function PlaceOrder() {
-                window.location.href = "http://localhost/we_bake/public/outletControls/placeorder"};
-
-            function PurchaseHistory() {
-                window.location.href = "http://localhost/we_bake/public/outletControls/purchasehistory"};
-
-            function EditContainOrder() {
-                window.location.href = "http://localhost/we_bake/public/outletControls/editcontainorder"};
-
-            function EditProfile() {
-                window.location.href = "http://localhost/we_bake/public/outletControls/editprofile"};
-        
-</script>
+   
     
 </body>
 </html>   
