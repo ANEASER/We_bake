@@ -34,19 +34,19 @@
             <td>011#</td>
             <td>200 Tea Buns</td>
             <td> LKR 14,000/=</td>
-            <td><button onclick="window.location.href='updatesupplier.php'">View</button></td>
+            <td><button >View</button></td>
         </tr>
         <tr>
             <td>123#</td>
             <td>20 Cup Cakes</td>
             <td>LKR 1000/=</td>
-            <td><button onclick="window.location.href='updatesupplier.php'">View</button></td>
+            <td><button>View</button></td>
         </tr>
         <tr>
             <td>527#</td>
             <td>100 Breads</td>
             <td>LKR 12,00/=</td>
-            <td><button onclick="window.location.href='updatesupplier.php'">View</button></td>
+            <td><button>View</button></td>
         </tr>
         </table>
 

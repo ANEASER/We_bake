@@ -5,12 +5,16 @@ body, ul, li {
     list-style: none;
 }
 /*dashboard text*/
-.dashboard{
-    padding: 10px 15px;
+.dashbutton {
+    background-color: #BAA484;
     color: white;
-    text-decoration: none;
-    display: block;
-    text-align: left;
+    padding: 30px 400px;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    font-size: 20px;
+    font-family:serif;
+
 }
 /* Style the vertical navbar */
 .navbar {
@@ -41,6 +45,22 @@ body, ul, li {
 .navbar a:hover {
     background-color: #897546;
 }
+
+.navbutton{
+    background-color: #BAA484;
+    color: white;
+    padding: 10px 130px;
+    border: none;
+    cursor: pointer;
+    align-self: center;
+    font-size: 15px;
+    font-family:serif; 
+}
+
+.navbutton:hover {
+    background-color: #897546;
+}
+
 
 /* Style the page content */
 .content {
@@ -76,6 +96,16 @@ body, ul, li {
     text-align: center;
 }
 
+input[type="date"] {
+    width: 60%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #D9D9D9;
+    background: #D9D9D9;
+    border-radius: 5px;
+    
+}
+
 input[type="text"],
 input[type="password"]
 input[type="email"]
@@ -93,6 +123,15 @@ input[type="email"]
 
 button {
     background-color:#9b7b54;
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+}
+.formbutton {
+    background-color: #bc9b72;
     color: white;
     padding: 10px 30px;
     border: none;
@@ -159,6 +198,184 @@ table tr {
 table td {
     padding: 8px;
     border: 1px solid #ddd;
+}
+
+table td[colspan="5"] {
+    text-align: center;
+    padding: 10px;
+    color: #d9534f;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.header {
+    background-color: #BAA484;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+}
+.container {
+    
+    justify-content: space-between;
+    padding: 10px;
+}
+.container1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-top: 0%;
+}
+.sub-container {
+    flex: 1;
+    padding: 20px;
+    margin-left: 60px;
+    
+}
+.form-group {
+    margin-left: 280px;
+    margin-bottom: 15px;
+}
+label {
+    font-weight: bold;
+    
+
+}
+select, input[type="number"], input[type="text"], input[type="email"] , input[type="tel"]{
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #000000;
+    border-radius: 5px;
+    background: #D9D9D9;
+}
+/*Side bar buttons*/
+
+.button1 {
+    display: block;
+    width: 80%;
+    margin-top: 1%;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 10px;
+    background-color: #BAA484;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-color: #BAA484;
+    border-style: none;
+}
+.buttonprofile {
+    display: block;
+    width: 40%;
+    margin-top: 5%;
+    margin-bottom: 10px;
+    margin-left: 30%;
+    padding: 10px;
+    background-color: #BAA484;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    border-color: #BAA484;
+    border-style: none;
+}
+.buttonedit {  
+    display: block;
+    width: 60%;
+    margin-bottom: 10%;
+    margin-top: 10%;
+    padding: 50px;
+    background-color: #BAA484;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: 25%;
+
+}
+.button:hover {
+    background-color: #BAA484;
+}
+
+#grid-item-js {
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    
+}
+
+.formcontent .h4{
+    font-weight: bold;
+}
+
+.navbar button {
+    text-decoration: none;
+    display: block;
+    width: 80%;
+    margin-top: 20%;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    padding: 0px;
+    font-size: medium;
+    background-color: #BAA484;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+    border-color: #BAA484;
+    border-style: none;
+}
+
+.navbar button:hover {
+    background-color: #897546;
+}
+/*dashboard text*/
+.dashboard{
+    padding: 10px 0px;
+    color: white;
+    text-decoration: none;
+    display: block;
+    text-align: center;
+}
+table {
+    width: 60%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    margin-left: 30%;
+}
+
+table th {
+    background-color: #bc9b72;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table td {
+    padding: 5px;
+    border: 1px solid #ddd;
+    text-align: center;
+    margin-top: 10px;
 }
 
 table td[colspan="5"] {
