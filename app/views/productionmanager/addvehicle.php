@@ -15,7 +15,7 @@
         </div>
 
         <div class="sub-container content">
-            <form method="POST" style="padding: 3%;">
+            <form method="POST" style="padding: 3%;" action="http://localhost/we_bake/public/pmControls/createvehicle">
                 <div class="form-group"> 
                 <label for="registrationnumber">Registration Number:</label><br>
                 <input type="text" id="registrationnumber" name="registrationnumber" required><br><br>
@@ -27,10 +27,6 @@
                 <div class="form-group"> 
                 <label for="capacity">Capacity:</label><br>
                 <input type="number" id="capacity" name="capacity" required><br><br>
-                </div>
-                <div class="form-group"> 
-                <label for="vehicleno">Vehicle No:</label><br>
-                <input type="text" id="vehicleno" name="vehicleno" required><br><br>
                 </div>
                 <div class="form-group"> 
                 <label for="chassinumber">Chassis Number:</label><br>

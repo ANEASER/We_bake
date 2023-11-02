@@ -19,47 +19,41 @@
                 <button class="formbutton" onclick="add()">Add New Vehicle</button>
             </div>
             <div>
-            <table style="border-collapse: collapse; width: 100%;">
-                <tr>
+                <?php
+            echo '<table style="border-collapse: collapse; width: 100%;">';
+            echo '<tr>
                     <th>Registration Number</th>
                     <th>Type</th>
                     <th>Capacity</th>
                     <th>Availability</th>
-                    <th>Vehicle Number</th>
                     <th>Chassis Number</th>
+                    <th>Vehicle Number</th>
                     <th>Engine Number</th>
                     <th>Model Name</th>
                     <th>Update</th>
                     <th>Delete</th>
-                </tr>
-                <tr>
-                    <td>ABC1234567890</td>
-                    <td>Truck</td>
-                    <td>5000</td>
-                    <td>1</td>
-                    <td>001</td>
-                    <td>CHASSIS123</td>
-                    <td>ENGINE456</td>
-                    <td>Truck Model X</td>
-                    <td><button class="formbutton" onclick="edit()">Update</button></td>
-                    <td><button class="formbutton" onclick="window.location.href='deletesupplier.php'">Delete</button></td>
-                </tr>
-                <tr>
-                    <td>XYZ9876543210</td>
-                    <td>Van</td>
-                    <td>1500</td>
-                    <td>1</td>
-                    <td>002</td>
-                    <td>CHASSIS789</td>
-                    <td>ENGINE789</td>
-                    <td>Van Model Y</td>
-                    <td><button class="formbutton" onclick="edit()">Update</button></td>
-                    <td><button class="formbutton" onclick="window.location.href='deletesupplier.php'">Delete</button></td>
-                </tr>
-            </table>
+                </tr>';
+                foreach ($vehicles as  $vehicle) {
+                        echo '<tr>';
+                        echo '<td>' . $vehicle->registrationnumber. '</td>';
+                        echo '<td>' . $vehicle->type . '</td>';
+                        echo '<td>' . $vehicle->capacity . '</td>';
+                        echo '<td>' . $vehicle->availability . '</td>';
+                        echo '<td>' . $vehicle->chassinumber . '</td>';
+                        echo '<td>' . $vehicle->vehicleno  . '</td>';
+                        echo '<td>' . $vehicle->enginenumber . '</td>';
+                        echo '<td>' . $vehicle->modelname . '</td>';
+                        echo '<td><button onclick="edit(' . $vehicle->vehicleno . ')">Update</button></td>';
+                        echo '<td><button onclick="del(' . $vehicle->vehicleno . ')">Delete</button></td>';
+                        echo '</tr>';
+                     }
+                
+                echo'</table>'; ?>
             </div>
         </div>
-    </div>
+    </div> 
+
+
     <script>
         function back() {
             window.location.href = "http://localhost/we_bake/public/pmControls";
@@ -71,6 +65,14 @@
 
         function edit() {
             window.location.href = "http://localhost/we_bake/public/pmControls/editVehicle";
+        }
+
+        function del(vehicleid) {
+            window.location.href = "http://localhost/we_bake/public/pmControls/deletevehicle/"+vehicleid;
+        }
+
+        function edit(vehicleid) {
+            window.location.href = "http://localhost/we_bake/public/pmControls/EditVehicleView/"+vehicleid;
         }
     </script>
 </body>
