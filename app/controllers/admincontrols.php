@@ -162,7 +162,9 @@
 
         //view edit functions
         function EditItem($id){
-            echo $this->view("admin/edititem", ["id" => $id]);
+            $productitem = new ProductItem();
+            $data = $productitem->where("itemid", $id);
+            echo $this->view("admin/edititem", ["data" => $data]);
         }
 
         function EditOutlet(){
@@ -174,7 +176,9 @@
         }
 
         function EditUser($id){
-            echo $this->view("admin/editsystemuser", ["id" => $id]);
+            $systemuser = new Systemuser();
+            $data = $systemuser->where("UserID", $id);
+            echo $this->view("admin/editsystemuser", ["data" => $data]);
         }
 
     }

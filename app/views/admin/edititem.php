@@ -52,24 +52,24 @@
         <div class="content">
             <form  method="POST" style="padding: 3%;" action="http://localhost/we_bake/public/AdminControls/editproduct">
 
-                <input type="hidden" name="id" value="<?php echo $id; ?>"> 
+                <input type="hidden" name="id" value="<?php echo $data[0]->itemid; ?>"> 
                 
                 <div class="form-group">
                 <label for="itemname">Item Name:</label><br>
-                    <input type="text" id="itemname" name="itemname"><br><br>
+                    <input type="text" id="itemname" name="itemname" placeholder="<?php echo $data[0]->itemname; ?>"><br><br>
                 </div>
 
                 <div class="form-group"> 
                     <label for="retailprice">Retail Price:</label><br>
-                    <input type="number" id="retailprice" name="retailprice"><br><br>
+                    <input type="number" id="retailprice" name="retailprice" placeholder="<?php echo $data[0]->retailprice; ?>"><br><br>
                 </div> 
                 <div class="form-group"> 
                     <label for="stockprice">Stock Price:</label><br>
-                    <input type="number" id="stockprice" name="stockprice"><br><br>
+                    <input type="number" id="stockprice" name="stockprice" placeholder="<?php echo $data[0]->stockprice; ?>"><br><br>
                 </div>
                 <div class="form-group"> 
                     <label for="itemdescription">Item Description:</label><br>
-                    <textarea id="itemdescription" name="itemdescription" rows="4"></textarea><br><br>
+                    <textarea id="itemdescription" name="itemdescription" rows="4" placeholder="<?php echo $data[0]->itemdescription; ?>"></textarea><br><br>
                 </div>
                 <div class="button-container" style="align-self: left"> 
                     <input class="formbutton" type="submit" value="Submit">
