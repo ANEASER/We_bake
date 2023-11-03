@@ -16,9 +16,22 @@
             align-self: center;
             width: 150px;
         }
+
+        .homeisland {
+            background: rgba(255, 183, 88, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(14.3px);
+            -webkit-backdrop-filter: blur(14.3px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            font-weight: bolder;
+
+        }
     </style>
 </head>
-<body style="font-family: 'Poppins', sans-serif; margin-top:0%;">
+<body style="font-family: 'Poppins', sans-serif; margin-top:0%;background-image: url('https://png.pngtree.com/background/20230519/original/pngtree-large-display-of-bread-picture-image_2664293.jpg'); 
+            background-repeat: no-repeat;
+            font-family: 'Poppins', sans-serif;
+            background-size: cover; ">
 <!--<div class="header">
         <h1>Our Menu</h1>
     </div>-->
@@ -28,7 +41,7 @@
         ?>
     
     <div class="sub-container" >
-        <table>
+        <table class="homeisland">
             <tr>
                 <th>Product Code</th>
                 <th>Product Name</th>

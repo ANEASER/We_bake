@@ -10,13 +10,22 @@
 
             $customer = new Customer();
             $data = $customer->where("UserName", $_SESSION["USER"]->UserName);
-            echo $this->view("customer/customerdash",[ "data" => $data]);
+            echo $this->view("customer/customerdash",["data" => $data[0]]);
         }
         function viewmenu(){
+
             echo $this->view("customer/viewmenu");
         }
         function profile(){
-            echo $this->view("customer/profile");
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            $customer = new Customer();
+            $data = $customer->where("UserName", $_SESSION["USER"]->UserName);
+
+            echo $this->view("customer/profile",[ "data" => $data[0] ]);
         }
         function placeorder(){
             echo $this->view("customer/placeorder");

@@ -14,7 +14,7 @@
 
         <div class="content">
             <div style="margin-left:-5%">
-                <button class="formbutton"  onclick="add()">Add New User</button>
+                <button class="addbutton"  onclick="add()">Add New User</button>
             </div>
             <div>
             

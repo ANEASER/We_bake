@@ -39,7 +39,7 @@ body, ul, li {
 }
 
 .navbar li {
-    padding: 0;
+    padding-left: 10%;
 }
 
 .navbar a {
@@ -121,11 +121,21 @@ select
     align-self: center;
 }
 
+.addbutton{
+    background-color: #bc9b72;
+    color: white;
+    border: none;
+    padding: 3% 10% 3% 10%;
+    border-radius: 5px;
+    cursor: pointer;
+    align-self: center;
+}
+
 .formbutton {
     background-color: #bc9b72;
     color: white;
-    width: 60px;
     border: none;
+    padding: 3% 10% 3% 10%;
     border-radius: 5px;
     cursor: pointer;
     align-self: center;

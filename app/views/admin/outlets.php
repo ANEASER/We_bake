@@ -16,7 +16,7 @@
         <div class="content">
 
             <div style="margin-left:-5%">
-                <button class="formbutton" onclick="add()">Add New Outlets</button>
+                <button class="addbutton" onclick="add()">Add New Outlets</button>
             </div>
 
             <div>

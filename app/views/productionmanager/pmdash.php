@@ -54,7 +54,7 @@
 </head>
 <body>
     <div class="navbar">
-    <h1 class="dashboard">PM dash</h1>
+    <h1 class="dashboard">Production Manager</h1>
         <ul>
             <li><button class="navbutton" onclick="loadVehicles()">Vehicles</button></li>
             <li><button class="navbutton" onclick="logout()">Log Out</button></li>

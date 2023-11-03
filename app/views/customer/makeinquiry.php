@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make Inquiry</title>
     <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
+    <style>
+        .homeisland {
+            background: rgba(255, 183, 88, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(14.3px);
+            -webkit-backdrop-filter: blur(14.3px);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+        }
+    </style>
 </head>
 <body style="font-family: 'Poppins', sans-serif;">
    <!-- <div class="header">
@@ -17,7 +26,7 @@
         ?>
     
     <div class="sub-container" >
-    <h1style="text-align:center;">Place Your Inquiry Here</h1style=>
+    
     <form action="customerdash.php">
         <h2 align="center">Inquiry Details</h2>
 
@@ -56,7 +65,7 @@
             </div>
 
             <input type="submit" value="Save">
-            <input type="submit" value="Cancle">
+            <input type="submit" value="Cancel">
         </form>
             
     </div>
