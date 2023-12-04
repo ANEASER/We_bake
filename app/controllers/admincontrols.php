@@ -75,6 +75,7 @@
             $arr["Address"] = $_POST["Address"];
             $arr["Role"] = $_POST["Role"];
             $arr["UserName"] = $_POST["UserName"];
+            $arr["Password"] = $_POST["Password1"];
 
             $systemuser->insert($arr);
 
@@ -161,7 +162,9 @@
 
         //view edit functions
         function EditItem($id){
-            echo $this->view("admin/edititem", ["id" => $id]);
+            $productitem = new ProductItem();
+            $data = $productitem->where("itemid", $id);
+            echo $this->view("admin/edititem", ["data" => $data]);
         }
 
         function EditOutlet(){
@@ -173,7 +176,9 @@
         }
 
         function EditUser($id){
-            echo $this->view("admin/editsystemuser", ["id" => $id]);
+            $systemuser = new Systemuser();
+            $data = $systemuser->where("UserID", $id);
+            echo $this->view("admin/editsystemuser", ["data" => $data]);
         }
 
     }

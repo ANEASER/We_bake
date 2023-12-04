@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<div class="navbar">
-    <h1 class="dashboard"> Receptionist Dashboard</h1>
+
+    <h1 > Receptionist Dashboard</h1>
         <ul>
-            <li><button class="navbutton" onclick="loadDash()">Home</button></li>
-            <li><button class="navbutton" onclick="loadProfile()">Profile</button></li>
-            <li><button class="navbutton" onclick="loadHistory()">Purchase History</button></li>
-            <li><button class="navbutton" onclick="loadOrders()">Orders</button></li>
-            <li><button class="navbutton" onclick="logout()">Logout</button></li>
+            <li><button onclick="loadDash()">Home</button></li>
+            <li><button onclick="loadProfile()">Profile</button></li>
+            <li><button onclick="loadHistory()">Purchase History</button></li>
+            <li><button onclick="loadOrders()">Orders</button></li>
+            <li><button onclick="logout()">Logout</button></li>
         </ul>
-</div>
+
 
 <script>
 

@@ -1,10 +1,10 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<body style="font-family: 'Poppins', sans-serif;margin-top:0">
+<body>
 <div>
-<div class="navbar">
-    <h1 class="dashboard"> Customer Dashboard</h1>
+<div >
+    <h1> Customer Dashboard</h1>
             <button onclick="customerdash()">Home</button>
             <button onclick="viewmenu()">View Menu</button>
             <button onclick="viewCart()">View Cart</button>

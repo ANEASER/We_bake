@@ -4,18 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Receptionist_Purchase History</title>
-    <link rel="stylesheet" type="text/css" href="http:\\localhost\we_bake\app\views\receptionist\receptionist.css">
 </head>
 <body>
-<div class="header">
-        <h1>Your Purchase History</h1>
-    </div>
-    <div class="container">
-
+        <h1>Receptionist_Purchase History</h1>
         <?php
         include "sidebar.php"
         ?>
-    
-    
 </body>
 </html>
