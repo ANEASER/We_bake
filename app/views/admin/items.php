@@ -3,23 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
     <title>Item</title>
 </head>
-<body style="font-weight: 800">
+<body>
    
-    <div class="container">
-    <?php
-        include "adminnav.php"
-    ?>
 
-        <div class="content">
-            <div class="suppdash" style="margin-left:-5%">
-                <button class="formbutton" onclick="add()">Add New Products</button>
-            </div>
+            <?php
+                include "adminnav.php"
+            ?>
+            
+            <button  onclick="add()">Add New Products</button>
 
-            <div>
-                
             <?php
                 echo '<table style="margin-left:-5%">';
                 echo '<tr>
@@ -47,15 +41,8 @@
                 
                 echo '</table>';
                 ?>
-            </div>
-        </div>
-    </div>
 
     <script>
-        function back() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls";
-        }
-
         function add() {
             window.location.href = "http://localhost/we_bake/public/AdminControls/AddItem";
         }

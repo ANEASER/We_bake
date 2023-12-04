@@ -80,7 +80,11 @@
         }
 
         function EditVehicleView($vehicleid){
-            echo $this->view("productionmanager/editvehicle",["vehicleid"=>$vehicleid]);
+
+            $vehicle = new Vehicle();
+            $data = $vehicle->where("vehicleno",$vehicleid);
+
+            echo $this->view("productionmanager/editvehicle",["data"=>$data]);
         }
 
     }

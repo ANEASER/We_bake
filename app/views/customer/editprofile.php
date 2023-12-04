@@ -4,26 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Customer Profile</title>
-    <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
-
 </head>
-<body style="font-family: 'Poppins', sans-serif;">
+<body >
 
 
-        <?php
-        include "sidebar.php"
-        ?>
-    
-    <div class="sub-container" >
-        <div>
-        <h1 style="text-align:center;">Edit Your Profile</h1>
-            <div>
-                <button onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
-            </div>
-            <div>
-                <button onclick="changepassword()" class="buttonedit">Change Password</button>
-            </div>
-    </div>
+    <button onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
+
+    <button onclick="changepassword()" class="buttonedit">Change Password</button>
+
     <script>
     function editprofiledetails(){
             window.location.href = "http://localhost/we_bake/public/customercontrols/editprofiledetails";
