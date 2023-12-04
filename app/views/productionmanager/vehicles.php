@@ -20,7 +20,7 @@
                     <th>Type</th>
                     <th>Capacity</th>
                     <th>Availability</th>
-                    <th>Chassis Number</th>
+                     <th>Chassis Number</th>
                     <th>Vehicle Number</th>
                     <th>Engine Number</th>
                     <th>Model Name</th>
@@ -64,4 +64,5 @@
     </script>
 </body>
 </html>
+
            
