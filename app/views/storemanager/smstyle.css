@@ -194,11 +194,11 @@ table td {
     border: 1px solid #ddd;
 }
 
-table td[colspan="5"] {
+/* table td[colspan="5"] {
     text-align: center;
     padding: 10px;
     color: #d9534f;
-}
+} */
 
 
 
