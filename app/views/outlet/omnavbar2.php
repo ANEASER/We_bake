@@ -3,10 +3,10 @@
 <body>
     
 
-<div class="navbar">
-    <h1 class="dashboard"> Outlet Manager Dashboard</h1>
+<div>
+    <h1> Outlet Manager Dashboard</h1>
             <ul>
-            <li><button onclick = "Outletdash()">Home</button></li>
+                <li><button onclick = "Outletdash()">Home</button></li>
                 <li><button onclick = "PlaceOrder()">Place Order</button></li>
                 <li><button onclick = "PurchaseHistory()">Purchase History</button></li>
                 <li><button onclick="logout()">Logout</button></li>

@@ -6,17 +6,14 @@
     <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
     <title>System User</title>
 </head>
-<body style="font-weight: 800">
-    <div class="container">
+    <body>
     <?php
         include "adminnav.php"
     ?>
 
-        <div class="content">
-            <div  style="margin-left:-5%">
-                <button class="formbutton"  onclick="add()">Add New User</button>
-            </div>
-            <div>
+
+    <button onclick="add()">Add New User</button>
+
             
             <?php
                 echo '<table style="margin-left:-5%">';
@@ -48,22 +45,16 @@
                             echo '<td>' . $user->Role . '</td>';
                             echo '<td>' . $user->UserName . '</td>';
                             echo '<td>' . $user->Email . '</td>';
-                            echo '<td><button class="formbutton1" onclick="edit(' . $user->UserID . ')">Update</button></td>';
-                            echo '<td><button class="formbutton1" onclick="del(' . $user->UserID . ')">Delete</button></td>';
+                            echo '<td><button onclick="edit(' . $user->UserID . ')">Update</button></td>';
+                            echo '<td><button onclick="del(' . $user->UserID . ')">Delete</button></td>';
                             echo '</tr>';
                         }
                     }
 
                     echo '</table>';
             ?>
-            </div>   
-        </div>
-    </div>
-    <script>
-        function back() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls";
-        }
 
+    <script>
         function add() {
             window.location.href = "http://localhost/we_bake/public/AdminControls/addUser";
         }

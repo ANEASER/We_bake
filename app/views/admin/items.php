@@ -3,23 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
     <title>Item</title>
 </head>
-<body style="font-weight: 800">
+<body>
    
-    <div class="container">
-    <?php
-        include "adminnav.php"
-    ?>
 
-        <div class="content">
-            <div  style="margin-left:-5%">
-                <button class="formbutton" onclick="add()">Add New Products</button>
-            </div>
+            <?php
+                include "adminnav.php"
+            ?>
+            
+            <button  onclick="add()">Add New Products</button>
 
-            <div>
-                
             <?php
                 echo '<table style="margin-left:-5%">';
                 echo '<tr>
@@ -40,22 +34,15 @@
                     echo '<td>' . $item->stockprice . '</td>';
                     echo '<td>' . $item->itemdescription . '</td>';
                     echo '<td>' . $item->itemname . '</td>';
-                    echo '<td><button class="formbutton" onclick="edit(' . $item->itemid . ')">Update</button></td>';
-                    echo '<td><button class="formbutton" onclick="del(' . $item->itemid . ')">Delete</button></td>';
+                    echo '<td><button onclick="edit(' . $item->itemid . ')">Update</button></td>';
+                    echo '<td><button onclick="del(' . $item->itemid . ')">Delete</button></td>';
                     echo '</tr>';
                 }
                 
                 echo '</table>';
                 ?>
-            </div>
-        </div>
-    </div>
 
     <script>
-        function back() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls";
-        }
-
         function add() {
             window.location.href = "http://localhost/we_bake/public/AdminControls/AddItem";
         }

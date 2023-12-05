@@ -6,17 +6,13 @@
     <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
     <title>Vehicle</title>
 </head>
-<body style="font-weight: 800">
+<body>
     
-<?php
-        include "pnavbar.php"
-        ?>
+    
+            <h1>Vehicles</h1>
+        
+            <button class="formbutton" onclick="add()">Add New Vehicle</button>
 
-        <div class="content">
-            <div >
-                <button class="formbutton" onclick="add()">Add New Vehicle</button>
-            </div>
-            <div>
                 <?php
             echo '<table style="border-collapse: collapse; width: 100%;">';
             echo '<tr>
@@ -41,8 +37,8 @@
                         echo '<td>' . $vehicle->vehicleno  . '</td>';
                         echo '<td>' . $vehicle->enginenumber . '</td>';
                         echo '<td>' . $vehicle->modelname . '</td>';
-                        echo '<td><button  class="formbutton" onclick="edit(' . $vehicle->vehicleno . ')">Update</button></td>';
-                        echo '<td><button  class="formbutton" onclick="del(' . $vehicle->vehicleno . ')">Delete</button></td>';
+                        echo '<td><button  onclick="edit(' . $vehicle->vehicleno . ')">Update</button></td>';
+                        echo '<td><button  onclick="del(' . $vehicle->vehicleno . ')">Delete</button></td>';
                         echo '</tr>';
                      }
                 
@@ -53,16 +49,9 @@
 
 
     <script>
-        function back() {
-            window.location.href = "http://localhost/we_bake/public/pmControls";
-        }
 
         function add() {
             window.location.href = "http://localhost/we_bake/public/pmControls/addVehicle";
-        }
-
-        function edit() {
-            window.location.href = "http://localhost/we_bake/public/pmControls/editVehicle";
         }
 
         function del(vehicleid) {

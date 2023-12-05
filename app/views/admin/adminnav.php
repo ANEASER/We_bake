@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
 </head>
 <body>
-    <div class="navbar" style="width: 21%;">
-    <h1 class="dashboard">Admin Dashboard</h1>
+    <div>
+    <h1>Admin Dashboard</h1>
         <ul>
             <li><button class="navbutton" onclick="laodItems()">Items</button></li>
             <li><button class="navbutton" onclick="loadOutlets()">Outlets</button></li>
             <li><button class="navbutton" onclick="loadStocks()">Stocks</button></li>
             <li><button class="navbutton" onclick="loadUsers()">Users</button></li>
-            <li style="margin: 0;"><button class="navbutton" onclick="advertiesments()">Advertiesments</button></li>
+            <li><button class="navbutton" onclick="advertiesments()">Advertiesments</button></li>
             <li><button class="navbutton" onclick="logout()">Logout</button></li>
         </ul>
     </div>
