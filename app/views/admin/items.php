@@ -44,15 +44,15 @@
 
     <script>
         function add() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/AddItem";
+            window.location.href = BASE_URL + "AdminControls/AddItem";
         }
 
         function edit(itemid) {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/EditItem/"+itemid;
+            window.location.href = BASE_URL + "AdminControls/EditItem/"+itemid;
         }
 
         function del(itemid) {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/deleteproduct/"+itemid;
+            window.location.href = BASE_URL + "AdminControls/deleteproduct/"+itemid;
         }
     </script>
 

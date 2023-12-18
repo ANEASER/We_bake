@@ -13,11 +13,11 @@
              
     <script>
         function loadLogin() {
-            window.location.href = "http://localhost/we_bake/public/CommonControls/loadLoginView";
+            window.location.href = BASE_URL + "CommonControls/loadLoginView";
         }
 
         function loadRegister() {
-            window.location.href = "http://localhost/we_bake/public/CommonControls/loadRegisterView";
+            window.location.href = BASE_URL + "CommonControls/loadRegisterView";
         }
 
         func

@@ -16,27 +16,27 @@
 </div>
 <script>
     function customerdash(){
-            window.location.href = "http://localhost/we_bake/public/customercontrols/customerdash";
+            window.location.href = BASE_URL +  "CustomerControls/customerdash";
 }
     function profile(){
-            window.location.href = "http://localhost/we_bake/public/customercontrols/profile";
+            window.location.href = BASE_URL +  "CustomerControls/profile";
 }
 function viewmenu(){
-            window.location.href = "http://localhost/we_bake/public/customercontrols/viewmenu";
+            window.location.href = BASE_URL +  "CustomerControls/viewmenu";
 }
     function purchasehistory(){
-            window.location.href = "http://localhost/we_bake/public/customercontrols/purchasehistory";
+            window.location.href = BASE_URL +  "CustomerControls/purchasehistory";
 }
     function makeinquiry(){
-            window.location.href = "http://localhost/we_bake/public/customercontrols/makeinquiry";
+            window.location.href = BASE_URL +  "CustomerControls/makeinquiry";
 }
 
 function logout() {
-    window.location.href = "http://localhost/we_bake/public/CommonControls/logout";
+    window.location.href = BASE_URL +  "CustomerControls/logout";
 }
 
 function viewCart(){
-    window.location.href = "http://localhost/we_bake/public/customercontrols/viewcart";
+    window.location.href = BASE_URL +  "CustomerControls/viewcart";
 }
 
 </script>

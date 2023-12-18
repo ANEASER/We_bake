@@ -5,7 +5,7 @@
         function index($id=null){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             $this->view("productionmanager/pmdash");
@@ -24,7 +24,7 @@
             $arr["modelname"] = $_POST["modelname"];
 
             $vehicle->insert($arr);
-            $this->redirect("http://localhost/we_bake/public/PmControls/loadVehiclesView");  
+            $this->redirect(BASE_URL."PmControls/loadVehiclesView");  
         }
 
         function loadVehiclesView(){
@@ -36,7 +36,7 @@
         function deletevehicle($vehicleid){
             $vehicle = new Vehicle();
             $vehicle->delete($vehicleid,"vehicleno");
-            $this->redirect("http://localhost/we_bake/public/PmControls/loadVehiclesView");
+            $this->redirect(BASE_URL."PmControls/loadVehiclesView");
         
         }
 
@@ -70,7 +70,7 @@
     
             echo $vehicle->update($vehicleid,"vehicleno",$data);
             //$vehicle = $vehicle->find($vehicleid,"vehicleno");
-            $this->redirect("http://localhost/we_bake/public/PmControls/loadVehiclesView");
+            $this->redirect(BASE_URL."PmControls/loadVehiclesView");
         }
 
 

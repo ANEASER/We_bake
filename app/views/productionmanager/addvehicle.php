@@ -8,7 +8,7 @@
 <body>
             <h1>Add Delivery Vehicle</h1>
 
-            <form method="POST" action="http://localhost/we_bake/public/pmControls/createvehicle">
+            <form method="POST" action="<?php echo BASE_URL; ?>PmControls/createvehicle">
                 
                 <label for="registrationnumber">Registration Number:</label><br>
                 <input type="text" id="registrationnumber" name="registrationnumber" required><br><br>

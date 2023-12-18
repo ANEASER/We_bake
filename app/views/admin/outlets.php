@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
-    <title>Outlet</title>
-</head>
 <body style="font-weight: 800">
    
     <?php
@@ -19,11 +16,11 @@
     <script>
 
         function add() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/addOutlet";
+            window.location.href = BASE_URL + "AdminControls/addOutlet";
         }
 
         function edit() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/EditOutlet";
+            window.location.href = BASE_URL + "AdminControls/EditOutlet";
         }
     </script>
 

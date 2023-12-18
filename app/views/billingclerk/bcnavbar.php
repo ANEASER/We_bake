@@ -13,15 +13,15 @@
 <script>
 
 function loadDash() {
-    window.location.href = "http://localhost/we_bake/public/billingcontrols";
+    window.location.href = BASE_URL +"public/BillingControls";
 }
 
 function loadProfile() {
-    window.location.href = "http://localhost/We_bake/public/BillingControls/viewProfile";
+    window.location.href = BASE_URL + "BillingControls/viewProfile";
 }
 
 function logout() {
-    window.location.href = "http://localhost/We_bake/public/CommonControls/logout";
+    window.location.href = BASE_URL + "CommonControls/logout";
 }
 
 </script>

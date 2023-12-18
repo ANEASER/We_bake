@@ -32,17 +32,17 @@ class CommonControls extends Controller {
                             Auth::authenticate($user);
                             
                             if ($role == 'admin') {
-                                $this->redirect("../admincontrols");
+                                $this->redirect(BASE_URL."AdminControls");
                             } elseif ($role == 'storemanager') {
-                                $this->redirect("../storecontrols");
+                                $this->redirect(BASE_URL."StoreControls");
                             } elseif ($role == 'receptionist') {
-                                $this->redirect("../Recieptioncontrols");
+                                $this->redirect(BASE_URL."RecieptionControls");
                             }elseif ($role == 'billingclerk') {
-                                $this->redirect("../billingcontrols");
+                                $this->redirect(BASE_URL."BillingControls");
                             } elseif($role=="outletmanager"){
-                                $this->redirect("../outletControls");}
+                                $this->redirect(BASE_URL."OutletControls");}
                             else {
-                                $this->redirect("../pmcontrols");
+                                $this->redirect(BASE_URL."Pmcontrols");
                             }
                         } else {
                             $error = "Invalid password username or password";
@@ -65,7 +65,7 @@ class CommonControls extends Controller {
                             
                             if ($_POST["password"] == $user->Password) {
                                 Auth::authenticate($user);
-                                $this->redirect("../customercontrols");
+                                $this->redirect(BASE_URL."CustomerControls");
                             } else {
                                 $error = "Invalid password";
                                 $this->view("common/login",["error"=>$error]);
@@ -107,7 +107,7 @@ class CommonControls extends Controller {
                 $customer->insert($arr);
                 echo "Registration Successful";
                 session_destroy();
-                $this->redirect("../commoncontrols/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             } else {
                 $err = "Invalid OTP"; 
                 $this->view("common/otpverification",["err"=>$err]);
@@ -161,7 +161,7 @@ class CommonControls extends Controller {
                         session_start();
                     }
                     $_SESSION['arr'] = $arr;
-                    $this->redirect("../commoncontrols/otpvalidation");
+                    $this->redirect(BASE_URL."CommonControls/otpvalidation");
                     }
                 }
             }
@@ -169,7 +169,7 @@ class CommonControls extends Controller {
 
     function logout() {
         Auth::logout();
-        $this->redirect("http://localhost/We_bake/public/CommonControls/loadLoginView");
+        $this->redirect(BASE_URL."CommonControls/loadLoginView");
         
     }
 }

@@ -15,16 +15,16 @@
 
     <script>
         function viewmenu(){
-                window.location.href = "http://localhost/we_bake/public/customercontrols/viewmenu";
+                window.location.href = BASE_URL +"CustomerControls/viewmenu";
         }
         function profile(){
-                window.location.href = "http://localhost/we_bake/public/customercontrols/profile";
+                window.location.href = BASE_URL + "CustomerControls/profile";
         }
         function purchasehistory(){
-                window.location.href = "http://localhost/we_bake/public/customercontrols/purchasehistory";
+                window.location.href = BASE_URL + "CustomerControls/purchasehistory";
         }
         function makeinquiry(){
-                window.location.href = "http://localhost/we_bake/public/customercontrols/makeinquiry";
+                window.location.href = BASE_URL + "CustomerControls/makeinquiry";
         }
     </script>
 </body>

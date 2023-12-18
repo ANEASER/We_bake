@@ -11,7 +11,7 @@
     <?php
         include "adminnav.php"
     ?>
-            <form  method="POST"  action="http://localhost/we_bake/public/AdminControls/editproduct">
+            <form  method="POST"  action="<?php echo BASE_URL; ?>AdminControls/editproduct">
 
                 <input type="hidden" name="id" value="<?php echo $data[0]->itemid; ?>"> 
                 

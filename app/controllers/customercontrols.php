@@ -5,7 +5,7 @@
         function index($id=null){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             $customer = new Customer();

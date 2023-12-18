@@ -9,7 +9,7 @@
 
             <h1>Edit Delivery Vehicle</h1>
            
-            <form method="POST" action="http://localhost/we_bake/public/PmControls/editvehicle">
+            <form method="POST" action="<?php echo BASE_URL; ?>PmControls/editvehicle">
 
                 <input type="hidden" name="id" value="<?php echo $data[0]->vehicleno; ?>">
 

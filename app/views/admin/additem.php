@@ -13,8 +13,7 @@
     ?>
 
         <div>
-            <form  method="POST" action="addproductitem">
-
+            <form method="POST" action="<?php echo BASE_URL; ?>AdminControls/addproductitem">
             
                 <label for="itemname">Item Name:</label><br>
                 <input type="text" id="itemname" name="itemname" required><br><br>

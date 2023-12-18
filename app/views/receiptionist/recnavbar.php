@@ -15,23 +15,23 @@
 <script>
 
 function loadDash() {
-    window.location.href = "http://localhost/We_bake/public/Recieptioncontrols";
+    window.location.href = BASE_URL +  "Recieptioncontrols";
 }
 
 function loadProfile() {
-    window.location.href = "http://localhost/We_bake/public/Recieptioncontrols/viewProfile";
+    window.location.href = BASE_URL +  "Recieptioncontrols/viewProfile";
 }
 
 function loadHistory() {
-    window.location.href = "http://localhost/We_bake/public/Recieptioncontrols/viewHistory";
+    window.location.href = BASE_URL +  "Recieptioncontrols/viewHistory";
 }
 
 function loadOrders() {
-    window.location.href = "http://localhost/We_bake/public/Recieptioncontrols/viewOrders";
+    window.location.href = BASE_URL +  "Recieptioncontrols/viewOrders";
 }
 
 function logout() {
-    window.location.href = "http://localhost/We_bake/public/CommonControls/logout";
+    window.location.href = BASE_URL +  "CommonControls/logout";
 }
 
 </script>

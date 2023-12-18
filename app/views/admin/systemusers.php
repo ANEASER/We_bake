@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
     <title>System User</title>
 </head>
     <body>
@@ -56,15 +55,15 @@
 
     <script>
         function add() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/addUser";
+            window.location.href = BASE_URL + "AdminControls/addUser";
         }
 
         function edit(user) {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/EditUser/"+user;
+            window.location.href = BASE_URL + "AdminControls/EditUser/"+user;
         }
 
         function del(user) {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/deletesystemuser/"+user;
+            window.location.href = BASE_URL + "AdminControls/deletesystemuser/"+user;
         }
 
     </script>
