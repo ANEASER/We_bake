@@ -29,7 +29,7 @@
 
             <div class="form-group">
                 <label for="stockItemExpireDate">Expire Date:</label>
-                <input type="date" id="stockItemExpireDate" name="expierydate" required>
+                <input type="date" id="stockItemExpireDate" name="expierydate"  required>
             </div>
 
             <div class="form-group">

@@ -6,13 +6,29 @@
     <title>Login</title>
 </head>
 <body>
-    <h1>OTP</h1>
-    <form method="POST" action="otpvalidation">
-        <label for="otp">otp</label>
-        <input type="text" id="otp" name="otp" required>
-        <br>
+    <?php
+        if (isset($err)){
+        echo "<p style='background-color:red; color:white;font-size: large; padding:1%'>$err</p>";}
+    ?>
+    <div>
+        
+        <form method="POST" action="otpvalidation" class="formisland">
+            <h1>Verify Your E-Mail</h1>
+            <div class="form-group">
+                <label for="otp">Enter the OTP code sent to your Email</label>
+                <input type="text" id="otp" name="otp" required>
+                <button type="submit">confirm</button>
+            </div>
+        </form>
 
-        <button type="submit">confirm</button>
-    </form>
+        <p>did't recieve OTP? <button onclick="resend()">Resend</button></p>
+    </div>
+    
+    <script>
+        function resend() {
+            window.location.href = "http://localhost/we_bake/public/CommonControls/otpvalidation";
+        }
+    </script>
+
 </body>
 </html>

@@ -4,18 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purchase History</title>
-    <link rel="stylesheet" type="text/css" href="http://localhost\we_bake\app\views\customer\customersytles.css">
 </head>
 <body>
-<div class="header">
-        <h1>Your Purchase History</h1>
-    </div>
-    <div class="container">
-
-        <?php
-        include "sidebar.php"
-        ?>
-    
-    
+     <h1>Purchase History</h1>
 </body>
 </html>
