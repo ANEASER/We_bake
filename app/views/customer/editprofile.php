@@ -14,10 +14,10 @@
 
     <script>
     function editprofiledetails(){
-            window.location.href = "http://localhost/we_bake/public/customercontrols/editprofiledetails";
+            window.location.href = BASE_URL + "CustomerControls/editprofiledetails";
 }
     function changepassword(){
-            window.location.href = "http://localhost/we_bake/public/customercontrols/changepassword";
+            window.location.href = BASE_URL + "CustomerControls/changepassword";
 }
 </script>
 </body>

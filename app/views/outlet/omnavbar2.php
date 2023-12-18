@@ -17,16 +17,16 @@
 <script>
 
 function PlaceOrder() {
-    window.location.href = "http://localhost/we_bake/public/outletControls/placeorder"};
+    window.location.href = BASE_URL +  "OutletControls/placeorder"};
 
 function PurchaseHistory() {
-    window.location.href = "http://localhost/we_bake/public/outletControls/purchasehistory"};
+    window.location.href = BASE_URL +  "OutletControls/purchasehistory"};
 
 function Outletdash() {
-    window.location.href = "http://localhost/we_bake/public/outletControls/outletdash"};
+    window.location.href = BASE_URL +  "OutletControls/outletdash"};
 
     function logout() {
-    window.location.href = "http://localhost/We_bake/public/CommonControls/logout";
+    window.location.href = BASE_URL +  "CommonControls/logout";
 }
 </script>
 

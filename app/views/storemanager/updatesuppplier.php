@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/storemanager/smstyle.css">
     <title>Store Manager_ Suppliers</title>
 </head>
 <body>
@@ -13,7 +12,7 @@
     <div class="content">
         <h1>Update Supplier</h1>
 
-        <form method="post" action="http://localhost/We_bake/public/StoreControls/editSupplier">
+        <form method="post" action="<?php echo BASE_URL; ?>StoreControls/editSupplier">
 
             <div>
                 <input type="hidden" name="id" value="<?php echo $data[0]->id ?>">

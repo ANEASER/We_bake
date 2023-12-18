@@ -10,9 +10,6 @@ class StoreControls extends Controller {
         $this->view("storemanager/smdash");
     }
 
-    /*function viewDash(){
-        echo $this->view("storemanager/smdash");
-    }*/
 
     function viewProfile(){
         echo $this->view("storemanager/profile");
@@ -27,9 +24,6 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/addsupplier");
     }
 
-    // function updateSupplier($id){
-    //     echo $this->view("storemanager/updatesuppplier", ["id" => $id]);
-    // }
 
     function addStockItem(){
         echo $this->view("storemanager/addstock");
@@ -60,8 +54,7 @@ class StoreControls extends Controller {
     function deleteSupplierData($idcolumn,$id){
         $supplier = new Supplier();
         $supplier->delete($id,$idcolumn);
-        $this->redirect("http://localhost/We_bake/public/StoreControls/viewSupplier");
-        //viewSupplier();
+        $this->redirect(BASE_URL."StoreControls/viewSupplier");
     }
 
     //Single Supplier
@@ -102,7 +95,7 @@ class StoreControls extends Controller {
         // die(print_r($data));
         echo $supplier->update($id,"id",$data);
 
-        $this->redirect("http://localhost/We_bake/public/StoreControls/viewSupplier");
+        $this->redirect(BASE_URL."StoreControls/viewSupplier");
     }
 }
 ?>

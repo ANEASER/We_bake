@@ -25,7 +25,7 @@
 
             $productitem->insert($arr);
 
-            $this->redirect("http://localhost/we_bake/public/AdminControls/loadItemsView");
+            $this->redirect(BASE_URL."AdminControls/loadItemsView");
 
         }
 
@@ -52,13 +52,13 @@
                 $data['itemdescription'] = $_POST['itemdescription'];
             }
             echo $productitem->update($id,"itemid",$data);
-            $this->redirect("http://localhost/we_bake/public/AdminControls/loadItemsView");
+            $this->redirect(BASE_URL."AdminControls/loadItemsView");
         }
 
         function deleteproduct($id){
             $productitem = new ProductItem();
             $productitem->delete($id,"itemid");
-            $this->redirect("http://localhost/we_bake/public/AdminControls/loadItemsView");
+            $this->redirect(BASE_URL."AdminControls/loadItemsView");
         }
 
 
@@ -79,7 +79,7 @@
 
             $systemuser->insert($arr);
 
-            $this->redirect("http://localhost/we_bake/public/AdminControls/loadUsersView");
+            $this->redirect(BASE_URL."AdminControls/loadUsersView");
         }
 
         function loadUsersView(){
@@ -91,7 +91,7 @@
         function deletesystemuser($id){
             $systemuser = new Systemuser();
             $systemuser->delete($id,"UserID");
-            $this->redirect("http://localhost/we_bake/public/AdminControls/loadUsersView");
+            $this->redirect(BASE_URL."AdminControls/loadUsersView");
         }
 
         function editsystemuser(){
@@ -123,13 +123,13 @@
                 $data['UserName'] = $_POST['UserName'];
             }
             echo $systemuser->update($id,"UserID",$data);
-            $this->redirect("http://localhost/we_bake/public/AdminControls/loadUsersView");
+            $this->redirect(BASE_URL."AdminControls/loadUsersView");
         }
 
 
 
         
-        //view table unctions
+        //view table functions
         function loadOutletsView(){
             echo $this->view("admin/outlets");
         }

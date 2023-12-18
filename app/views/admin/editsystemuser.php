@@ -10,7 +10,7 @@
         include "adminnav.php";
     ?>
     
-            <form method="POST" action="http://localhost/we_bake/public/AdminControls/editsystemuser">
+            <form method="POST" action="<?php echo BASE_URL; ?>AdminControls/editsystemuser">
 
             <input type="hidden" name="id" value="<?php echo $data[0]->UserID; ?>">
 
