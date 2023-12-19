@@ -8,10 +8,11 @@
 <body>
 
                 
-    <button onclick="viewmenu()" class="button1">View Menu</button>            
-    <button onclick="profile()" class="button1">Profile</button>
-    <button onclick="purchasehistory()" class="button1">Purchase History</button>
-    <button onclick="makeinquiry()" class="button1">Make Inquiry</button>
+    <button onclick="viewmenu()">View Menu</button>            
+    <button onclick="profile()">Profile</button>
+    <button onclick="purchasehistory()">Purchase History</button>
+    <button onclick="makeinquiry()">Make Inquiry</button>
+    <button onclick="placeorder()">Place order</button>
 
     <script>
 
@@ -29,6 +30,11 @@
         function makeinquiry(){
                 window.location.href = BASE_URL + "CustomerControls/makeinquiry";
         }
+        function placeorder(){
+                window.location.href = BASE_URL + "CustomerControls/placeorder";
+        }
+
+
     </script>
 </body>
 </html>
