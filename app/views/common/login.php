@@ -33,6 +33,9 @@
     </div>
 
     <script>
+        
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
         function loadRegister() {
             window.location.href = BASE_URL + "CommonControls/loadRegisterView";
         }

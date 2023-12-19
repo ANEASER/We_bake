@@ -13,6 +13,7 @@
 
 
 <script>
+var BASE_URL = "<?php echo BASE_URL; ?>";
 
 function loadDash() {
     window.location.href = BASE_URL +  "Recieptioncontrols";

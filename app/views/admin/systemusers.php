@@ -54,6 +54,9 @@
             ?>
 
     <script>
+
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+        
         function add() {
             window.location.href = BASE_URL + "AdminControls/addUser";
         }

@@ -14,6 +14,9 @@
     <button onclick="edit()">Update</button></td>
             
     <script>
+        
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
         function edit() {
             window.location.href = BASE_URL + "AdminControls/EditStock";
         }

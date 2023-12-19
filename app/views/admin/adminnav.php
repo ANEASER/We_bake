@@ -18,6 +18,9 @@
         </ul>
     </div>
     <script>
+
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
         function laodItems() {
             window.location.href = BASE_URL + "AdminControls/loadItemsView";
         }

@@ -63,6 +63,15 @@ class Model extends Database {
 
         return $this->query($query, $bindings);
     }
+
+
+    public function loadWithSort($sortColumn, $sortType) {
+
+        $query = "SELECT * FROM $this->table ORDER BY $sortColumn $sortType";
+        
+        return $this->query($query, []);
+
+    }
     
     
 }
