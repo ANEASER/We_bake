@@ -106,11 +106,14 @@
         function deletecart(){
             session_start();
             unset($_SESSION['cart']); // destroy cart
-            $this->redirect(BASE_URL."CustomerControls/purchasehistory");
+            $this->redirect(BASE_URL."CustomerControls/placeorder");
         }
 
         function purchasehistory(){
-            echo $this->view("customer/purchasehistory",);
+            session_start();
+            $productorder = new ProductOrder();
+            $orders = $productorder->where("placeby", $_SESSION["USER"]->UserName);
+            echo $this->view("customer/purchasehistory",[ "orders" => $orders]);
         }
 
         function makeinquiry(){
