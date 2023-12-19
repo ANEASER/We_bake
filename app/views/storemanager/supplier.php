@@ -14,6 +14,8 @@
         <h1>Suppliers</h1>
 
         <script>
+
+        var BASE_URL = "<?php echo BASE_URL; ?>";
         
         function addSuppliers() {
             window.location.href = BASE_URL +  "StoreControls/addSupplier";

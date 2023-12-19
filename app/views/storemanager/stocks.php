@@ -14,6 +14,8 @@
     </div>
     <script>
 
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
         function addStockItem() {
             window.location.href = BASE_URL +  "StoreControls/addStockItem";
         }

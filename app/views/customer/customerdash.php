@@ -14,6 +14,9 @@
     <button onclick="makeinquiry()" class="button1">Make Inquiry</button>
 
     <script>
+
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+        
         function viewmenu(){
                 window.location.href = BASE_URL +"CustomerControls/viewmenu";
         }

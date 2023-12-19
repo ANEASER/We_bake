@@ -15,29 +15,32 @@
 </div>
 </div>
 <script>
+
+    var BASE_URL = "<?php echo BASE_URL; ?>";
+
     function customerdash(){
             window.location.href = BASE_URL +  "CustomerControls/customerdash";
-}
+    }
     function profile(){
-            window.location.href = BASE_URL +  "CustomerControls/profile";
-}
-function viewmenu(){
-            window.location.href = BASE_URL +  "CustomerControls/viewmenu";
-}
+                window.location.href = BASE_URL +  "CustomerControls/profile";
+    }
+    function viewmenu(){
+                window.location.href = BASE_URL +  "CustomerControls/viewmenu";
+    }
     function purchasehistory(){
-            window.location.href = BASE_URL +  "CustomerControls/purchasehistory";
-}
+                window.location.href = BASE_URL +  "CustomerControls/purchasehistory";
+    }
     function makeinquiry(){
-            window.location.href = BASE_URL +  "CustomerControls/makeinquiry";
-}
+                window.location.href = BASE_URL +  "CustomerControls/makeinquiry";
+    }
 
-function logout() {
-    window.location.href = BASE_URL +  "CustomerControls/logout";
-}
+    function logout() {
+        window.location.href = BASE_URL +  "CustomerControls/logout";
+    }
 
-function viewCart(){
-    window.location.href = BASE_URL +  "CustomerControls/viewcart";
-}
+    function viewCart(){
+        window.location.href = BASE_URL +  "CustomerControls/viewcart";
+    }
 
 </script>
 </body>

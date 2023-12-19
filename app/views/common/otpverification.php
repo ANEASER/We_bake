@@ -25,6 +25,8 @@
     </div>
     
     <script>
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+        
         function resend() {
             window.location.href = BASE_URL + "CommonControls/otpvalidation";
         }

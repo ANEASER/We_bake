@@ -14,25 +14,27 @@
 
 <script>
 
-function loadDash() {
-    window.location.href = BASE_URL +  "StoreControls";
-}
+    var BASE_URL = "<?php echo BASE_URL; ?>";
 
-function loadProfile() {
-    window.location.href = BASE_URL +  "StoreControls/viewProfile";
-}
+    function loadDash() {
+        window.location.href = BASE_URL +  "StoreControls";
+    }
 
-function loadSuppliers() {
-    window.location.href = BASE_URL +  "StoreControls/viewSupplier";
-}
+    function loadProfile() {
+        window.location.href = BASE_URL +  "StoreControls/viewProfile";
+    }
 
-function loadStocks() {
-    window.location.href = BASE_URL +  "StoreControls/viewStocks";
-}
+    function loadSuppliers() {
+        window.location.href = BASE_URL +  "StoreControls/viewSupplier";
+    }
 
-function logout() {
-    window.location.href = BASE_URL +  "CommonControls/logout";
-}
+    function loadStocks() {
+        window.location.href = BASE_URL +  "StoreControls/viewStocks";
+    }
+
+    function logout() {
+        window.location.href = BASE_URL +  "CommonControls/logout";
+    }
 
 </script>
 

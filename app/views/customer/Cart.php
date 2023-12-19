@@ -7,6 +7,9 @@
 <body>
     <button  onclick="placeorder()" > Customer Checkout</button>
     <script>
+
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
         function placeorder(){
             window.location.href = BASE_URL +"CustomerControls/placeorder";
     }

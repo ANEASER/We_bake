@@ -13,12 +13,15 @@
     <button onclick="changepassword()" class="buttonedit">Change Password</button>
 
     <script>
+    
+    var BASE_URL = "<?php echo BASE_URL; ?>";
+    
     function editprofiledetails(){
-            window.location.href = BASE_URL + "CustomerControls/editprofiledetails";
-}
+                window.location.href = BASE_URL + "CustomerControls/editprofiledetails";
+    }
     function changepassword(){
-            window.location.href = BASE_URL + "CustomerControls/changepassword";
-}
-</script>
+                window.location.href = BASE_URL + "CustomerControls/changepassword";
+    }
+    </script>
 </body>
 </html>

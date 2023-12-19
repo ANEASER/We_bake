@@ -14,6 +14,8 @@
     </ul>
     
     <script>
+        
+        var BASE_URL = "<?php echo BASE_URL; ?>";
 
         function loadVehicles() {
             window.location.href = BASE_URL +  "PmControls/loadVehiclesView";
