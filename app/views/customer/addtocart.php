@@ -8,6 +8,8 @@
    <h1>Place Order - Bakery</h1>
 
     <form id="addToCartForm" method="post" action="<?php echo BASE_URL; ?>CustomerControls/storeinsession">
+
+        <input type="hidden" name="unique_id" value="<?php echo $unique_id; ?>">
         <?php
             echo '<table>';
             echo '<tr>

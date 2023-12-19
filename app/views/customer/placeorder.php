@@ -7,17 +7,24 @@
 <body>
    <h1>Place Order - Bakery</h1>
     
-   <button onclick="addtocart()">Add to cart Items</button>
+   
 
-   <script>
+   <form action="<?php echo BASE_URL; ?>CustomerControls/addtocart" method="post">
 
-         var BASE_URL = "<?php echo BASE_URL; ?>";
-         
-         function addtocart(){
-                window.location.href = BASE_URL +"CustomerControls/addtocart";
-         }
-         
-   </script>
+        <label for="orderdate">Order Date:</label>
+        <input type="date" id="orderdate" name="orderdate" required><br>
+
+        <label for="deliver_address">Deliver Adress</label>
+        <input type="text" id="deliver_address" name="deliver_address" required><br>
+        
+        <label for="deliverystatus">Delivery/Pickup:</label>
+        <select id="deliverystatus" name="deliverystatus" required>
+        <option value="delivery">Delivery</option>
+        <option value="pickup">Pickup</option>
+        </select><br>
+
+        <input type="submit" value="Submit">
+    </form>
 
 </body>
 </html>
