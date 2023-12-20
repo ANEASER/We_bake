@@ -34,7 +34,7 @@
 
             foreach($data["productorders"] as $productorder){ 
 
-                if($productorder->orderstatus == "Pending"){
+                if($productorder->orderstatus == "pending"){
                     echo "<tr>";
                     echo "<td>".$productorder->orderid."</td>";
                     echo "<td>".$productorder->placeby."</td>";
