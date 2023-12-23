@@ -20,12 +20,18 @@
     ?>
 
     <button onclick="checkout()">checkout</button>
+    <button onclick="cancel()">cancel</button>
+
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
         function checkout(){
             window.location.href = BASE_URL +"CustomerControls/checkout";
-    }
+        }
+
+        function cancel(){
+            window.location.href = BASE_URL +"CustomerControls/deletecart";
+        }
     </script>
 </body>
 </html>

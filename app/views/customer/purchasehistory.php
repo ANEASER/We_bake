@@ -7,7 +7,7 @@
 </head>
 <body>
      <h1>Purchase History</h1>
-     <button onclick="dashboard"> dash </button>
+     <button onclick="dashboard()"> dash </button>
      <?php
 
         echo '<table>';
