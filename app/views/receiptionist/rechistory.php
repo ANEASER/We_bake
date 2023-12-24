@@ -52,5 +52,17 @@
             echo "</table>";
     
     ?>
+
+    <script>
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
+        function cancel(orderid){
+            window.location.href = BASE_URL + "RecieptionControls/cancelOrder/" + orderid;
+        }
+
+        function more(unique_id){
+            window.location.href = BASE_URL + "RecieptionControls/moredetails/" + unique_id;
+        }
+    </script>
 </body>
 </html>

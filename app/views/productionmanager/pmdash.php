@@ -31,6 +31,7 @@
                 <th>Deliver Address</th>
                 <th>Update</th>
                 <th>Cancel</th>
+                <th>More</th>
             </tr>";
 
             foreach($data["productorders"] as $productorder){ 
@@ -74,6 +75,7 @@
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
                 <th>Update</th>
+                <th>More</th>
             </tr>";
 
             foreach($data["productorders"] as $productorder){ 
@@ -115,6 +117,7 @@
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
                 <th>Update</th>
+                <th>More</th>
             </tr>";
 
             foreach($data["productorders"] as $productorder){ 
@@ -156,6 +159,7 @@
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
                 <th>Update</th>
+                <th>More</th>
             </tr>";
 
             foreach($data["productorders"] as $productorder){ 

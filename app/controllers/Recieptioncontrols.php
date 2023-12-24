@@ -118,6 +118,11 @@ class RecieptionControls extends Controller {
         $this->redirect(BASE_URL."RecieptionControls/rechistory");
     }
 
+    function moredetails($unique_id){
+        $productorderline = new ProductOrderLine();
+        $productorderlines = $productorderline->where("unique_id",$unique_id);
+        echo $this->view("receiptionist/moredetailsorder",["productorderlines"=>$productorderlines]);
+    }
     
     
     function index($id = null) {

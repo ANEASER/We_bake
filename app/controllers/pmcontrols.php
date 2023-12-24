@@ -41,7 +41,7 @@
 
         function moredetails($unique_id){
             $productorderline = new ProductOrderLine();
-            $productorderlines = $productorderline->where("unique_id",$unique_id,);
+            $productorderlines = $productorderline->where("unique_id",$unique_id);
             echo $this->view("productionmanager/moredetailsorder",["productorderlines"=>$productorderlines]);
         }
 
