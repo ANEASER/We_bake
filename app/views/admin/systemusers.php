@@ -15,7 +15,7 @@
 
             
             <?php
-                echo '<table style="margin-left:-5%">';
+                echo '<table>';
                 echo '<tr>
                         <th>Name</th>
                         <th>NIC</th>

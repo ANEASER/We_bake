@@ -13,6 +13,7 @@
     <button onclick="purchasehistory()">Purchase History</button>
     <button onclick="makeinquiry()">Make Inquiry</button>
     <button onclick="placeorder()">Place order</button>
+    <button class="navbutton" onclick="logout()">Log Out</button>
 
     <script>
 
@@ -32,6 +33,9 @@
         }
         function placeorder(){
                 window.location.href = BASE_URL + "CustomerControls/placeorder";
+        }
+        function logout() {
+            window.location.href = BASE_URL +  "CommonControls/logout";
         }
 
 

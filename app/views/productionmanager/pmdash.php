@@ -18,7 +18,8 @@
         
             echo "<table>";
             echo "<tr>
-                <th>Product Order ID</th>
+                <th>Order ID</th>
+                <th>Placed By</th>
                 <th>Order Date</th>
                 <th>Delivery Date</th>
                 <th>Payment Status</th>
@@ -30,6 +31,7 @@
                 <th>Deliver Address</th>
                 <th>Update</th>
                 <th>Cancel</th>
+                <th>More</th>
             </tr>";
 
             foreach($data["productorders"] as $productorder){ 
@@ -61,7 +63,8 @@
         
             echo "<table>";
             echo "<tr>
-                <th>Product Order ID</th>
+                <th>Order ID</th>
+                <th>Placed By</th>
                 <th>Order Date</th>
                 <th>Delivery Date</th>
                 <th>Payment Status</th>
@@ -72,6 +75,7 @@
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
                 <th>Update</th>
+                <th>More</th>
             </tr>";
 
             foreach($data["productorders"] as $productorder){ 
@@ -101,7 +105,8 @@
         
             echo "<table>";
             echo "<tr>
-                <th>Product Order ID</th>
+                <th>Order ID</th>
+                <th>Placed By</th>
                 <th>Order Date</th>
                 <th>Delivery Date</th>
                 <th>Payment Status</th>
@@ -112,6 +117,7 @@
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
                 <th>Update</th>
+                <th>More</th>
             </tr>";
 
             foreach($data["productorders"] as $productorder){ 
@@ -141,8 +147,9 @@
         
             echo "<table>";
             echo "<tr>
-                <th>Product Order ID</th>
-                <th>Order Date</th>
+                <th>Order ID</th>
+                <th>Placed By</th>
+                <th>Placed By</th>
                 <th>Delivery Date</th>
                 <th>Payment Status</th>
                 <th>Delivery Status</th>
@@ -152,6 +159,7 @@
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
                 <th>Update</th>
+                <th>More</th>
             </tr>";
 
             foreach($data["productorders"] as $productorder){ 
@@ -182,7 +190,8 @@
         
             echo "<table>";
             echo "<tr>
-                <th>Product Order ID</th>
+                <th>Order ID</th>
+                <th>Placed By</th>
                 <th>Order Date</th>
                 <th>Delivery Date</th>
                 <th>Payment Status</th>
