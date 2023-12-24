@@ -14,6 +14,9 @@
         <label for="orderdate">Order Date:</label>
         <input type="date" id="orderdate" name="orderdate" required><br>
 
+        <label for="pickername">Picker Name:</label>
+        <input type="text" id="pickername" name="pickername" required><br>
+
         <label for="deliver_address">Deliver Adress</label>
         <input type="text" id="deliver_address" name="deliver_address" required><br>
         

@@ -7,7 +7,7 @@
             <li><button onclick="loadDash()">Home</button></li>
             <li><button onclick="loadProfile()">Profile</button></li>
             <li><button onclick="loadHistory()">Purchase History</button></li>
-            <li><button onclick="loadOrders()">Orders</button></li>
+            <li><button onclick="PlaceOrders()">Place Orders</button></li>
             <li><button onclick="logout()">Logout</button></li>
         </ul>
 
@@ -27,8 +27,8 @@ function loadHistory() {
     window.location.href = BASE_URL +  "Recieptioncontrols/viewHistory";
 }
 
-function loadOrders() {
-    window.location.href = BASE_URL +  "Recieptioncontrols/viewOrders";
+function PlaceOrders() {
+    window.location.href = BASE_URL +  "Recieptioncontrols/existingcustomer";
 }
 
 function logout() {

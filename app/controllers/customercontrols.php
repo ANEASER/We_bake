@@ -29,6 +29,7 @@
             $_SESSION["date"] = $_POST['orderdate'];
             $_SESSION["adress"] = $_POST['deliver_address'];
             $_SESSION["deliverstatus"] = $_POST['deliverystatus'];
+            $_SESSION['picker'] = $_POST['pickername'];
 
             $unique_id = uniqid();
             
@@ -93,6 +94,7 @@
             $arr2["placeby"] = $_SESSION["USER"]->UserName;
             $arr2["orderstatus"] = "pending";
             $arr2["paymentstatus"] = "pending";
+            $arr2["pickername"] = $_SESSION["picker"];
             $arr2["total"] = $total;
 
             $productorder->insert($arr2);
