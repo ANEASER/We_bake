@@ -7,6 +7,7 @@
             <li><button class="navbutton" onclick="loadDash()">Home</button></li>
             <li><button class="navbutton" onclick="loadProfile()">Profile</button></li>
             <li><button class="navbutton" onclick="logout()">Logout</button></li>
+            <li><button class="navbutton" onclick="loadDash()">Home</button></li>
         </ul>
 </div>
 
