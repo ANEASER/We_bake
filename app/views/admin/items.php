@@ -15,7 +15,7 @@
             <button  onclick="add()">Add New Products</button>
 
             <?php
-                echo '<table style="margin-left:-5%">';
+                echo '<table>';
                 echo '<tr>
                     <th>Item ID</th>
                     <th>Retail Price</th>

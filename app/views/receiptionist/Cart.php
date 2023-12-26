@@ -26,11 +26,11 @@
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
         function checkout(){
-            window.location.href = BASE_URL +"CustomerControls/checkout";
+            window.location.href = BASE_URL +"RecieptionControls/checkout";
         }
 
         function cancel(){
-            window.location.href = BASE_URL +"CustomerControls/deletecart";
+            window.location.href = BASE_URL +"RecieptionControls/deletecart";
         }
     </script>
 </body>

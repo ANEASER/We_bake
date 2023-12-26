@@ -8,7 +8,58 @@
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
-            $this->view("productionmanager/pmdash");
+            $productorder = new ProductOrder();
+            $productorders = $productorder->findall();
+            $this->view("productionmanager/pmdash", ["productorders" => $productorders]);
+        }
+
+        //order handle
+        function processOrder($orderid){
+            $productorder = new ProductOrder();
+            $productorder->update($orderid,"orderid",["orderstatus"=>"processing"]);
+            $this->redirect(BASE_URL."PmControls/index");
+        }
+
+        function completedOrder($orderid){
+            $productorder = new ProductOrder();
+            $vehicle = new Vehicle();
+
+            $order = $productorder->where("orderid",$orderid);
+            $vehicleno = $order[0]->deliverby;
+
+            $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
+            $vehicle->update($vehicleno,"vehicleno",["availability"=>1]);
+            
+            $this->redirect(BASE_URL."PmControls/index");
+        }
+
+        function cancelOrder($orderid){
+            $productorder = new ProductOrder();
+            $productorder->update($orderid,"orderid",["orderstatus"=>"cancelled"]);
+            $this->redirect(BASE_URL."PmControls/index");
+        }
+
+        function moredetails($unique_id){
+            $productorderline = new ProductOrderLine();
+            $productorderlines = $productorderline->where("unique_id",$unique_id);
+            echo $this->view("productionmanager/moredetailsorder",["productorderlines"=>$productorderlines]);
+        }
+
+        function showassignvehicles($orderid){  
+            $vehicle = new Vehicle();
+            $vehicles = $vehicle->where("availability",1);
+            echo $this->view("productionmanager/assignvehicle",["orderid"=>$orderid, "vehicles"=>$vehicles]);
+        }
+
+        function assignvehicle($vehicleno, $orderid){
+            $productorder = new ProductOrder();
+            $vehicle = new Vehicle();
+
+            $vehicle->update($vehicleno,"vehicleno",["availability"=>0]);
+            $productorder->update($orderid,"orderid",["deliverby"=>$vehicleno]);
+            $productorder->update($orderid,"orderid",["orderstatus"=>"ondelivery"]);
+
+            $this->redirect(BASE_URL."PmControls/index");
         }
 
 
