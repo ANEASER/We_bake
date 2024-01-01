@@ -22,6 +22,7 @@
             $arr["retailprice"] = $_POST["retailprice"];
             $arr["stockprice"] = $_POST["stockprice"];
             $arr["itemdescription"] = $_POST["itemdescription"];
+            $arr["category"] = $_POST["category"];
 
             $productitem->insert($arr);
 

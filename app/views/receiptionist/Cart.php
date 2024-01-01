@@ -21,6 +21,8 @@
 
     <button onclick="checkout()">checkout</button>
     <button onclick="cancel()">cancel</button>
+    <button onclick="edit()">edit</button>
+    <button onclick="addmore()">addmore</button>
 
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
@@ -31,6 +33,14 @@
 
         function cancel(){
             window.location.href = BASE_URL +"RecieptionControls/deletecart";
+        }
+
+        function edit(){
+            window.location.href = BASE_URL +"RecieptionControls/updatecart";
+        }
+
+        function addmore(){
+            window.location.href = BASE_URL +"RecieptionControls/showcategories";
         }
     </script>
 </body>

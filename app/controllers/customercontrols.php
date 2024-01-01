@@ -23,8 +23,7 @@
             echo $this->view("customer/placeorder");
         }
 
-        function addtocart(){
-
+        function submitorder(){
             session_start();
             $_SESSION["date"] = $_POST['orderdate'];
             $_SESSION["adress"] = $_POST['deliver_address'];
@@ -32,10 +31,34 @@
             $_SESSION['picker'] = $_POST['pickername'];
 
             $unique_id = uniqid();
+            $_SESSION['unique_id'] = $unique_id;
+
+            $this->redirect(BASE_URL."CustomerControls/showcategories");
+        }
+
+        function showcategories(){
+            session_start();
+            $productitem = new ProductItem();
+            $categories = $productitem->getDistinct("category");
+            
+            $unique_id = $_SESSION['unique_id'];
+
+            if(!isset($_SESSION['cart'])){
+                $_SESSION['cart'] = array();
+            }
+            $cartItems = $_SESSION['cart'];
+            
+            echo $this->view("customer/showcategories",[ "categories" => $categories,  "unique_id" => $unique_id, "cartItems" => $cartItems]);
+        }
+
+        // need to use after above
+        function addtocart($category){
+            session_start();
+            echo $category;
             
             $productitem = new ProductItem();
-            $items = $productitem->findall();
-            echo $this->view("customer/addtocart", [ "items" => $items, "unique_id" => $unique_id]);
+            $items = $productitem->where("category", $category);
+            echo $this->view("customer/addtocart", [ "items" => $items, "unique_id" => $_SESSION['unique_id']]);
         }
 
         function storeinsession(){
@@ -46,9 +69,31 @@
 
                 $unique_id = $_POST['unique_id'];
                 $items = $_POST['items'];
-                $_SESSION['cart'] = $items;
+                if (isset($_SESSION['cart'] )) {
+                    foreach ($items as $newItem) {
+                        $found = false;
+                
+                        // Check if the item with the same ID exists in the cart
+                        foreach ($_SESSION['cart'] as &$cartItem) {
+                            if ($newItem['id'] === $cartItem['id']) {
+                                // Update the quantity
+                                $cartItem['quantity'] += $newItem['quantity'];
+                                $found = true;
+                                break;
+                            }
+                        }
+                
+                        // If the item is not found in the cart, add it
+                        if (!$found) {
+                            $_SESSION['cart'][] = $newItem;
+                        }
+                    }
+                } else {
+                    $_SESSION['cart'] = $items;
+                }
+                
                 $_SESSION['unique_id'] = $unique_id;
-                echo $this->view("customer/Cart");
+                $this->redirect(BASE_URL."CustomerControls/showcategories");
 
             } else {
                 echo "Form not submitted!";
@@ -105,10 +150,59 @@
                 
         }
 
+        // Cart
+        function viewcart(){
+            session_start();
+            $cartItems = $_SESSION['cart'];
+            $unique_id = $_SESSION['unique_id'];
+
+            echo $this->view("customer/Cart",[ "cartItems" => $cartItems, "unique_id" => $unique_id]);
+        }
+
+        function updatecart(){
+            session_start();
+            $cartItems = $_SESSION['cart'];
+            $unique_id = $_SESSION['unique_id'];
+
+            echo $this->view("customer/updatecart",[ "cartItems" => $cartItems, "unique_id" => $unique_id]);
+        }
+
+        function deletecartitem($id){
+            session_start();
+            $cartItems = $_SESSION['cart'];
+            
+            foreach ($cartItems as $key => $item) {
+                if ($item['id'] === $id) {
+                    unset($cartItems[$key]);
+                    break;
+                }
+            }
+
+            $_SESSION['cart'] = $cartItems;
+
+            $this->redirect(BASE_URL."CustomerControls/updatecart");
+        }
+
+        function editcartitem($id, $quantity){
+            session_start();
+            $cartItems = $_SESSION['cart'];
+            
+            foreach ($cartItems as $key => $item) {
+                if ($item['id'] === $id) {
+                    $cartItems[$key]['quantity'] = $quantity;
+                    break;
+                }
+            }
+
+            $_SESSION['cart'] = $cartItems;
+
+            $this->redirect(BASE_URL."CustomerControls/updatecart");
+        }
+
         function deletecart(){
             session_start();
             unset($_SESSION['cart']); // destroy cart
-            $this->redirect(BASE_URL."CustomerControls/placeorder");
+            $this->redirect(BASE_URL."CustomerControls/showcategories");
         }
 
         function purchasehistory(){
@@ -136,10 +230,6 @@
 
         function editprofile(){
             echo $this->view("customer/editprofile");        
-        }
-
-        function viewcart(){
-            echo $this->view("customer/Cart");        
         }
 
         function logout(){

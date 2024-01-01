@@ -3,6 +3,11 @@ class BillingControls extends Controller {
     
     
     function index($id = null) {
+
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        
         $productorder = new ProductOrder();
         $productorders = $productorder->findall();
         $this->view("billingclerk/billingdash",["productorders" => $productorders]);
