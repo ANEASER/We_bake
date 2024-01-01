@@ -99,6 +99,7 @@ class RecieptionControls extends Controller {
     //cart
     function viewcart(){
         
+        session_start();
         $cartItems = $_SESSION['cart'];
         $unique_id = $_SESSION['unique_id'];
 
