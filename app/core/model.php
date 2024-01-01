@@ -73,6 +73,11 @@ class Model extends Database {
 
     }
     
+    // get distinct items
+    public function getDistinct($column) {
+        $query = "SELECT DISTINCT $column FROM $this->table";
+        return $this->query($query, []);
+    }
     
 }
 ?>

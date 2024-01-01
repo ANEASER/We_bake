@@ -26,6 +26,22 @@
             
                 <label for="itemdescription">Item Description:</label><br>
                 <textarea id="itemdescription" name="itemdescription" rows="4" required></textarea><br><br>
+
+                <label for="category">Category:</label><br>
+                <select id="category" name="category">
+                    <option value="Bread">Bread</option>
+                    <option value="Pastries">Pastries</option>
+                    <option value="Cakes">Cakes</option>
+                    <option value="Cookies">Cookies</option>
+                    <option value="Muffins">Muffins</option>
+                    <option value="Doughnuts">Doughnuts</option>
+                    <option value="Pies">Pies</option>
+                    <option value="Rolls and Buns">Rolls and Buns</option>
+                    <option value="Sandwiches">Sandwiches</option>
+                    <option value="Pizza">Pizza</option>
+                    <option value="Others">Others</option>
+
+                </select><br><br>
             
                 <input type="submit" value="Submit">
 
