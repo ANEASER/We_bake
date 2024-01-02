@@ -2,16 +2,16 @@
 class RecieptionControls extends Controller {
     
     //order hancdle
-    function existingcustomer(){
-        $this->view("receiptionist/existingcustomer");
+    function customernumber(){
+        echo $this->view("receiptionist/existingcustomer");
     }
 
     function checkcustomer(){
         $customer = new Customer();
         $customerfound = $customer->where("contactNo", $_POST['phone']);
         if($customerfound){
-            echo "customer found";
-            $this->redirect(BASE_URL."RecieptionControls/placeOrders");
+            $customerusername = $customerfound[0]->UserName;
+            $this->redirect(BASE_URL."RecieptionControls/existingcustomer/$customerusername");
         }else{
             $this->redirect(BASE_URL."RecieptionControls/placeOrders");
         }
@@ -168,7 +168,9 @@ class RecieptionControls extends Controller {
             $arr["itemid"] = $item['id'];
             $arr["quantity"] = $item['quantity'];
             $arr["unique_id"] = $unique_id;
+            $arr["Itemcode"] = $productitemfound[0]->Itemcode;
             $arr["price" ]= $productitemfound[0]->retailprice;
+            $arr["Itemcode"] = $productitemfound[0]->Itemcode;
             $arr["totalprice"] = $productitemfound[0]->retailprice * $item['quantity'];
             $arr["unit"] = $productitemfound[0]->unit;
 
@@ -194,18 +196,26 @@ class RecieptionControls extends Controller {
 
         $productorder->insert($arr2);
 
+        $customer = new Customer();
+        $customerEmail = $customer->where("Email", $_SESSION["email"]);
 
-        $arr3["Name"] = $_SESSION["name"];
-        $arr3["Email"] = $_SESSION["email"];
-        $arr3["contactNo"] = $_SESSION["phone"];
-        $arr3["UserName"] = $_SESSION["name"];
+        if($customerEmail){
+            unset($_SESSION['unique_id']); // destroy unique_id
 
-        $customer->insert($arr3);
+            $this->redirect(BASE_URL."RecieptionControls/viewHistory");
+        }
+        else{
+            $arr3["Name"] = $_SESSION["name"];
+            $arr3["Email"] = $_SESSION["email"];
+            $arr3["contactNo"] = $_SESSION["phone"];
+            $arr3["UserName"] = $_SESSION["name"];
 
-        unset($_SESSION['unique_id']); // destroy unique_id
+            $customer->insert($arr3);
 
-        $this->redirect(BASE_URL."RecieptionControls/rechistory");
-            
+            unset($_SESSION['unique_id']); // destroy unique_id
+
+            $this->redirect(BASE_URL."RecieptionControls/viewHistory");}
+        
     }
 
     function deletecart(){
@@ -233,11 +243,11 @@ class RecieptionControls extends Controller {
     }
 
     function viewHistory(){
+        session_start();
+
         $productorder = new ProductOrder();
-        $customer = new Customer();
-        $nonusercustomer = $customer->where("UserName", "nonuser");
         
-        $productorders = $productorder->where("placeby", $nonusercustomer[0]->Name);
+        $productorders = $productorder->where("placeby", $_SESSION["USER"]->Role);
         
         echo $this->view("receiptionist/rechistory", ["productorders" => $productorders]);
     }
@@ -246,6 +256,12 @@ class RecieptionControls extends Controller {
         echo $this->view("receiptionist/recplaceorder");
     }
 
+    function existingcustomer($customerusername = null){
+
+        $customer = new Customer();
+        $customerfound = $customer->where("UserName", $customerusername);
+        echo $this->view("receiptionist/recplaceorder",["customerfound"=>$customerfound]);
+    }
     
 }
 ?>

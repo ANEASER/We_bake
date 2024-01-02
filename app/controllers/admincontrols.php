@@ -24,6 +24,47 @@
             $arr["itemdescription"] = $_POST["itemdescription"];
             $arr["category"] = $_POST["category"];
 
+            if($arr["category"] == "Bread"){
+                $C = "BR";
+            }
+            if($arr["category"] == "Pastries"){
+                $C = "PA";
+            }
+            if($arr["category"] == "Cakes"){
+                $C = "CK";
+            }
+            if($arr["category"] == "Cookies"){
+                $C = "CO";
+            }
+            if($arr["category"] == "Muffins"){
+                $C = "MU";
+            }
+            if($arr["category"] == "Doughnuts"){
+                $C = "DN";
+            }
+            if($arr["category"] == "Pies"){
+                $C = "PI";
+            }
+            if($arr["category"] == "Rolls and Buns"){
+                $C = "RB";
+            }
+            if($arr["category"] == "Sandwiches"){
+                $C = "SW";
+            }
+            if($arr["category"] == "Pizza"){
+                $C = "PZ";
+            }
+            if($arr["category"] == "Others"){
+                $C = "OT";
+            }
+
+            $max_itemm_id = $productitem->getMinMax("itemid", "max");
+            $max_itemm_id = $max_itemm_id[0]->{"max(itemid)"};
+            $max_itemm_id = $max_itemm_id + 1;
+            $max_itemm_id = str_pad($max_itemm_id, 5, '0', STR_PAD_LEFT);
+
+            $arr["Itemcode"] = $C.$max_itemm_id;
+
             $productitem->insert($arr);
 
             $this->redirect(BASE_URL."AdminControls/loadItemsView");

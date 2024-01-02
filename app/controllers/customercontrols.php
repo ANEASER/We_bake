@@ -120,6 +120,7 @@
                 $arr["itemid"] = $item['id'];
                 $arr["quantity"] = $item['quantity'];
                 $arr["unique_id"] = $unique_id;
+                $arr["Itemcode"] = $productitemfound[0]->Itemcode;
                 $arr["price" ]= $productitemfound[0]->retailprice;
                 $arr["totalprice"] = $productitemfound[0]->retailprice * $item['quantity'];
                 $arr["unit"] = $productitemfound[0]->unit;
@@ -165,6 +166,12 @@
             $unique_id = $_SESSION['unique_id'];
 
             echo $this->view("customer/updatecart",[ "cartItems" => $cartItems, "unique_id" => $unique_id]);
+        }
+
+        function moredetails($unique_id){
+            $productorderline = new ProductOrderLine();
+            $productorderlines = $productorderline->where("unique_id",$unique_id);
+            echo $this->view("customer/moredetailsorder",["productorderlines"=>$productorderlines]);
         }
 
         function deletecartitem($id){

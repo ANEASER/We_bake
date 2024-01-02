@@ -15,10 +15,10 @@
                 <th>Quantity</th>
                 <th>Unit</th>
                 <th>Item ID</th>
-                <th>Item Code</th>
+                <th>Item Code </th>
+                <th>Total Price</th>
                 <th>Unique ID</th>
                 <th>Price</th>
-                <th>Total Price</th>
             </tr>";
 
         foreach ($productorderlines as $productorderline) {
@@ -26,11 +26,11 @@
             echo "<td>" . $productorderline->shoppingid . "</td>";
             echo "<td>" . $productorderline->quantity . "</td>";
             echo "<td>" . $productorderline->unit . "</td>";
-            echo "<td>" . $productorderline->itemid . "</td>";           
+            echo "<td>" . $productorderline->itemid . "</td>";
             echo "<td>" . $productorderline->Itemcode . "</td>";
+            echo "<td>" . $productorderline->totalprice . "</td>";
             echo "<td>" . $productorderline->unique_id . "</td>";
             echo "<td>" . $productorderline->price . "</td>";
-            echo "<td>" . $productorderline->totalprice . "</td>";
             echo "</tr>";
         }
 
@@ -41,8 +41,9 @@
         var BASE_URL = "<?php echo BASE_URL; ?>";
         
         function backtoorders(){
-            window.location.href = BASE_URL + "RecieptionControls/viewHistory";
+            window.location.href = BASE_URL + "CustomerControls/purchasehistory";
         }
+        
     </script>
         
 </body>
