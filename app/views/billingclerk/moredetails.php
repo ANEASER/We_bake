@@ -36,7 +36,17 @@
         echo "</table>";
     ?>
 
-    <img src="../../../uploads/<?php ?>" alt="">
+    <?php 
+
+        foreach ($payments as $payment) {
+            if($payment->initialorfinal == "initial"){
+                echo "<img src='".BASE_URL."media/uploads/Billingproofs/".$payment->link."' alt='noimage'>";
+            }
+            if ($payment->initialorfinal == "final") {
+                echo "<img src='".BASE_URL."media/uploads/Billingproofs/".$payment->link."' alt='noimage'>";
+            }
+        }
+    ?>
 
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
