@@ -9,14 +9,24 @@
 
     <?php
 
-        $cartItems = $_SESSION['cart'];
-        $unique_id = $_SESSION['unique_id'];
+            echo "<h1>Cart Items</h1>";
 
-        echo "<h3>Unique ID: " . $unique_id . "</h3>";
-        echo "<h1>Cart Items</h1>";
-        foreach ($cartItems as $item) {
-            echo "ID: " . $item['id'] . ", Quantity: " . $item['quantity'] . "<br>";
-            }
+            echo "<table>
+            <tr>
+                <th>ID</th>
+                <th>Code</th>
+                <th>Quantity</th>
+            </tr>";
+
+            foreach ($cartItems as $item) {
+                echo "<tr>
+                        <td>{$item['id']}</td>
+                        <td>{$item['code']}</td>
+                        <td>{$item['quantity']}</td>
+                    </tr>";  
+                }
+
+            echo "</table>";
     ?>
 
     <button onclick="checkout()">checkout</button>

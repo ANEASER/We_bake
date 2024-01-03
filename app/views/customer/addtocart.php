@@ -22,10 +22,11 @@
             foreach ($items as $item) {
                 echo '<tr>';
                 echo '<input type="hidden" name="items[' . $item->itemid . '][id]" value="' . $item->itemid . '">';
+                echo '<input type="hidden" name="items[' . $item->itemid . '][code]" value="' . $item->Itemcode . '">';
                 echo '<td>' . $item->retailprice . '</td>';
                 echo '<td>' . $item->itemdescription . '</td>';
                 echo '<td>' . $item->itemname . '</td>';
-                echo '<td> <input type="number" name="items[' . $item->itemid . '][quantity]" /> </td>';
+                echo '<td> <input type="number" min="1" name="items[' . $item->itemid . '][quantity]" /> </td>';
                 echo '</tr>';
             }
 

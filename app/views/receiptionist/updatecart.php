@@ -8,14 +8,27 @@
     
 
     <?php
-        echo "<h3>Unique ID: " . $unique_id . "</h3>";
-        echo "<h1>Cart Items</h1>";
+       
+       echo "<h1>Cart Items</h1>";
 
-        foreach ($cartItems as $item) {
-            echo "ID: " . $item['id'] . ", Quantity: " . $item['quantity'];
-            echo '<button type="button" onclick="editCartItem(' . $item['id'] . ', ' . $item['quantity'] . ')">Edit</button>';
-            echo '<button type="button" onclick="deleteCartItem(' . $item['id'] . ')">Delete</button><br>';
-        }
+       echo "<table>
+       <tr>
+           <th>ID</th>
+           <th>Code</th>
+           <th>Quantity</th>
+       </tr>";
+
+       foreach ($cartItems as $item) {
+           echo "<tr>
+           <td>{$item['id']}</td>
+           <td>{$item['code']}</td>
+           <td>{$item['quantity']}</td>
+           <td>
+               <button type='button' onclick='editCartItem({$item['id']}, {$item['quantity']})'>Edit</button>
+               <button type='button' onclick='deletecartitem({$item['id']})'>Delete</button>
+           </td>
+           </tr>";
+       }
     ?>
 
     <button type="button" onclick="ok()"  >ok</button>
@@ -25,18 +38,29 @@
 
         function deletecartitem(id){
             window.location.href = BASE_URL +"RecieptionControls/deletecartitem/"+id;
-            console.log(id);
         }
 
         function editCartItem(id, quantity) {
             var newQuantity = prompt("Enter new quantity:", quantity);
 
-            if(newQuantity == 0){
+            if (newQuantity == null) {
+                alert("Quantity cannot be empty");
+            }
+
+            else if(newQuantity < 0){
+                alert("Quantity cannot be negative");
+            }
+
+            else if(newQuantity == 0){
                 deletecartitem(id);
             }
 
-            if (newQuantity !== null && !isNaN(newQuantity) && newQuantity.trim() !== "") {
+            else if (newQuantity !== null && !isNaN(newQuantity) && newQuantity.trim() !== "") {
                 window.location.href = BASE_URL + "RecieptionControls/editcartitem/" + id + "/" + newQuantity;
+            }
+
+            else {
+                alert("Quantity cannot be empty");
             }
         }
 

@@ -23,6 +23,7 @@
                     <th>Item Description</th>
                     <th>Item Name</th>
                     <th>category</th>
+                    <th>Image</th>
                     <th>Update</th>
                     <th>Delete</th>
 
@@ -36,6 +37,7 @@
                     echo '<td>' . $item->itemdescription . '</td>';
                     echo '<td>' . $item->itemname . '</td>';
                     echo '<td>' . $item->category . '</td>';
+                    echo '<td><img src="' . BASE_URL . 'media/uploads/Product/' . $item->imagelink . '" width="100px" height="100px"></td>';
                     echo '<td><button onclick="edit(' . $item->itemid . ')">Update</button></td>';
                     echo '<td><button onclick="del(' . $item->itemid . ')">Delete</button></td>';
                     echo '</tr>';

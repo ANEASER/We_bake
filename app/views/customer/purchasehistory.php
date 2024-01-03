@@ -19,6 +19,7 @@
             <th>Order Status</th>
             <th>Payment Status</th>
             <th>Total</th>
+            <th>More</th>
         </tr>';
 
         foreach($orders as $order){
@@ -31,6 +32,7 @@
             echo '<td>' . $order->orderstatus . '</td>';
             echo '<td>' . $order->paymentstatus . '</td>';
             echo '<td>' . $order->total . '</td>';
+            echo "<td><button onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
             echo '</tr>';
             
         }
@@ -43,6 +45,10 @@
 
         function dashboard(){
             window.location.href = BASE_URL + "CustomerControls/index";
+        }
+
+        function more(unique_id){
+            window.location.href = BASE_URL + "CustomerControls/moredetails/" + unique_id;
         }
      </script>
 </body>
