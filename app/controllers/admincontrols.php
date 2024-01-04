@@ -144,13 +144,22 @@
             if (!empty($_POST['itemdescription'])){
                 $data['itemdescription'] = $_POST['itemdescription'];
             }
+            if (!empty($_POST['category'])){
+                $data['category'] = $_POST['category'];
+            }
             echo $productitem->update($id,"itemid",$data);
             $this->redirect(BASE_URL."AdminControls/loadItemsView");
         }
 
         function deleteproduct($id){
             $productitem = new ProductItem();
-            $productitem->delete($id,"itemid");
+            $productitem->update($id,"itemid",["availability" => "0"]);
+            $this->redirect(BASE_URL."AdminControls/loadItemsView");
+        }
+
+        function undoproduct($id){
+            $productitem = new ProductItem();
+            $productitem->update($id,"itemid",["availability" => "1"]);
             $this->redirect(BASE_URL."AdminControls/loadItemsView");
         }
 

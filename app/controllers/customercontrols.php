@@ -54,7 +54,6 @@
         // need to use after above
         function addtocart($category){
             session_start();
-            echo $category;
             
             $productitem = new ProductItem();
             $items = $productitem->where("category", $category);
@@ -64,40 +63,47 @@
         function storeinsession(){
  
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
-                
                 session_start();
-
+            
                 $unique_id = $_POST['unique_id'];
                 $items = $_POST['items'];
-                if (isset($_SESSION['cart'] )) {
-                    foreach ($items as $newItem) {
+            
+                if (isset($_SESSION['cart'])) {
+                    foreach ($items as $item) {
                         $found = false;
-                
-                        // Check if the item with the same ID exists in the cart
-                        foreach ($_SESSION['cart'] as &$cartItem) {
-                            if ($newItem['id'] === $cartItem['id']) {
-                                // Update the quantity
-                                $cartItem['quantity'] += $newItem['quantity'];
-                                $found = true;
-                                break;
+            
+                        // Check if the item has valid 'id' and 'quantity' keys
+                        if (isset($item['id'], $item['quantity']) && $item['quantity'] !== '') {
+                            foreach ($_SESSION['cart'] as &$cartItem) {
+                                if (isset($cartItem['id']) && $item['id'] === $cartItem['id']) {
+                                    // Update the quantity
+                                    $cartItem['quantity'] += (int)$item['quantity'];
+                                    $found = true;
+                                    break;
+                                }
                             }
-                        }
-                
-                        // If the item is not found in the cart, add it
-                        if (!$found) {
-                            $_SESSION['cart'][] = $newItem;
+            
+                            // If the item is not found in the cart, add it
+                            if (!$found) {
+                                $_SESSION['cart'][] = $item;
+                            }
                         }
                     }
                 } else {
-                    $_SESSION['cart'] = $items;
+                    // Filter out items without a valid quantity
+                    $validItems = array_filter($items, function ($item) {
+                        return isset($item['id'], $item['quantity']) && $item['quantity'] !== '';
+                    });
+            
+                    $_SESSION['cart'] = $validItems;
                 }
-                
+            
                 $_SESSION['unique_id'] = $unique_id;
                 $this->redirect(BASE_URL."CustomerControls/showcategories");
-
             } else {
                 echo "Form not submitted!";
             }
+            
         }
 
         function checkout(){
@@ -133,6 +139,11 @@
                 
             }
 
+            $max_orderid = $productorder->getMinMax("orderid","max");
+            $max_orderid = $max_orderid[0]->{"max(orderid)"};
+            $max_orderid += 1;
+            $max_orderid = str_pad($max_orderid, 7, '0', STR_PAD_LEFT);
+
             $arr2["orderdate"] = $_SESSION["date"];
             $arr2["deliver_address"] = $_SESSION["adress"];
             $arr2["deliverystatus"] = $_SESSION["deliverstatus"];
@@ -142,6 +153,16 @@
             $arr2["paymentstatus"] = "pending";
             $arr2["pickername"] = $_SESSION["picker"];
             $arr2["total"] = $total;
+
+            if($arr2["deliverystatus"] == "Delivery"){
+                $orderref = "D".$max_orderid;
+            }
+            else{
+                $orderref  = "P".$max_orderid;
+            }
+
+            $orderref = "C".$orderref;
+            $arr2["orderref"] = $orderref;
 
             $productorder->insert($arr2);
 

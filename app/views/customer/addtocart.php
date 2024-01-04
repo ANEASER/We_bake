@@ -16,6 +16,7 @@
                 <th>Price</th>
                 <th>Item Description</th>
                 <th>Item Name</th>
+                <th>Availability</th>
                 <th>Quantity</th>
             </tr>';
 
@@ -26,6 +27,11 @@
                 echo '<td>' . $item->retailprice . '</td>';
                 echo '<td>' . $item->itemdescription . '</td>';
                 echo '<td>' . $item->itemname . '</td>';
+                if ($item->availability == 0) {
+                    echo '<td>Out of Stock</td>';
+                } else{
+                    echo '<td> Available </td>';
+                }
                 echo '<td> <input type="number" min="1" name="items[' . $item->itemid . '][quantity]" /> </td>';
                 echo '</tr>';
             }
