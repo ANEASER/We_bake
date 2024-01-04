@@ -3,22 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/navbar.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/category.css">
     <title>Select Category</title>
 </head>
 <body>
-    <h1>Select Category</h1>
+    <?php
+        include 'customernav.php';
+    ?>
+
+    <button id="cartbutton" type="button" onclick="veiwcart()">cartbutton</button> 
+
+    <section class="content">
         
-        <?php
+        <section class="category">
+            <div class="menu-category">
+                <?php
 
-            foreach ($categories as $category) {
-                $categoryName = $category->category;
-                echo '<button type="button" onclick="selectCategory(\'' . $categoryName . '\')">' . $categoryName . '</button>';
-            }
+                    foreach ($categories as $category) {
+                        $categoryName = $category->category;
+                        echo '<div class="menu-item" onclick="selectCategory(\'' . $categoryName . '\')">
+                                <img src="' . $categoryName . '.png" alt="' . $categoryName . '">
+                                <div class="item-details">
+                                    <h3>' . $categoryName . '</h3>
+                                </div>
+                            </div>';
+                    }
 
-        ?>
-        <button type="button" onclick="veiwcart()">veiwcart</button>
-        <button type="button" onclick="home()">Home</button>
-
+                ?>
+            </div>
+        </section>
+        <section class="cart">
+                <?php
+                    include 'cartitems.php';
+                ?>
+                <button type="button" onclick="veiwcart()">veiwcart</button>       
+        </section>
+    
+    </section>
         <script>
             function selectCategory(category) {
                 window.location.href = "<?php echo BASE_URL; ?>CustomerControls/addtocart/" + category;
@@ -28,9 +50,6 @@
                 window.location.href = "<?php echo BASE_URL; ?>CustomerControls/viewcart";
             }
 
-            function home() {
-                window.location.href = "<?php echo BASE_URL; ?>CustomerControls/index";
-            }
         </script>
         
 </body>

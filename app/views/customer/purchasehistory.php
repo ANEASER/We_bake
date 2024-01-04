@@ -6,8 +6,11 @@
     <title>Purchase History</title>
 </head>
 <body>
+        <?php
+            include 'customernav.php';
+        ?>
+        
      <h1>Purchase History</h1>
-     <button onclick="dashboard()"> dash </button>
      <?php
 
         echo '<table>';

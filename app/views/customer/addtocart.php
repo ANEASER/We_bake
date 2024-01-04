@@ -24,6 +24,7 @@
                 echo '<tr>';
                 echo '<input type="hidden" name="items[' . $item->itemid . '][id]" value="' . $item->itemid . '">';
                 echo '<input type="hidden" name="items[' . $item->itemid . '][code]" value="' . $item->Itemcode . '">';
+                echo '<input type="hidden" name="items[' . $item->itemid . '][name]" value="' . $item->itemname . '">';
                 echo '<td>' . $item->retailprice . '</td>';
                 echo '<td>' . $item->itemdescription . '</td>';
                 echo '<td>' . $item->itemname . '</td>';

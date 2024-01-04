@@ -73,7 +73,7 @@
                         $found = false;
             
                         // Check if the item has valid 'id' and 'quantity' keys
-                        if (isset($item['id'], $item['quantity']) && $item['quantity'] !== '') {
+                        if (isset($item['id'], $item['quantity'],$item['name']) && $item['quantity'] !== '') {
                             foreach ($_SESSION['cart'] as &$cartItem) {
                                 if (isset($cartItem['id']) && $item['id'] === $cartItem['id']) {
                                     // Update the quantity
@@ -177,7 +177,6 @@
             session_start();
             $cartItems = $_SESSION['cart'];
             $unique_id = $_SESSION['unique_id'];
-
             echo $this->view("customer/Cart",[ "cartItems" => $cartItems, "unique_id" => $unique_id]);
         }
 
@@ -263,6 +262,7 @@
         function logout(){
             echo $this->view("customer/logout");        
         }
+        
     }
 
 
