@@ -271,8 +271,12 @@
             }
 
             $productorderline = new ProductOrderLine();
+            $productorder = new ProductOrder();
+
+            $order = $productorder->where("unique_id",$unique_id);
             $productorderlines = $productorderline->where("unique_id",$unique_id);
-            echo $this->view("customer/moredetailsorder",["productorderlines"=>$productorderlines]);
+
+            echo $this->view("customer/moredetailsorder",["productorderlines"=>$productorderlines,"order"=>$order]);
         }
 
         function deletecartitem($id){
