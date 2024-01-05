@@ -1,0 +1,77 @@
+.bluebutton {
+    margin: 5%;
+    padding: 2%;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100px;
+}
+
+.bluebutton:hover {
+    background-color: #2980b9;
+}
+
+
+.greenbutton {
+    margin: 5%;
+    padding: 2%;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100px;
+}
+
+.greenbutton:hover {
+    background-color: #27ae60;
+}
+
+
+.redbutton {
+    margin: 5%;
+    padding: 2%;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100px;
+}
+
+.redbutton:hover {
+    background-color: #c0392b;
+}
+
+
+.yellowbutton {
+    margin: 5%;
+    padding: 2%;
+    background-color: #f1c40f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100px;
+}
+
+.yellowbutton:hover {
+    background-color: #f39c12;
+}
+
+#cartbutton {
+    margin: 5%;
+    padding: 2%;
+    background-image: url("https://img.lovepik.com/free-png/20210918/lovepik-shopping-cart-png-image_400246975_wh1200.png");
+    width: 75px;
+    height: 75px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border: solid 4px black;
+    border-radius:  4px ;
+    cursor: pointer;
+    width: 100px;
+}

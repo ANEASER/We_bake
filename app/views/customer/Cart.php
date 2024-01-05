@@ -3,36 +3,23 @@
 <html>
 <head>
     <title>Bakery Products</title>
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
 </head>
 <body>
-    
-
-    <?php
-        
-        echo "<h1>Cart Items</h1>";
-
-        echo "<table>
-        <tr>
-            <th>ID</th>
-            <th>Code</th>
-            <th>Quantity</th>
-        </tr>";
-
-        foreach ($cartItems as $item) {
-            echo "<tr>
-                    <td>{$item['id']}</td>
-                    <td>{$item['code']}</td>
-                    <td>{$item['quantity']}</td>
-                  </tr>";  
-            }
-
-        echo "</table>";
-    ?>
-
-    <button onclick="edit()">edit</button>
-    <button onclick="checkout()">checkout</button>
-    <button onclick="cancel()">cancel</button>
-    <button onclick="addmore()">addmore</button>
+        <section class="cart">
+            <section class="content">
+                <?php
+                    include 'cartitems.php';
+                ?>
+            </section>
+            <section class="buttongroup">
+                <button class="yellowbutton" onclick="edit()">edit</button>
+                <button class="greenbutton" onclick="checkout()">checkout</button>
+                <button class="redbutton" onclick="cancel()">cancel</button>
+                <button class="bluebutton" onclick="addmore()">addmore</button>
+            </section>
+        </section>
 
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
