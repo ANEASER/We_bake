@@ -2,20 +2,8 @@
 <html>
 <head>
     <title>Place Order - Bakery</title>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var today = new Date();
-            today.setDate(today.getDate() + 2); // Set to the day after tomorrow
-
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-            var yyyy = today.getFullYear();
-
-            var dayAfterTomorrow = yyyy + '-' + mm + '-' + dd;
-            document.getElementById('orderdate').setAttribute('min', dayAfterTomorrow);
-        });
-    </script>
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
 </head>
 <body>
     <?php
@@ -47,10 +35,23 @@
                         <option value="pickup">Pickup</option>
                     </select><br>
                 </div>
-                <input class="submit"  type="submit" value="Submit">
+                <input class="bluebutton"  type="submit" value="Submit">
             </form>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var today = new Date();
+            today.setDate(today.getDate() + 2); // Set to the day after tomorrow
+
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+            var yyyy = today.getFullYear();
+
+            var dayAfterTomorrow = yyyy + '-' + mm + '-' + dd;
+            document.getElementById('orderdate').setAttribute('min', dayAfterTomorrow);
+        });
+    </script>
 </body>
 </html>
 

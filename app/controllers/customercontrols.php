@@ -14,12 +14,18 @@
         }
 
         function profile(){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
             echo $this->view("customer/profile");
         }
 
 
         // handle order
         function placeorder(){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
             echo $this->view("customer/placeorder");
         }
 
@@ -30,16 +36,34 @@
             $_SESSION["deliverstatus"] = $_POST['deliverystatus'];
             $_SESSION['picker'] = $_POST['pickername'];
 
+            if (isset($_SESSION['unique_id'])) {
+               unset($_SESSION['unique_id']);
+               unset($_SESSION['cart']);
+            }
+
             $unique_id = uniqid();
+
             $_SESSION['unique_id'] = $unique_id;
 
             $this->redirect(BASE_URL."CustomerControls/showcategories");
         }
 
         function showcategories(){
-            session_start();
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if (!isset($_SESSION['unique_id'])) {
+                $this->redirect(BASE_URL."CustomerControls/placeorder");
+             }
+
             $productitem = new ProductItem();
             $categories = $productitem->getDistinct("category");
+
+            if(!isset($_SESSION['unique_id'])){
+                $this->redirect(BASE_URL."CustomerControls/placeorder");
+            }
             
             $unique_id = $_SESSION['unique_id'];
 
@@ -53,7 +77,15 @@
 
         // need to use after above
         function addtocart($category){
-            session_start();
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!isset($_SESSION['unique_id'])){
+                $this->redirect(BASE_URL."CustomerControls/placeorder");
+            }
+            
             
             if(!isset($_SESSION['cart'])){
                 $_SESSION['cart'] = array();
@@ -66,6 +98,14 @@
         }
 
         function storeinsession(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!isset($_SESSION['unique_id'])){
+                $this->redirect(BASE_URL."CustomerControls/placeorder");
+            }
  
             if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 session_start();
@@ -116,8 +156,14 @@
         }
 
         function checkout(){
-            
-            session_start();
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!isset($_SESSION['unique_id'])){
+                $this->redirect(BASE_URL."CustomerControls/placeorder");
+            }
 
             $cartItems = $_SESSION['cart'];
             $unique_id = $_SESSION['unique_id'];
@@ -183,14 +229,35 @@
 
         // Cart
         function viewcart(){
-            session_start();
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if (!isset($_SESSION['unique_id'])) {
+                $this->redirect(BASE_URL."CustomerControls/placeorder");
+             }
+
             $cartItems = $_SESSION['cart'];
             $unique_id = $_SESSION['unique_id'];
+
+            if(!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0){
+                $this->redirect(BASE_URL."CustomerControls/showcategories");
+            }
+
             echo $this->view("customer/Cart",[ "cartItems" => $cartItems, "unique_id" => $unique_id]);
         }
 
         function updatecart(){
-            session_start();
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+            
+            if (!isset($_SESSION['unique_id'])) {
+                $this->redirect(BASE_URL."CustomerControls/placeorder");
+             }
+
             $cartItems = $_SESSION['cart'];
             $unique_id = $_SESSION['unique_id'];
 
@@ -198,13 +265,22 @@
         }
 
         function moredetails($unique_id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $productorderline = new ProductOrderLine();
             $productorderlines = $productorderline->where("unique_id",$unique_id);
             echo $this->view("customer/moredetailsorder",["productorderlines"=>$productorderlines]);
         }
 
         function deletecartitem($id){
-            session_start();
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $cartItems = $_SESSION['cart'];
             
             foreach ($cartItems as $key => $item) {
@@ -220,7 +296,11 @@
         }
 
         function editcartitem($id, $quantity){
-            session_start();
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $cartItems = $_SESSION['cart'];
             
             foreach ($cartItems as $key => $item) {
@@ -236,39 +316,78 @@
         }
 
         function deletecart(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             session_start();
             unset($_SESSION['cart']); // destroy cart
             $this->redirect(BASE_URL."CustomerControls/showcategories");
         }
 
         function purchasehistory(){
-            session_start();
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $productorder = new ProductOrder();
             $orders = $productorder->where("placeby", $_SESSION["USER"]->UserName);
             echo $this->view("customer/purchasehistory",[ "orders" => $orders]);
         }
 
         function makeinquiry(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("customer/makeinquiry");
         }
 
         function customerdash(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("customer/customerdash");
         }
 
         function editprofiledetails(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("customer/editprofiledetails");
         }
 
         function changepassword(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("customer/changepassword");        
         }
 
         function editprofile(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("customer/editprofile");        
         }
 
         function logout(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+            
             echo $this->view("customer/logout");        
         }
         

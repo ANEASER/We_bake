@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/navbar.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/category.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <title>Select Category</title>
 </head>
 <body>
@@ -12,7 +13,7 @@
         include 'customernav.php';
     ?>
 
-    <button id="cartbutton" type="button" onclick="veiwcart()">cartbutton</button> 
+    <button id="cartbutton" type="button" onclick="veiwcart()"></button> 
 
     <section class="content">
         
@@ -22,10 +23,10 @@
 
                     foreach ($categories as $category) {
                         $categoryName = $category->category;
-                        echo '<div class="menu-item" onclick="selectCategory(\'' . $categoryName . '\')" style="height: 250px;width: 250px;">
+                        echo '<div class="menu-item" onclick="selectCategory(\'' . $categoryName . '\')">
                                 <img src="' . BASE_URL .'media/uploads/Content/'. $categoryName . '.jpg" alt="<?php echo $categoryName ?>" style="height: 210px; width: 250px;">
                                 <div class="item-details" style="">
-                                    <h3>' . $categoryName . '</h3>
+                                    <h3>' .strtoupper($categoryName). '</h3>
                                 </div>
                             </div>';
                     }
@@ -37,8 +38,10 @@
                 <?php
                     include 'cartitems.php';
                 ?>
-                <button type="button" onclick="veiwcart()">checkout</button>
-                <button onclick="edit()">edit</button>      
+                <div>
+                    <button class="greenbutton" type="button" onclick="veiwcart()">checkout</button>
+                    <button class="yellowbutton" onclick="edit()">edit</button>      
+                </div>
         </section>
     
     </section>

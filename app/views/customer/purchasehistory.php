@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <title>Purchase History</title>
 </head>
 <body>
@@ -10,7 +12,6 @@
             include 'customernav.php';
         ?>
         
-     <h1>Purchase History</h1>
      <?php
 
         echo '<table>';
@@ -35,7 +36,7 @@
             echo '<td>' . $order->orderstatus . '</td>';
             echo '<td>' . $order->paymentstatus . '</td>';
             echo '<td>' . $order->total . '</td>';
-            echo "<td><button onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
+            echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
             echo '</tr>';
             
         }

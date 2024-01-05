@@ -1,7 +1,7 @@
 .form-container {
     max-width: 600px;
     margin: 0 auto;
-    background-color: #a5a5a5;
+    background-color: #f7b424;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
@@ -38,16 +38,6 @@ select {
 textarea {
     resize: vertical;
     height: 100px;
-}
-
-.submit {
-    width: 40%;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
 }
 
 section {

@@ -5,29 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-            padding: 3px;
+        th, td {
+            padding: 5px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
         }
     </style>
 </head>
 <body>
+    <div>
     <?php
         echo "<table>
         <tr>
             
-            <th>Code</th>
-            <th>Name</th>
-            <th>amount</th>
-            <th>Subtotal</th>
+            <th>CODE</th>
+            <th>ITEM NAME</th>
+            <th>AMOUNT</th>
+            <th>SUBTOTAL</th>
         </tr>";
         $total = 0;
 
         foreach ($cartItems as $item) {
             echo '<tr>
                     <td>' . htmlspecialchars($item['code']) . '</td>
-                    <td>' . htmlspecialchars($item['name']) . '</td>
+                    <td>' . htmlspecialchars(strtoupper($item['name'])) . '</td>
                     <td>' . htmlspecialchars($item['quantity']) . '</td>
                     <td>' . htmlspecialchars($item['quantity'] * $item['price']) . '</td>
                 </tr>';
@@ -37,8 +38,9 @@
         } 
         echo "</table>";
         echo "<br>";
-        echo "total: " . $total;
+        echo "<p style='text-align:left'>TOTAL PRICE: Rs. " . $total."</p>";
         echo "<br>";
     ?>
+    </div>
 </body>
 </html>

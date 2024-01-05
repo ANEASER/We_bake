@@ -3,10 +3,20 @@ class RecieptionControls extends Controller {
     
     //order hancdle
     function customernumber(){
+
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         echo $this->view("receiptionist/existingcustomer");
     }
 
     function checkcustomer(){
+
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $customer = new Customer();
         $customerfound = $customer->where("contactNo", $_POST['phone']);
         if($customerfound){
@@ -18,7 +28,10 @@ class RecieptionControls extends Controller {
     }
 
     function submitorder(){
-        session_start();
+
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
 
         $_SESSION["name"] = $_POST['name'];
         $_SESSION["email"] = $_POST['email'];
@@ -34,7 +47,11 @@ class RecieptionControls extends Controller {
     }
 
     function showcategories(){
-        session_start();
+        
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $productitem = new ProductItem();
         $categories = $productitem->getDistinct("category");
         
@@ -49,7 +66,11 @@ class RecieptionControls extends Controller {
     }
 
     function addtocart($category){
-        session_start();
+        
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         echo $category;
             
         $productitem = new ProductItem();
@@ -61,7 +82,9 @@ class RecieptionControls extends Controller {
  
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 
-            session_start();
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
 
             $unique_id = $_POST['unique_id'];
             $items = $_POST['items'];
@@ -99,7 +122,10 @@ class RecieptionControls extends Controller {
     //cart
     function viewcart(){
         
-        session_start();
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $cartItems = $_SESSION['cart'];
         $unique_id = $_SESSION['unique_id'];
 
@@ -107,14 +133,22 @@ class RecieptionControls extends Controller {
     }
 
     function updatecart(){
-        session_start();
+        
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $cartItems = $_SESSION['cart'];
         $unique_id = $_SESSION['unique_id'];
         echo $this->view("receiptionist/updatecart",[ "cartItems" => $cartItems, "unique_id" => $unique_id]);
     }
 
     function deletecartitem($id){
-        session_start();
+        
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $cartItems = $_SESSION['cart'];
         
         foreach ($cartItems as $key => $item) {
@@ -130,7 +164,11 @@ class RecieptionControls extends Controller {
     }
 
     function editcartitem($id, $quantity){
-        session_start();
+        
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        
         $cartItems = $_SESSION['cart'];
         
         foreach ($cartItems as $key => $item) {
@@ -148,8 +186,10 @@ class RecieptionControls extends Controller {
 
 
     function checkout(){
-            
-        session_start();
+        
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
 
         $cartItems = $_SESSION['cart'];
         $unique_id = $_SESSION['unique_id'];
@@ -219,7 +259,11 @@ class RecieptionControls extends Controller {
     }
 
     function deletecart(){
-        session_start();
+        
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         unset($_SESSION['cart']); // destroy cart
         $this->redirect(BASE_URL."RecieptionControls/showcategories");
     }
@@ -239,11 +283,19 @@ class RecieptionControls extends Controller {
     }
 
     function viewProfile(){
+
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         echo $this->view("receiptionist/recprofile");
     }
 
     function viewHistory(){
-        session_start();
+
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
 
         $productorder = new ProductOrder();
         
@@ -253,11 +305,20 @@ class RecieptionControls extends Controller {
     }
 
     function placeOrders(){
+
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         echo $this->view("receiptionist/recplaceorder");
     }
 
     function existingcustomer($customerusername = null){
 
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        
         $customer = new Customer();
         $customerfound = $customer->where("UserName", $customerusername);
         echo $this->view("receiptionist/recplaceorder",["customerfound"=>$customerfound]);
