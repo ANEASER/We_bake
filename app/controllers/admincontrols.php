@@ -47,8 +47,11 @@
                 if($arr["category"] == "Pies"){
                     $C = "PI";
                 }
-                if($arr["category"] == "Rolls and Buns"){
-                    $C = "RB";
+                if($arr["category"] == "Buns"){
+                    $C = "BN";
+                }
+                if($arr["category"] == "Rolls"){
+                    $C = "RL";
                 }
                 if($arr["category"] == "Sandwiches"){
                     $C = "SW";

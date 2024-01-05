@@ -55,9 +55,14 @@
         function addtocart($category){
             session_start();
             
+            if(!isset($_SESSION['cart'])){
+                $_SESSION['cart'] = array();
+            }
+            $cartItems = $_SESSION['cart'];
+            
             $productitem = new ProductItem();
             $items = $productitem->where("category", $category);
-            echo $this->view("customer/addtocart", [ "items" => $items, "unique_id" => $_SESSION['unique_id']]);
+            echo $this->view("customer/addtocart", [ "items" => $items, "unique_id" => $_SESSION['unique_id'],"cartItems" => $cartItems]);
         }
 
         function storeinsession(){
@@ -77,14 +82,18 @@
                             foreach ($_SESSION['cart'] as &$cartItem) {
                                 if (isset($cartItem['id']) && $item['id'] === $cartItem['id']) {
                                     // Update the quantity
-                                    $cartItem['quantity'] += (int)$item['quantity'];
+                                    if ((int)$item['quantity'] !== 0) {
+                                        $cartItem['quantity'] += (int)$item['quantity'];
+                                    }else{
+                                        $this->redirect(BASE_URL."CustomerControls/deletecartitem/".$item['id']."");
+                                    }
                                     $found = true;
                                     break;
                                 }
                             }
             
                             // If the item is not found in the cart, add it
-                            if (!$found) {
+                            if (!$found && (int)$item['quantity'] !== 0) {
                                 $_SESSION['cart'][] = $item;
                             }
                         }
@@ -207,7 +216,7 @@
 
             $_SESSION['cart'] = $cartItems;
 
-            $this->redirect(BASE_URL."CustomerControls/updatecart");
+            $this->redirect(BASE_URL."CustomerControls/showcategories");
         }
 
         function editcartitem($id, $quantity){

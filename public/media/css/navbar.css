@@ -84,9 +84,7 @@ a.active,a:hover{
 @media (max-width: 858px){
 
     .logo{
-        margin-top: 0.5%;
-        margin-left: 0.5%;
-        border-radius: 10px;
+        margin-top: 2%;
     }
     
     body {
