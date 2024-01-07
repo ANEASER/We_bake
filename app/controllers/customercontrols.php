@@ -17,7 +17,69 @@
             if(!Auth::loggedIn()){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
-            echo $this->view("customer/profile");
+
+            $customer = new Customer();
+            $data = $customer->where("UserName", $_SESSION["USER"]->UserName);
+
+            $productorder = new ProductOrder();
+            $orders = $productorder->where("placeby", $_SESSION["USER"]->UserName);
+
+            $unique_ids = array();
+            foreach($orders as $order){
+                array_push($unique_ids,$order->unique_id);
+            }
+
+
+            $productorderline = new ProductOrderLine();
+            $productorderlines = array();
+
+            foreach ($unique_ids as $unique_id) {
+                $orderLines = $productorderline->where("unique_id", $unique_id);
+                foreach ($orderLines as $orderLine) {
+                    $productorderlines[] = $orderLine;
+                }
+            }
+
+            $itemQuantities = [];
+
+            foreach ($productorderlines as $item) {
+                $itemCode = $item->Itemcode;
+                $quantity = $item->quantity;
+
+                // Using the null coalescing operator to simplify the condition
+                $itemQuantities[$itemCode] = ($itemQuantities[$itemCode] ?? 0) + $quantity;
+            }
+
+            arsort($itemQuantities);
+
+            $mostPurchasedItems = [];
+
+            if (!empty($itemQuantities)) {
+                // Get the top 3 products or fewer if there are less than 3
+                $topProducts = array_slice($itemQuantities, 0, 3, true);
+
+                $produictitem = new ProductItem();
+
+                foreach ($topProducts as $itemCode => $quantity) {
+                    $productInfo = $produictitem->where("Itemcode", $itemCode); // Assuming the first matching item is enough
+
+                    if ($productInfo) {
+                        $mostPurchasedItem = (object) [
+                            "Name" => $productInfo[0]->itemname,
+                            "ItemCode" => $productInfo[0]->Itemcode,
+                            "Quantity" => $quantity,
+                            "Link" => $productInfo[0]->imagelink,
+                            // Add other properties you want to include
+                        ];
+
+                        $mostPurchasedItems[] = $mostPurchasedItem;
+                    }
+                }
+            } else {
+                $mostPurchasedItems = "No data available.";
+            }
+
+            echo $this->view("customer/profile",[ "data" => $data, "orders" => $orders, "productorderlines" => $productorderlines, "mostPurchasedItems" => $mostPurchasedItems,"itemQuantities"=>$itemQuantities]);
         }
 
 
@@ -271,8 +333,12 @@
             }
 
             $productorderline = new ProductOrderLine();
+            $productorder = new ProductOrder();
+
+            $order = $productorder->where("unique_id",$unique_id);
             $productorderlines = $productorderline->where("unique_id",$unique_id);
-            echo $this->view("customer/moredetailsorder",["productorderlines"=>$productorderlines]);
+
+            echo $this->view("customer/moredetailsorder",["productorderlines"=>$productorderlines,"order"=>$order]);
         }
 
         function deletecartitem($id){
@@ -326,6 +392,9 @@
             $this->redirect(BASE_URL."CustomerControls/showcategories");
         }
 
+
+
+        // Views
         function purchasehistory(){
 
             if(!Auth::loggedIn()){
@@ -355,7 +424,8 @@
             echo $this->view("customer/customerdash");
         }
 
-        function editprofiledetails(){
+        // edit profile details
+        function editprofiledetailsview(){
 
             if(!Auth::loggedIn()){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -364,7 +434,57 @@
             echo $this->view("customer/editprofiledetails");
         }
 
-        function changepassword(){
+        function editprofile(){
+                
+                if(!Auth::loggedIn()){
+                    $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                }
+    
+                if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                    $customer = new Customer();
+
+                    if(!empty($_POST["username"])){
+                        $arr["UserName"] = $_POST["username"];
+                    }
+                    if(!empty($_POST["dob"])){
+                        $arr["DOB"] = $_POST["dob"];
+                    }
+                    if(!empty($_POST["name"])){
+                        $arr["Name"] = $_POST["name"];
+                    }
+                    if(!empty($_POST["address"])){
+                        $arr["Address"] = $_POST["address"];
+                    }
+                    if(!empty($_POST["contactNo"])){
+                        $arr["contactNo"] = $_POST["contactNo"];
+                    }
+                    if(!empty($_POST["email"])){
+                        $arr["Email"] = $_POST["email"];
+                    }
+
+                    if($_POST["password"] == $_SESSION["USER"]->Password){
+                        echo $customer->update($_SESSION["USER"]->UserName,"UserName",$arr);
+
+                        $productorder = new ProductOrder();
+                        $productorder->update($_SESSION["USER"]->UserName,"placeby",["placeby"=>$arr["UserName"]]);
+                        
+                        $_SESSION["USER"] = $customer->where("UserName", $arr["UserName"])[0];
+                        $this->redirect(BASE_URL."CustomerControls/profile");
+                    }
+
+                    else{
+                        echo "Current password is incorrect";
+                    }
+
+                }
+                else{
+                    echo "Form not submitted!";
+                }
+        }
+
+
+        // Change password
+        function changepasswordview(){
 
             if(!Auth::loggedIn()){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -373,15 +493,66 @@
             echo $this->view("customer/changepassword");        
         }
 
-        function editprofile(){
+        function changepassword(){
+                
+                if(!Auth::loggedIn()){
+                    $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                }
+    
+                if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                    $currentpassword = $_POST['currentpassword'];
+                    $newpassword = $_POST['newpassword'];
+                    $confirmpassword = $_POST['confirmpassword'];
+                    
+                    $customer = new Customer();
+                    $customerfound = $customer->where("UserName",$_SESSION["USER"]->UserName);
+                    
+                    $arr["UserName"] = $customerfound[0]->UserName;
+                    $arr["Password"] = $newpassword;
+                    $arr["Email"] = $customerfound[0]->Email;
 
+                    $_SESSION["arr"] = $arr;
+                    $_SESSION["redirect"] = "CustomerControls/updatepassword";
+
+                    if($customerfound[0]->Password == $currentpassword){
+                        if($newpassword == $confirmpassword){
+                            $this->redirect(BASE_URL."CommonControls/otpvalidation");
+                        }
+                        else{
+                            echo "New password and confirm password does not match";
+                        }
+                    }
+                    else{
+                        echo "Current password is incorrect";
+                    }
+                }
+                else{
+                    echo "Form not submitted!";
+                }
+        }
+
+        function updatepassword(){
             if(!Auth::loggedIn()){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
-            echo $this->view("customer/editprofile");        
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            $arr = $_SESSION['arr'];
+            
+            $customer = new Customer();
+            $customer->update($arr["UserName"],"UserName",["Password"=>$arr["Password"]]);
+            
+            unset($_SESSION['arr']);
+            unset($_SESSION['redirect']);
+
+            $this->redirect(BASE_URL."CustomerControls/profile");   
         }
 
+
+        // Logout
         function logout(){
 
             if(!Auth::loggedIn()){

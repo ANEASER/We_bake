@@ -24,7 +24,7 @@
             <li><a onclick="purchasehistory(this)">Purchase History</a></li>
             <li><a onclick="makeinquiry(this)">Make Inquiry</a></li>
             <li><a onclick="placeorder(this)">Place order</a></li>
-            <li><a onclick="logout()">Log Out</a></li>
+            
         </ul>
     </nav>
     <script>
@@ -83,10 +83,7 @@
                 changeActive(link);
                 window.location.href = BASE_URL + "CustomerControls/placeorder";
         }
-        function logout() {
-            sessionStorage.clear(); // Unset session storage
-            window.location.href = BASE_URL +  "CommonControls/logout";
-        }
+        
 
     </script>
 </body>

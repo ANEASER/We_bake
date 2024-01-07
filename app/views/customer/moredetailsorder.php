@@ -3,40 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/category.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <title>More order Details</title>
 </head>
 <body>
-    <h1>More order Details</h1>
-    <button onclick="backtoorders()" >Back to orders</button>
     <?php
-        echo "<table>";
-        echo "<tr>
-                <th>Shopping ID</th>
-                <th>Quantity</th>
-                <th>Unit</th>
-                <th>Item ID</th>
-                <th>Item Code </th>
-                <th>Total Price</th>
-                <th>Unique ID</th>
-                <th>Price</th>
-            </tr>";
-
-        foreach ($productorderlines as $productorderline) {
-            echo "<tr>";
-            echo "<td>" . $productorderline->shoppingid . "</td>";
-            echo "<td>" . $productorderline->quantity . "</td>";
-            echo "<td>" . $productorderline->unit . "</td>";
-            echo "<td>" . $productorderline->itemid . "</td>";
-            echo "<td>" . $productorderline->Itemcode . "</td>";
-            echo "<td>" . $productorderline->totalprice . "</td>";
-            echo "<td>" . $productorderline->unique_id . "</td>";
-            echo "<td>" . $productorderline->price . "</td>";
-            echo "</tr>";
-        }
-
-        echo "</table>";
+        include 'customernav.php';
     ?>
+    <section class="content">
+        <section class="cart">
+                <?php
+                    echo "<h1>Order : ".$order[0]->orderref."</h1>";
+                    echo "<h1>Order Status : ".$order[0]->orderstatus."</h1>";
+                    echo "<h1>Order Delivery Date : ".$order[0]->orderdate."</h1>";
+                    echo "<br>";
+                    echo "<table>";
+                    echo "<tr>
+                            <th>Quantity</th>
+                            <th>Item Code </th>
+                            <th>Price</th>
+                            <th>Subtotal</th>
+                        </tr>";
 
+                    foreach ($productorderlines as $productorderline) {
+                        echo "<tr>";
+                        echo "<td>" . $productorderline->quantity . "</td>";
+                        echo "<td>" . $productorderline->Itemcode . "</td>";
+                        echo "<td>" . $productorderline->price . "</td>";
+                        echo "<td>" . $productorderline->totalprice . "</td>";
+                        echo "</tr>";
+                    }
+
+                    echo "</table>";
+                ?>
+                <button class="bluebutton" onclick="backtoorders()">Back to Orders</button>
+        </section>
+    </section>
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
         
