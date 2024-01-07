@@ -424,6 +424,7 @@
             echo $this->view("customer/customerdash");
         }
 
+        // edit profile details
         function editprofiledetailsview(){
 
             if(!Auth::loggedIn()){
@@ -431,6 +432,54 @@
             }
 
             echo $this->view("customer/editprofiledetails");
+        }
+
+        function editprofile(){
+                
+                if(!Auth::loggedIn()){
+                    $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                }
+    
+                if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                    $customer = new Customer();
+
+                    if(!empty($_POST["username"])){
+                        $arr["UserName"] = $_POST["username"];
+                    }
+                    if(!empty($_POST["dob"])){
+                        $arr["DOB"] = $_POST["dob"];
+                    }
+                    if(!empty($_POST["name"])){
+                        $arr["Name"] = $_POST["name"];
+                    }
+                    if(!empty($_POST["address"])){
+                        $arr["Address"] = $_POST["address"];
+                    }
+                    if(!empty($_POST["contactNo"])){
+                        $arr["contactNo"] = $_POST["contactNo"];
+                    }
+                    if(!empty($_POST["email"])){
+                        $arr["Email"] = $_POST["email"];
+                    }
+
+                    if($_POST["password"] == $_SESSION["USER"]->Password){
+                        echo $customer->update($_SESSION["USER"]->UserName,"UserName",$arr);
+
+                        $productorder = new ProductOrder();
+                        $productorder->update($_SESSION["USER"]->UserName,"placeby",["placeby"=>$arr["UserName"]]);
+                        
+                        $_SESSION["USER"] = $customer->where("UserName", $arr["UserName"])[0];
+                        $this->redirect(BASE_URL."CustomerControls/profile");
+                    }
+
+                    else{
+                        echo "Current password is incorrect";
+                    }
+
+                }
+                else{
+                    echo "Form not submitted!";
+                }
         }
 
 
