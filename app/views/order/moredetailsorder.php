@@ -49,13 +49,21 @@
         </section>
     </section>
     <script>
-        var BASE_URL = "<?php echo BASE_URL; ?>";
-        
-        function backtoorders(){
-            window.location.href = BASE_URL + "CustomerControls/purchasehistory";
-        }
-        
+            var BASE_URL = "<?php echo BASE_URL; ?>";
+
+            // Make sure to properly encode the user information
+            var user = <?php echo json_encode($_SESSION["USER"]); ?>;
+            
+            console.log(user);
+            
+           
+            function backtoorders() {
+
+            if(!user.role){
+                window.location.href = BASE_URL + "CustomerControls/purchasehistory";}
+            }
     </script>
+
         
 </body>
 </html>

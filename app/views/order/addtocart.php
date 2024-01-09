@@ -19,7 +19,7 @@
 
         <button id="cartbutton" type="button" onclick="veiwcart()"></button> 
         <section class="content" style="justify-content: space-between;">
-                    <form class="form" id="addToCartForm" method="post" action="<?php echo BASE_URL; ?>CustomerControls/storeinsession">
+                    <form class="form" id="addToCartForm" method="post" action="<?php echo BASE_URL; ?>OrderControls/storeinsession">
 
                         <input type="hidden" name="unique_id" value="<?php echo $unique_id; ?>">
                             <div class="menu-category">
@@ -57,11 +57,11 @@
         </section>    
     <script>
             function veiwcart() {
-                window.location.href = "<?php echo BASE_URL; ?>CustomerControls/viewcart";
+                window.location.href = "<?php echo BASE_URL; ?>OrderControls/viewcart";
             }
 
             function edit() {
-                window.location.href = "<?php echo BASE_URL; ?>CustomerControls/updatecart";
+                window.location.href = "<?php echo BASE_URL; ?>OrderControls/updatecart";
             }
     </script>
 </body>

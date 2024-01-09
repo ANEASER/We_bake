@@ -25,19 +25,19 @@
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
         function checkout(){
-            window.location.href = BASE_URL +"CustomerControls/checkout";
+            window.location.href = BASE_URL +"OrderControls/checkout";
         }
 
         function cancel(){
-            window.location.href = BASE_URL +"CustomerControls/deletecart";
+            window.location.href = BASE_URL +"OrderControls/deletecart";
         }
 
         function edit(){
-            window.location.href = BASE_URL +"CustomerControls/updatecart";
+            window.location.href = BASE_URL +"OrderControls/updatecart";
         }
 
         function addmore(){
-            window.location.href = BASE_URL +"CustomerControls/showcategories";
+            window.location.href = BASE_URL +"OrderControls/showcategories";
         }
     </script>
 </body>

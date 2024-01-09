@@ -55,7 +55,7 @@
         }
 
         function more(unique_id){
-            window.location.href = BASE_URL + "CustomerControls/moredetails/" + unique_id;
+            window.location.href = BASE_URL + "OrderControls/moredetails/" + unique_id;
         }
      </script>
 </body>

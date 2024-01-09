@@ -47,15 +47,15 @@
     </section>
         <script>
             function selectCategory(category) {
-                window.location.href = "<?php echo BASE_URL; ?>CustomerControls/addtocart/" + category;
+                window.location.href = "<?php echo BASE_URL; ?>OrderControls/addtocart/" + category;
             }
 
             function veiwcart() {
-                window.location.href = "<?php echo BASE_URL; ?>CustomerControls/viewcart";
+                window.location.href = "<?php echo BASE_URL; ?>OrderControls/viewcart";
             }
 
             function edit() {
-                window.location.href = "<?php echo BASE_URL; ?>CustomerControls/updatecart";
+                window.location.href = "<?php echo BASE_URL; ?>OrderControls/updatecart";
             }
 
         </script>
