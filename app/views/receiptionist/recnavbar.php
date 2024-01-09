@@ -28,7 +28,7 @@ function loadHistory() {
 }
 
 function PlaceOrders() {
-    window.location.href = BASE_URL +  "Recieptioncontrols/existingcustomer";
+    window.location.href = BASE_URL +  "Recieptioncontrols/customernumber";
 }
 
 function logout() {

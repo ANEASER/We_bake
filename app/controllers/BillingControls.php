@@ -3,14 +3,19 @@ class BillingControls extends Controller {
     
     
     function index($id = null) {
+
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        
         $productorder = new ProductOrder();
         $productorders = $productorder->findall();
         $this->view("billingclerk/billingdash",["productorders" => $productorders]);
     }
 
     // order handle
-    function processOrder($orderid) {
-        echo $this->view("billingclerk/uploadproof", ["orderid" => $orderid]);
+    function processOrder($orderid,$paymentstatus) {
+        echo $this->view("billingclerk/uploadproof", ["orderid" => $orderid, "paymentstatus" => $paymentstatus]);
     }
 
 
@@ -21,11 +26,11 @@ class BillingControls extends Controller {
             $amount = $_POST["amount"];
             $initialorfinal = $_POST["initialorfinal"];
 
-            $target_dir = "../uploads/";
+            $target_dir = "../public/media//uploads/Billingproofs/";
 
             $target_file = $target_dir . basename($_FILES["image"]["name"]);
             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-            $newfilename = $orderid . "." . $imageFileType;
+            $newfilename = $initialorfinal.$orderid . "." . $imageFileType;
             $target_file = $target_dir . $newfilename;
             $uploadOk = 1;
             $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
@@ -79,6 +84,7 @@ class BillingControls extends Controller {
 
                 } else {
                     echo "Sorry, there was an error uploading your file.";
+                    $this->redirect(BASE_URL."BillingControls");
                     return;
                 }
             }

@@ -3,24 +3,23 @@
 <html>
 <head>
     <title>Bakery Products</title>
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
 </head>
 <body>
-    
-
-    <?php
-
-        $cartItems = $_SESSION['cart'];
-        $unique_id = $_SESSION['unique_id'];
-
-        echo "<h3>Unique ID: " . $unique_id . "</h3>";
-        echo "<h1>Cart Items</h1>";
-        foreach ($cartItems as $item) {
-            echo "ID: " . $item['id'] . ", Quantity: " . $item['quantity'] . "<br>";
-            }
-    ?>
-
-    <button onclick="checkout()">checkout</button>
-    <button onclick="cancel()">cancel</button>
+        <section class="cart">
+            <section class="content">
+                <?php
+                    include 'cartitems.php';
+                ?>
+            </section>
+            <section class="buttongroup">
+                <button class="yellowbutton" onclick="edit()">edit</button>
+                <button class="greenbutton" onclick="checkout()">checkout</button>
+                <button class="redbutton" onclick="cancel()">cancel</button>
+                <button class="bluebutton" onclick="addmore()">addmore</button>
+            </section>
+        </section>
 
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
@@ -31,6 +30,14 @@
 
         function cancel(){
             window.location.href = BASE_URL +"CustomerControls/deletecart";
+        }
+
+        function edit(){
+            window.location.href = BASE_URL +"CustomerControls/updatecart";
+        }
+
+        function addmore(){
+            window.location.href = BASE_URL +"CustomerControls/showcategories";
         }
     </script>
 </body>

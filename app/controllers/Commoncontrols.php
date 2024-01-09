@@ -99,15 +99,11 @@ class CommonControls extends Controller {
         }
 
         $email = $_SESSION['arr']['Email'];
+        $redirect = $_SESSION['redirect'];
 
         if (isset($_POST["otp"])) {
             if ($_POST["otp"] == $_SESSION['otp']) {
-                $customer = new Customer();
-                $arr = $_SESSION['arr'];
-                $customer->insert($arr);
-                echo "Registration Successful";
-                session_destroy();
-                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                $this->redirect(BASE_URL.$redirect);
             } else {
                 $err = "Invalid OTP"; 
                 $this->view("common/otpverification",["err"=>$err]);
@@ -123,6 +119,7 @@ class CommonControls extends Controller {
         
     }
     
+
     function register(){
 
         $error="";
@@ -161,11 +158,27 @@ class CommonControls extends Controller {
                         session_start();
                     }
                     $_SESSION['arr'] = $arr;
+                    $_SESSION['redirect'] = "CommonControls/insertuser";
                     $this->redirect(BASE_URL."CommonControls/otpvalidation");
                     }
                 }
             }
     }
+
+
+    function insertuser(){
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $arr = $_SESSION['arr'];
+            $customer = new Customer();
+            $customer->insert($arr);
+            echo "Registration Successful";
+            session_destroy();
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+    }
+
+
 
     function logout() {
         Auth::logout();
