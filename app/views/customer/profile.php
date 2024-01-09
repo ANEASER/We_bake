@@ -33,7 +33,7 @@
                     <?php
                         $completedorders = 0;
                         foreach($orders as $order){
-                            if($order->orderstatus == "completed"){
+                            if($order->orderstatus == "finished"){
                                 $completedorders = $completedorders + 1;
                             }
                         }

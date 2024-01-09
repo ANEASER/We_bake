@@ -54,7 +54,7 @@
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
         function deletecartitem(id){
-            window.location.href = BASE_URL +"CustomerControls/deletecartitem/"+id;
+            window.location.href = BASE_URL +"OrderControls/deletecartitem/"+id;
         }
 
         function editCartItem(id, quantity) {
@@ -73,7 +73,7 @@
             }
 
             else if (newQuantity !== null && !isNaN(newQuantity) && newQuantity.trim() !== "") {
-                window.location.href = BASE_URL + "CustomerControls/editcartitem/" + id + "/" + newQuantity;
+                window.location.href = BASE_URL + "OrderControls/editcartitem/" + id + "/" + newQuantity;
             }
 
             else {
@@ -82,7 +82,7 @@
         }
 
         function okButton() {
-            window.location.href = BASE_URL + "CustomerControls/viewcart";
+            window.location.href = BASE_URL + "OrderControls/viewcart";
         }
     </script>
 </body>
@@ -94,7 +94,7 @@
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
         function deletecartitem(id){
-            window.location.href = BASE_URL +"CustomerControls/deletecartitem/"+id;
+            window.location.href = BASE_URL +"OrderControls/deletecartitem/"+id;
         }
 
         function editCartItem(id, quantity) {
@@ -113,7 +113,7 @@
             }
 
             else if (newQuantity !== null && !isNaN(newQuantity) && newQuantity.trim() !== "") {
-                window.location.href = BASE_URL + "CustomerControls/editcartitem/" + id + "/" + newQuantity;
+                window.location.href = BASE_URL + "OrderControls/editcartitem/" + id + "/" + newQuantity;
             }
 
             else {
