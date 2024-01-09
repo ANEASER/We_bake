@@ -337,6 +337,8 @@
 
             $order = $productorder->where("unique_id",$unique_id);
             $productorderlines = $productorderline->where("unique_id",$unique_id);
+            
+            
 
             echo $this->view("customer/moredetailsorder",["productorderlines"=>$productorderlines,"order"=>$order]);
         }
@@ -462,7 +464,9 @@
                         $arr["Email"] = $_POST["email"];
                     }
 
-                    if($_POST["password"] == $_SESSION["USER"]->Password){
+                    $verifiedpassword = password_verify($_POST["password"],$_SESSION["USER"]->Password);
+                    
+                    if($verifiedpassword){
                         echo $customer->update($_SESSION["USER"]->UserName,"UserName",$arr);
 
                         $productorder = new ProductOrder();
@@ -514,7 +518,9 @@
                     $_SESSION["arr"] = $arr;
                     $_SESSION["redirect"] = "CustomerControls/updatepassword";
 
-                    if($customerfound[0]->Password == $currentpassword){
+                    $verifiedpassword = password_verify($currentpassword,$customerfound[0]->Password);
+
+                    if($verifiedpassword){
                         if($newpassword == $confirmpassword){
                             $this->redirect(BASE_URL."CommonControls/otpvalidation");
                         }
@@ -543,7 +549,8 @@
             $arr = $_SESSION['arr'];
             
             $customer = new Customer();
-            $customer->update($arr["UserName"],"UserName",["Password"=>$arr["Password"]]);
+            $newpassword = password_hash($arr["Password"], PASSWORD_DEFAULT);
+            $customer->update($arr["UserName"],"UserName",["Password"=>$newpassword]);
             
             unset($_SESSION['arr']);
             unset($_SESSION['redirect']);

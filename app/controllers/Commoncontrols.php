@@ -27,6 +27,8 @@ class CommonControls extends Controller {
                     
                     if (isset($user->Role)) {
                         $role = $user->Role;
+
+                        
                         
                         if ($_POST["password"] == $user->Password) {
                             Auth::authenticate($user);
@@ -62,8 +64,9 @@ class CommonControls extends Controller {
                     if (is_array($row) && count($row) > 0) {
                     
                         $user = $row[0];
+                        $verifiedpassword = password_verify($_POST["password"], $user->Password);
                             
-                            if ($_POST["password"] == $user->Password) {
+                            if ($verifiedpassword ) {
                                 Auth::authenticate($user);
                                 $this->redirect(BASE_URL."CustomerControls");
                             } else {
@@ -129,7 +132,7 @@ class CommonControls extends Controller {
             $systemuser = new Systemuser();
             
             $arr["Name"] = $_POST["Name"];
-            $arr["Password"] = $_POST["Password1"];
+            $arr["Password"] =   password_hash($_POST["Password1"], PASSWORD_DEFAULT);
             $arr["DOB"] = $_POST["DOB"];
             $arr["contactNo"] = $_POST["contactNo"];
             $arr["Address"] = $_POST["Address"];

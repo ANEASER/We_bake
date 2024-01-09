@@ -24,14 +24,20 @@
                     echo "<tr>
                             <th>Quantity</th>
                             <th>Item Code </th>
+                            <th>Item Name</th>
                             <th>Price</th>
                             <th>Subtotal</th>
                         </tr>";
 
                     foreach ($productorderlines as $productorderline) {
+                        
+                        $productitem = new ProductItem();
+                        $item = $productitem->where('Itemcode', $productorderline->Itemcode);
+                        
                         echo "<tr>";
                         echo "<td>" . $productorderline->quantity . "</td>";
                         echo "<td>" . $productorderline->Itemcode . "</td>";
+                        echo "<td>" . $item[0]->itemname. "</td>";
                         echo "<td>" . $productorderline->price . "</td>";
                         echo "<td>" . $productorderline->totalprice . "</td>";
                         echo "</tr>";
