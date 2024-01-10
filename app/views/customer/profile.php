@@ -118,12 +118,15 @@
             <h1 style="text-align: center;">Most Purchased Items</h1>
             <section style="display:flex;">
             <?php
+                    if(is_array($mostPurchasedItems) && !empty($mostPurchasedItems)){
                     foreach($mostPurchasedItems as $item){
                             echo "<div class='statscard' style='background-image:url(" . BASE_URL . 'media/uploads/Product/' . $item->Link . ")'>";
                             echo "<h4>".$item->Name."</h4>";
                             echo "<h4>".$item->ItemCode."</h4>";
                             echo "<h4>".$item->Quantity."</h4>";
                             echo "</div>";
+                        }} else {
+                            echo "<h3 style='text-align:center;'>No Purchased Items</h3>";
                         }
                        
                     ?>
