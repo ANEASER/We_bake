@@ -6,6 +6,7 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/profile.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <title>Customer Profile</title>
 </head>
 <body>
@@ -78,7 +79,7 @@
                     echo "<p>".$totalunits."</p>";?>
                 </div>
             </section>
-            <section class="profile">
+            <section class="profile" style="font-weight: bolder;">
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" alt="propic" height="200px" width="200px">
                 <p></p><br>
                 <table>
@@ -104,11 +105,11 @@
                     </tr>
                 </table>
                 <section class="buttongroup">
-                        <button class="yellowbutton" onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
+                        <button class="brownbutton" onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
 
-                        <button class="yellowbutton" onclick="changepassword()" class="buttonedit">Change Password</button>
+                        <button class="brownbutton" onclick="changepassword()" class="buttonedit">Change Password</button>
 
-                        <button class="yellowbutton" onclick="logout()">Log Out</button>
+                        <button class="brownbutton" onclick="logout()">Log Out</button>
                 </section>
                
             </section>

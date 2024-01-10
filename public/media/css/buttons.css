@@ -75,3 +75,18 @@
     cursor: pointer;
     width: 100px;
 }
+
+.brownbutton {
+    margin: 5%;
+    padding: 2%;
+    background-color: #41201f;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100px;
+}
+
+.brownbutton:hover {
+    background-color: #5d3a38;
+}
