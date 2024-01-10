@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
-    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/category.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <title>More order Details</title>
 </head>
 <body>
@@ -14,7 +14,7 @@
         include 'customernav.php';
     ?>
     <section class="content">
-        <section class="cart">
+        <section class="cart" style="width: 60%;">
                 <?php
                     echo "<h1>Order : ".$order[0]->orderref."</h1>";
                     echo "<h1>Order Status : ".$order[0]->orderstatus."</h1>";

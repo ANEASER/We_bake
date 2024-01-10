@@ -1,5 +1,6 @@
 th, td {
-    padding: 5px;
+    padding: 10px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+    background-color: rgba(245, 242, 242, 0.658);
 }

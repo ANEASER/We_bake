@@ -6,7 +6,6 @@
     <title>Home</title>
 </head>
 <body>
-    
     <button onclick="loadLogin()" class="buttonhome" style="margin-top: 15%">Login</button>
     <button onclick="loadRegister()" class="buttonhome">Register</button>
              
