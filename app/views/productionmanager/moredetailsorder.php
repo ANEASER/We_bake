@@ -15,6 +15,7 @@
                 <th>Quantity</th>
                 <th>Unit</th>
                 <th>Item ID</th>
+                <th>Item Code </th>
                 <th>Total Price</th>
                 <th>Unique ID</th>
                 <th>Price</th>
@@ -26,7 +27,9 @@
             echo "<td>" . $productorderline->quantity . "</td>";
             echo "<td>" . $productorderline->unit . "</td>";
             echo "<td>" . $productorderline->itemid . "</td>";
+            echo "<td>" . $productorderline->Itemcode . "</td>";
             echo "<td>" . $productorderline->totalprice . "</td>";
+            echo "<td>" . $productorderline->unique_id . "</td>";
             echo "<td>" . $productorderline->price . "</td>";
             echo "</tr>";
         }

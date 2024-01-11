@@ -1,0 +1,71 @@
+section.stats {
+    width: 75%;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.statscard {
+    height: 200px;
+    width: 300px;
+    margin: 20px;
+    padding: 1%;
+    text-align: center;
+    background-color: rgba(245, 242, 242, 0.658);
+}
+
+.statscard p {
+    margin-top: 12%;
+    font-size: 4em;
+    font-weight: bold;
+}
+
+section.stats h3 {
+    font-size: 1.5em;
+}
+
+
+section.profile {
+    width: 25%;
+    padding: 20px;
+    padding-left: 2%;
+    background-color: rgba(245, 242, 242, 0.658);
+
+}
+
+section.content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#profilebutton {
+    display: block;
+}  
+
+.buttongroup{
+    display: flex; justify-content: space-around;
+}
+
+
+@media (max-width: 1100px){
+    section.profile {
+        width: 100%;
+        padding: 20px;
+    }
+
+    section.stats {
+        width: 100%;
+        padding: 20px;
+    }
+    #profilebutton {
+        display: block; 
+    }
+
+    section.content {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-around;
+    }
+
+}

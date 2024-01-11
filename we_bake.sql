@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 19, 2023 at 03:30 PM
+-- Generation Time: Jan 05, 2024 at 09:43 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -44,8 +44,6 @@ CREATE TABLE `customer` (
 
 INSERT INTO `customer` (`Name`, `Password`, `DOB`, `contactNo`, `ActiveState`, `Address`, `UserName`, `Email`) VALUES
 ('amal', 'amal', '2023-09-12', 0, 1, 'sfsdfgv sfgfgdfg rfgdfg', 'amal', 'amal@hmail.com'),
-('Anuda esarith Attanayake', '1234', '2023-11-24', 782695545, 1, 'F 109', 'anudaesr', 'anudaattanayake@gmail.com'),
-('ravindu', 'ravindu', '2021-11-09', 782695545, 1, 'asd hshsh skskks', 'ravindu', 'ravindu@gmail.com'),
 ('sadun', 'sadun', '2023-08-30', 723232545, 1, 'sadun sadun', 'sadun', 'sadun@gmail.com');
 
 -- --------------------------------------------------------
@@ -70,7 +68,7 @@ CREATE TABLE `deliveryvehicles` (
 --
 
 INSERT INTO `deliveryvehicles` (`registrationnumber`, `type`, `capacity`, `availability`, `vehicleno`, `chassinumber`, `enginenumber`, `modelname`) VALUES
-('CAR-33434', 'CAB', 5, 1, 12, '1233123123', '1231231', 'Dolphin'),
+('CAR-33434', 'CAB', 5, 0, 12, '1233123123', '1231231', 'Dolphin'),
 ('LC-6464', 'Truck', 18, 1, 13, '1233123123', '324234', '2342342'),
 ('CAD-1234', 'Bus', 6, 1, 14, '12323112', '21234321', '21312343');
 
@@ -111,9 +109,9 @@ CREATE TABLE `outlet` (
 CREATE TABLE `payment` (
   `id` int(11) NOT NULL,
   `orderid` int(11) NOT NULL,
-  `ordertype` varchar(20) NOT NULL,
-  `initialpayment` int(11) NOT NULL,
-  `finalpayment` int(11) NOT NULL
+  `initialorfinal` varchar(15) NOT NULL,
+  `link` varchar(160) NOT NULL,
+  `amount` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -128,16 +126,25 @@ CREATE TABLE `productitem` (
   `stockprice` int(11) NOT NULL,
   `itemdescription` varchar(255) NOT NULL,
   `itemname` varchar(45) NOT NULL,
-  `unit` varchar(5) NOT NULL
+  `unit` varchar(5) NOT NULL,
+  `category` varchar(45) NOT NULL,
+  `Itemcode` varchar(45) NOT NULL,
+  `imagelink` varchar(20) NOT NULL,
+  `availability` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `productitem`
 --
 
-INSERT INTO `productitem` (`itemid`, `retailprice`, `stockprice`, `itemdescription`, `itemname`, `unit`) VALUES
-(27, 5, 5, 'floar bread\r\n', 'Bread', ''),
-(28, 5, 5, 'chicken', 'sandwich', '');
+INSERT INTO `productitem` (`itemid`, `retailprice`, `stockprice`, `itemdescription`, `itemname`, `unit`, `category`, `Itemcode`, `imagelink`, `availability`) VALUES
+(31, 5, 4, 'Pizza with chicken', 'Chiken Pizza', '', 'Bread', 'PZ00031', '', 0),
+(32, 12, 3, 'jgfkkjg', 'BreadR', '', 'Doughnuts', 'BR00032', '', 1),
+(35, 4, 4, 'sdfsdfsf', 'Bread', '', 'Bread', 'BR00033', 'BR00033.png', 1),
+(36, 5, 4, 'jgkgkg', 'sandwich', '', 'Sandwiches', 'SW00036', 'SW00036.png', 1),
+(37, 5, 3, '.khhl', 'cutepie', '', 'Pies', 'PI00037', 'PI00037.png', 1),
+(39, 5, 3, 'gfdhh', 'SweetBread', '', 'Bread', 'BR00039', 'BR00039.png', 1),
+(40, 4, 1, 'sdfs', 'FishBun', '', 'Buns', 'BN00040', 'BN00040.png', 1);
 
 -- --------------------------------------------------------
 
@@ -155,15 +162,18 @@ CREATE TABLE `productorder` (
   `total` int(11) NOT NULL,
   `deliverby` varchar(20) NOT NULL,
   `deliver_address` varchar(120) NOT NULL,
-  `unique_id` varchar(20) NOT NULL
+  `unique_id` varchar(20) NOT NULL,
+  `pickername` varchar(45) NOT NULL,
+  `orderref` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `productorder`
 --
 
-INSERT INTO `productorder` (`orderid`, `placeby`, `orderdate`, `paymentstatus`, `deliverystatus`, `orderstatus`, `total`, `deliverby`, `deliver_address`, `unique_id`) VALUES
-(1, 'amal', '2023-12-20', 'pending', 'pickup', 'pending', 45, '', 'wdfwdfwf', '6581a7785a378');
+INSERT INTO `productorder` (`orderid`, `placeby`, `orderdate`, `paymentstatus`, `deliverystatus`, `orderstatus`, `total`, `deliverby`, `deliver_address`, `unique_id`, `pickername`, `orderref`) VALUES
+(17, 'amal', '2024-01-12', 'pending', 'delivery', 'pending', 48, '', 'fre dfhfjk', '6597b6c779bbc', 'picker1', 'CP0000001'),
+(18, 'amal', '2024-01-17', 'pending', 'delivery', 'pending', 15, '', 'Jaffna', '6597b77065510', 'picker2', 'CP0000018');
 
 -- --------------------------------------------------------
 
@@ -178,21 +188,17 @@ CREATE TABLE `productorderline` (
   `itemid` int(20) NOT NULL,
   `totalprice` int(20) NOT NULL,
   `unique_id` varchar(20) NOT NULL,
-  `price` int(20) NOT NULL
+  `price` int(20) NOT NULL,
+  `Itemcode` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `productorderline`
 --
 
-INSERT INTO `productorderline` (`shoppingid`, `quantity`, `unit`, `itemid`, `totalprice`, `unique_id`, `price`) VALUES
-(1, 4, '', 27, 20, '6581971241d7b', 5),
-(3, 4, '', 27, 20, '6581a70f6af85', 5),
-(4, 4, '', 28, 20, '6581a70f6af85', 5),
-(5, 4, '', 27, 20, '6581a754ed314', 5),
-(6, 4, '', 28, 20, '6581a754ed314', 5),
-(7, 4, '', 27, 20, '6581a7785a378', 5),
-(8, 5, '', 28, 25, '6581a7785a378', 5);
+INSERT INTO `productorderline` (`shoppingid`, `quantity`, `unit`, `itemid`, `totalprice`, `unique_id`, `price`, `Itemcode`) VALUES
+(36, 4, '', 32, 48, '6597b6c779bbc', 12, 'BR00032'),
+(37, 3, '', 36, 15, '6597b77065510', 5, 'SW00036');
 
 -- --------------------------------------------------------
 
@@ -311,12 +317,12 @@ CREATE TABLE `systemuser` (
 --
 
 INSERT INTO `systemuser` (`Name`, `NIC`, `Password`, `DOB`, `contactNo`, `ActiveState`, `Address`, `UserID`, `Role`, `UserName`, `Email`) VALUES
-('Admin', '99191166f', 'password', '2023-11-15', 1231231312, 1, 'sdsd sdsd ', 107, 'admin', 'admin', 'admin@gmail.com'),
-('ruwanda', '20023231', '1234', '2008-01-01', 782695334, 1, 'Kegalle', 108, 'productionmanager', 'ruwanda', 'ruwanda@gmail.com'),
-('praveen', '1234', '1234', '2023-11-29', 756695545, 1, 'Ranwala', 113, 'receptionist', 'praveen', 'praveen@gmail.com'),
-('mahesh', '123123112', '1234', '2014-01-02', 756695545, 1, 'Colombo', 114, 'storemanager', 'mahesh', 'mahesh@gmail.com'),
-('Nadun', '1231231', '1234', '2023-11-06', 783478374, 1, 'Kandy', 117, 'outletmanager', 'Nadun', 'nadub@gami.com'),
-('Candy', '20023231', '1234', '2023-09-06', 783478374, 1, 'Matra', 120, 'storemanager', '1234', 'candy@gmail.com');
+('admin', '99191166f', 'password', '2023-11-15', 1231231312, 1, 'sdsd sdsd ', 107, 'admin', 'admin', 'admin@gmail.com'),
+('pm', '20023231', '1234', '2008-01-01', 782695334, 1, 'Kegalle', 108, 'productionmanager', 'production', 'ruwanda@gmail.com'),
+('recieptionist', '1234', '1234', '2023-11-29', 756695545, 1, 'Gampaha', 113, 'receptionist', 'recieption', 'praveen@gmail.com'),
+('storemanager', '123123112', '1234', '2014-01-02', 756695545, 1, 'Colombo', 114, 'storemanager', 'store', 'mahesh@gmail.com'),
+('outletmanager', '1231231', '1234', '2023-11-06', 783478374, 1, 'Kandy', 117, 'outletmanager', 'outlet', 'nadub@gami.com'),
+('bill', '1231231', '1234', '2023-12-05', 76795545, 1, 'Anuradhapura', 121, 'billingclerk', 'billingcle', 'billing@gmail.com');
 
 --
 -- Triggers `systemuser`
@@ -448,25 +454,25 @@ ALTER TABLE `deliveryvehicles`
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `productitem`
 --
 ALTER TABLE `productitem`
-  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `itemid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `productorder`
 --
 ALTER TABLE `productorder`
-  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `productorderline`
 --
 ALTER TABLE `productorderline`
-  MODIFY `shoppingid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `shoppingid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `stockorderline`
@@ -502,7 +508,7 @@ ALTER TABLE `supplyrequest`
 -- AUTO_INCREMENT for table `systemuser`
 --
 ALTER TABLE `systemuser`
-  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `UserID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

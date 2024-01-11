@@ -27,6 +27,8 @@ class CommonControls extends Controller {
                     
                     if (isset($user->Role)) {
                         $role = $user->Role;
+
+                        
                         
                         if ($_POST["password"] == $user->Password) {
                             Auth::authenticate($user);
@@ -62,8 +64,9 @@ class CommonControls extends Controller {
                     if (is_array($row) && count($row) > 0) {
                     
                         $user = $row[0];
+                        $verifiedpassword = password_verify($_POST["password"], $user->Password);
                             
-                            if ($_POST["password"] == $user->Password) {
+                            if ($verifiedpassword ) {
                                 Auth::authenticate($user);
                                 $this->redirect(BASE_URL."CustomerControls");
                             } else {
@@ -99,15 +102,11 @@ class CommonControls extends Controller {
         }
 
         $email = $_SESSION['arr']['Email'];
+        $redirect = $_SESSION['redirect'];
 
         if (isset($_POST["otp"])) {
             if ($_POST["otp"] == $_SESSION['otp']) {
-                $customer = new Customer();
-                $arr = $_SESSION['arr'];
-                $customer->insert($arr);
-                echo "Registration Successful";
-                session_destroy();
-                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                $this->redirect(BASE_URL.$redirect);
             } else {
                 $err = "Invalid OTP"; 
                 $this->view("common/otpverification",["err"=>$err]);
@@ -123,6 +122,7 @@ class CommonControls extends Controller {
         
     }
     
+
     function register(){
 
         $error="";
@@ -132,7 +132,7 @@ class CommonControls extends Controller {
             $systemuser = new Systemuser();
             
             $arr["Name"] = $_POST["Name"];
-            $arr["Password"] = $_POST["Password1"];
+            $arr["Password"] =   password_hash($_POST["Password1"], PASSWORD_DEFAULT);
             $arr["DOB"] = $_POST["DOB"];
             $arr["contactNo"] = $_POST["contactNo"];
             $arr["Address"] = $_POST["Address"];
@@ -161,11 +161,27 @@ class CommonControls extends Controller {
                         session_start();
                     }
                     $_SESSION['arr'] = $arr;
+                    $_SESSION['redirect'] = "CommonControls/insertuser";
                     $this->redirect(BASE_URL."CommonControls/otpvalidation");
                     }
                 }
             }
     }
+
+
+    function insertuser(){
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            $arr = $_SESSION['arr'];
+            $customer = new Customer();
+            $customer->insert($arr);
+            echo "Registration Successful";
+            session_destroy();
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+    }
+
+
 
     function logout() {
         Auth::logout();

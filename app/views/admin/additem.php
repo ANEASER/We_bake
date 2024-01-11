@@ -13,7 +13,7 @@
     ?>
 
         <div>
-            <form method="POST" action="<?php echo BASE_URL; ?>AdminControls/addproductitem">
+            <form method="POST" action="<?php echo BASE_URL; ?>AdminControls/addproductitem" enctype="multipart/form-data">
             
                 <label for="itemname">Item Name:</label><br>
                 <input type="text" id="itemname" name="itemname" required><br><br>
@@ -36,12 +36,16 @@
                     <option value="Muffins">Muffins</option>
                     <option value="Doughnuts">Doughnuts</option>
                     <option value="Pies">Pies</option>
-                    <option value="Rolls and Buns">Rolls and Buns</option>
+                    <option value="Buns">Buns</option>
+                    <option value="Rolls">Rolls</option>
                     <option value="Sandwiches">Sandwiches</option>
                     <option value="Pizza">Pizza</option>
                     <option value="Others">Others</option>
 
                 </select><br><br>
+
+                <label for="image">Item Image</label>
+                <input type="file" name="image" id="image" required>
             
                 <input type="submit" value="Submit">
 

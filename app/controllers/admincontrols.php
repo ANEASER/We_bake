@@ -16,17 +16,112 @@
         // CRUDS
         function addproductitem(){
 
-            $productitem = new ProductItem();
+            if(isset($_FILES["image"])){
 
-            $arr["itemname"] = $_POST["itemname"];
-            $arr["retailprice"] = $_POST["retailprice"];
-            $arr["stockprice"] = $_POST["stockprice"];
-            $arr["itemdescription"] = $_POST["itemdescription"];
-            $arr["category"] = $_POST["category"];
+                $productitem = new ProductItem();
 
-            $productitem->insert($arr);
+                $arr["itemname"] = $_POST["itemname"];
+                $arr["retailprice"] = $_POST["retailprice"];
+                $arr["stockprice"] = $_POST["stockprice"];
+                $arr["itemdescription"] = $_POST["itemdescription"];
+                $arr["category"] = $_POST["category"];
 
-            $this->redirect(BASE_URL."AdminControls/loadItemsView");
+                if($arr["category"] == "Bread"){
+                    $C = "BR";
+                }
+                if($arr["category"] == "Pastries"){
+                    $C = "PA";
+                }
+                if($arr["category"] == "Cakes"){
+                    $C = "CK";
+                }
+                if($arr["category"] == "Cookies"){
+                    $C = "CO";
+                }
+                if($arr["category"] == "Muffins"){
+                    $C = "MU";
+                }
+                if($arr["category"] == "Doughnuts"){
+                    $C = "DN";
+                }
+                if($arr["category"] == "Pies"){
+                    $C = "PI";
+                }
+                if($arr["category"] == "Buns"){
+                    $C = "BN";
+                }
+                if($arr["category"] == "Rolls"){
+                    $C = "RL";
+                }
+                if($arr["category"] == "Sandwiches"){
+                    $C = "SW";
+                }
+                if($arr["category"] == "Pizza"){
+                    $C = "PZ";
+                }
+                if($arr["category"] == "Others"){
+                    $C = "OT";
+                }
+
+
+                $max_itemm_id = $productitem->getMinMax("itemid", "max");
+                $max_itemm_id = $max_itemm_id[0]->{"max(itemid)"};
+                $max_itemm_id = $max_itemm_id + 1;
+                $max_itemm_id = str_pad($max_itemm_id, 5, '0', STR_PAD_LEFT);
+
+                $arr["Itemcode"] = $C.$max_itemm_id;
+
+                $target_dir = "../public/media/uploads/Product/";
+                $target_file = $target_dir . basename($_FILES["image"]["name"]);
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+
+                $newfilename = $arr["Itemcode"] . "." . $imageFileType;
+                $target_file = $target_dir . $newfilename;
+                $uploadOk = 1;
+                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                $check = getimagesize($_FILES["image"]["tmp_name"]);
+
+                if($check !== false) {
+                    $uploadOk = 1;
+                } else {
+                    echo "File is not an image.";
+                    $uploadOk = 0;
+
+                    return;
+                }
+                if (file_exists($target_file)) {
+                    echo "Sorry, file already exists.";
+                    $uploadOk = 0;
+                    return;
+                }
+                if ($_FILES["image"]["size"] > 500000) {
+                    echo "Sorry, your file is too large.";
+                    $uploadOk = 0;
+                    return;
+                }
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
+                    echo "Sorry, only JPG, JPEG, PNG files are allowed.";
+                    $uploadOk = 0;
+                    return;
+                }
+                if ($uploadOk == 0) {
+                    echo "Sorry, your file was not uploaded.";
+                    return;
+                } else {
+                    if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                        $arr["imagelink"] = $newfilename;
+                        $productitem->insert($arr);
+                        $this->redirect(BASE_URL."AdminControls/loadItemsView");
+                    }
+                }
+
+
+               
+            }
+            else{
+                echo "Sorry, there was an error uploading your file.";
+                $this->redirect(BASE_URL."AdminControls/index");
+            }
 
         }
 
@@ -52,13 +147,22 @@
             if (!empty($_POST['itemdescription'])){
                 $data['itemdescription'] = $_POST['itemdescription'];
             }
+            if (!empty($_POST['category'])){
+                $data['category'] = $_POST['category'];
+            }
             echo $productitem->update($id,"itemid",$data);
             $this->redirect(BASE_URL."AdminControls/loadItemsView");
         }
 
         function deleteproduct($id){
             $productitem = new ProductItem();
-            $productitem->delete($id,"itemid");
+            $productitem->update($id,"itemid",["availability" => "0"]);
+            $this->redirect(BASE_URL."AdminControls/loadItemsView");
+        }
+
+        function undoproduct($id){
+            $productitem = new ProductItem();
+            $productitem->update($id,"itemid",["availability" => "1"]);
             $this->redirect(BASE_URL."AdminControls/loadItemsView");
         }
 
