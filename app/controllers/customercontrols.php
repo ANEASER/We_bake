@@ -95,15 +95,6 @@
             echo $this->view("customer/purchasehistory",[ "orders" => $orders]);
         }
 
-        function makeinquiry(){
-
-            if(!Auth::loggedIn()){
-                $this->redirect(BASE_URL."CommonControls/loadLoginView");
-            }
-
-            echo $this->view("customer/makeinquiry");
-        }
-
         function customerdash(){
 
             if(!Auth::loggedIn()){
@@ -245,6 +236,31 @@
             $this->redirect(BASE_URL."CustomerControls/profile");   
         }
 
+        //Make inquiry
+        function makeinquiry(){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+            echo $this->view("customer/makeinquiry");
+           // session_start();
+            $_SESSION["placeby"] = $_POST['placeby'];
+            $_SESSION["address"] = $_POST['address'];
+            $_SESSION["inquirysubject"] = $_POST['inquirysubject'];
+            $_SESSION["inquirytexts"] = $_POST['inquirytext'];
+
+            if (isset($_SESSION['uniqueinq_id'])) {
+               unset($_SESSION['uniqueinq_id']);
+            }
+
+            $uniqueinq_id = uniqid();
+
+            $_SESSION['uniqueinq_id'] = $uniqueinq_id;
+
+           //$_SESSION['success_message'] = 'Inquiry submitted successfully!';
+           //$_SESSION['error_message'] = 'Inquiry submission failed!';
+
+            $this->redirect(BASE_URL."CustomerControlls/makeinquiry");
+        }
 
         // Logout
         function logout(){
