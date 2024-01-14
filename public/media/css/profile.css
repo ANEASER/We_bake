@@ -36,17 +36,22 @@ section.profile {
     padding: 20px;
     padding-left: 2%;
     background-color: rgba(245, 242, 242, 0.658);
+    font-size: smaller;
+}
 
+section.profile {
+    overflow: hidden;
 }
 
 section.content {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around; 
+    height: 100vh;
 }
 
 #profilebutton {
-    display: block;
+    display: none;
 }  
 
 .buttongroup{
@@ -65,6 +70,10 @@ section.content {
     }
     #profilebutton {
         display: block; 
+        position: fixed; 
+        top: 100px; 
+        right: 10px; 
+        z-index: 2;
     }
 
     section.content {

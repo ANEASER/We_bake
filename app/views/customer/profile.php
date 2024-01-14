@@ -7,6 +7,10 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/profile.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
+
     <title>Customer Profile</title>
 </head>
 <body>
@@ -144,8 +148,31 @@
     }
 
     function logout() {
-            sessionStorage.clear(); // Unset session storage
-            window.location.href = BASE_URL +  "CommonControls/logout";
+
+        const SwalwithButton = Swal.mixin({
+                    customClass: {
+                        confirmButton: "yellowbutton",
+                        cancelButton: "yellowbutton"
+                    },
+                    buttonsStyling: false
+                });
+
+        SwalwithButton.fire({
+            text: "Are you sure you want to logout?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, Logout",
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                text: "Logged out successfully",
+                icon: "success"
+                }).then(() => {
+                    sessionStorage.clear(); // Unset session storage
+                    window.location.href = BASE_URL +  "CommonControls/logout";
+                });
+            }
+            });
     }
     </script>
 </body>

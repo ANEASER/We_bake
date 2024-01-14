@@ -14,11 +14,14 @@
         include 'customernav.php';
     ?>
     <section class="content">
-        <section class="cart" style="width: 60vw; padding : 2%;">
+        <section class="cart" style="padding : 2%;font-size: 1em;">
                 <?php
                     echo "<h1>Order : ".$order[0]->orderref."</h1>";
                     echo "<h1>Order Status : ".$order[0]->orderstatus."</h1>";
                     echo "<h1>Order Delivery Date : ".$order[0]->orderdate."</h1>";
+                    echo "<h1 class='hideondesktop'>Order Delivery Address : ".$order[0]->deliver_address."</h1>";
+                    echo "<h1 class='hideondesktop'>Order Delivery Status : ".$order[0]->deliverystatus."</h1>";
+                    echo "<h1 class='hideondesktop'>Order Payment Status : ".$order[0]->paymentstatus."</h1>";
                     echo "<br>";
                     echo "<table>";
                     echo "<tr>

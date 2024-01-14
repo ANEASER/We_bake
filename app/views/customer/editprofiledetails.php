@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password">CHANGE PASSWORD</label>
+                    <label for="password">ENTER PASSWORD</label>
                     <input type="password" name="password" required><br>
                 </div>
 

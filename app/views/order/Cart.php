@@ -5,6 +5,8 @@
     <title>Bakery Products</title>
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
         <section class="cart">
@@ -29,7 +31,31 @@
         }
 
         function cancel(){
-            window.location.href = BASE_URL +"OrderControls/deletecart";
+            const SwalwithButton = Swal.mixin({
+                    customClass: {
+                        confirmButton: "redbutton",
+                        cancelButton: "yellowbutton",
+                    },
+                    buttonsStyling: false
+                });
+
+
+            SwalwithButton.fire({
+                        text: "Your whole cart will be deleted. Are you sure?",
+                        showCancelButton: true,
+                        confirmButtonText: "Delete",
+                        showLoaderOnConfirm: true,
+                        preConfirm: async () => {
+                            try {
+                                window.location.href = BASE_URL +"OrderControls/deletecart";
+                            } catch (error) {
+                                Swal.showValidationMessage(`
+                                    Request failed: ${error}
+                                `);
+                            }
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                        })
         }
 
         function edit(){

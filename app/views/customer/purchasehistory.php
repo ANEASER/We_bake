@@ -20,11 +20,11 @@
         echo '<table>';
         echo '<tr>
             <th>ORDER REF</th>
-            <th>ORDER DATE</th>
-            <th>DELIVERY ADDRESS</th>
-            <th>DELIVERY STATUS</th>
-            <th>ORDER STATUS</th>
-            <th>PAYMENT STATUS</th>
+            <th>DELIVERY DATE</th>
+            <th class="hideonmobile">DELIVERY ADDRESS</th>
+            <th class="hideonmobile">DELIVERY STATUS</th>
+            <th class="hideonmobile">ORDER STATUS</th>
+            <th class="hideonmobile">PAYMENT STATUS</th>
             <th>TOTAL</th>
             <th>MORE</th>
         </tr>';;
@@ -34,10 +34,10 @@
             echo '<tr>';
             echo '<td>' . $order->orderref. '</td>';
             echo '<td>' . $order->orderdate . '</td>';
-            echo '<td>' . $order->deliver_address . '</td>';
-            echo '<td>' . $order->deliverystatus . '</td>';
-            echo '<td>' . $order->orderstatus . '</td>';
-            echo '<td>' . $order->paymentstatus . '</td>';
+            echo '<td class="hideonmobile">' . $order->deliver_address . '</td>';
+            echo '<td class="hideonmobile">' . $order->deliverystatus . '</td>';
+            echo '<td class="hideonmobile">' . $order->orderstatus . '</td>';
+            echo '<td class="hideonmobile">' . $order->paymentstatus . '</td>';
             echo '<td>' . $order->total . '</td>';
             echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
             echo '</tr>';

@@ -82,6 +82,14 @@
             echo $this->view("customer/profile",[ "data" => $data, "orders" => $orders, "productorderlines" => $productorderlines, "mostPurchasedItems" => $mostPurchasedItems,"itemQuantities"=>$itemQuantities]);
         }
 
+        function profiledetailsview(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+            echo $this->view("customer/profiledetails");
+        }
+
 
         // Views
         function purchasehistory(){
@@ -150,7 +158,11 @@
                         $productorder = new ProductOrder();
                         $productorder->update($_SESSION["USER"]->UserName,"placeby",["placeby"=>$arr["UserName"]]);
                         
-                        $_SESSION["USER"] = $customer->where("UserName", $arr["UserName"])[0];
+                        if (isset($arr["UserName"])) {
+                            $_SESSION["USER"] = $customer->where("UserName", $arr["UserName"])[0];
+                        } else {
+                            $_SESSION["USER"] = $customer->where("UserName", $_SESSION["USER"]->UserName)[0];
+                        }
                         $this->redirect(BASE_URL."CustomerControls/profile");
                     }
 
