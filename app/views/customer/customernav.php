@@ -77,7 +77,7 @@
         }
         function makeinquiry(link){
                 changeActive(link);
-                window.location.href = BASE_URL + "CustomerControls/makeinquiry";
+                window.location.href = BASE_URL + "CustomerControls/makeinquiryview";
         }
         function placeorder(link){
                 changeActive(link);

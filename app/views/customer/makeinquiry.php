@@ -17,18 +17,14 @@
     <section>
         <div class="form-container">
         <form class="form" action="<?php echo BASE_URL; ?>customercontrols/makeinquiry" method="post">
-            <div class="form-group">
-                    <label for="placeby">NAME:</label>
-                    <input type="text" id="placeby" name="placeby" required><br>
-            </div>
-            <div class="form-group">
-                    <label for="address">ADDRESS:</label>
-                    <input type="text" id="address" name="address" required><br>
-            </div>
             
-             <div class="form-group">
-                    <label for="inquirysubject">INQUIRY SUBJECT:</label>
-                    <input type="text" id="inquirysubject" name="inquirysubject" required><br>
+            <div class="form-group">
+                    <label for="inquirytype">INQUIRY TYPE:</label>
+                    <select id="inquirytype" name="inquirytype" required>
+                        <option value="Complaint">Complaint</option>
+                        <option value="Suggestion">Suggestion</option>
+                        <option value="Inquiry">Inquiry</option>
+                    </select><br>
             </div>
 
             <div class="form-group">
