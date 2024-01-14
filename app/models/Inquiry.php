@@ -1,6 +1,6 @@
 <?php
 
-    class makeinquiry extends Model {
+    class Inquiry extends Model {
         protected $table = 'inquiries';
     }
 ?>
