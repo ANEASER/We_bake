@@ -127,7 +127,7 @@
                 }
             
                 $_SESSION['unique_id'] = $unique_id;
-                $this->redirect(BASE_URL."OrderControls/showcategories");
+                $this->redirect(BASE_URL."OrderControls/showcategories"); // link to the same page
             } else {
                 echo "Form not submitted!";
             }

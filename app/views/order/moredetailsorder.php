@@ -14,7 +14,7 @@
         include 'customernav.php';
     ?>
     <section class="content">
-        <section class="cart" style="width: 60%;">
+        <section class="cart" style="width: 60vw; padding : 2%;">
                 <?php
                     echo "<h1>Order : ".$order[0]->orderref."</h1>";
                     echo "<h1>Order Status : ".$order[0]->orderstatus."</h1>";
@@ -22,10 +22,10 @@
                     echo "<br>";
                     echo "<table>";
                     echo "<tr>
-                            <th>Quantity</th>
                             <th>Item Code </th>
                             <th>Item Name</th>
                             <th>Price</th>
+                            <th>Quantity</th>
                             <th>Subtotal</th>
                         </tr>";
 
@@ -35,9 +35,9 @@
                         $item = $productitem->where('Itemcode', $productorderline->Itemcode);
                         
                         echo "<tr>";
-                        echo "<td>" . $productorderline->quantity . "</td>";
                         echo "<td>" . $productorderline->Itemcode . "</td>";
                         echo "<td>" . $item[0]->itemname. "</td>";
+                        echo "<td>" . $productorderline->quantity . "</td>";
                         echo "<td>" . $productorderline->price . "</td>";
                         echo "<td>" . $productorderline->totalprice . "</td>";
                         echo "</tr>";
