@@ -7,6 +7,10 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
     
@@ -54,74 +58,83 @@
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
-        function deletecartitem(id){
-            window.location.href = BASE_URL +"OrderControls/deletecartitem/"+id;
-        }
+        function deletecartitem(id) {
+                const SwalwithButton = Swal.mixin({
+                    customClass: {
+                        confirmButton: "redbutton",
+                        cancelButton: "yellowbutton"
+                    },
+                    buttonsStyling: false
+                });
+
+                SwalwithButton.fire({
+                    title: "Are you sure you want to delete this item?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Delete",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        SwalwithButton.fire({
+                            title: "Deleted!",
+                            text: "Your file has been deleted.",
+                            icon: "success"
+                        }).then(() => {
+                            window.location.href = BASE_URL + "OrderControls/deletecartitem/" + id;
+                        });
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        SwalwithButton.fire({
+                            title: "Cancelled",
+                            icon: "error"
+                        });
+                    }
+                });
+            }
+
 
         function editCartItem(id, quantity) {
-            var newQuantity = prompt("Enter new quantity:", quantity);
+            const SwalwithButton = Swal.mixin({
+                    customClass: {
+                        confirmButton: "greenbutton",
+                        cancelButton: "yellowbutton",
+                    },
+                    buttonsStyling: false
+                });
 
-            if (newQuantity == null) {
-                alert("Quantity cannot be empty");
-            }
 
-            else if(newQuantity < 0){
-                alert("Quantity cannot be negative");
-            }
+            SwalwithButton.fire({
+                        text: "Enter the amount of quantity you want to order:",
+                        input: "number",  
+                        inputAttributes: {
+                            autocapitalize: "off"
+                        },
+                        showCancelButton: true,
+                        confirmButtonText: "Done",
+                        showLoaderOnConfirm: true,
+                        preConfirm: async (newQuantity) => {
+                            try {
+                                if (newQuantity == null) {Swal.fire("Error", "Quantity cannot be empty", "error");}
+                                else if(newQuantity < 0){Swal.fire("Error", "Quantity cannot be negative", "error");}
+                                else if(newQuantity == 0){deletecartitem(id);}
+                                else if (newQuantity !== null && !isNaN(newQuantity) && newQuantity.trim() !== "") {
+                                    window.location.href = BASE_URL + "OrderControls/editcartitem/" + id + "/" + newQuantity;
+                                }
+                                else {alert("Quantity must be a number");}
 
-            else if(newQuantity == 0){
-                deletecartitem(id);
-            }
-
-            else if (newQuantity !== null && !isNaN(newQuantity) && newQuantity.trim() !== "") {
-                window.location.href = BASE_URL + "OrderControls/editcartitem/" + id + "/" + newQuantity;
-            }
-
-            else {
-                alert("Quantity must be a number");
-            }
+                            } catch (error) {
+                                Swal.showValidationMessage(`
+                                    Request failed: ${error}
+                                `);
+                            }
+                        },
+                        allowOutsideClick: () => !Swal.isLoading()
+                        })
         }
-
         function okButton() {
             window.location.href = BASE_URL + "OrderControls/viewcart";
         }
-    </script>
-</body>
-</html>
-
-    
-
-    <script>
-        var BASE_URL = "<?php echo BASE_URL; ?>";
-
-        function deletecartitem(id){
-            window.location.href = BASE_URL +"OrderControls/deletecartitem/"+id;
-        }
-
-        function editCartItem(id, quantity) {
-            var newQuantity = prompt("Enter new quantity:", quantity);
-
-            if (newQuantity == null) {
-                alert("Quantity cannot be empty");
-            }
-
-            else if(newQuantity < 0){
-                alert("Quantity cannot be negative");
-            }
-
-            else if(newQuantity == 0){
-                deletecartitem(id);
-            }
-
-            else if (newQuantity !== null && !isNaN(newQuantity) && newQuantity.trim() !== "") {
-                window.location.href = BASE_URL + "OrderControls/editcartitem/" + id + "/" + newQuantity;
-            }
-
-            else {
-                alert("Quantity must be a number");
-            }
-        }
-
     </script>
 </body>
 </html>

@@ -7,6 +7,10 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/profile.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
+
     <title>Customer Profile</title>
 </head>
 <body>
@@ -15,72 +19,91 @@
     ?>
 
     <section class="content">
-            <section class="stats">
-                <div class="statscard">
-                    <h3>Pending Orders</h3>
+            <section class="dashboard">
+                <section class="stats">
+                    <div class="statscard">
+                        <h3>Pending Orders</h3>
+                        
+                        <?php
+                            $pendingorders = 0;
+                            foreach($orders as $order){
+                                if($order->orderstatus == "pending"){
+                                    $pendingorders = $pendingorders + 1;
+                                }
+                            }
+                            echo "<p>".$pendingorders."</p>";
+                        ?>
+                    </div>
+                    <div class="statscard">
+                        <h3>Completed Orders</h3>
+                        <?php
+                            $completedorders = 0;
+                            foreach($orders as $order){
+                                if($order->orderstatus == "finished"){
+                                    $completedorders = $completedorders + 1;
+                                }
+                            }
+                            echo "<p>".$completedorders."</p>";?>
+                    </div>
+                    <div class="statscard">
+                        <h3>Cancelled Orders</h3>
+                        <?php
+                            $cancelledorders = 0;
+                            foreach($orders as $order){
+                                if($order->orderstatus == "cancelled"){
+                                    $cancelledorders = $cancelledorders + 1;
+                                }
+                            }
+                            echo "<p>".$cancelledorders."</p>";?>
+                    </div>
+
+                    <div class="statscard">
+                        <h3>Total Orders</h3>
+                        <?php
+                            $totalorders = 0;
+                            foreach($orders as $order){
+                                $totalorders = $totalorders + 1;
+                            }
+                            echo "<p>".$totalorders."</p>";?>
+                    </div>
                     
-                    <?php
-                        $pendingorders = 0;
-                        foreach($orders as $order){
-                            if($order->orderstatus == "pending"){
-                                $pendingorders = $pendingorders + 1;
+                    <div class="statscard">
+                        <h3>Total Purchasings (Rs)</h3>
+                        <?php
+                            $totalpurchasings = 0;
+                            foreach($orders as $order){
+                                $totalpurchasings = $totalpurchasings + $order->total;
                             }
-                        }
-                        echo "<p>".$pendingorders."</p>";
-                    ?>
-                </div>
-                <div class="statscard">
-                    <h3>Completed Orders</h3>
-                    <?php
-                        $completedorders = 0;
-                        foreach($orders as $order){
-                            if($order->orderstatus == "finished"){
-                                $completedorders = $completedorders + 1;
-                            }
-                        }
-                        echo "<p>".$completedorders."</p>";?>
-                </div>
-                <div class="statscard">
-                    <h3>Cancelled Orders</h3>
-                    <?php
-                        $cancelledorders = 0;
-                        foreach($orders as $order){
-                            if($order->orderstatus == "cancelled"){
-                                $cancelledorders = $cancelledorders + 1;
-                            }
-                        }
-                        echo "<p>".$cancelledorders."</p>";?>
-                </div>
+                            echo "<p>".$totalpurchasings."</p>";?>
+                    </div>
 
-                <div class="statscard">
-                    <h3>Total Orders</h3>
-                    <?php
-                        $totalorders = 0;
-                        foreach($orders as $order){
-                            $totalorders = $totalorders + 1;
-                        }
-                        echo "<p>".$totalorders."</p>";?>
-                </div>
+                    <div class="statscard">
+                        <h3>Total units</h3>
+                        <?php
+                        $totalunits = array_sum($itemQuantities);
+                        echo "<p>".$totalunits."</p>";?>
+                    </div>
+                    
                 
-                <div class="statscard">
-                    <h3>Total Purchasings (Rs)</h3>
-                    <?php
-                        $totalpurchasings = 0;
-                        foreach($orders as $order){
-                            $totalpurchasings = $totalpurchasings + $order->total;
-                        }
-                        echo "<p>".$totalpurchasings."</p>";?>
-                </div>
-
-                <div class="statscard">
-                    <h3>Total units</h3>
-                    <?php
-                    $totalunits = array_sum($itemQuantities);
-                    echo "<p>".$totalunits."</p>";?>
-                </div>
             </section>
+            <h1 style="text-align: center;">Most Purchaced Items</h1>
+            <section style="display:flex;padding: 1%;">
+                <?php
+                        if(is_array($mostPurchasedItems) && !empty($mostPurchasedItems)){
+                        foreach($mostPurchasedItems as $item){
+                                echo "<div class='statscard' style='background-image:url(" . BASE_URL . 'media/uploads/Product/' . $item->Link . ")'>";
+                                echo "<h4>".$item->Name."</h4>";
+                                echo "<h4>".$item->ItemCode."</h4>";
+                                echo "<h4>".$item->Quantity."</h4>";
+                                echo "</div>";
+                            }} else {
+                                echo "<h3 style='text-align:center;'>No Purchased Items</h3>";
+                            }
+                ?>
+            </section>
+    </section>
             <section class="profile" style="font-weight: bolder;">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" alt="propic" height="200px" width="200px">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" style="border-radius: 80px;"  alt="propic" height="200px" width="200px">
                 <p></p><br>
                 <table>
                     <tr>
@@ -111,27 +134,6 @@
 
                         <button class="brownbutton" onclick="logout()">Log Out</button>
                 </section>
-               
-            </section>
-            <section>
-            
-            <h1 style="text-align: center;">Most Purchased Items</h1>
-            <section style="display:flex;">
-            <?php
-                    if(is_array($mostPurchasedItems) && !empty($mostPurchasedItems)){
-                    foreach($mostPurchasedItems as $item){
-                            echo "<div class='statscard' style='background-image:url(" . BASE_URL . 'media/uploads/Product/' . $item->Link . ")'>";
-                            echo "<h4>".$item->Name."</h4>";
-                            echo "<h4>".$item->ItemCode."</h4>";
-                            echo "<h4>".$item->Quantity."</h4>";
-                            echo "</div>";
-                        }} else {
-                            echo "<h3 style='text-align:center;'>No Purchased Items</h3>";
-                        }
-                       
-                    ?>
-            </section>
-            </section>
     </section>
     
     <script>
@@ -146,8 +148,31 @@
     }
 
     function logout() {
-            sessionStorage.clear(); // Unset session storage
-            window.location.href = BASE_URL +  "CommonControls/logout";
+
+        const SwalwithButton = Swal.mixin({
+                    customClass: {
+                        confirmButton: "yellowbutton",
+                        cancelButton: "yellowbutton"
+                    },
+                    buttonsStyling: false
+                });
+
+        SwalwithButton.fire({
+            text: "Are you sure you want to logout?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Yes, Logout",
+            }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                text: "Logged out successfully",
+                icon: "success"
+                }).then(() => {
+                    sessionStorage.clear(); // Unset session storage
+                    window.location.href = BASE_URL +  "CommonControls/logout";
+                });
+            }
+            });
     }
     </script>
 </body>

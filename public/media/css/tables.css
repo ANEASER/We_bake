@@ -4,3 +4,19 @@ th, td {
     border-bottom: 1px solid #ddd;
     background-color: rgba(245, 242, 242, 0.658);
 }
+
+.hideondesktop {
+    display: none;
+}   
+
+
+@media (max-width: 1100px){
+   
+    .hideonmobile {
+        display: none;
+    }
+
+    .hideondesktop {
+        display: block;
+    }
+}

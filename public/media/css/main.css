@@ -5,4 +5,5 @@ body {
     padding: 0;
     background-image: url("../uploads/Content/bgl.png");
     color: rgb(95, 37, 37);
+    width: 100vw;
 }
