@@ -237,31 +237,32 @@
         }
 
         //Make inquiry
+        function makeinquiryview(){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+           echo $this->view("customer/makeinquiry");
+    
+        }
+
         function makeinquiry(){
             if(!Auth::loggedIn()){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
-            echo $this->view("customer/makeinquiry");
-           // session_start();
-            $_SESSION["placeby"] = $_POST['placeby'];
-            $_SESSION["address"] = $_POST['address'];
-            $_SESSION["inquirysubject"] = $_POST['inquirysubject'];
-            $_SESSION["inquirytexts"] = $_POST['inquirytext'];
+           
+           $makeinquiry = new makeinquiry();
 
-            if (isset($_SESSION['uniqueinq_id'])) {
-               unset($_SESSION['uniqueinq_id']);
-            }
+           $arr["placeby"] = $_SESSION["USER"]->UserName;
+           $arr["address"] = $_SESSION["USER"]->Address;
+           $arr["inquirysubject"] = $_POST["inquirytype"];
+           $arr["inquirytext"] = $_POST["inquirytext"];
+        
 
-            $uniqueinq_id = uniqid();
+           $makeinquiry->insert($arr);
 
-            $_SESSION['uniqueinq_id'] = $uniqueinq_id;
-
-           //$_SESSION['success_message'] = 'Inquiry submitted successfully!';
-           //$_SESSION['error_message'] = 'Inquiry submission failed!';
-
-            $this->redirect(BASE_URL."CustomerControlls/makeinquiry");
+            
+            $this->redirect(BASE_URL."CustomerControls/profile");
         }
-
         // Logout
         function logout(){
 
