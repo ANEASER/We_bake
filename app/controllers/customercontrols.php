@@ -262,7 +262,7 @@
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
            
-           $makeinquiry = new makeinquiry();
+           $makeinquiry = new Inquiry();
 
            $arr["placeby"] = $_SESSION["USER"]->UserName;
            $arr["address"] = $_SESSION["USER"]->Address;
@@ -275,6 +275,7 @@
             
             $this->redirect(BASE_URL."CustomerControls/profile");
         }
+        
         // Logout
         function logout(){
 

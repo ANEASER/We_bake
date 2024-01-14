@@ -115,23 +115,35 @@
                         showLoaderOnConfirm: true,
                         preConfirm: async (newQuantity) => {
                             try {
-                                if (newQuantity == null) {Swal.fire("Error", "Quantity cannot be empty", "error");}
-                                else if(newQuantity < 0){Swal.fire("Error", "Quantity cannot be negative", "error");}
-                                else if(newQuantity == 0){deletecartitem(id);}
-                                else if (newQuantity !== null && !isNaN(newQuantity) && newQuantity.trim() !== "") {
+                                if (newQuantity === null) {
+                                    throw new Error("Quantity cannot be empty");
+                                } else if (newQuantity < 0) {
+                                    throw new Error("Quantity cannot be negative");
+                                } else if (newQuantity == 0) {
+                                    deletecartitem(id);
+                                    return false; // Prevent the modal from closing
+                                } else {
+                                    await SwalwithButton.fire({
+                                        title: "Updated!",
+                                        text: "Your quantity has been updated.",
+                                        icon: "success",
+                                        confirmButtonText: "OK",
+                                        confirmButtonClass: "greenbutton"
+                                    });
                                     window.location.href = BASE_URL + "OrderControls/editcartitem/" + id + "/" + newQuantity;
                                 }
-                                else {alert("Quantity must be a number");}
-
                             } catch (error) {
-                                Swal.showValidationMessage(`
+                                SwalwithButton.showValidationMessage(`
                                     Request failed: ${error}
                                 `);
+                                return false; // Prevent the modal from closing
                             }
                         },
+
                         allowOutsideClick: () => !Swal.isLoading()
-                        })
+                        });
         }
+        
         function okButton() {
             window.location.href = BASE_URL + "OrderControls/viewcart";
         }
