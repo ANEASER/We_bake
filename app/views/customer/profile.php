@@ -166,7 +166,9 @@
             if (result.isConfirmed) {
                 Swal.fire({
                 text: "Logged out successfully",
-                icon: "success"
+                icon: "success",
+                timer : 1000,
+                showConfirmButton: false,
                 }).then(() => {
                     sessionStorage.clear(); // Unset session storage
                     window.location.href = BASE_URL +  "CommonControls/logout";
