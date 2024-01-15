@@ -22,7 +22,7 @@ section.content {
 .menu-category {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 
 .menu-item {

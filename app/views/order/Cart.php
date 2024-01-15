@@ -5,6 +5,7 @@
     <title>Bakery Products</title>
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
@@ -38,24 +39,29 @@
                     },
                     buttonsStyling: false
                 });
-
-
+            
             SwalwithButton.fire({
-                        text: "Your whole cart will be deleted. Are you sure?",
-                        showCancelButton: true,
-                        confirmButtonText: "Delete",
-                        showLoaderOnConfirm: true,
-                        preConfirm: async () => {
-                            try {
-                                window.location.href = BASE_URL +"OrderControls/deletecart";
-                            } catch (error) {
-                                Swal.showValidationMessage(`
-                                    Request failed: ${error}
-                                `);
-                            }
-                        },
-                        allowOutsideClick: () => !Swal.isLoading()
-                        })
+                    text: "Your whole cart will be deleted. Are you sure?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Delete",
+                    cancelButtonText: "Keep",
+                    reverseButtons: true,
+                    preConfirm: async () => {
+                        try {
+                            await SwalwithButton.fire({
+                                title: "Deleted!",
+                                text: "Your cart has been canceled.",
+                                icon: "success",
+                                confirmButtonText: "OK",
+                                confirmButtonClass: "greenbutton"
+                            });
+                            window.location.href = BASE_URL +"OrderControls/deletecart";
+                        } catch (error) {
+                            SwalwithButton.showValidationMessage(`Request failed: ${error}`);
+                        }
+                    },
+                });
         }
 
         function edit(){

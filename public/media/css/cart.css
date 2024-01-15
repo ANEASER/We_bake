@@ -1,10 +1,13 @@
 .cart {
-    width: 60vw; margin: auto ; display:flex; flex-direction:column; border:solid black 2px; justify-content:space-around;
+    width: 60vw; margin: auto ; display:flex;
+    flex-direction:column; 
+    justify-content:space-around;
     background-color: rgba(245, 242, 242, 0.658);
+    border-radius: 8px;
 }
 
 .content{
-    padding: 10%;
+    padding: 3%;
 }
 
 .buttongroup{

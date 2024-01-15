@@ -10,7 +10,7 @@
 
     <?php
     if (isset($_SESSION["USER"]) && !isset($_SESSION["USER"]->role)) {
-        include 'customernav.php';
+        include '..\app\views\customer\customernav.php';
     }    
     ?>
    

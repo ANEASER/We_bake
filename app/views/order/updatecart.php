@@ -74,24 +74,24 @@
                     showCancelButton: true,
                     confirmButtonText: "Delete",
                     cancelButtonText: "Cancel",
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        SwalwithButton.fire({
-                            title: "Deleted!",
-                            text: "Your file has been deleted.",
-                            icon: "success"
-                        }).then(() => {
+                    reverseButtons: true,
+                    preConfirm: async () => {
+                        try {
+                            await SwalwithButton.fire({
+                                title: "Deleted!",
+                                text: "Your item has been deleted.",
+                                icon: "success",
+                                confirmButtonText: "OK",
+                                confirmButtonClass: "greenbutton"
+                            });
                             window.location.href = BASE_URL + "OrderControls/deletecartitem/" + id;
-                        });
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        SwalwithButton.fire({
-                            title: "Cancelled",
-                            icon: "error"
-                        });
-                    }
+                        } catch (error) {
+                            SwalwithButton.showValidationMessage(`Request failed: ${error}`);
+                        }
+                    },
                 });
             }
+
 
 
         function editCartItem(id, quantity) {
