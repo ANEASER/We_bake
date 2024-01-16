@@ -9,7 +9,7 @@ section.cart{
     padding: 20px;
     padding-left: 5px;
     background-color: rgba(245, 242, 242, 0.658);
-
+    font-size: 0.8em;
 }
 
 section.content {
@@ -22,7 +22,7 @@ section.content {
 .menu-category {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 
 .menu-item {

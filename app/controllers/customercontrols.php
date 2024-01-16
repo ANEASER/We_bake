@@ -82,6 +82,14 @@
             echo $this->view("customer/profile",[ "data" => $data, "orders" => $orders, "productorderlines" => $productorderlines, "mostPurchasedItems" => $mostPurchasedItems,"itemQuantities"=>$itemQuantities]);
         }
 
+        function profiledetailsview(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+            echo $this->view("customer/profiledetails");
+        }
+
 
         // Views
         function purchasehistory(){
@@ -93,15 +101,6 @@
             $productorder = new ProductOrder();
             $orders = $productorder->where("placeby", $_SESSION["USER"]->UserName);
             echo $this->view("customer/purchasehistory",[ "orders" => $orders]);
-        }
-
-        function makeinquiry(){
-
-            if(!Auth::loggedIn()){
-                $this->redirect(BASE_URL."CommonControls/loadLoginView");
-            }
-
-            echo $this->view("customer/makeinquiry");
         }
 
         function customerdash(){
@@ -159,7 +158,11 @@
                         $productorder = new ProductOrder();
                         $productorder->update($_SESSION["USER"]->UserName,"placeby",["placeby"=>$arr["UserName"]]);
                         
-                        $_SESSION["USER"] = $customer->where("UserName", $arr["UserName"])[0];
+                        if (isset($arr["UserName"])) {
+                            $_SESSION["USER"] = $customer->where("UserName", $arr["UserName"])[0];
+                        } else {
+                            $_SESSION["USER"] = $customer->where("UserName", $_SESSION["USER"]->UserName)[0];
+                        }
                         $this->redirect(BASE_URL."CustomerControls/profile");
                     }
 
@@ -245,7 +248,34 @@
             $this->redirect(BASE_URL."CustomerControls/profile");   
         }
 
+        //Make inquiry
+        function makeinquiryview(){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+           echo $this->view("customer/makeinquiry");
+    
+        }
 
+        function makeinquiry(){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+           
+           $makeinquiry = new Inquiry();
+
+           $arr["placeby"] = $_SESSION["USER"]->UserName;
+           $arr["address"] = $_SESSION["USER"]->Address;
+           $arr["inquirysubject"] = $_POST["inquirytype"];
+           $arr["inquirytext"] = $_POST["inquirytext"];
+        
+
+           $makeinquiry->insert($arr);
+
+            
+            $this->redirect(BASE_URL."CustomerControls/profile");
+        }
+        
         // Logout
         function logout(){
 

@@ -14,18 +14,21 @@
         include 'customernav.php';
     ?>
     <section class="content">
-        <section class="cart" style="width: 60%;">
+        <section class="cart" style="padding : 2%;font-size: 1em;">
                 <?php
                     echo "<h1>Order : ".$order[0]->orderref."</h1>";
                     echo "<h1>Order Status : ".$order[0]->orderstatus."</h1>";
                     echo "<h1>Order Delivery Date : ".$order[0]->orderdate."</h1>";
+                    echo "<h1 class='hideondesktop'>Order Delivery Address : ".$order[0]->deliver_address."</h1>";
+                    echo "<h1 class='hideondesktop'>Order Delivery Status : ".$order[0]->deliverystatus."</h1>";
+                    echo "<h1 class='hideondesktop'>Order Payment Status : ".$order[0]->paymentstatus."</h1>";
                     echo "<br>";
                     echo "<table>";
                     echo "<tr>
-                            <th>Quantity</th>
                             <th>Item Code </th>
                             <th>Item Name</th>
                             <th>Price</th>
+                            <th>Quantity</th>
                             <th>Subtotal</th>
                         </tr>";
 
@@ -35,9 +38,9 @@
                         $item = $productitem->where('Itemcode', $productorderline->Itemcode);
                         
                         echo "<tr>";
-                        echo "<td>" . $productorderline->quantity . "</td>";
                         echo "<td>" . $productorderline->Itemcode . "</td>";
                         echo "<td>" . $item[0]->itemname. "</td>";
+                        echo "<td>" . $productorderline->quantity . "</td>";
                         echo "<td>" . $productorderline->price . "</td>";
                         echo "<td>" . $productorderline->totalprice . "</td>";
                         echo "</tr>";

@@ -87,7 +87,7 @@ class CommonControls extends Controller {
 
     public function otpvalidation() {
 
-        $err = "";  
+        $error = "";  
 
         $mail = new Mail();
     
@@ -108,8 +108,8 @@ class CommonControls extends Controller {
             if ($_POST["otp"] == $_SESSION['otp']) {
                 $this->redirect(BASE_URL.$redirect);
             } else {
-                $err = "Invalid OTP"; 
-                $this->view("common/otpverification",["err"=>$err]);
+                $error = "Invalid OTP"; 
+                $this->view("common/otpverification",["error"=>$error]);
             }
         }else{
             $otp = generateOTP();
@@ -182,6 +182,22 @@ class CommonControls extends Controller {
     }
 
 
+    // Product
+    function loadProductsView() {
+
+        $productitem = new ProductItem();
+        $categories = $productitem->getDistinct("category");
+
+        $this->view("common/productscatergories",[ "categories" => $categories]);
+    }
+
+    function productitem($category) {
+
+        $productitem = new ProductItem();
+        $items = $productitem->where("category", $category);
+
+        $this->view("common/productitems",["items" => $items]);
+    }
 
     function logout() {
         Auth::logout();

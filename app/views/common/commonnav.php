@@ -6,9 +6,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/navbar.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
+
     <title></title>
 </head>
 <body>
+
     <nav>
         <input type="checkbox" id="check" name="" value="">
         <label for="check" class="checkbtn container" onclick="changemobilemode(this)">
@@ -21,11 +26,10 @@
         ?>
         <ul>
             <li><a onclick="home(this)">Home</a></li>
-            <li><a onclick="profile(this)">Profile</a></li>
-            <li><a onclick="purchasehistory(this)">Purchase History</a></li>
-            <li><a onclick="makeinquiry(this)">Make Inquiry</a></li>
             <li><a onclick="placeorder(this)">Place order</a></li>
-            
+            <li><a onclick="Products(this)">Products</a></li>
+            <li><a style="font-weight: bolder;" onclick="loadLogin(this)">Login</a></li>
+            <li><a style="font-weight: bolder;" onclick="loadRegister(this)">Register</a></li>
         </ul>
     </nav>
     <script>
@@ -45,7 +49,8 @@
 
             sessionStorage.setItem('activeLink', homeLink.getAttribute('onclick'));
         }}
-        
+
+
         function changeActive(link) {
             var links = document.querySelectorAll('body nav ul li a');
             links.forEach(function (el) {
@@ -57,34 +62,46 @@
             sessionStorage.setItem('activeLink', link.getAttribute('onclick'));
         }
 
-        
+
+
+        function loadLogin(link) {
+            changeActive(link);
+            window.location.href = BASE_URL + "CommonControls/loadLoginView";
+        }
+
+        function loadRegister(link) {
+            changeActive(link);
+            window.location.href = BASE_URL + "CommonControls/loadRegisterView";
+        }
+
         function changemobilemode(x) {
             x.classList.toggle("change");
         }
-           
+        
 
         // navigate to pages
         function home(link){
                 changeActive(link);
-                window.location.href = BASE_URL + "CustomerControls";
+                window.location.href = BASE_URL;
         }
-        function profile(link){
-                changeActive(link);
-                window.location.href = BASE_URL + "CustomerControls/profile";
-        }
-        function purchasehistory(link){
-                changeActive(link);
-                window.location.href = BASE_URL + "CustomerControls/purchasehistory";
-        }
-        function makeinquiry(link){
-                changeActive(link);
-                window.location.href = BASE_URL + "CustomerControls/makeinquiry";
-        }
+
         function placeorder(link){
+            Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Please Login to place order",
+            showConfirmButton: false,
+            timer: 1000
+            }).then((result) => {
                 changeActive(link);
-                window.location.href = BASE_URL + "OrderControls/placeorder";
+                window.location.href = BASE_URL + "OrderControls/placeorder";});
         }
-        
+
+        function Products(link){
+                changeActive(link);
+                window.location.href = BASE_URL + "CommonControls/loadProductsView";
+        }
+
 
     </script>
 </body>
