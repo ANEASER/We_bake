@@ -21,10 +21,10 @@
         ?>
         <ul>
             <li><a onclick="home(this)">Home</a></li>
-            <li><a onclick="profile(this)">Profile</a></li>
+            <li><a onclick="placeorder(this)">Place order</a></li>
             <li><a onclick="purchasehistory(this)">Purchase History</a></li>
             <li><a onclick="makeinquiry(this)">Make Inquiry</a></li>
-            <li><a onclick="placeorder(this)">Place order</a></li>
+            <li style="font-weight: bolder;"><a onclick="profile(this)"><?php if(isset($_SESSION["USER"]->role)){echo $_SESSION["USER"]->role;}else{ echo $_SESSION["USER"]->UserName;}?></a></li>
             
         </ul>
     </nav>

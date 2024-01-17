@@ -188,7 +188,7 @@
             $arr2["pickername"] = $_SESSION["picker"];
             $arr2["total"] = $total;
 
-            if($arr2["deliverystatus"] == "Delivery"){
+            if($arr2["deliverystatus"] == "delivery"){
                 $orderref = "D".$max_orderid;
             }
             else{
@@ -200,9 +200,9 @@
 
             $productorder->insert($arr2);
 
-            unset($_SESSION['unique_id']); // destroy unique_id
+            unset($_SESSION['unique_id']); 
 
-            $this->redirect(BASE_URL."CustomerControls/purchasehistory");
+            $this->redirect(BASE_URL."OrderControls/placeorder");
                 
         }
 
