@@ -11,7 +11,19 @@
 </head>
 <body>
     <?php 
-        include 'commonnav.php';
+        session_start();
+        if(isset($_SESSION["USER"])){
+            if($_SESSION["USER"]->Role == 'admin'){
+                include '..\app\views\admin\adminnav.php';
+                echo '<button onclick="add()" class="add-button">Add</button>';
+            }
+            else {
+                include 'commonnav.php';
+            }
+        }
+        else{
+            include 'commonnav.php';
+        }
     ?>
     
     <div class="menu-category">
@@ -31,11 +43,37 @@
                                         } else{
                                             echo '<p style="color:rgb(78, 255, 8)"> Available </p>';
                                         }
+                                        if(isset($_SESSION["USER"])){
+                                            echo '<td><button onclick="edit(' . $item->itemid . ')">Update</button></td>';
+                                            echo '<td><button onclick="undo(' . $item->itemid . ')">Undo</button></td>';
+                                            echo '<td><button onclick="del(' . $item->itemid . ')">Delete</button></td>';
+                                        }
                                         
                                     echo '</div>';
                                 }
                             ?>
     </div>
+
+    <script>
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+        
+
+        function add() {
+            window.location.href = BASE_URL + "AdminControls/AddItem";
+        }
+
+        function edit(itemid) {
+            window.location.href = BASE_URL + "AdminControls/EditItem/"+itemid;
+        }
+
+        function del(itemid) {
+            window.location.href = BASE_URL + "AdminControls/deleteproduct/"+itemid;
+        }
+
+        function undo(itemid) {
+            window.location.href = BASE_URL + "AdminControls/undoproduct/"+itemid;
+        }
+    </script>
 
 </body>
 </html>

@@ -11,7 +11,19 @@
 </head>
 <body>
     <?php 
-        include 'commonnav.php';
+        session_start();
+        if(isset($_SESSION["USER"])){
+            if($_SESSION["USER"]->Role == 'admin'){
+                include '..\app\views\admin\adminnav.php';
+                echo '<button onclick="add()" class="add-button">Add</button>';
+            }
+            else {
+                include 'commonnav.php';
+            }
+        }
+        else{
+            include 'commonnav.php';
+        }
     ?>
     <section class="content">
         <section class="category" style="width: 100%;">
@@ -30,6 +42,12 @@
             </div>
         </section>
         <script>
+            var BASE_URL = "<?php echo BASE_URL; ?>";
+
+            function add() {
+                window.location.href = BASE_URL + "AdminControls/AddItem";
+            }
+
             function selectCategory(category) {
                 window.location.href = "<?php echo BASE_URL; ?>CommonControls/productitem/" + category;
             }

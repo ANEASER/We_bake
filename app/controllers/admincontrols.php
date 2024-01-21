@@ -111,7 +111,7 @@
                     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
                         $arr["imagelink"] = $newfilename;
                         $productitem->insert($arr);
-                        $this->redirect(BASE_URL."AdminControls/loadItemsView");
+                        $this->redirect(BASE_URL."CommonControls/loadProductsView");
                     }
                 }
 
