@@ -33,7 +33,7 @@
                             <th class="hideonmobile">Manager</th>
                             <th class="hideonmobile">District</th>
                             <th class="hideonmobile">OutletCode</th>
-                            <th class="hideonmobile">Edit</th>
+                            <th >Edit</th>
                         </tr>';
 
                         foreach($outlets as $outlet) {
@@ -47,7 +47,7 @@
                             echo '<td class="hideonmobile">' . $outlet->Manager . '</td>';
                             echo '<td class="hideonmobile">' . $outlet->District . '</td>';
                             echo '<td class="hideonmobile">' . $outlet->OutletCode . '</td>';
-                            echo '<td><button class="yellowbutton" onclick="edit(' . $outlet->OutletID . ')">Edit</button></td>';
+                            echo '<td><button class="yellowbutton" onclick="edit(' . $outlet->OutletId . ')">Edit</button></td>';
                             echo '</tr>';
                         } else {
                             echo '<tr style="background-color:red">';
@@ -59,7 +59,7 @@
                             echo '<td class="hideonmobile">' . $outlet->Manager . '</td>';
                             echo '<td class="hideonmobile">' . $outlet->District . '</td>';
                             echo '<td class="hideonmobile">' . $outlet->OutletCode . '</td>';
-                            echo '<td><button class="redbutton" onclick="edit(' . $outlet->OutletID . ')">Edit</button></td>';
+                            echo '<td><button class="redbutton" onclick="edit(' . $outlet->OutletId . ')">Edit</button></td>';
                             echo '</tr>';
                         }
                     }

@@ -38,7 +38,7 @@
         <div class="form-container">
             <form class="form" method="POST" action="<?php echo BASE_URL; ?>AdminControls/EditOutlet">
                 
-                <input type="hidden" name="id" value="<?php echo $data[0]->OutletID; ?>">
+                <input type="hidden" name="id" value="<?php echo $data[0]->OutletId; ?>">
 
                 <div class="form-group">
                     <label for="DOS">Date of Establishment:</label>
@@ -52,8 +52,8 @@
                 <div class="form-group">
                     <label for="ActiveState">Active State:</label>
                     <select id="ActiveState" name="ActiveState" placeholder="<?php echo $data[0]->ActiveState; ?>">
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
+                            <option value="active" <?php echo ($data[0]->ActiveState == 1) ? "selected" : ""; ?>>Active</option>
+                            <option value="inactive" <?php echo ($data[0]->ActiveState == 0) ? "selected" : ""; ?>>Inactive</option>
                     </select>
                 </div>
                     
@@ -65,32 +65,32 @@
                 <div class="form-group">
                     <label for="District">District</label>
                     <select id="District" name="District" placeholder="<?php echo $data[0]->District; ?>">
-                        <option value="Ampara">Ampara</option>
-                        <option value="Anuradhapura">Anuradhapura</option>
-                        <option value="Badulla">Badulla</option>
-                        <option value="Batticaloa">Batticaloa</option>
-                        <option value="Colombo">Colombo</option>
-                        <option value="Galle">Galle</option>
-                        <option value="Gampaha">Gampaha</option>
-                        <option value="Hambantota">Hambantota</option>
-                        <option value="Jaffna">Jaffna</option>
-                        <option value="Kalutara">Kalutara</option>
-                        <option value="Kandy">Kandy</option>
-                        <option value="Kegalle">Kegalle</option>
-                        <option value="Kilinochchi">Kilinochchi</option>
-                        <option value="Kurunegala">Kurunegala</option>
-                        <option value="Mannar">Mannar</option>
-                        <option value="Matale">Matale</option>
-                        <option value="Matara">Matara</option>
-                        <option value="Monaragala">Monaragala</option>
-                        <option value="Mullaitivu">Mullaitivu</option>
-                        <option value="Nuwara Eliya">Nuwara Eliya</option>
-                        <option value="Polonnaruwa">Polonnaruwa</option>
-                        <option value="Puttalam">Puttalam</option>
-                        <option value="Ratnapura">Ratnapura</option>
-                        <option value="Trincomalee">Trincomalee</option>
-                        <option value="Vavuniya">Vavuniya</option>
-                    </select><br><br>
+                        <option value="Ampara" <?php echo ($data[0]->District == "Ampara") ? "selected" : ""; ?>>Ampara</option>
+                        <option value="Anuradhapura" <?php echo ($data[0]->District == "Anuradhapura") ? "selected" : ""; ?>>Anuradhapura</option>
+                        <option value="Badulla" <?php echo ($data[0]->District == "Badulla") ? "selected" : ""; ?>>Badulla</option>
+                        <option value="Batticaloa" <?php echo ($data[0]->District == "Batticaloa") ? "selected" : ""; ?>>Batticaloa</option>
+                        <option value="Colombo" <?php echo ($data[0]->District == "Colombo") ? "selected" : ""; ?>>Colombo</option>
+                        <option value="Galle" <?php echo ($data[0]->District == "Galle") ? "selected" : ""; ?>>Galle</option>
+                        <option value="Gampaha" <?php echo ($data[0]->District == "Gampaha") ? "selected" : ""; ?>>Gampaha</option>
+                        <option value="Hambantota" <?php echo ($data[0]->District == "Hambantota") ? "selected" : ""; ?>>Hambantota</option>
+                        <option value="Jaffna" <?php echo ($data[0]->District == "Jaffna") ? "selected" : ""; ?>>Jaffna</option>
+                        <option value="Kalutara" <?php echo ($data[0]->District == "Kalutara") ? "selected" : ""; ?>>Kalutara</option>
+                        <option value="Kandy" <?php echo ($data[0]->District == "Kandy") ? "selected" : ""; ?>>Kandy</option>
+                        <option value="Kegalle" <?php echo ($data[0]->District == "Kegalle") ? "selected" : ""; ?>>Kegalle</option>
+                        <option value="Kilinochchi" <?php echo ($data[0]->District == "Kilinochchi") ? "selected" : ""; ?>>Kilinochchi</option>
+                        <option value="Kurunegala" <?php echo ($data[0]->District == "Kurunegala") ? "selected" : ""; ?>>Kurunegala</option>
+                        <option value="Mannar" <?php echo ($data[0]->District == "Mannar") ? "selected" : ""; ?>>Mannar</option>
+                        <option value="Matale" <?php echo ($data[0]->District == "Matale") ? "selected" : ""; ?>>Matale</option>
+                        <option value="Matara" <?php echo ($data[0]->District == "Matara") ? "selected" : ""; ?>>Matara</option>
+                        <option value="Monaragala" <?php echo ($data[0]->District == "Monaragala") ? "selected" : ""; ?>>Monaragala</option>
+                        <option value="Mullaitivu" <?php echo ($data[0]->District == "Mullaitivu") ? "selected" : ""; ?>>Mullaitivu</option>
+                        <option value="Nuwara Eliya" <?php echo ($data[0]->District == "Nuwara Eliya") ? "selected" : ""; ?>>Nuwara Eliya</option>
+                        <option value="Polonnaruwa" <?php echo ($data[0]->District == "Polonnaruwa") ? "selected" : ""; ?>>Polonnaruwa</option>
+                        <option value="Puttalam" <?php echo ($data[0]->District == "Puttalam") ? "selected" : ""; ?>>Puttalam</option>
+                        <option value="Ratnapura" <?php echo ($data[0]->District == "Ratnapura") ? "selected" : ""; ?>>Ratnapura</option>
+                        <option value="Trincomalee" <?php echo ($data[0]->District == "Trincomalee") ? "selected" : ""; ?>>Trincomalee</option>
+                        <option value="Vavuniya" <?php echo ($data[0]->District == "Vavuniya") ? "selected" : ""; ?>>Vavuniya</option>
+                        </select><br><br>
                 </div>
                     
                 <div class="form-group">

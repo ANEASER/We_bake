@@ -125,7 +125,7 @@
                 });
 
                 SwalwithButton.fire({
-                    title: "Are you sure you want to delete this item?",
+                    title: "Are you sure you want to delete this User?",
                     text: "You won't be able to revert this!",
                     icon: "warning",
                     showCancelButton: true,

@@ -251,12 +251,41 @@
             }
             if (!empty($_POST['Role'])){
                 $data['Role'] = $_POST['Role'];
+                if($data["Role"] == "admin"){
+                    $C = "AD";
+                }
+                if($data["Role"] == "billingclerk"){
+                    $C = "BC";
+                }
+                if($data["Role"] == "outletmanager"){
+                    $C = "OM";
+                }
+                if($data["Role"] == "productionmanager"){
+                    $C = "PM";
+                }
+                if($data["Role"] == "receptionist"){
+                    $C = "RC";
+                }
+                if($data["Role"] == "storemanager"){
+                    $C = "SM";
+                }
+    
+                $max_user_id = $systemuser->getMinMax("UserID", "max");
+                $max_user_id = $max_user_id[0]->{"max(UserID)"};
+                $max_user_id = $max_user_id + 1;
+                $max_user_id = str_pad($max_user_id, 5, '0', STR_PAD_LEFT);
+    
+                $data["EmployeeNo"] = $C.$max_user_id;
             }
             if (!empty($_POST['UserName'])){
                 $data['UserName'] = $_POST['UserName'];
             }
 
             if ($_POST['Password'] == $_SESSION["USER"]->Password){
+                $outlets = new Outlet();
+                
+                echo $outlets->update($id,"OutletId",[ "Manager" => $data["EmployeeNo"]]);
+
                 echo $systemuser->update($id,"UserID",$data);
                 $this->redirect(BASE_URL."AdminControls/loadUsersView");
             }else
@@ -432,13 +461,18 @@
             $systemuser = new Systemuser();
             $outlets = new Outlet();
         
+            // Get all outlet managers
             $managers = $systemuser->where("Role", "outletmanager");
+        
+            // Get all outlets
             $allOutlets = $outlets->findall();
+        
+            // Filter managers who do not have outlets
             $managersWithoutOutlets = [];
             foreach ($managers as $manager) {
                 $hasOutlet = false;
                 foreach ($allOutlets as $outlet) {
-                    if ($manager->EmployeeNo == $outlet->Manager) {
+                    if ($manager->UserID == $outlet->Manager) {
                         $hasOutlet = true;
                         break;
                     }
@@ -447,14 +481,39 @@
                     $managersWithoutOutlets[] = $manager;
                 }
             }
-            echo $this->view("admin/Addoutlet", ["managers" => $managersWithoutOutlets]);
+
+            echo $this->view("admin/addoutlet", ["managers" => $managersWithoutOutlets]);
         }
 
         function EditOutletView($id){
             $outlets = new Outlet();
+            $systemuser = new Systemuser();
+            $outlets = new Outlet();
+        
+            // Get all outlet managers
+            $managers = $systemuser->where("Role", "outletmanager");
+        
+            // Get all outlets
+            $allOutlets = $outlets->findall();
+        
+            // Filter managers who do not have outlets
+            $managersWithoutOutlets = [];
+            foreach ($managers as $manager) {
+                $hasOutlet = false;
+                foreach ($allOutlets as $outlet) {
+                    if ($manager->UserID == $outlet->Manager) {
+                        $hasOutlet = true;
+                        break;
+                    }
+                }
+                if (!$hasOutlet) {
+                    $managersWithoutOutlets[] = $manager;
+                }
+            }
+
             $data = $outlets->where("OutletID", $id);
             
-            echo $this->view("admin/editoutlet", ["data" => $data]);
+            echo $this->view("admin/editoutlet", ["data" => $data,"managers" => $managersWithoutOutlets]);
         }
 
         function EditOutlet(){
@@ -469,15 +528,102 @@
             if (!empty($_POST['contactNo'])){
                 $data['contactNo'] = $_POST['contactNo'];
             }
-            if (!empty($_POST['ActiveState'])){
-                $data['ActiveState'] = $_POST['ActiveState'];
-                var_dump($data['ActiveState']);
+            if (!empty($_POST['ActiveState'])) {
+                    if ($_POST['ActiveState'] == "active") {
+                        $data['ActiveState'] = 1;
+                    } else {
+                        $data['ActiveState'] = 0;
+                    }
             }
             if (!empty($_POST['Address'])){
                 $data['Address'] = $_POST['Address'];
             }
             if (!empty($_POST['District'])){
                 $data['District'] = $_POST['District'];
+
+                if($data["District"] == "Ampara"){
+                    $C = "AM";
+                }
+                if($data["District"] == "Anuradhapura"){
+                    $C = "AN";
+                }
+                if($data["District"] == "Badulla"){
+                    $C = "BD";
+                }
+                if($data["District"] == "Batticaloa"){
+                    $C = "BT";
+                }
+                if($data["District"] == "Colombo"){
+                    $C = "CO";
+                }
+                if($data["District"] == "Galle"){
+                    $C = "GA";
+                }
+                if($data["District"] == "Gampaha"){
+                    $C = "GP";
+                }
+                if($data["District"] == "Hambantota"){
+                    $C = "HB";
+                }
+                if($data["District"] == "Jaffna"){
+                    $C = "JA";
+                }
+                if($data["District"] == "Kalutara"){
+                    $C = "KL";
+                }
+                if($data["District"] == "Kandy"){
+                    $C = "KD";
+                }
+                if($data["District"] == "Kegalle"){
+                    $C = "KG";
+                }
+                if($data["District"] == "Kilinochchi"){
+                    $C = "KI";
+                }
+                if($data["District"] == "Kurunegala"){
+                    $C = "KR";
+                }
+                if($data["District"] == "Mannar"){
+                    $C = "MN";
+                }
+                if($data["District"] == "Matale"){
+                    $C = "MT";
+                }
+                if($data["District"] == "Matara"){
+                    $C = "MA";
+                }
+                if($data["District"] == "Monaragala"){
+                    $C = "MO";
+                }
+                if($data["District"] == "Mullaitivu"){
+                    $C = "MU";
+                }
+                if($data["District"] == "Nuwara Eliya"){
+                    $C = "NE";
+                }
+                if($data["District"] == "Polonnaruwa"){
+                    $C = "PO";
+                }
+                if($data["District"] == "Puttalam"){
+                    $C = "PU";
+                }
+                if($data["District"] == "Ratnapura"){
+                    $C = "RA";
+                }
+                if($data["District"] == "Trincomalee"){
+                    $C = "TR";
+                }
+                if($data["District"] == "Vavuniya"){
+                    $C = "VA";
+                }
+    
+                $max_outlet_id = $outlets->getMinMax("OutletId", "max");
+                $max_outlet_id = $max_outlet_id[0]->{"max(OutletId)"};
+                $max_outlet_id = $max_outlet_id + 1;
+                $max_outlet_id = str_pad($max_outlet_id, 5, '0', STR_PAD_LEFT);
+    
+                $data["OutletCode"] = $C.$max_outlet_id;
+
             }
             if (!empty($_POST['Email'])){
                 $data['Email'] = $_POST['Email'];
@@ -487,7 +633,7 @@
             }
 
             if ($_POST['Password'] == $_SESSION["USER"]->Password){
-                
+                var_dump($data);
                 echo $outlets->update($id,"OutletID",$data);
                 $this->redirect(BASE_URL."AdminControls/loadOutletsView");
             }else
