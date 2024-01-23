@@ -11,8 +11,6 @@
 
             <?php
                 include "adminnav.php";
-                session_start();
-                var_dump($_SESSION['USER']);
             ?>
         
             <h1>Available Item</h1>

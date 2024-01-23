@@ -157,13 +157,13 @@
         function deleteproduct($id){
             $productitem = new ProductItem();
             $productitem->update($id,"itemid",["availability" => "0"]);
-            $this->redirect(BASE_URL."AdminControls/loadItemsView");
+            $this->redirect(BASE_URL."CommonControls/loadProductsView");
         }
 
         function undoproduct($id){
             $productitem = new ProductItem();
             $productitem->update($id,"itemid",["availability" => "1"]);
-            $this->redirect(BASE_URL."AdminControls/loadItemsView");
+            $this->redirect(BASE_URL."CommonControls/loadProductsView");
         }
 
 
@@ -292,9 +292,6 @@
         }
         
         //view table functions
-        function loadOutletsView(){
-            echo $this->view("admin/outlets");
-        }
 
         function loadStocksView(){
             echo $this->view("admin/stocks");
@@ -304,10 +301,6 @@
         //view add functions
         function AddItem(){
             echo $this->view("admin/additem");
-        }
-
-        function AddOutlet(){
-            echo $this->view("admin/addoutlet");
         }
 
         function AddStock(){
@@ -322,6 +315,191 @@
             echo $this->view("admin/createadvertiesment");
         }
 
+        // outlet functions
+        function loadOutletsView(){
+            $outlets = new Outlet();
+            $outlets = $outlets->findall();
+
+            echo $this->view("admin/outlets", ["outlets" => $outlets]);
+        }
+
+        function deleteoutlet($id){
+            $outlets = new Outlet();
+            $outlets->delete($id,"OutletID");
+            $this->redirect(BASE_URL."AdminControls/loadOutletsView");
+        }
+
+        function AddOutlet(){
+            $outlets = new Outlet();
+
+            $arr["DOS"] = $_POST["DOS"];
+            $arr["contactNo"] = $_POST["contactNo"];
+            $arr["ActiveState"] = $_POST["ActiveState"];
+            $arr["Address"] = $_POST["Address"];
+            $arr["District"] = $_POST["District"];
+            $arr["Email"] = $_POST["Email"];
+            $arr["Manager"] = $_POST["Manager"];
+            
+
+            if($arr["District"] == "Ampara"){
+                $C = "AM";
+            }
+            if($arr["District"] == "Anuradhapura"){
+                $C = "AN";
+            }
+            if($arr["District"] == "Badulla"){
+                $C = "BD";
+            }
+            if($arr["District"] == "Batticaloa"){
+                $C = "BT";
+            }
+            if($arr["District"] == "Colombo"){
+                $C = "CO";
+            }
+            if($arr["District"] == "Galle"){
+                $C = "GA";
+            }
+            if($arr["District"] == "Gampaha"){
+                $C = "GP";
+            }
+            if($arr["District"] == "Hambantota"){
+                $C = "HB";
+            }
+            if($arr["District"] == "Jaffna"){
+                $C = "JA";
+            }
+            if($arr["District"] == "Kalutara"){
+                $C = "KL";
+            }
+            if($arr["District"] == "Kandy"){
+                $C = "KD";
+            }
+            if($arr["District"] == "Kegalle"){
+                $C = "KG";
+            }
+            if($arr["District"] == "Kilinochchi"){
+                $C = "KI";
+            }
+            if($arr["District"] == "Kurunegala"){
+                $C = "KR";
+            }
+            if($arr["District"] == "Mannar"){
+                $C = "MN";
+            }
+            if($arr["District"] == "Matale"){
+                $C = "MT";
+            }
+            if($arr["District"] == "Matara"){
+                $C = "MA";
+            }
+            if($arr["District"] == "Monaragala"){
+                $C = "MO";
+            }
+            if($arr["District"] == "Mullaitivu"){
+                $C = "MU";
+            }
+            if($arr["District"] == "Nuwara Eliya"){
+                $C = "NE";
+            }
+            if($arr["District"] == "Polonnaruwa"){
+                $C = "PO";
+            }
+            if($arr["District"] == "Puttalam"){
+                $C = "PU";
+            }
+            if($arr["District"] == "Ratnapura"){
+                $C = "RA";
+            }
+            if($arr["District"] == "Trincomalee"){
+                $C = "TR";
+            }
+            if($arr["District"] == "Vavuniya"){
+                $C = "VA";
+            }
+
+            $max_outlet_id = $outlets->getMinMax("OutletID", "max");
+            $max_outlet_id = $max_outlet_id[0]->{"max(OutletID)"};
+            $max_outlet_id = $max_outlet_id + 1;
+            $max_outlet_id = str_pad($max_outlet_id, 5, '0', STR_PAD_LEFT);
+
+            $arr["OutletCode"] = $C.$max_outlet_id;
+
+            $outlets->insert($arr);
+            $this->redirect(BASE_URL."AdminControls/loadOutletsView");
+        }
+
+        function AddOutletview(){
+            $systemuser = new Systemuser();
+            $outlets = new Outlet();
+        
+            $managers = $systemuser->where("Role", "outletmanager");
+            $allOutlets = $outlets->findall();
+            $managersWithoutOutlets = [];
+            foreach ($managers as $manager) {
+                $hasOutlet = false;
+                foreach ($allOutlets as $outlet) {
+                    if ($manager->EmployeeNo == $outlet->Manager) {
+                        $hasOutlet = true;
+                        break;
+                    }
+                }
+                if (!$hasOutlet) {
+                    $managersWithoutOutlets[] = $manager;
+                }
+            }
+            echo $this->view("admin/Addoutlet", ["managers" => $managersWithoutOutlets]);
+        }
+
+        function EditOutletView($id){
+            $outlets = new Outlet();
+            $data = $outlets->where("OutletID", $id);
+            
+            echo $this->view("admin/editoutlet", ["data" => $data]);
+        }
+
+        function EditOutlet(){
+            session_start();
+            $outlets = new Outlet();
+
+            $id = $_POST['id'];
+            
+            if (!empty($_POST['DOS'])){
+                $data['DOS'] = $_POST['DOS'];
+            } 
+            if (!empty($_POST['contactNo'])){
+                $data['contactNo'] = $_POST['contactNo'];
+            }
+            if (!empty($_POST['ActiveState'])){
+                $data['ActiveState'] = $_POST['ActiveState'];
+                var_dump($data['ActiveState']);
+            }
+            if (!empty($_POST['Address'])){
+                $data['Address'] = $_POST['Address'];
+            }
+            if (!empty($_POST['District'])){
+                $data['District'] = $_POST['District'];
+            }
+            if (!empty($_POST['Email'])){
+                $data['Email'] = $_POST['Email'];
+            }
+            if (!empty($_POST['Manager'])){
+                $data['Manager'] = $_POST['Manager'];
+            }
+
+            if ($_POST['Password'] == $_SESSION["USER"]->Password){
+                
+                echo $outlets->update($id,"OutletID",$data);
+                $this->redirect(BASE_URL."AdminControls/loadOutletsView");
+            }else
+            {
+                $outlets = new Outlet();
+                $data = $outlets->where("OutletID", $id);
+                echo $this->view("admin/EditOutletView", ["data" => $data, "error" => "Password is incorrect"]);
+            }
+           
+        }
+        
+
         //view edit functions
         function EditItem($id){
             $productitem = new ProductItem();
@@ -329,9 +507,7 @@
             echo $this->view("admin/edititem", ["data" => $data]);
         }
 
-        function EditOutlet(){
-            echo $this->view("admin/editoutlet");
-        }
+        
 
         function EditStock(){
             echo $this->view("admin/editstockalertlevels");
