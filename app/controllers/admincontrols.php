@@ -182,6 +182,32 @@
             $arr["UserName"] = $_POST["UserName"];
             $arr["Password"] = $_POST["Password1"];
 
+            if($arr["Role"] == "admin"){
+                $C = "AD";
+            }
+            if($arr["Role"] == "billingclerk"){
+                $C = "BC";
+            }
+            if($arr["Role"] == "outletmanager"){
+                $C = "OM";
+            }
+            if($arr["Role"] == "productionmanager"){
+                $C = "PM";
+            }
+            if($arr["Role"] == "receptionist"){
+                $C = "RC";
+            }
+            if($arr["Role"] == "storemanager"){
+                $C = "SM";
+            }
+
+            $max_user_id = $systemuser->getMinMax("UserID", "max");
+            $max_user_id = $max_user_id[0]->{"max(UserID)"};
+            $max_user_id = $max_user_id + 1;
+            $max_user_id = str_pad($max_user_id, 5, '0', STR_PAD_LEFT);
+
+            $arr["EmployeeNo"] = $C.$max_user_id;
+
             $systemuser->insert($arr);
 
             $this->redirect(BASE_URL."AdminControls/loadUsersView");
@@ -200,8 +226,10 @@
         }
 
         function editsystemuser(){
-            
+            session_start();
+
             $systemuser = new Systemuser();
+
             $id = $_POST['id'];
             if (!empty($_POST['Name'])){
                 $data['Name'] = $_POST['Name'];
@@ -227,12 +255,41 @@
             if (!empty($_POST['UserName'])){
                 $data['UserName'] = $_POST['UserName'];
             }
-            echo $systemuser->update($id,"UserID",$data);
-            $this->redirect(BASE_URL."AdminControls/loadUsersView");
+
+            if ($_POST['Password'] == $_SESSION["USER"]->Password){
+                echo $systemuser->update($id,"UserID",$data);
+                $this->redirect(BASE_URL."AdminControls/loadUsersView");
+            }else
+            {
+                $systemuser = new Systemuser();
+                $data = $systemuser->where("UserID", $id);
+                echo $this->view("admin/editsystemuser", ["data" => $data, "error" => "Password is incorrect"]);
+            }
+            
+            
+           
         }
 
+        public function searchUsers() {
+            $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
 
+            $systemuser = new Systemuser();
+            $usersbyNIC = $systemuser->where("NIC", $searchQuery);
+            $usersbyName = $systemuser->where("UserName", $searchQuery);
+            $usersbyRole = $systemuser->where("Role", $searchQuery);
 
+            if (count($usersbyNIC) > 0) {
+                $users = $usersbyNIC;
+            } else if (count($usersbyName) > 0) {
+                $users = $usersbyName;
+            }else if (count($usersbyRole) > 0) {
+                $users = $usersbyRole;
+            }
+            else {
+                $users = [];
+            }
+            echo $this->view("admin/systemusers", [ "users" => $users]);
+        }
         
         //view table functions
         function loadOutletsView(){
