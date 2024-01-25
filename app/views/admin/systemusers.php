@@ -29,7 +29,7 @@
 </head>
     <body>
     <?php
-        include "adminnav.php"
+        include "adminnav.php";
     ?>
 
     <div style="display: flex; flex-direction:row; justify-content:space-around;">
@@ -71,7 +71,7 @@
                     </tr>';
 
                     foreach ($users as $user) {
-                        if ($user->Role !== 'admin' && (stripos($user->UserName, $searchQuery) !== false || stripos($user->NIC, $searchQuery) !== false)) {
+                        if ($user->Role !== 'admin' && (stripos($user->UserName, $searchQuery) !== false || (stripos($user->NIC, $searchQuery) !== false) || (stripos($user->Role, $searchQuery) !== false))) {
                             echo '<tr>';
                             echo '<td class="hideonmobile">' . $user->Name . '</td>';
                             echo '<td>' . $user->NIC . '</td>';
