@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
     class AdminControls extends Controller{
 
         function index($id=null){
@@ -151,7 +154,7 @@
                 $data['category'] = $_POST['category'];
             }
             echo $productitem->update($id,"itemid",$data);
-            $this->redirect(BASE_URL."AdminControls/loadItemsView");
+            $this->redirect(BASE_URL."CommonControls/loadProductsView");
         }
 
         function deleteproduct($id){
@@ -340,9 +343,7 @@
             echo $this->view("admin/addsystemuser");
         }
 
-        function AddAdvertiesment(){
-            echo $this->view("admin/createadvertiesment");
-        }
+        
 
         // outlet functions
         function loadOutletsView(){
@@ -644,7 +645,105 @@
             }
            
         }
+
+
+        //advertiesment functions
+        function AddAdvertiesment(){
+            echo $this->view("admin/createadvertiesment");
+        }
+
+        function createAdvertisement1() {
+            $type = $_POST["type"];
+
+            $target_dir = "../public/media/uploads/Advertiesments/";
+            $target_file = $target_dir . basename($_FILES["image"]["name"]);
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
         
+            // Set the new filename based on the type
+            if ($type == "Desktop") {
+                $newfilename = "bg1" . "." . $imageFileType;
+                echo $newfilename;
+            } elseif ($type == "Mobile") {
+                $newfilename = "bg1m" . "." . $imageFileType;
+                echo $newfilename;
+            } else {
+                // Handle other cases if needed
+                return false;
+            }
+        
+            // Construct the final target file path
+            $target_file = $target_dir . $newfilename;
+            echo $target_file;
+        
+            // Perform the upload
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $this->redirect(BASE_URL."AdminControls/AddAdvertiesment");
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+
+        function createAdvertisement2(){
+            $type = $_POST["type"];
+
+            $target_dir = "../public/media/uploads/Advertiesments/";
+            $target_file = $target_dir . basename($_FILES["image"]["name"]);
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        
+            // Set the new filename based on the type
+            if ($type == "Desktop") {
+                $newfilename = "bg2" . "." . $imageFileType;
+                echo $newfilename;
+            } elseif ($type == "Mobile") {
+                $newfilename = "bg2m" . "." . $imageFileType;
+                echo $newfilename;
+            } else {
+                // Handle other cases if needed
+                return false;
+            }
+        
+            // Construct the final target file path
+            $target_file = $target_dir . $newfilename;
+            echo $target_file;
+        
+            // Perform the upload
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $this->redirect(BASE_URL."AdminControls/AddAdvertiesment");
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+
+        function createAdvertisement3(){
+            $type = $_POST["type"];
+
+            $target_dir = "../public/media/uploads/Advertiesments/";
+            $target_file = $target_dir . basename($_FILES["image"]["name"]);
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        
+            // Set the new filename based on the type
+            if ($type == "Desktop") {
+                $newfilename = "bg3" . "." . $imageFileType;
+                echo $newfilename;
+            } elseif ($type == "Mobile") {
+                $newfilename = "bg3m" . "." . $imageFileType;
+                echo $newfilename;
+            } else {
+                // Handle other cases if needed
+                return false;
+            }
+        
+            // Construct the final target file path
+            $target_file = $target_dir . $newfilename;
+            echo $target_file;
+        
+            // Perform the upload
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $this->redirect(BASE_URL."AdminControls/AddAdvertiesment");
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
 
         //view edit functions
         function EditItem($id){
@@ -652,8 +751,6 @@
             $data = $productitem->where("itemid", $id);
             echo $this->view("admin/edititem", ["data" => $data]);
         }
-
-        
 
         function EditStock(){
             echo $this->view("admin/editstockalertlevels");

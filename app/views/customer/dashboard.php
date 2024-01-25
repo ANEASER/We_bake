@@ -11,7 +11,7 @@
         }
         .add-1 {
                 display: block;
-                background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg1.png') no-repeat center center fixed;
+                background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg1.jpg') no-repeat center center fixed;
                 background-size: cover;
                 width: 100%;
                 height: 350px;
@@ -31,12 +31,12 @@
 
 
         .add-2{
-                background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg2.jpg') no-repeat center center fixed;
+                background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg2.jpg') no-repeat center center;
                 background-size: cover;
                 }
 
         .add-3{
-                background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg3.jpg') no-repeat center center fixed;
+                background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg3.jpg') no-repeat center center;
                 background-size: cover;
                 }
 
@@ -62,12 +62,12 @@
                 }
         
                 .add-2{
-                        background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg2m.png') no-repeat center center fixed;
+                        background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg2m.jpg') no-repeat center center fixed;
                         background-size: cover;
                 }
 
                 .add-3{
-                        background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg3m.png') no-repeat center center fixed;
+                        background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg3m.jpg') no-repeat center center fixed;
                         background-size: cover;
                 }
 

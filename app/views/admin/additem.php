@@ -25,12 +25,12 @@
                     
                 <div class="form-group">
                     <label for="retailprice">Retail Price:</label>
-                    <input type="number" id="retailprice" name="retailprice" required>
+                    <input type="number" id="retailprice" min=1 name="retailprice" required>
                  </div>
                     
                 <div class="form-group">
                     <label for="stockprice">Stock Price:</label>
-                    <input type="number" id="stockprice" name="stockprice" required>
+                    <input type="number" id="stockprice" min=1 name="stockprice" required>
                 </div>
                     
                 <div class="form-group">
