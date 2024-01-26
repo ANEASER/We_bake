@@ -20,9 +20,9 @@
                 <form method="GET" action="<?php echo BASE_URL; ?>OrderControls/searchOrders" class="search">
                     <?php
                     if (isset($_GET['search'])) {
-                        echo '<input type="text" id="search" name="search" placeholder="Enter Order ID" value="' . $_GET['search'] . '" class="search">';
+                        echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="' . $_GET['search'] . '" class="search">';
                     } else {
-                        echo '<input type="text" id="search" name="search" placeholder="Enter Order ID" class="search">';
+                        echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" class="search">';
                     }
                     ?>
                     <input type="submit" value="Search" class="searchbutton">
@@ -41,7 +41,6 @@
         if (isset($_GET['search'])) {
 
             echo "<div id='searchedOrdersTable'>";
-            echo "searchedOrdersTable";
             echo "<table>";
             echo "<tr>
                     <th>Order ID</th>
@@ -69,8 +68,8 @@
                     echo "<td>" . $productorder->deliverby . "</td>";
                     echo "<td>" . $productorder->orderref . "</td>";
                     echo "<td>" . $productorder->deliver_address . "</td>";
-                    echo "<td><button onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
-                    echo "<td><button onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
+                    echo "<td><button class='greenbutton' onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
+                    echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
                     echo "</tr>";
                 }
             } else {
@@ -113,8 +112,8 @@
                     echo "<td>" . $productorder->deliverby . "</td>";
                     echo "<td>" . $productorder->orderref . "</td>";
                     echo "<td>" . $productorder->deliver_address . "</td>";
-                    echo "<td><button onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
-                    echo "<td><button onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
+                    echo "<td><button class='greenbutton' onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
+                    echo "<td><button class='bluebutton'  onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
                     echo "</tr>";
                 }    
             }    
@@ -155,8 +154,8 @@
                 echo "<td>" . $productorder->deliverby . "</td>";
                 echo "<td>" . $productorder->orderref . "</td>";
                 echo "<td>" . $productorder->deliver_address . "</td>";
-                echo "<td><button onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
-                echo "<td><button onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
+                echo "<td><button class='greenbutton' onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
+                echo "<td><button class='bluebutton'  onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
                 echo "</tr>";
             }    
         }    
@@ -197,8 +196,8 @@
                 echo "<td>" . $productorder->deliverby . "</td>";
                 echo "<td>" . $productorder->orderref . "</td>";
                 echo "<td>" . $productorder->deliver_address . "</td>";
-                echo "<td><button onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
-                echo "<td><button onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
+                echo "<td><button class='greenbutton' onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
+                echo "<td><button class='bluebutton'  onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
                 echo "</tr>";
             }    
         }    
@@ -227,7 +226,7 @@
 
             foreach($data["productorders"] as $productorder){ 
 
-                if($productorder->orderstatus == "closed"){
+                if($productorder->orderstatus == "finished"){
                     echo "<tr>";
                     echo "<td>" . $productorder->orderid . "</td>";
                     echo "<td>" . $productorder->placeby . "</td>";
@@ -238,8 +237,8 @@
                     echo "<td>" . $productorder->deliverby . "</td>";
                     echo "<td>" . $productorder->orderref . "</td>";
                     echo "<td>" . $productorder->deliver_address . "</td>";
-                    echo "<td><button onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
-                    echo "<td><button onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
+                    echo "<td><button class='greenbutton' onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
+                    echo "<td><button class='bluebutton'  onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
                     echo "</tr>";
                 }    
             }    
@@ -264,6 +263,11 @@
         }
 
         function showSearchOrders(){
+
+            var links = document.querySelectorAll('body div ul li a');
+            
+            links.forEach(function (el) {el.classList.remove('active');});
+                        
             document.getElementById('pendingOrdersTable').style.display = 'none';
             document.getElementById('advancedOrdersTable').style.display = 'none';
             document.getElementById('paidOrdersTable').style.display = 'none';
@@ -314,7 +318,7 @@
                 firstLink = document.querySelector('body div ul li a');
                 if (firstLink) {
                     changeActive(firstLink);
-                    showSearchOrders(firstLink);
+                    showSearchOrders();
                 }
             <?php else : ?>
                 // Set first link for non-search case
