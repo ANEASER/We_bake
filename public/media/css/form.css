@@ -45,3 +45,7 @@ section {
     padding: 20px;
     text-align: center;
 }
+
+.search {
+    padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-right: 5px;
+}

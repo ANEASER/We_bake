@@ -32,16 +32,17 @@
         include "adminnav.php";
     ?>
 
-    <div style="display: flex; flex-direction:row; justify-content:space-around;">
+    <section style="width: 100%; padding:1%">
+    <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
         <form method="GET" action="<?php echo BASE_URL; ?>AdminControls/searchUsers">
             <label for="search">Search by Username or NIC:</label>
             <?php
                 if(isset($_GET['search'])) {
-                    echo '<input type="text" id="search" name="search" placeholder="Enter username or NIC" value="' . $_GET['search'] . '">';
+                    echo '<input type="text" id="search" name="search" placeholder="Enter username or NIC" value="' . $_GET['search'] . ' class="search">';
                 } else {
-                    echo '<input type="text" id="search" name="search" placeholder="Enter username, role or NIC">';
+                    echo '<input type="text" id="search" name="search" placeholder="Enter username, role or NIC" class="search">';
                 }?>
-            <input type="submit" value="Search">
+            <input class="searchbutton" type="submit" value="Search">
         </form>
         <section class="buttongroup">
             <button class="bluebutton" onclick="add()">Add New User</button>
@@ -93,7 +94,7 @@
                         echo '<h3>No users found</h3>';
                     }
             ?>
-
+        </section>
     <script>
 
         var BASE_URL = "<?php echo BASE_URL; ?>";

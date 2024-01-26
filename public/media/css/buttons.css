@@ -90,3 +90,13 @@
 .brownbutton:hover {
     background-color: #5d3a38;
 }
+
+
+.searchbutton {
+    padding: 8px 12px; 
+    background-color: #4CAF50; 
+    color: #fff; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer;
+}

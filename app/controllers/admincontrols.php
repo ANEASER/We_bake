@@ -473,7 +473,7 @@ use function PHPSTORM_META\type;
             foreach ($managers as $manager) {
                 $hasOutlet = false;
                 foreach ($allOutlets as $outlet) {
-                    if ($manager->UserID == $outlet->Manager) {
+                    if ($manager->EmployeeNo == $outlet->Manager) {
                         $hasOutlet = true;
                         break;
                     }
