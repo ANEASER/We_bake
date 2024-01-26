@@ -19,18 +19,17 @@
             $ordersbyPlaceby = $productorder->where("placeby", $searchQuery);
 
             if(count($ordersbyRef) > 0){
-                $foundorders = $ordersbyRef;
+                $productorders = $ordersbyRef;
             }
             else if(count($ordersbyPlaceby) > 0){
-                $foundorders = $ordersbyPlaceby;
+                $productorders = $ordersbyPlaceby;
             }
             else{
-                $foundorders = [];
+                $productorders = [];
             }
 
             if($_SESSION["USER"]->Role == "billingclerk"){
-                $productorders = $productorder->findall();
-                echo $this->view("billingclerk/billingdash",["productorders" => $productorders,"foundorders"=>$foundorders]);
+                echo $this->view("billingclerk/billingdash",["productorders" => $productorders]);
             }
             
         }

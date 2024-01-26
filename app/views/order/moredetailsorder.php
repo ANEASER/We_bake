@@ -68,14 +68,16 @@
             // Make sure to properly encode the user information
             var user = <?php echo json_encode($_SESSION["USER"]); ?>;
             
-            console.log(user);
-            
            
             function backtoorders() {
 
-            if(!user.role){
+            if(!user.Role){
                 window.location.href = BASE_URL + "CustomerControls/purchasehistory";}
+            
+            else if(user.Role === "billingclerk"){
+                window.location.href = BASE_URL + "BillingControls";}
             }
+
     </script>
 
         

@@ -28,7 +28,8 @@
                     <input type="submit" value="Search" class="searchbutton">
                 </form>
 
-            
+                <div><li style="margin-right: 10px;"><a onclick="Refresh()" style="padding: 5px;">All Orders</a></li></div>
+
                 <ul style="display: flex; padding: 0; list-style: none; margin: 0;">
                     <li style="margin-right: 10px;"><a onclick="showPendingOrders(this)" style="padding: 5px;">Pending Orders</a></li>
                     <li style="margin-right: 10px;"><a onclick="showAdvancedOrders(this)" style="padding: 5px;">Advanced Orders</a></li>
@@ -37,51 +38,8 @@
                 </ul>
         </div>
     <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
-<?php
-        if (isset($_GET['search'])) {
 
-            echo "<div id='searchedOrdersTable'>";
-            echo "<table>";
-            echo "<tr>
-                    <th>Order ID</th>
-                    <th>Placed By</th>
-                    <th>Order Date</th>
-                    <th>Payment Status</th>
-                    <th>Delivery Status</th>
-                    <th>Total</th>
-                    <th>Deliver By</th>
-                    <th>Ordder reference</th>
-                    <th>Deliver Address</th>
-                    <th>Update</th>
-                    <th>More</th>
-                </tr>";
-
-            if (!empty($foundorders)) {
-                foreach ($foundorders as $productorder) {
-                    echo "<tr>";
-                    echo "<td>" . $productorder->orderid . "</td>";
-                    echo "<td>" . $productorder->placeby . "</td>";
-                    echo "<td>" . $productorder->orderdate . "</td>";
-                    echo "<td>" . $productorder->paymentstatus . "</td>";
-                    echo "<td>" . $productorder->deliverystatus . "</td>";
-                    echo "<td>" . $productorder->total . "</td>";
-                    echo "<td>" . $productorder->deliverby . "</td>";
-                    echo "<td>" . $productorder->orderref . "</td>";
-                    echo "<td>" . $productorder->deliver_address . "</td>";
-                    echo "<td><button class='greenbutton' onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
-                    echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
-                    echo "</tr>";
-                }
-            } else {
-                echo "<tr><td colspan='12'>No orders found.</td></tr>";
-            }
-
-            echo "</table>";
-            echo "</div>";
-        }
-        ?>
-
-<?php
+    <?php
             
             echo "<div id='pendingOrdersTable'>";
             echo "<table>";
@@ -262,19 +220,6 @@
             link.classList.add('active');
         }
 
-        function showSearchOrders(){
-
-            var links = document.querySelectorAll('body div ul li a');
-            
-            links.forEach(function (el) {el.classList.remove('active');});
-                        
-            document.getElementById('pendingOrdersTable').style.display = 'none';
-            document.getElementById('advancedOrdersTable').style.display = 'none';
-            document.getElementById('paidOrdersTable').style.display = 'none';
-            document.getElementById('closedOrdersTable').style.display = 'none';
-            document.getElementById('searchedOrdersTable').style.display = 'block';
-        }
-
         function showPendingOrders(link) {
             changeActive(link);
             document.getElementById('pendingOrdersTable').style.display = 'block';
@@ -311,23 +256,27 @@
             document.getElementById('searchedOrdersTable').style.display = 'none';
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            var firstLink;
+        function Process(orderid, paymentstatus) {
+            window.location.href = BASE_URL +  "BillingControls/processOrder/"+orderid+"/"+paymentstatus;
+        }
 
-            <?php if (isset($_GET['search'])) : ?>
-                firstLink = document.querySelector('body div ul li a');
-                if (firstLink) {
-                    changeActive(firstLink);
-                    showSearchOrders();
-                }
-            <?php else : ?>
-                // Set first link for non-search case
-                firstLink = document.querySelector('body div ul li a');
-                if (firstLink) {
-                    changeActive(firstLink);
-                    showPendingOrders(firstLink);
-                }
-            <?php endif; ?>
+        function Refresh() {
+            window.location.href = BASE_URL +  "BillingControls";
+        }
+
+        function more(unique_id) {
+            
+            var url = BASE_URL + "OrderControls/moredetails/" + unique_id ;
+
+            window.location.href = url;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var firstLink = document.querySelector('body div ul li a');
+            if (firstLink) {
+                changeActive(firstLink);
+                showPendingOrders(firstLink);
+            }
         });
 
 
