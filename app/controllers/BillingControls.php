@@ -7,9 +7,11 @@ class BillingControls extends Controller {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
+
+        $currentDate = date("Y-m-d");
         
         $productorder = new ProductOrder();
-        $productorders = $productorder->findall();
+        $productorders = $productorder->findByDate($currentDate);
         $this->view("billingclerk/billingdash",["productorders" => $productorders]);
     }
 
