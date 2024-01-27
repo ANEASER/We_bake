@@ -30,7 +30,13 @@
 
             if($_SESSION["USER"]->Role == "billingclerk"){
                 echo $this->view("billingclerk/billingdash",["productorders" => $productorders]);
+            } elseif ($_SESSION["USER"]->Role == "productionmanager") {
+                echo $this->view("productionmanager/pmdash",["productorders" => $productorders]);
+            } else {
+                echo $this->view("admin/admindash",["productorders" => $productorders]);
             }
+
+
             
         }
 
@@ -277,13 +283,13 @@
 
             $productorderline = new ProductOrderLine();
             $productorder = new ProductOrder();
+            $payment = new PaymentProof();
 
             $order = $productorder->where("unique_id",$unique_id);
+            $proofs = $payment->where("orderid",$order[0]->orderid);
             $productorderlines = $productorderline->where("unique_id",$unique_id);
             
-            
-
-            echo $this->view("order/moredetailsorder",["productorderlines"=>$productorderlines,"order"=>$order]);
+            echo $this->view("order/moredetailsorder",["productorderlines"=>$productorderlines,"order"=>$order,"proofs"=>$proofs]);
         }
 
         function deletecartitem($id){
