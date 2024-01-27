@@ -11,7 +11,7 @@ class BillingControls extends Controller {
         $currentDate = date("Y-m-d");
         
         $productorder = new ProductOrder();
-        $productorders = $productorder->findByDate($currentDate);
+        $productorders = $productorder->findToday($currentDate);
         $this->view("billingclerk/billingdash",["productorders" => $productorders]);
     }
 
