@@ -21,6 +21,10 @@ class OutletControls extends Controller {
     }
     function outletdash(){
         echo $this->view("outlet/outletdash");
+    }
+
+    function constantorder(){
+        echo $this->view("outlet/constantorder");
 
      
     }
