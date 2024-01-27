@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <title>Purchase History</title>
+</head>
+  
     <title>Receptionist_Purchase History</title>
 </head>
 <body>
     <?php
         include "recnavbar.php";
     ?>
-    <h1>Receptionist_Purchase History</h1>
+    <h1>Receptionist Purchase History</h1>
     <?php
         
             echo "<table>";

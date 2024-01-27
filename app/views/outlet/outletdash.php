@@ -8,16 +8,15 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
-    <title>Purchase History</title>
+    <title>Outlet dashboard</title>
 </head>
-
-<body>
   
     <body>
     <?php
         include "omnavbar2.php";
     ?>
 
+<h1> Outlet Dashboard </h1>
     <div class="content">
             
     </div>
@@ -33,7 +32,7 @@
             window.location.href = BASE_URL +  "StoreControls/viewStocks";
         }
     </script>
-</body>
+    
 </body>
 </html>   
 
