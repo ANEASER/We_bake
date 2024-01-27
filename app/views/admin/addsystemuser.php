@@ -70,7 +70,7 @@
                         <input type="password" id="Password1" name="Password1" required>
                     </div>
                     
-                        <input type="submit" value="Submit">
+                        <input class="bluebutton" type="submit" value="Submit">
                     
                 </form>
             </div>

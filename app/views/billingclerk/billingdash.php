@@ -17,18 +17,18 @@
     ?>
 
         <div style="display: flex; flex-direction:row; justify-content:space-between; padding:2%;">
-                <form method="GET" action="<?php echo BASE_URL; ?>OrderControls/searchOrders" class="search">
+        <form method="GET" action="<?php echo BASE_URL; ?>OrderControls/searchOrders" class="search" style="display: flex; flex-direction:row;">
                     <?php
-                    if (isset($_GET['search'])) {
-                        echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="' . $_GET['search'] . '" class="search">';
-                    } else {
-                        echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" class="search">';
-                    }
+                        if (isset($_GET['search'])) {
+                            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="' . $_GET['search'] . '" class="searchbox">';
+                            echo '<input type="submit" value="Search" class="searchbutton">';
+                            echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
+                        } else {
+                            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" class="searchbox">';
+                            echo '<input type="submit" value="Search" class="searchbutton">';
+                        }
                     ?>
-                    <input type="submit" value="Search" class="searchbutton">
                 </form>
-
-                <div><li style="margin-right: 10px;"><a onclick="Refresh()" style="padding: 5px;">All Orders</a></li></div>
 
                 <ul style="display: flex; padding: 0; list-style: none; margin: 0;">
                     <li style="margin-right: 10px;"><a onclick="showPendingOrders(this)" style="padding: 5px;">Pending Orders</a></li>
@@ -260,7 +260,7 @@
             window.location.href = BASE_URL +  "BillingControls/processOrder/"+orderid+"/"+paymentstatus;
         }
 
-        function Refresh() {
+        function clearSearch() {
             window.location.href = BASE_URL +  "BillingControls";
         }
 

@@ -34,13 +34,12 @@
 
     <section style="width: 100%; padding:1%">
     <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
-        <form method="GET" action="<?php echo BASE_URL; ?>AdminControls/searchUsers">
-            <label for="search">Search by Username or NIC:</label>
+        <form method="GET" action="<?php echo BASE_URL; ?>AdminControls/searchUsers" style="display: flex; flex-direction:row;">
             <?php
                 if(isset($_GET['search'])) {
-                    echo '<input type="text" id="search" name="search" placeholder="Enter username or NIC" value="' . $_GET['search'] . ' class="search">';
+                    echo '<input type="text" id="search" name="search" placeholder="username or NIC" value="' . $_GET['search'] . ' class="searchbox">';
                 } else {
-                    echo '<input type="text" id="search" name="search" placeholder="Enter username, role or NIC" class="search">';
+                    echo '<input type="text" id="search" name="search" placeholder="username, role or NIC" class="searchbox">';
                 }?>
             <input class="searchbutton" type="submit" value="Search">
         </form>
