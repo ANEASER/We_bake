@@ -15,6 +15,16 @@
         include "omnavbar2.php";
     ?>
 <h1> Place Order </h1>
+   
+<form action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" method="post">
+
+
+<label for="orderdate"><br>Order Date:</label>
+                    <input type="date" id="orderdate" name="orderdate" required><br>
+
+          <br>          
+        <input type="submit" value="Submit">
+    </form>
 
 
      <script>
