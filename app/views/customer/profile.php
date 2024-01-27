@@ -127,7 +127,7 @@
                         <td><?php echo $_SESSION["USER"]->Email; ?></td>
                     </tr>
                 </table>
-                <section class="buttongroup">
+                <section class="buttongroup" style="display:flex; flex-direction:column">
                         <button class="brownbutton" onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
 
                         <button class="brownbutton" onclick="changepassword()" class="buttonedit">Change Password</button>
