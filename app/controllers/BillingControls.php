@@ -7,11 +7,9 @@ class BillingControls extends Controller {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
-
-        $currentDate = date("Y-m-d");
         
         $productorder = new ProductOrder();
-        $productorders = $productorder->findToday($currentDate);
+        $productorders = $productorder->findOnToday();
         $this->view("billingclerk/billingdash",["productorders" => $productorders]);
     }
 
@@ -38,14 +36,18 @@ class BillingControls extends Controller {
                 $imageData = file_get_contents($imageTmpName);
                 $base64Image = base64_encode($imageData);
 
-                $paymentproofs->insertImage($initialorfinal, $orderid, $base64Image);
-                $productorder->update($orderid,"orderid",["paymentstatus" => $initialorfinal, "paid_amount" => $amount]);
-                
-                $this->redirect(BASE_URL."BillingControls/index");
+                if($paymentproofs->insertImage($initialorfinal, $orderid, $base64Image)){      
+                        $productorder->update($orderid,"orderid",["paymentstatus" => $initialorfinal, "paid_amount" => $amount]);
+                        $this->redirect(BASE_URL."BillingControls/index");}
+
+                else{
+                    echo "Error uploading image.";
+                    //$this->redirect(BASE_URL."BillingControls/index");
+                }
     
             } else {
                 echo "Error uploading image.";
-                echo $this->view("billingclerk/uploadproof");
+                $this->redirect(BASE_URL."BillingControls/index");
             }
             
 
@@ -53,17 +55,6 @@ class BillingControls extends Controller {
 
     function viewProfile(){
         echo $this->view("billingclerk/profile");
-    }
-
-    function moredetails($orderid ,$unique_id){
-        $productorderline = new ProductOrderLine();
-        $payment = new Payment();
-
-        $productorderlines = $productorderline->where("unique_id",$unique_id);
-        
-        $payments = $payment->where("orderid",$orderid);
-
-        echo $this->view("billingclerk/moredetails",["productorderlines"=>$productorderlines, "payments"=>$payments]);
     }
     
 }

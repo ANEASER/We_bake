@@ -9,5 +9,13 @@
     
             return $this->query($query);
         }
+
+        public function findOnToday() {
+    
+            $query = "SELECT * FROM $this->table WHERE orderdate = CURDATE()";
+    
+            return $this->query($query);
+        }
+        
     }
 ?>
