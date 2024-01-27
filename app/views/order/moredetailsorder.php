@@ -34,9 +34,12 @@
                     echo "<h1>Order : ".$order[0]->orderref."</h1>";
                     echo "<h1>Order Status : ".$order[0]->orderstatus."</h1>";
                     echo "<h1>Order Delivery Date : ".$order[0]->orderdate."</h1>";
-                    echo "<h1 class='hideondesktop'>Order Delivery Address : ".$order[0]->deliver_address."</h1>";
-                    echo "<h1 class='hideondesktop'>Order Delivery Status : ".$order[0]->deliverystatus."</h1>";
-                    echo "<h1 class='hideondesktop'>Order Payment Status : ".$order[0]->paymentstatus."</h1>";
+                    echo "<h1>Order Delivery Address : ".$order[0]->deliver_address."</h1>";
+                    echo "<h1>Order Delivery Status : ".$order[0]->deliverystatus."</h1>";
+                    echo "<h1>Order Payment Status : ".$order[0]->paymentstatus."</h1>";
+                    echo "<h1>Order Total : ".$order[0]->total."</h1>";
+                    echo "<h1>Order Paid Amount : ".$order[0]->paid_amount."</h1>";
+
                     echo "<br>";
                     echo "<table>";
                     echo "<tr>
@@ -62,7 +65,21 @@
                     }
 
                     echo "</table>";
-                ?>
+
+                    if($proofs > 0){
+                        echo "<div style='display:flex; padding:3%; justify-content: space-around'>";
+                        foreach ($proofs as $proof) {
+                            echo "<div style='display:flex; flex-direction:column'>";
+                            echo "<img src='data:image/jpeg;base64," .$proof->proofdocument. "' alt='Proof Image' height=200px width=170px>";
+                            echo "Total Price : ".$proof->Type."<br>";
+                            echo "</div>";
+                        }
+                        echo "</div>";
+                    } else {
+                        echo "<h1>No payment proof uploaded</h1>";
+                    }
+
+                    ?>
                 <button class="bluebutton" onclick="backtoorders()">Back to Orders</button>
         </section>
     </section>

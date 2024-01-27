@@ -23,14 +23,14 @@
                             if ($paymentstatus == "advanced") {
                                 echo '<div class="form-group">
                                                 <label for="">Amount</label>
-                                                <input type="number" min="0" name="amount" id="number" placeholder="Enter a number" value="'.$total.'">
+                                                <input type="number" min="1" max="'.$total.'"  name="amount" id="number" placeholder="Enter a number" value="'.$total.'">
                                         </div>';
                                 echo "<select name='initialorfinal' id='initialorfinal'>
                                         <option value='paid'>Final</option>";
                             } else {
                                 echo '<div class="form-group">
                                                 <label for="">Amount</label>
-                                                <input type="number" min="0" name="amount" id="number" placeholder="Enter a number">
+                                                <input type="number" min="0" max="'.$total.'" name="amount" id="number" placeholder="Enter a number">
                                         </div>';
                                 echo "<select name='initialorfinal' id='initialorfinal'>
                                         <option value='paid'>Final</option>
