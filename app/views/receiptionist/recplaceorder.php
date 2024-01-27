@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Receptionist_Place Order</title>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    
+    
+    <title>Place Order</title>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var today = new Date();
@@ -15,9 +26,15 @@
             document.getElementById('orderdate').setAttribute('min', dayAfterTomorrow);
         });
     </script>
+
 </head>
+
     <body>
-        <h1>Receptionist_Place Order</h1>
+        <h1>Receptionist Place Order</h1>
+
+        <?php
+        include "recnavbar.php";
+    ?>
 
         <form action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" method="post">
 
