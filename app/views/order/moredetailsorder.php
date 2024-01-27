@@ -18,6 +18,10 @@
                 include '..\app\views\admin\adminnav.php';
             } elseif ($_SESSION["USER"]->Role == "billingclerk") {
                 include '..\app\views\billingclerk\bcnavbar.php';
+            } elseif ($_SESSION["USER"]->Role == "productionmanager") {
+                include '..\app\views\productionmanager\pmnavbar.php';
+            } else {
+                echo "no navbar";
             }
         } else {
             echo "no navbar";
@@ -63,22 +67,26 @@
         </section>
     </section>
     <script>
-            var BASE_URL = "<?php echo BASE_URL; ?>";
+    var BASE_URL = "<?php echo BASE_URL; ?>";
 
-            // Make sure to properly encode the user information
-            var user = <?php echo json_encode($_SESSION["USER"]); ?>;
-            
-           
-            function backtoorders() {
-
-            if(!user.Role){
-                window.location.href = BASE_URL + "CustomerControls/purchasehistory";}
-            
-            else if(user.Role === "billingclerk"){
-                window.location.href = BASE_URL + "BillingControls";}
-            }
-
+    // Make sure to properly encode the user information
+    var user = <?php echo json_encode($_SESSION["USER"]); ?>;
+    
+    function backtoorders() {
+        if (!user.Role) {
+            window.location.href = BASE_URL + "CustomerControls/purchasehistory";
+        } else if (user.Role === "billingclerk") {
+            window.location.href = BASE_URL + "BillingControls";
+        } else if (user.Role === "productionmanager") {
+            window.location.href = BASE_URL + "PmControls";
+        } else if (user.Role === "admin") {
+            window.location.href = BASE_URL + "AdminControls";
+        } else {
+            window.location.href = BASE_URL + "CustomerControls/purchasehistory";
+        }
+    }
     </script>
+
 
         
 </body>

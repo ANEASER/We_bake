@@ -15,7 +15,31 @@
     <?php
         require('pmnavbar.php');
     ?>
-    <h1>Pending orders</h1>
+    <div style="display: flex; flex-direction:row; justify-content:space-between; padding:2%;">
+                
+                <form method="GET" action="<?php echo BASE_URL; ?>OrderControls/searchOrders" class="search" style="display: flex; flex-direction:row;">
+                    <?php
+                        if (isset($_GET['search'])) {
+                            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="' . $_GET['search'] . '" class="searchbox">';
+                            echo '<input type="submit" value="Search" class="searchbutton">';
+                            echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
+                        } else {
+                            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" class="searchbox">';
+                            echo '<input type="submit" value="Search" class="searchbutton">';
+                        }
+                    ?>
+                </form>
+
+    
+                <ul style="display: flex; padding: 0; list-style: none; margin: 0;">
+                    <li style="margin-right: 10px;"><a onclick="showpendingOrdersTable(this)" style="padding: 5px;">Pending Orders</a></li>
+                    <li style="margin-right: 10px;"><a onclick="showPickupOrderTable(this)" style="padding: 5px;">Pickup Orders</a></li>
+                    <li style="margin-right: 10px;"><a onclick="showDeliverOrderTable(this)" style="padding: 5px;">Deliver Orders</a></li>
+                    <li style="margin-right: 10px;"><a onclick="showOnDeliverOrderTable(this)" style="padding: 5px;">OnDeliver Orders</a></li>
+                    <li style="margin-right: 10px;"><a onclick="showCompletedOrderTable(this)" style="padding: 5px;">Completed Orders</a></li>
+                </ul>
+        </div>
+    <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
     <?php
             echo "<div id='pendingOrdersTable'>";
             echo "<table>";
@@ -47,9 +71,9 @@
                     echo "<td>".$productorder->deliverby."</td>";
                     echo "<td>".$productorder->unique_id."</td>";
                     echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button onclick='Process(".$productorder->orderid.")'>Process</button></td>";
-                    echo "<td><button onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
-                    echo "<td><button onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
+                    echo "<td><button class='greenbutton' onclick='Process(".$productorder->orderid.")'>Process</button></td>";
+                    echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
+                    echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }    
             }    
@@ -58,8 +82,8 @@
             echo "</div>";
     
     ?>
-    <h1>Processed orders Pickup</h1>
     <?php
+            echo "<div id='PickupOrderTable'>";
             echo "<table>";
             echo "<th>Order REF</th>
                 <th>Placed By</th>
@@ -88,18 +112,17 @@
                     echo "<td>".$productorder->deliverby."</td>";
                     echo "<td>".$productorder->unique_id."</td>";
                     echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button onclick='Process(".$productorder->orderid.")'>Process</button></td>";
-                    echo "<td><button onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
-                    echo "<td><button onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
+                    echo "<td><button class='greenbutton' onclick='Process(".$productorder->orderid.")'>Process</button></td>";
+                    echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
+                    echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }    
             }
             echo "</table>";
+            echo "</div>";
         ?>
-
-    <h1>Processed orders to Deliver</h1>
     <?php
-        
+            echo "<div id='DeliverOrderTable'>";
             echo "<table>";
             echo "<th>Order REF</th>
                 <th>Placed By</th>
@@ -128,18 +151,18 @@
                     echo "<td>".$productorder->deliverby."</td>";
                     echo "<td>".$productorder->unique_id."</td>";
                     echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button onclick='Process(".$productorder->orderid.")'>Process</button></td>";
-                    echo "<td><button onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
-                    echo "<td><button onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
+                    echo "<td><button class='greenbutton' onclick='Process(".$productorder->orderid.")'>Process</button></td>";
+                    echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
+                    echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }    
             }
             echo "</table>";
+            echo "</div>";
         ?>
 
-    <h1>Processed orders OnDeliver</h1>
     <?php
-        
+            echo "<div id='OnDeliverOrderTable'>";
             echo "<table>";
             echo "<th>Order REF</th>
                     <th>Placed By</th>
@@ -168,19 +191,20 @@
                     echo "<td>".$productorder->deliverby."</td>";
                     echo "<td>".$productorder->unique_id."</td>";
                     echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button onclick='Process(".$productorder->orderid.")'>Process</button></td>";
-                    echo "<td><button onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
-                    echo "<td><button onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
+                    echo "<td><button class='greenbutton' onclick='Process(".$productorder->orderid.")'>Process</button></td>";
+                    echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
+                    echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }    
             }
             echo "</table>";
+            echo "</div>";
         ?>
 
 
-    <h1>Completed orders</h1>
+
     <?php
-        
+            echo "<div id='CompletedOrderTable'>";
             echo "<table>";
             echo "<th>Order REF</th>
                     <th>Placed By</th>
@@ -208,16 +232,17 @@
                     echo "<td>".$productorder->deliverby."</td>";
                     echo "<td>".$productorder->unique_id."</td>";
                     echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button onclick='Process(".$productorder->orderid.")'>Process</button></td>";
-                    echo "<td><button onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
-                    echo "<td><button onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
+                    echo "<td><button class='greenbutton' onclick='Process(".$productorder->orderid.")'>Process</button></td>";
+                    echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
+                    echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }
             }
             
             echo "</table>";
+            echo "</div>";
         ?>
-    
+    </section>
     
     
     <script>
@@ -236,10 +261,6 @@
             window.location.href = BASE_URL +  "PmControls/cancelOrder/"+orderid;
         }
 
-        function more(unique_id) {
-            window.location.href = BASE_URL +  "PmControls/moredetails/"+unique_id;
-        }
-
         function AssignVehicle(orderid) {
             window.location.href = BASE_URL +  "PmControls/showassignvehicles/"+orderid;
         }
@@ -251,6 +272,79 @@
         function logout() {
             window.location.href = BASE_URL +  "CommonControls/logout";
         }
+
+        function changeActive(link) {
+            var links = document.querySelectorAll('body div ul li a');
+            links.forEach(function (el) {
+                el.classList.remove('active');
+            });
+
+            link.classList.add('active');
+        }
+
+        function showpendingOrdersTable(link){
+            changeActive(link);
+            document.getElementById("pendingOrdersTable").style.display = "block";
+            document.getElementById("PickupOrderTable").style.display = "none";
+            document.getElementById("DeliverOrderTable").style.display = "none";
+            document.getElementById("OnDeliverOrderTable").style.display = "none";
+            document.getElementById("CompletedOrderTable").style.display = "none";
+        }
+
+        function showPickupOrderTable(link){
+            changeActive(link);
+            document.getElementById("pendingOrdersTable").style.display = "none";
+            document.getElementById("PickupOrderTable").style.display = "block";
+            document.getElementById("DeliverOrderTable").style.display = "none";
+            document.getElementById("OnDeliverOrderTable").style.display = "none";
+            document.getElementById("CompletedOrderTable").style.display = "none";
+        }
+
+        function showDeliverOrderTable(link){
+            changeActive(link);
+            document.getElementById("pendingOrdersTable").style.display = "none";
+            document.getElementById("PickupOrderTable").style.display = "none";
+            document.getElementById("DeliverOrderTable").style.display = "block";
+            document.getElementById("OnDeliverOrderTable").style.display = "none";
+            document.getElementById("CompletedOrderTable").style.display = "none";
+        }
+
+        function showOnDeliverOrderTable(link){
+            changeActive(link);
+            document.getElementById("pendingOrdersTable").style.display = "none";
+            document.getElementById("PickupOrderTable").style.display = "none";
+            document.getElementById("DeliverOrderTable").style.display = "none";
+            document.getElementById("OnDeliverOrderTable").style.display = "block";
+            document.getElementById("CompletedOrderTable").style.display = "none";
+        }
+
+        function showCompletedOrderTable(link){
+            changeActive(link);
+            document.getElementById("pendingOrdersTable").style.display = "none";
+            document.getElementById("PickupOrderTable").style.display = "none";
+            document.getElementById("DeliverOrderTable").style.display = "none";
+            document.getElementById("OnDeliverOrderTable").style.display = "none";
+            document.getElementById("CompletedOrderTable").style.display = "block";
+        }
+
+        function clearSearch() {
+            window.location.href = BASE_URL +  "BillingControls";
+        }
+
+        function more(unique_id) {
+            
+            var url = BASE_URL + "OrderControls/moredetails/" + unique_id ;
+
+            window.location.href = url;
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var firstLink = document.querySelector('body div ul li a');
+            if (firstLink) {
+                changeActive(firstLink);
+                showpendingOrdersTable(firstLink);
+            }
+        });
 
     </script>
 </body>

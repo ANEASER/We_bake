@@ -17,7 +17,7 @@
     ?>
 
         <div style="display: flex; flex-direction:row; justify-content:space-between; padding:2%;">
-        <form method="GET" action="<?php echo BASE_URL; ?>OrderControls/searchOrders" class="search" style="display: flex; flex-direction:row;">
+                <form method="GET" action="<?php echo BASE_URL; ?>OrderControls/searchOrders" class="search" style="display: flex; flex-direction:row;">
                     <?php
                         if (isset($_GET['search'])) {
                             echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="' . $_GET['search'] . '" class="searchbox">';
