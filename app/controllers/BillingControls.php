@@ -15,80 +15,38 @@ class BillingControls extends Controller {
 
     // order handle
     function processOrder($orderid,$paymentstatus) {
-        echo $this->view("billingclerk/uploadproof", ["orderid" => $orderid, "paymentstatus" => $paymentstatus]);
+        $productorder = new ProductOrder();
+        $order = $productorder->where("orderid",$orderid);
+        $total = $order[0]->total;
+        echo $this->view("billingclerk/uploadproof", ["orderid" => $orderid, "paymentstatus" => $paymentstatus, "total" => $total]);
     }
 
 
     function uploadproof() {
-        if(isset($_FILES["image"])){
-            
+  
             $orderid = $_POST["orderid"];
             $amount = $_POST["amount"];
             $initialorfinal = $_POST["initialorfinal"];
 
-            $target_dir = "../public/media//uploads/Billingproofs/";
+            $productorder = new ProductOrder();
+            $paymentproofs = new PaymentProof();
 
-            $target_file = $target_dir . basename($_FILES["image"]["name"]);
-            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-            $newfilename = $initialorfinal.$orderid . "." . $imageFileType;
-            $target_file = $target_dir . $newfilename;
-            $uploadOk = 1;
-            $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-            $check = getimagesize($_FILES["image"]["tmp_name"]);
+            if (isset($_FILES["image"]) && $_FILES["image"]["error"] == UPLOAD_ERR_OK) {
+                $imageTmpName = $_FILES["image"]["tmp_name"];
+                $imageData = file_get_contents($imageTmpName);
+                $base64Image = base64_encode($imageData);
+
+                $paymentproofs->insertImage($initialorfinal, $orderid, $base64Image);
+                $productorder->update($orderid,"orderid",["paymentstatus" => $initialorfinal, "paid_amount" => $amount]);
+                
+                $this->redirect(BASE_URL."BillingControls/index");
+    
+            } else {
+                echo "Error uploading image.";
+                echo $this->view("billingclerk/uploadproof");
+            }
             
-            if($check !== false) {
-                $uploadOk = 1;
-            } else {
-                echo "File is not an image.";
-                $uploadOk = 0;
-                return;
-            }
-            if (file_exists($target_file)) {
-                echo "Sorry, file already exists.";
-                $uploadOk = 0;
-                return;
-            }
-            if ($_FILES["image"]["size"] > 500000) {
-                echo "Sorry, your file is too large.";
-                $uploadOk = 0;
-                return;
-            }
-            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                echo "Sorry, only JPG, JPEG, PNG files are allowed.";
-                $uploadOk = 0;
-                return;
-            }
-            if ($uploadOk == 0) {
-                echo "Sorry, your file was not uploaded.";
-                return;
-            } else {
-                if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
-                    $payment = new Payment();
 
-                    $payment->insert([
-                        "orderid" => $orderid,
-                        "amount" => $amount,
-                        "initialorfinal" => $initialorfinal,
-                        "link" => $newfilename
-                    ]);
-
-                    $productorder = new ProductOrder();
-
-                    if ($initialorfinal == "initial") {
-                        $productorder->update($orderid,"orderid",["paymentstatus"=>"advanced"]);
-                    } else {
-                        $productorder->update($orderid,"orderid",["paymentstatus"=>"paid"]);
-                    }
-
-                    $this->redirect(BASE_URL."BillingControls");
-
-                } else {
-                    echo "Sorry, there was an error uploading your file.";
-                    $this->redirect(BASE_URL."BillingControls");
-                    return;
-                }
-            }
-        }
     }
 
     function viewProfile(){

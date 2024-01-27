@@ -21,19 +21,23 @@
                     
                         <?php
                             if ($paymentstatus == "advanced") {
+                                echo '<div class="form-group">
+                                                <label for="">Amount</label>
+                                                <input type="number" min="0" name="amount" id="number" placeholder="Enter a number" value="'.$total.'">
+                                        </div>';
                                 echo "<select name='initialorfinal' id='initialorfinal'>
-                                        <option value='final'>Final</option>";
+                                        <option value='paid'>Final</option>";
                             } else {
+                                echo '<div class="form-group">
+                                                <label for="">Amount</label>
+                                                <input type="number" min="0" name="amount" id="number" placeholder="Enter a number">
+                                        </div>';
                                 echo "<select name='initialorfinal' id='initialorfinal'>
-                                        <option value='final'>Final</option>
-                                        <option value='initial'>Initial</option>";
+                                        <option value='paid'>Final</option>
+                                        <option value='advanced'>Initial</option>";
                             }
                         
                         ?>
-                </div>
-                <div class="form-group">
-                        <label for="">Amount</label>
-                        <input type="number" min="0" name="amount" id="number" placeholder="Enter a number">
                 </div>
                 <input type="hidden" name="orderid" value="<?php echo $orderid; ?>">
                 <div class="form-group">  
