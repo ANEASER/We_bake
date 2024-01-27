@@ -9,7 +9,7 @@ class BillingControls extends Controller {
         }
         
         $productorder = new ProductOrder();
-        $productorders = $productorder->findByDate();
+        $productorders = $productorder->findToday();
         $this->view("billingclerk/billingdash",["productorders" => $productorders]);
     }
 
