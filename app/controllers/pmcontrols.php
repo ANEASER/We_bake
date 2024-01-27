@@ -55,8 +55,10 @@
             $productorder = new ProductOrder();
             $vehicle = new Vehicle();
 
+            $vehiclerow = $vehicle->where("vehicleno",$vehicleno);
+            $registrationnumber = $vehiclerow[0]->registrationnumber;
             $vehicle->update($vehicleno,"vehicleno",["availability"=>0]);
-            $productorder->update($orderid,"orderid",["deliverby"=>$vehicleno]);
+            $productorder->update($orderid,"orderid",["deliverby"=>$registrationnumber]);
             $productorder->update($orderid,"orderid",["orderstatus"=>"ondelivery"]);
 
             $this->redirect(BASE_URL."PmControls/index");

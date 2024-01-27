@@ -151,7 +151,7 @@
                     echo "<td>".$productorder->deliverby."</td>";
                     echo "<td>".$productorder->unique_id."</td>";
                     echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button class='greenbutton' onclick='Process(".$productorder->orderid.")'>Process</button></td>";
+                    echo "<td><button class='greenbutton' onclick='AssignVehicle(".$productorder->orderid.")'>Assighn Vehicle</button></td>";
                     echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
@@ -191,7 +191,7 @@
                     echo "<td>".$productorder->deliverby."</td>";
                     echo "<td>".$productorder->unique_id."</td>";
                     echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button class='greenbutton' onclick='Process(".$productorder->orderid.")'>Process</button></td>";
+                    echo "<td><button class='greenbutton' onclick='Completed(".$productorder->orderid.")'>Complete</button></td>";
                     echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
@@ -215,8 +215,6 @@
                     <th>Deliver By</th>
                     <th>Unique ID</th>
                     <th>Deliver Address</th>
-                    <th>Update</th>
-                    <th>Cancel</th>
                     <th>More</th>
                 </tr>";
 
@@ -232,8 +230,6 @@
                     echo "<td>".$productorder->deliverby."</td>";
                     echo "<td>".$productorder->unique_id."</td>";
                     echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button class='greenbutton' onclick='Process(".$productorder->orderid.")'>Process</button></td>";
-                    echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }
