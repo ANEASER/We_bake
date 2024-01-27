@@ -44,7 +44,7 @@
     <section>  
     <div class="form-container">
 
-            <form class="form" method="POST" action="login" class="formisland"  onsubmit="return loginUser(this)">
+            <form class="form" method="POST" action="login" class="formisland">
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
@@ -65,21 +65,6 @@
     <script>
         
         var BASE_URL = "<?php echo BASE_URL; ?>";
-
-        function loginUser() {
-    
-        Swal.fire({
-            icon: 'success',
-            title: 'Login Successful',
-            text: 'Welcome back!',
-            timer: 1300, 
-            showConfirmButton: false
-        }).then(() => {
-            sessionStorage.removeItem('activeLink');
-            document.forms[0].submit(); 
-        });
-        return false;
-        }
 
         function loadRegister() {
             window.location.href = BASE_URL + "CommonControls/loadRegisterView";
