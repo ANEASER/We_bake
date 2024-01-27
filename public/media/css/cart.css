@@ -1,9 +1,11 @@
 .cart {
     width: 60vw; margin: auto ; display:flex;
+    margin-top: 5%;
     flex-direction:column; 
     justify-content:space-around;
     background-color: rgba(245, 242, 242, 0.658);
     border-radius: 8px;
+    padding: 5%;
 }
 
 .content{

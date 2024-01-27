@@ -11,10 +11,19 @@
 </head>
 <body>
     <?php
-    if (isset($_SESSION["USER"]) && !isset($_SESSION["USER"]->role)) {
-        include '..\app\views\customer\customernav.php';
-    }    
+        if (isset($_SESSION["USER"])) {
+            if (!isset($_SESSION["USER"]->Role)) {
+                include '..\app\views\customer\customernav.php';
+            } elseif ($_SESSION["USER"]->Role == "admin") {
+                include '..\app\views\admin\adminnav.php';
+            } elseif ($_SESSION["USER"]->Role == "billingclerk") {
+                include '..\app\views\billingclerk\bcnavbar.php';
+            }
+        } else {
+            echo "no navbar";
+        }
     ?>
+
     <section class="content">
         <section class="cart" style="padding : 2%;font-size: 1em;">
                 <?php
@@ -59,14 +68,16 @@
             // Make sure to properly encode the user information
             var user = <?php echo json_encode($_SESSION["USER"]); ?>;
             
-            console.log(user);
-            
            
             function backtoorders() {
 
-            if(!user.role){
+            if(!user.Role){
                 window.location.href = BASE_URL + "CustomerControls/purchasehistory";}
+            
+            else if(user.Role === "billingclerk"){
+                window.location.href = BASE_URL + "BillingControls";}
             }
+
     </script>
 
         

@@ -8,6 +8,32 @@
             echo $this->view("order/placeorder");
         }
 
+        function searchOrders(){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+            $searchQuery = $_GET['search'];
+            $productorder = new ProductOrder();
+
+            $ordersbyRef = $productorder->where("orderref", $searchQuery);
+            $ordersbyPlaceby = $productorder->where("placeby", $searchQuery);
+
+            if(count($ordersbyRef) > 0){
+                $productorders = $ordersbyRef;
+            }
+            else if(count($ordersbyPlaceby) > 0){
+                $productorders = $ordersbyPlaceby;
+            }
+            else{
+                $productorders = [];
+            }
+
+            if($_SESSION["USER"]->Role == "billingclerk"){
+                echo $this->view("billingclerk/billingdash",["productorders" => $productorders]);
+            }
+            
+        }
+
         function submitorder(){
             session_start();
             $_SESSION["date"] = $_POST['orderdate'];
