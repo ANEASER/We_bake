@@ -36,14 +36,12 @@ class BillingControls extends Controller {
                 $imageData = file_get_contents($imageTmpName);
                 $base64Image = base64_encode($imageData);
 
-                if($paymentproofs->insertImage($initialorfinal, $orderid, $base64Image)){      
-                        $productorder->update($orderid,"orderid",["paymentstatus" => $initialorfinal, "paid_amount" => $amount]);
-                        $this->redirect(BASE_URL."BillingControls/index");}
+               
+                $paymentproofs->insertImage($initialorfinal, $orderid, $base64Image);
+                $productorder->update($orderid,"orderid",["paymentstatus" => $initialorfinal, "paid_amount" => $amount]);
+                $this->redirect(BASE_URL."BillingControls/index");
 
-                else{
-                    echo "Error uploading image.";
-                    //$this->redirect(BASE_URL."BillingControls/index");
-                }
+                
     
             } else {
                 echo "Error uploading image.";
