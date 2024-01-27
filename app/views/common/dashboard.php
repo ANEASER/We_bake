@@ -76,7 +76,7 @@
 
 </head>
 <body>
-        <section class="adds">
+        <section class="adds" style="width: 100%;">
                <section class="add-1">
                
                </section>

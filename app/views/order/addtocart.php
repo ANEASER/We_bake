@@ -15,8 +15,10 @@
 
 <body>
         <?php
-            include 'customernav.php';
-        ;?>
+            if (isset($_SESSION["USER"]) && !isset($_SESSION["USER"]->role)) {
+                include '..\app\views\customer\customernav.php';
+            }    
+            ?>
 
         <button id="cartbutton" type="button" onclick="veiwcart()"></button> 
         <section class="content" style="justify-content: space-between;">

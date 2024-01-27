@@ -14,7 +14,7 @@
             include 'customernav.php';
         ?>
     
-    <section style="display:flex;justify-content:space-around; padding-top:3%">
+    <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
      <?php
 
         echo '<table>';

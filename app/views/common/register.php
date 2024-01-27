@@ -43,31 +43,47 @@
         <div class="form-container">
             <form class="form" method="POST" action="register">
 
-                <label for="Name">Name:</label>
-                <input type="text" name="Name" required>
+                <div class="form-group">      
+                    <label for="Name">Name:</label>
+                    <input type="text" name="Name" required>
+                </div>
 
-                <label for="DOB">Date of Birth:</label>
-                <input type="date" name="DOB" required>
-      
-                <label for="contactNo">Contact Number:</label>
-                <input type="text" name="contactNo" pattern="[0-9]{10,14}" required>
+                <div class="form-group">
+                    <label for="DOB">Date of Birth:</label>
+                    <input type="date" name="DOB" required>
+                </div>
 
-                <label for="Address">Address:</label>
-                <input type="text" name="Address" required>
+                <div class="form-group">
+                    <label for="contactNo">Contact Number:</label>
+                    <input type="text" name="contactNo" pattern="[0-9]{10,14}" required>
+                </div>
+                    
+                <div class="form-group">
+                    <label for="Address">Address:</label>
+                    <input type="text" name="Address" required>
+                </div>
 
-                <label for="UserName">Username:</label>
-                <input type="text" name="UserName" required>
+                <div class="form-group">
+                    <label for="UserName">Username:</label>
+                    <input type="text" name="UserName" required>
+                </div>
 
-                <label for="Email">Email:</label>
-                <input type="email" name="Email" required>
+                <div class="form-group">
+                    <label for="Email">Email:</label>
+                    <input type="email" name="Email" required>
+                </div>
 
-                <label for="Password">Enter Password:</label>
-                <input type="password" name="Password1" required>
+                <div class="form-group">
+                    <label for="Password">Enter Password:</label>
+                    <input type="password" name="Password1" required>
+                </div>
 
-                <label for="Password">Enter Password Again:</label>
-                <input type="password" name="Password2" required>
+                <div class="form-group">
+                    <label for="Password">Enter Password Again:</label>
+                    <input type="password" name="Password2" required>
+                </div>
+                    <button class="bluebutton" style="width: 200px;" type="submit">Register</button>
 
-                <button class="bluebutton" style="width: 200px;" type="submit">Register</button>
             </form>
 
             <p>Already have account? <button class="greenbutton" onclick="loadLogin()">Login</button></p>
