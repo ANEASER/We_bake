@@ -20,7 +20,7 @@
             <button class="formbutton" onclick="add()">Add New Vehicle</button>
             <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
             <?php
-                    echo '<table style="border-collapse: collapse; width: 100%;">';
+                    echo '<table>';
                     echo '<tr>
                             <th>Registration Number</th>
                             <th>Type</th>

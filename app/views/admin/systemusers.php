@@ -49,10 +49,12 @@
         </section>
     </div>
 
-           
+   
             <?php
                 $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
-
+            ?>
+            <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
+            <?php
                 if(count($users) > 0) {     
                 echo '<table style="width:100%">';
                 echo '<tr>

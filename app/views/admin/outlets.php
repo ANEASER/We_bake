@@ -21,9 +21,12 @@
         <button onclick="add()">Add New Outlets</button>
         <?php
                 $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+        ?>
+        <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
+        <?php
 
                 if(count($outlets) > 0) {     
-                    echo '<table style="width:100%">';
+                    echo '<table>';
                     echo '<tr>
                             <th class="hideonmobile" >DOS</th>
                             <th>contact No</th>
@@ -68,6 +71,7 @@
                         echo '<h3>No outlets found</h3>';
                     }
             ?>
+        </section>
     
     <script>
 
