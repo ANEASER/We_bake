@@ -18,7 +18,7 @@
             ?>
         
             <button class="formbutton" onclick="add()">Add New Vehicle</button>
-            <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
+            <section style="display:flex;justify-content:space-around; width:100%">
             <?php
                     echo '<table>';
                     echo '<tr>
