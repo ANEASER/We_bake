@@ -37,7 +37,7 @@
         <form method="GET" action="<?php echo BASE_URL; ?>AdminControls/searchUsers" style="display: flex; flex-direction:row;">
             <?php
                 if(isset($_GET['search'])) {
-                    echo '<input type="text" id="search" name="search" placeholder="username or NIC" value="' . $_GET['search'] . ' class="searchbox">';
+                    echo '<input type="text" id="search" name="search" placeholder="username or NIC" value="' . $_GET['search'] . '" class="searchbox">';
                 } else {
                     echo '<input type="text" id="search" name="search" placeholder="username, role or NIC" class="searchbox">';
                 }?>
