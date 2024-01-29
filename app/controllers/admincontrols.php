@@ -502,7 +502,7 @@ use function PHPSTORM_META\type;
             foreach ($managers as $manager) {
                 $hasOutlet = false;
                 foreach ($allOutlets as $outlet) {
-                    if ($manager->UserID == $outlet->Manager) {
+                    if ($manager->EmployeeNo == $outlet->Manager) {
                         $hasOutlet = true;
                         break;
                     }
@@ -759,7 +759,21 @@ use function PHPSTORM_META\type;
         function EditUser($id){
             $systemuser = new Systemuser();
             $data = $systemuser->where("UserID", $id);
-            echo $this->view("admin/editsystemuser", ["data" => $data]);
+
+            if($data[0]->Role == "outletmanager"){
+                $outlets = new Outlet();
+                $outlet = $outlets->where("Manager", $data[0]->EmployeeNo);
+                $data[0]->Outlet = $outlet[0]->OutletCode;
+                if($data[0]->Outlet == null){
+                    echo $this->view("admin/editsystemuser", ["data" => $data]);
+                }
+                else{
+                   $this->redirect(BASE_URL."AdminControls/loadUsersView");
+                }
+            }else{
+                echo $this->view("admin/editsystemuser", ["data" => $data]);
+            }
+            
         }
 
     }
