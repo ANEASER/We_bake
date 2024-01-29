@@ -10,8 +10,19 @@
     <title>Product Categories</title>
 </head>
 <body>
-    <?php 
-        include 'commonnav.php';
+<?php 
+        session_start();
+        if(isset($_SESSION["USER"])){
+            if($_SESSION["USER"]->Role == 'admin'){
+                include '..\app\views\admin\adminnav.php';
+            }
+            else {
+                include 'commonnav.php';
+            }
+        }
+        else{
+            include 'commonnav.php';
+        }
     ?>
     <section class="content">
         <section class="category" style="width: 100%;">
