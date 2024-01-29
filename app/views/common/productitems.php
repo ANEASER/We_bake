@@ -15,7 +15,6 @@
         if(isset($_SESSION["USER"])){
             if($_SESSION["USER"]->Role == 'admin'){
                 include '..\app\views\admin\adminnav.php';
-                echo '<button onclick="add()" class="add-button">Add</button>';
             }
             else {
                 include 'commonnav.php';
@@ -51,6 +50,14 @@
                                         
                                     echo '</div>';
                                 }
+
+                                if(isset($_SESSION["USER"]) && ($_SESSION["USER"]->Role == 'admin')){
+                                echo '<div class="menu-item" onclick="add()">
+                                            <img src="' . BASE_URL .'media/uploads/Content/add.png" alt="ADD" style="height: 210px; width: 250px;">
+                                            <div class="item-details" style="">
+                                                <h3>ADD ITEM</h3>
+                                            </div>
+                                    </div>';}
                             ?>
     </div>
 
