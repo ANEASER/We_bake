@@ -71,7 +71,7 @@
                     echo "<td>".$productorder->deliverby."</td>";
                     echo "<td>".$productorder->unique_id."</td>";
                     echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button class='greenbutton' onclick='Process(".$productorder->orderid.")'>Process</button></td>";
+                    echo "<td><button class='greenbutton' onclick='Process(".$productorder->orderid.", \"".$productorder->deliverystatus."\")'>Process</button></td>";
                     echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
@@ -245,11 +245,67 @@
         
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
-        function Process(orderid) {
+        var activeLink = sessionStorage.getItem('activeLink');
+        if (activeLink) {
+            var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
+            if (linkElement) {
+                linkElement.classList.add('active');
+            } 
+        } else {
+            var homeLink = document.querySelector('a[onclick="showpendingOrdersTable(this)"]');
+            if (homeLink) {
+                homeLink.classList.add('active');
+
+            sessionStorage.setItem('activeLink', homeLink.getAttribute('onclick'));
+        }}
+        
+        function changeActive(link) {
+            var links = document.querySelectorAll('body div ul li a');
+            links.forEach(function (el) {
+                el.classList.remove('active');
+            });
+
+            link.classList.add('active');
+
+            sessionStorage.setItem('activeLink', link.getAttribute('onclick'));
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var activeLink = sessionStorage.getItem('activeLink');
+            if (activeLink) {
+                var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
+                if (linkElement) {
+                    linkElement.classList.add('active');
+
+                    // Extract the function name from the activeLink
+                    var functionName = activeLink.match(/([a-zA-Z]+)\(/)[1];
+
+                    // Call the corresponding function with the linkElement
+                    if (typeof window[functionName] === 'function') {
+                        window[functionName](linkElement);
+                    }
+                }
+            } else {
+                var homeLink = document.querySelector('a[onclick="showpendingOrdersTable(this)"]');
+                if (homeLink) {
+                    homeLink.classList.add('active');
+                    sessionStorage.setItem('activeLink', homeLink.getAttribute('onclick'));
+                }
+            }
+        });
+
+
+        function Process(orderid, deliverystatus) {
+            if(deliverystatus == "pickup"){
+                sessionStorage.setItem('activeLink', 'showPickupOrderTable(this)');
+            }else{
+                sessionStorage.setItem('activeLink', 'showDeliverOrderTable(this)');
+            }
             window.location.href = BASE_URL +  "PmControls/processOrder/"+orderid;
         }
 
         function Completed(orderid) {
+            sessionStorage.setItem('activeLink', 'showCompletedOrderTable(this)');
             window.location.href = BASE_URL +  "PmControls/completedOrder/"+orderid;
         }
 
@@ -258,6 +314,7 @@
         }
 
         function AssignVehicle(orderid) {
+            sessionStorage.setItem('activeLink', 'showOnDeliverOrderTable(this)');
             window.location.href = BASE_URL +  "PmControls/showassignvehicles/"+orderid;
         }
 
@@ -267,15 +324,6 @@
 
         function logout() {
             window.location.href = BASE_URL +  "CommonControls/logout";
-        }
-
-        function changeActive(link) {
-            var links = document.querySelectorAll('body div ul li a');
-            links.forEach(function (el) {
-                el.classList.remove('active');
-            });
-
-            link.classList.add('active');
         }
 
         function showpendingOrdersTable(link){
@@ -333,14 +381,6 @@
 
             window.location.href = url;
         }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var firstLink = document.querySelector('body div ul li a');
-            if (firstLink) {
-                changeActive(firstLink);
-                showpendingOrdersTable(firstLink);
-            }
-        });
 
     </script>
 </body>

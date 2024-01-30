@@ -28,7 +28,7 @@
             $vehicleno = $order[0]->deliverby;
 
             $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
-            $vehicle->update($vehicleno,"vehicleno",["availability"=>1]);
+            $vehicle->update($vehicleno,"registrationnumber",["availability"=>1]);
             
             $this->redirect(BASE_URL."PmControls/index");
         }
