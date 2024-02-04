@@ -126,6 +126,16 @@
         }
 
         function loadItemsView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
             $productitem = new ProductItem();
             $items = $productitem->findall();
             echo $this->view("admin/items", [ "items" => $items]);
@@ -188,6 +198,16 @@
         }
 
         function loadUsersView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
             $systemuser = new Systemuser();
             $users = $systemuser->findall();
             echo $this->view("admin/systemusers", [ "users" => $users]);
@@ -236,32 +256,100 @@
         
         //view table functions
         function loadOutletsView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
             echo $this->view("admin/outlets");
         }
 
         function loadStocksView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
             echo $this->view("admin/stocks");
         }
 
 
         //view add functions
         function AddItem(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
             echo $this->view("admin/additem");
         }
 
         function AddOutlet(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
             echo $this->view("admin/addoutlet");
         }
 
         function AddStock(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("admin/addstock");
         }
 
         function AddUser(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("admin/addsystemuser");
         }
 
         function AddAdvertiesment(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
             echo $this->view("admin/createadvertiesment");
         }
 
@@ -273,14 +361,44 @@
         }
 
         function EditOutlet(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
             echo $this->view("admin/editoutlet");
         }
 
         function EditStock(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
             echo $this->view("admin/editstockalertlevels");
         }
 
         function EditUser($id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            
             $systemuser = new Systemuser();
             $data = $systemuser->where("UserID", $id);
             echo $this->view("admin/editsystemuser", ["data" => $data]);
