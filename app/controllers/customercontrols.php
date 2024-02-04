@@ -18,6 +18,10 @@
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
+            if(isset($_SESSION["USER"]->Role)){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $customer = new Customer();
             $data = $customer->where("UserName", $_SESSION["USER"]->UserName);
 
@@ -82,19 +86,14 @@
             echo $this->view("customer/profile",[ "data" => $data, "orders" => $orders, "productorderlines" => $productorderlines, "mostPurchasedItems" => $mostPurchasedItems,"itemQuantities"=>$itemQuantities]);
         }
 
-        function profiledetailsview(){
-
-            if(!Auth::loggedIn()){
-                $this->redirect(BASE_URL."CommonControls/loadLoginView");
-            }
-            echo $this->view("customer/profiledetails");
-        }
-
-
         // Views
         function purchasehistory(){
 
             if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(isset($_SESSION["USER"]->Role)){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
@@ -109,6 +108,10 @@
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
+            if(isset($_SESSION["USER"]->Role)){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("customer/customerdash");
         }
 
@@ -116,6 +119,10 @@
         function editprofiledetailsview(){
 
             if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(isset($_SESSION["USER"]->Role)){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
@@ -181,6 +188,10 @@
         function changepasswordview(){
 
             if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(isset($_SESSION["USER"]->Role)){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
@@ -253,6 +264,11 @@
             if(!Auth::loggedIn()){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
+
+            if(isset($_SESSION["USER"]->Role)){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+            
            echo $this->view("customer/makeinquiry");
     
         }
