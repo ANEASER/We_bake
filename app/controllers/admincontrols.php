@@ -129,6 +129,15 @@ use function PHPSTORM_META\type;
         }
 
         function loadItemsView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $productitem = new ProductItem();
             $items = $productitem->findall();
             echo $this->view("admin/items", [ "items" => $items]);
@@ -217,6 +226,15 @@ use function PHPSTORM_META\type;
         }
 
         function loadUsersView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $systemuser = new Systemuser();
             $users = $systemuser->findall();
             echo $this->view("admin/systemusers", [ "users" => $users]);
@@ -326,20 +344,56 @@ use function PHPSTORM_META\type;
         //view table functions
 
         function loadStocksView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("admin/stocks");
         }
 
 
         //view add functions
         function AddItem(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("admin/additem");
         }
 
         function AddStock(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("admin/addstock");
         }
 
         function AddUser(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("admin/addsystemuser");
         }
 
@@ -347,6 +401,15 @@ use function PHPSTORM_META\type;
 
         // outlet functions
         function loadOutletsView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $outlets = new Outlet();
             $outlets = $outlets->findall();
 
@@ -459,6 +522,15 @@ use function PHPSTORM_META\type;
         }
 
         function AddOutletview(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $systemuser = new Systemuser();
             $outlets = new Outlet();
         
@@ -487,6 +559,15 @@ use function PHPSTORM_META\type;
         }
 
         function EditOutletView($id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $outlets = new Outlet();
             $systemuser = new Systemuser();
             $outlets = new Outlet();
@@ -649,6 +730,15 @@ use function PHPSTORM_META\type;
 
         //advertiesment functions
         function AddAdvertiesment(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("admin/createadvertiesment");
         }
 
@@ -747,12 +837,30 @@ use function PHPSTORM_META\type;
 
         //view edit functions
         function EditItem($id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $productitem = new ProductItem();
             $data = $productitem->where("itemid", $id);
             echo $this->view("admin/edititem", ["data" => $data]);
         }
 
         function EditStock(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+            
             echo $this->view("admin/editstockalertlevels");
         }
 
