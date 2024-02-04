@@ -32,7 +32,7 @@
 
     
                 <ul style="display: flex; padding: 0; list-style: none; margin: 0;">
-                    <li style="margin-right: 10px;"><a onclick="showpendingOrdersTable(this)" style="padding: 5px;">Pending Orders</a></li>
+                    <li style="margin-right: 10px;"><a id="home" onclick="showpendingOrdersTable(this)" style="padding: 5px;">Pending Orders</a></li>
                     <li style="margin-right: 10px;"><a onclick="showPickupOrderTable(this)" style="padding: 5px;">Pickup Orders</a></li>
                     <li style="margin-right: 10px;"><a onclick="showDeliverOrderTable(this)" style="padding: 5px;">Deliver Orders</a></li>
                     <li style="margin-right: 10px;"><a onclick="showOnDeliverOrderTable(this)" style="padding: 5px;">OnDeliver Orders</a></li>
@@ -244,20 +244,6 @@
     <script>
         
         var BASE_URL = "<?php echo BASE_URL; ?>";
-
-        var activeLink = sessionStorage.getItem('activeLink');
-        if (activeLink) {
-            var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
-            if (linkElement) {
-                linkElement.classList.add('active');
-            } 
-        } else {
-            var homeLink = document.querySelector('a[onclick="showpendingOrdersTable(this)"]');
-            if (homeLink) {
-                homeLink.classList.add('active');
-
-            sessionStorage.setItem('activeLink', homeLink.getAttribute('onclick'));
-        }}
         
         function changeActive(link) {
             var links = document.querySelectorAll('body div ul li a');
@@ -268,31 +254,33 @@
             link.classList.add('active');
 
             sessionStorage.setItem('activeLink', link.getAttribute('onclick'));
-        }
+            }
 
         document.addEventListener('DOMContentLoaded', function () {
-            var activeLink = sessionStorage.getItem('activeLink');
-            if (activeLink) {
+            console.log('DOMContentLoaded');
+            var activeLink = sessionStorage.getItem('ActiveLink');
+            console.log(activeLink);
+            if (activeLink == "loadLogin(this)" || activeLink == "loadRegister(this)" || activeLink == "loadForgotPassword(this)" || activeLink == "loadResetPassword(this)" || activeLink == "loadVerifyEmail" || activeLink == null){
+                var homeLink = document.getElementById('home');
+                if (homeLink) {
+                    homeLink.click();
+                }
+            } else {
                 var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
                 if (linkElement) {
                     linkElement.classList.add('active');
 
-                    // Extract the function name from the activeLink
                     var functionName = activeLink.match(/([a-zA-Z]+)\(/)[1];
 
-                    // Call the corresponding function with the linkElement
                     if (typeof window[functionName] === 'function') {
                         window[functionName](linkElement);
                     }
                 }
-            } else {
-                var homeLink = document.querySelector('a[onclick="showpendingOrdersTable(this)"]');
-                if (homeLink) {
-                    homeLink.classList.add('active');
-                    sessionStorage.setItem('activeLink', homeLink.getAttribute('onclick'));
-                }
             }
         });
+
+
+
 
 
         function Process(orderid, deliverystatus) {
