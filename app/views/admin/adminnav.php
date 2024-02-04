@@ -35,18 +35,21 @@
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
         var activeLink = sessionStorage.getItem('activeLink');
-        if (activeLink) {
-            var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
-            if (linkElement) {
-                linkElement.classList.add('active');
-            } 
-        } else {
+        if (activeLink === null || activeLink === undefined || activeLink === "logout(this)") {
             var homeLink = document.querySelector('a[onclick="home(this)"]');
             if (homeLink) {
                 homeLink.classList.add('active');
 
             sessionStorage.setItem('activeLink', homeLink.getAttribute('onclick'));
-        }}
+        }
+        } else {
+            console.log(activeLink);
+            var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
+            if (linkElement) {
+                linkElement.classList.add('active');
+            } 
+        }
+
         
         function changeActive(link) {
             var links = document.querySelectorAll('body nav ul li a');
