@@ -64,6 +64,29 @@
             $this->redirect(BASE_URL."PmControls/index");
         }
 
+        function searchVehicle(){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+            $searchQuery =  $_GET['search'];
+            $vehicle = new Vehicle();
+
+            $vehicleByType = $vehicle->where("type",$searchQuery);
+            $vehicleByRegNo = $vehicle->where("registrationnumber",$searchQuery);
+            $vehicleByCapacity = $vehicle->capacitygreaterthan($searchQuery);
+
+            if($vehicleByType){
+                echo $this->view("productionmanager/vehicles", [ "vehicles" => $vehicleByType]);
+            }else if($vehicleByRegNo){
+                echo $this->view("productionmanager/vehicles", [ "vehicles" => $vehicleByRegNo]);
+            }else if($vehicleByCapacity){
+                echo $this->view("productionmanager/vehicles", [ "vehicles" => $vehicleByCapacity]);
+            }else{
+                $this->redirect(BASE_URL."PmControls/loadVehiclesView");
+            }
+
+        }
+
 
         function createvehicle(){
             

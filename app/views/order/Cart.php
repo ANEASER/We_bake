@@ -28,7 +28,16 @@
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
         function checkout(){
-            window.location.href = BASE_URL +"OrderControls/checkout";
+
+            Swal.fire({
+                title: "Order Placed!",
+                text: "Your order has been placed successfully.",
+                icon: "success",
+                showConfirmButton: false, 
+                timer: 1000, 
+            }).then((result) => {
+                window.location.href = BASE_URL +"OrderControls/checkout";
+            });
         }
 
         function cancel(){

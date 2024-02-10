@@ -16,8 +16,26 @@
             <?php
                     require('pmnavbar.php');
             ?>
+            <div class="searchpanel">
+                <form method="GET" action="<?php echo BASE_URL; ?>PMControls/searchVehicle" style="display: flex; flex-direction:row;">
+                    <?php
+                        if(isset($_GET['search'])) {
+                            echo '<input type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" value="' . $_GET['search'] . '" class="searchbox">';
+                        } else {
+                            echo '<input type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" class="searchbox">';
+                        }?>
+                    <input class="searchbutton" type="submit" value="Search">
+                </form>
+                <section class="buttongroup">
+                    <button class="bluebutton" onclick="add()">Add New Vehicle</button>
+                    <button class="greenbutton" onclick="viewall()">View All</button>
+                </section>
+            </div>
+
         
-            <button class="formbutton" onclick="add()">Add New Vehicle</button>
+                    <?php
+                        $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+                    ?>
             <section style="display:flex;justify-content:space-around; width:100%">
             <?php
                     echo '<table>';
@@ -67,6 +85,11 @@
         function edit(vehicleid) {
             window.location.href = BASE_URL +  "PmControls/EditVehicleView/"+vehicleid;
         }
+
+        function viewall() {
+            window.location.href = BASE_URL +  "PmControls/loadVehiclesView";
+        }
+
     </script>
 </body>
 </html>

@@ -15,7 +15,7 @@
     <?php
         require('pmnavbar.php');
     ?>
-    <div style="display: flex; flex-direction:row; justify-content:space-between; padding:2%;">
+    <div class="searchpanel">
                 
                 <form method="GET" action="<?php echo BASE_URL; ?>OrderControls/searchOrders" class="search" style="display: flex; flex-direction:row;">
                     <?php
@@ -39,7 +39,7 @@
                     <li style="margin-right: 10px;"><a onclick="showCompletedOrderTable(this)" style="padding: 5px;">Completed Orders</a></li>
                 </ul>
         </div>
-    <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
+    <section style="display:flex;justify-content:space-around; width:100%">
     <?php
             echo "<div id='pendingOrdersTable'>";
             echo "<table>";
@@ -58,7 +58,7 @@
                 <th>More</th>
             </tr>";
 
-            foreach($data["productorders"] as $productorder){ 
+            foreach($productorders as $productorder){ 
 
                 if($productorder->orderstatus == "pending"){
                     echo "<tr>";
@@ -99,7 +99,7 @@
                 <th>More</th>
             </tr>";
 
-            foreach($data["productorders"] as $productorder){ 
+            foreach($productorders as $productorder){ 
 
                 if($productorder->orderstatus == "processing" and $productorder->deliverystatus == "pickup"){
                     echo "<tr>";
@@ -138,7 +138,7 @@
                 <th>More</th>
             </tr>";
 
-            foreach($data["productorders"] as $productorder){ 
+            foreach($productorders as $productorder){ 
 
                 if($productorder->orderstatus == "processing" and $productorder->deliverystatus != "pickup"){
                     echo "<tr>";
@@ -178,7 +178,7 @@
                     <th>More</th>
                 </tr>";
 
-            foreach($data["productorders"] as $productorder){ 
+                foreach($productorders as $productorder){ 
 
                 if($productorder->orderstatus == "ondelivery"){
                     echo "<tr>";
@@ -218,7 +218,7 @@
                     <th>More</th>
                 </tr>";
 
-            foreach($data["productorders"] as $productorder) {
+                foreach($productorders as $productorder) {
                 if ($productorder->orderstatus == "finished") {
                     echo "<tr>";
                     echo "<td>".$productorder->orderref."</td>";
@@ -258,9 +258,9 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             console.log('DOMContentLoaded');
-            var activeLink = sessionStorage.getItem('ActiveLink');
+            var activeLink = sessionStorage.getItem('activeLink');
             console.log(activeLink);
-            if (activeLink == "loadLogin(this)" || activeLink == "loadRegister(this)" || activeLink == "loadForgotPassword(this)" || activeLink == "loadResetPassword(this)" || activeLink == "loadVerifyEmail" || activeLink == null){
+            if (activeLink != "showpendingOrdersTable(this)" || activeLink != "showCompletedOrderTable(this)" || activeLink != "showDeliverOrderTable(this)" || activeLink != "showOnDeliverOrderTable" || activeLink != "showPickupOrderTable" || activeLink == null){
                 var homeLink = document.getElementById('home');
                 if (homeLink) {
                     homeLink.click();
@@ -285,9 +285,9 @@
 
         function Process(orderid, deliverystatus) {
             if(deliverystatus == "pickup"){
-                sessionStorage.setItem('activeLink', 'showPickupOrderTable(this)');
+                sessionStorage.setItem('activeLink', 'showpendingOrdersTable(this)');
             }else{
-                sessionStorage.setItem('activeLink', 'showDeliverOrderTable(this)');
+                sessionStorage.setItem('activeLink', 'showpendingOrdersTable(this)');
             }
             window.location.href = BASE_URL +  "PmControls/processOrder/"+orderid;
         }
@@ -302,7 +302,7 @@
         }
 
         function AssignVehicle(orderid) {
-            sessionStorage.setItem('activeLink', 'showOnDeliverOrderTable(this)');
+            sessionStorage.setItem('activeLink', 'showDeliverOrderTable(this)');
             window.location.href = BASE_URL +  "PmControls/showassignvehicles/"+orderid;
         }
 
@@ -360,7 +360,7 @@
         }
 
         function clearSearch() {
-            window.location.href = BASE_URL +  "BillingControls";
+            window.location.href = BASE_URL +  "PMControls";
         }
 
         function more(unique_id) {

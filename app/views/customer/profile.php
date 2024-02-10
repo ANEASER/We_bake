@@ -151,8 +151,8 @@
 
         const SwalwithButton = Swal.mixin({
                     customClass: {
-                        confirmButton: "yellowbutton",
-                        cancelButton: "yellowbutton"
+                        confirmButton: "yellowbutton2",
+                        cancelButton: "yellowbutton2"
                     },
                     buttonsStyling: false
                 });
