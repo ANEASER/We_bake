@@ -81,11 +81,11 @@ button, input[type="submit"] {
     border: none;
     border-radius: 4px; 
     cursor: pointer;
-    margin: 2%;
+    height: 40px;
 }
 
 .searchbox {
-    padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-right: 5px;white-space: nowrap;
+    padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-right: 5px;white-space: nowrap;height: 40px;
 }
 
 .yellowbutton2 {
