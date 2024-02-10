@@ -727,6 +727,27 @@ use function PHPSTORM_META\type;
            
         }
 
+        function searchOutlet(){
+            $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+
+            $outlets = new Outlet();
+            $outletsbyCode= $outlets->where("OutletCode", $searchQuery);
+            $outletsbyDistrict = $outlets->where("District", $searchQuery);
+            $outletsbyManager = $outlets->where("Manager", $searchQuery);
+
+            if (count($outletsbyCode) > 0) {
+                $outlets = $outletsbyCode;
+            } else if (count($outletsbyDistrict) > 0) {
+                $outlets = $outletsbyDistrict;
+            }else if (count($outletsbyManager) > 0) {
+                $outlets = $outletsbyManager;
+            }
+            else {
+                $outlets = [];
+            }
+            echo $this->view("admin/outlets", [ "outlets" => $outlets]);
+        }
+
 
         //advertiesment functions
         function AddAdvertiesment(){

@@ -7,6 +7,7 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/navbar.css">
 
     
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
@@ -16,9 +17,22 @@
     <?php
         include "adminnav.php"
     ?>
-
-  
-        <button onclick="add()">Add New Outlets</button>
+    <div class="searchpanel">
+        <form method="GET" action="<?php echo BASE_URL; ?>AdminControls/searchOutlet" class="search" style="display: flex; flex-direction:row;">
+                    <?php
+                        if (isset($_GET['search'])) {
+                            echo '<input type="text" id="search" name="search" placeholder="Manager, District or OutletCode" value="' . $_GET['search'] . '" class="searchbox">';
+                            echo '<input type="submit" value="Search" class="searchbutton">';
+                            echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
+                        } else {
+                            echo '<input type="text" id="search" name="search" placeholder="Manager, District or OutletCode" class="searchbox">';
+                            echo '<input type="submit" value="Search" class="searchbutton">';
+                        }
+                    ?>
+        </form>
+        <button class="bluebutton" onclick="add()">Add New Outlets</button>
+    </div>
+        
         <?php
                 $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
         ?>
@@ -83,6 +97,10 @@
 
         function edit(id) {
             window.location.href = BASE_URL + "AdminControls/EditOutletView/"+id;
+        }
+
+        function clearSearch() {
+            window.location.href = BASE_URL + "AdminControls/loadOutletsView";
         }
 
         function del(id) {
