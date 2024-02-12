@@ -121,7 +121,6 @@ class CommonControls extends Controller {
         }
         
     }
-    
 
     function register(){
 
@@ -203,6 +202,101 @@ class CommonControls extends Controller {
         Auth::logout();
         $this->redirect(BASE_URL."CommonControls/loadLoginView");
         
+    }
+
+        
+    public function FindProfileView(){
+        $this->view("common/findprofileview");
+    }
+    
+    public function ShowFoundProfile(){
+        $usernameemail = $_POST["usernameemail"];
+        $systemuser = new Systemuser();
+        $customer = new Customer();
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        if ($row = $systemuser->where("UserName", $usernameemail)) {
+                $user = $row[0];
+                $_SESSION['USER'] = $user;
+                $this->view("common/foundprofile",["user"=>$user]);
+            }
+        else if ($row = $customer->where("UserName", $usernameemail)) {
+                $user = $row[0];
+                $_SESSION['USER'] = $user;
+                $this->view("common/foundprofile",["user"=>$user]);
+            }
+        else if ($row = $customer->where("Email", $usernameemail)) {
+                $user = $row[0];
+                $_SESSION['USER'] = $user;
+                $this->view("common/foundprofile",["user"=>$user]);
+            }
+        else if ($row = $systemuser->where("Email", $usernameemail)) {
+                $user = $row[0];
+                $_SESSION['USER'] = $user;
+                $this->view("common/foundprofile",["user"=>$user]);
+            }
+        else{
+            $error = "User not found";
+            $this->view("common/resetpassword",["error"=>$error]);    
+        
+        }
+
+        
+    }
+
+    public function ValidateProfileView(){
+        $mail = new Mail();
+
+        function generateOTP1() {
+            return str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+        }
+
+        $otp = generateOTP1();
+        $_SESSION['otp'] = $otp;
+        $_SESSION['email'] = $_SESSION['USER']->Email;
+        $_SESSION['redirect'] = "CommonControls/ResetPasswordView";
+
+        $mail->sendOTPByEmail();
+        $this->view("common/validateprofileview");
+    }
+
+    public function ResetPasswordView(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $this->view("common/resetpasswordview");
+    }
+
+    public function resetpassword(){
+        
+        $password1 = $_POST["password1"];
+        $password2 = $_POST["password2"];
+
+        if($password1 == $password2){
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+           
+            $password = password_hash($password1, PASSWORD_DEFAULT);
+           
+            if(isset($_SESSION['USER']->Role)){
+                $systemuser = new Systemuser();
+                $systemuser->update($_SESSION['USER']->UserName,"UserName",[ "Password" => $password]);
+                $message = "Password reset successful";
+                $this->view("common/login",["message"=>$message]);
+            }else {
+                    $customer = new Customer();
+                    $customer->update($_SESSION['USER']->UserName,"UserName",[ "Password" => $password]);
+                    $message = "Password reset successful";
+                    $this->view("common/login",["message"=>$message]);
+                }           
+        } else{
+            $error = "Passwords do not match";
+            $this->view("common/resetpasswordview",["error"=>$error]);
+        }
     }
 }
     
