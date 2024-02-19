@@ -16,6 +16,9 @@
         include '..\app\views\customer\dashboard.php';
     ?>
 
+    <script>
+        sessionStorage.removeItem('activeLink');
+    </script>
     
 </body>
 </html>

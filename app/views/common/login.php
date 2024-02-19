@@ -90,6 +90,8 @@
         
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
+        sessionStorage.removeItem('activeLink');
+
         function loadRegister() {
             window.location.href = BASE_URL + "CommonControls/loadRegisterView";
         }

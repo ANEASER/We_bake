@@ -11,9 +11,16 @@ use function PHPSTORM_META\type;
             }
 
             $systemuser = new Systemuser();
-            $data = $systemuser->where("UserName", $_SESSION["USER"]->UserName);
+            $producorder = new ProductOrder();
+            $productorderline = new ProductOrderLine();
+            $productitem = new ProductItem();
 
-            echo $this->view("admin/admindash",[ "data" => $data]);
+            $data = $systemuser->where("UserName", $_SESSION["USER"]->UserName);
+            $producorderdata = $producorder->findall();
+            $productorderlinedata = $productorderline->findall();
+            $productitemdata = $productitem->findall();
+
+            echo $this->view("admin/admindash",[ "data" => $data, "producorderdata" => $producorderdata, "productorderlinedata" => $productorderlinedata, "productitemdata" => $productitemdata]);
         }
 
         // CRUDS
@@ -434,80 +441,50 @@ use function PHPSTORM_META\type;
             $arr["Manager"] = $_POST["Manager"];
             
 
-            if($arr["District"] == "Ampara"){
-                $C = "AM";
+            if($arr['District'] == "Dehiwala"){
+                $C = "DH";
             }
-            if($arr["District"] == "Anuradhapura"){
-                $C = "AN";
+            if($arr['District'] == "Nugegoda"){
+                $C = "NG";
             }
-            if($arr["District"] == "Badulla"){
-                $C = "BD";
+            if($arr['District'] == "Rajagiriya"){
+                $C = "RG";
             }
-            if($arr["District"] == "Batticaloa"){
+            if($arr['District'] == "Battaramulla"){
                 $C = "BT";
             }
-            if($arr["District"] == "Colombo"){
-                $C = "CO";
+            if($arr['District'] == "Kotte"){
+                $C = "KT";
             }
-            if($arr["District"] == "Galle"){
-                $C = "GA";
+            if($arr['District'] == "Malabe"){
+                $C = "MB";
             }
-            if($arr["District"] == "Gampaha"){
-                $C = "GP";
+            if($arr['District'] == "Kohuwala"){
+                $C = "KW";
             }
-            if($arr["District"] == "Hambantota"){
-                $C = "HB";
+            if($arr['District'] == "Nawala"){
+                $C = "NW";
             }
-            if($arr["District"] == "Jaffna"){
-                $C = "JA";
+            if($arr['District'] == "Pamankada"){
+                $C = "PM";
             }
-            if($arr["District"] == "Kalutara"){
-                $C = "KL";
+            if($arr['District'] == "Wellawatte"){
+                $C = "WL";
             }
-            if($arr["District"] == "Kandy"){
-                $C = "KD";
+            if($arr['District'] == "Bambalapitiya"){
+                $C = "BP";
             }
-            if($arr["District"] == "Kegalle"){
-                $C = "KG";
+            if($arr['District'] == "Kirulapone"){
+                $C = "KP";
             }
-            if($arr["District"] == "Kilinochchi"){
-                $C = "KI";
+            if($arr['District'] == "Kolonnawa"){
+                $C = "KN";
             }
-            if($arr["District"] == "Kurunegala"){
-                $C = "KR";
+            if($arr['District'] == "Ethul Kotte"){
+                $C = "EK";
             }
-            if($arr["District"] == "Mannar"){
-                $C = "MN";
-            }
-            if($arr["District"] == "Matale"){
-                $C = "MT";
-            }
-            if($arr["District"] == "Matara"){
-                $C = "MA";
-            }
-            if($arr["District"] == "Monaragala"){
-                $C = "MO";
-            }
-            if($arr["District"] == "Mullaitivu"){
-                $C = "MU";
-            }
-            if($arr["District"] == "Nuwara Eliya"){
-                $C = "NE";
-            }
-            if($arr["District"] == "Polonnaruwa"){
-                $C = "PO";
-            }
-            if($arr["District"] == "Puttalam"){
-                $C = "PU";
-            }
-            if($arr["District"] == "Ratnapura"){
-                $C = "RA";
-            }
-            if($arr["District"] == "Trincomalee"){
-                $C = "TR";
-            }
-            if($arr["District"] == "Vavuniya"){
-                $C = "VA";
+            if($arr['District'] == "Maharagama"){
+                $C = "MG";
             }
 
             $max_outlet_id = $outlets->getMinMax("OutletID", "max");
@@ -623,82 +600,52 @@ use function PHPSTORM_META\type;
             if (!empty($_POST['District'])){
                 $data['District'] = $_POST['District'];
 
-                if($data["District"] == "Ampara"){
-                    $C = "AM";
+                if($data["District"] == "Dehiwala"){
+                    $C = "DH";
                 }
-                if($data["District"] == "Anuradhapura"){
-                    $C = "AN";
+                if($data["District"] == "Nugegoda"){
+                    $C = "NG";
                 }
-                if($data["District"] == "Badulla"){
-                    $C = "BD";
+                if($data["District"] == "Rajagiriya"){
+                    $C = "RG";
                 }
-                if($data["District"] == "Batticaloa"){
+                if($data["District"] == "Battaramulla"){
                     $C = "BT";
                 }
-                if($data["District"] == "Colombo"){
-                    $C = "CO";
+                if($data["District"] == "Kotte"){
+                    $C = "KT";
                 }
-                if($data["District"] == "Galle"){
-                    $C = "GA";
+                if($data["District"] == "Malabe"){
+                    $C = "MB";
                 }
-                if($data["District"] == "Gampaha"){
-                    $C = "GP";
+                if($data["District"] == "Kohuwala"){
+                    $C = "KW";
                 }
-                if($data["District"] == "Hambantota"){
-                    $C = "HB";
+                if($data["District"] == "Nawala"){
+                    $C = "NW";
                 }
-                if($data["District"] == "Jaffna"){
-                    $C = "JA";
+                if($data["District"] == "Pamankada"){
+                    $C = "PM";
                 }
-                if($data["District"] == "Kalutara"){
-                    $C = "KL";
+                if($data["District"] == "Wellawatte"){
+                    $C = "WL";
                 }
-                if($data["District"] == "Kandy"){
-                    $C = "KD";
+                if($data["District"] == "Bambalapitiya"){
+                    $C = "BP";
                 }
-                if($data["District"] == "Kegalle"){
-                    $C = "KG";
+                if($data["District"] == "Kirulapone"){
+                    $C = "KP";
                 }
-                if($data["District"] == "Kilinochchi"){
-                    $C = "KI";
+                if($data["District"] == "Kolonnawa"){
+                    $C = "KN";
                 }
-                if($data["District"] == "Kurunegala"){
-                    $C = "KR";
+                if($data["District"] == "Ethul Kotte"){
+                    $C = "EK";
                 }
-                if($data["District"] == "Mannar"){
-                    $C = "MN";
+                if($data["District"] == "Maharagama"){
+                    $C = "MG";
                 }
-                if($data["District"] == "Matale"){
-                    $C = "MT";
-                }
-                if($data["District"] == "Matara"){
-                    $C = "MA";
-                }
-                if($data["District"] == "Monaragala"){
-                    $C = "MO";
-                }
-                if($data["District"] == "Mullaitivu"){
-                    $C = "MU";
-                }
-                if($data["District"] == "Nuwara Eliya"){
-                    $C = "NE";
-                }
-                if($data["District"] == "Polonnaruwa"){
-                    $C = "PO";
-                }
-                if($data["District"] == "Puttalam"){
-                    $C = "PU";
-                }
-                if($data["District"] == "Ratnapura"){
-                    $C = "RA";
-                }
-                if($data["District"] == "Trincomalee"){
-                    $C = "TR";
-                }
-                if($data["District"] == "Vavuniya"){
-                    $C = "VA";
-                }
-    
+                
                 $max_outlet_id = $outlets->getMinMax("OutletId", "max");
                 $max_outlet_id = $max_outlet_id[0]->{"max(OutletId)"};
                 $max_outlet_id = $max_outlet_id + 1;

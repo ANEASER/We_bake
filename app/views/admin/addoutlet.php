@@ -41,34 +41,24 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="District">District</label>
+                    <label for="District">Suburbs</label>
                     <select id="District" name="District" required>
-                        <option value="Ampara">Ampara</option>
-                        <option value="Anuradhapura">Anuradhapura</option>
-                        <option value="Badulla">Badulla</option>
-                        <option value="Batticaloa">Batticaloa</option>
-                        <option value="Colombo">Colombo</option>
-                        <option value="Galle">Galle</option>
-                        <option value="Gampaha">Gampaha</option>
-                        <option value="Hambantota">Hambantota</option>
-                        <option value="Jaffna">Jaffna</option>
-                        <option value="Kalutara">Kalutara</option>
-                        <option value="Kandy">Kandy</option>
-                        <option value="Kegalle">Kegalle</option>
-                        <option value="Kilinochchi">Kilinochchi</option>
-                        <option value="Kurunegala">Kurunegala</option>
-                        <option value="Mannar">Mannar</option>
-                        <option value="Matale">Matale</option>
-                        <option value="Matara">Matara</option>
-                        <option value="Monaragala">Monaragala</option>
-                        <option value="Mullaitivu">Mullaitivu</option>
-                        <option value="Nuwara Eliya">Nuwara Eliya</option>
-                        <option value="Polonnaruwa">Polonnaruwa</option>
-                        <option value="Puttalam">Puttalam</option>
-                        <option value="Ratnapura">Ratnapura</option>
-                        <option value="Trincomalee">Trincomalee</option>
-                        <option value="Vavuniya">Vavuniya</option>
-                    </select><br><br>
+                        <option value="Dehiwala">Dehiwala-Mount Lavinia</option>
+                        <option value="Nugegoda">Nugegoda</option>
+                        <option value="Rajagiriya">Rajagiriya</option>
+                        <option value="Battaramulla">Battaramulla</option>
+                        <option value="Kotte">Kotte</option>
+                        <option value="Malabe">Malabe</option>
+                        <option value="Kohuwala">Kohuwala</option>
+                        <option value="Nawala">Nawala</option>
+                        <option value="Pamankada">Pamankada</option>
+                        <option value="Wellawatte">Wellawatte</option>
+                        <option value="Bambalapitiya">Bambalapitiya</option>
+                        <option value="Kirulapone">Kirulapone</option>
+                        <option value="Kolonnawa">Kolonnawa</option>
+                        <option value="Ethul Kotte">Ethul Kotte</option>
+                        <option value="Maharagama">Maharagama</option>
+                    </select><br>
                 </div>
                     
                 <div class="form-group">

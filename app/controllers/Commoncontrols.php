@@ -200,7 +200,7 @@ class CommonControls extends Controller {
 
     function logout() {
         Auth::logout();
-        $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        $this->redirect(BASE_URL."CommonControls/");
         
     }
 

@@ -102,31 +102,29 @@
                 ?>
             </section>
     </section>
-            <section class="profile" style="font-weight: bolder;">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" style="border-radius: 80px;"  alt="propic" height="200px" width="200px">
+            <section class="profile" style="font-weight: bolder; padding-left:3%">
+                <h1 style="margin-left:10%;font-size:1.5em"><span id="greeting"></span><td>  <?php echo $_SESSION["USER"]->UserName ?></td></h1>
+                <br>
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" style="border-radius: 80px;margin-left:20%"  alt="propic" height="100px" width="100px">
                 <p></p><br>
                 <table>
                     <tr>
-                        <td>Customer Username </td>
-                        <td><?php echo $_SESSION["USER"]->UserName ?></td>
-                    </tr>
-                    <tr>
-                        <td>Name</td>
+                        
                         <td><?php echo $_SESSION["USER"]->Name; ?></td>
                     </tr>
                     <tr>
-                        <td>Address</td>
+                        
                         <td><?php echo $_SESSION["USER"]->Address; ?></td>
                     </tr>
                     <tr>
-                        <td>Phone Number</td>
+                       
                         <td><?php echo $_SESSION["USER"]->contactNo; ?></td>
                     </tr>
                     <tr>
-                        <td>Email</td>
                         <td><?php echo $_SESSION["USER"]->Email; ?></td>
                     </tr>
                 </table>
+                <br>
                 <section class="buttongroup" style="display:flex; flex-direction:column">
                         <button class="brownbutton" onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
 
@@ -176,6 +174,25 @@
             }
             });
     }
+    
+    function updateGreeting() {
+            var currentTime = new Date();
+            var currentHour = currentTime.getHours();
+            var greetingElement = document.getElementById('greeting');
+
+            if (currentHour >= 5 && currentHour < 12) {
+                greetingElement.textContent = 'Good morning!';
+            } else if (currentHour >= 12 && currentHour < 18) {
+                greetingElement.textContent = 'Good afternoon!';
+            } else {
+                greetingElement.textContent = 'Good evening!';
+            }
+    }
+
+    updateGreeting();
+
+    setInterval(updateGreeting, 60000);
+
     </script>
 </body>
 </html>
