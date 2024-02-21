@@ -12,7 +12,36 @@
     
     
     <?php
-        include "adminnav.php"
+        include "adminnav.php";
+
+        if (isset($error)) {
+            echo "<script>
+                const showAlert = async () => {
+                    const SwalwithButton = Swal.mixin({
+                        customClass: {
+                            confirmButton: 'greenbutton',
+                        },
+                        buttonsStyling: false
+                    });
+    
+                    if (typeof Swal !== 'undefined') {
+                        await SwalwithButton.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: '$error',
+                            confirmButtonText: 'OK',
+                        });
+                        window.location.href = '" . BASE_URL . "AdminControls/AddItem';
+    
+                    } else {
+                        alert('$error');
+                    }
+                };
+    
+                // Call the async function to show the alert
+                showAlert();
+            </script>";
+        }
     ?>
     <section>
         <div class="form-container">
@@ -53,6 +82,7 @@
                         <option value="Sandwiches">Sandwiches</option>
                         <option value="Pizza">Pizza</option>
                         <option value="Others">Others</option>
+                        <option value="Specials">Specials</option>
 
                     </select>
                 </div>

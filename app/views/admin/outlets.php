@@ -58,7 +58,12 @@
                             echo '<tr>';
                             echo '<td class="hideonmobile">' . $outlet->DOS . '</td>';
                             echo '<td>' . $outlet->contactNo . '</td>';
-                            echo '<td>' . $outlet->ActiveState . '</td>';
+
+                            if($outlet->ActiveState == 1){
+                               $active = "Active";}
+                            else{
+                                $active = "Inactive";}
+                            echo '<td>' . $active . '</td>';
                             echo '<td class="hideonmobile">' . $outlet->Address . '</td>';
                             echo '<td class="hideonmobile">' . $outlet->Email . '</td>';
                             echo '<td class="hideonmobile">' . $outlet->Manager . '</td>';

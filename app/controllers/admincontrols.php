@@ -36,6 +36,7 @@ use function PHPSTORM_META\type;
                 $arr["itemdescription"] = $_POST["itemdescription"];
                 $arr["category"] = $_POST["category"];
 
+                
                 if($arr["category"] == "Bread"){
                     $C = "BR";
                 }
@@ -72,7 +73,9 @@ use function PHPSTORM_META\type;
                 if($arr["category"] == "Others"){
                     $C = "OT";
                 }
-
+                if($arr["category"] == "Specials"){
+                    $C = "SP";
+                }
 
                 $max_itemm_id = $productitem->getMinMax("itemid", "max");
                 $max_itemm_id = $max_itemm_id[0]->{"max(itemid)"};
@@ -190,7 +193,7 @@ use function PHPSTORM_META\type;
 
         function addsystemuser(){
             $systemuser = new Systemuser();
-
+            
             $arr["Name"] = $_POST["Name"];
             $arr["NIC"] = $_POST["NIC"];
             $arr["DOB"] = $_POST["DOB"];
@@ -200,37 +203,93 @@ use function PHPSTORM_META\type;
             $arr["Role"] = $_POST["Role"];
             $arr["UserName"] = $_POST["UserName"];
             $arr["Password"] = $_POST["Password1"];
-
-            if($arr["Role"] == "admin"){
-                $C = "AD";
+        
+            // Validate NIC
+            $patternNIC = '/^\d{9}[vV]$|^\d{12}$/';
+            if (!preg_match($patternNIC, $arr["NIC"])) {
+                echo $this->view("admin/AddUserView", ["error" => "Invalid NIC format"]);
+                return;
             }
-            if($arr["Role"] == "billingclerk"){
-                $C = "BC";
+        
+            // Validate Date of Birth (DOB)
+            $patternDOB = '/^\d{4}-\d{2}-\d{2}$/';
+            if (!preg_match($patternDOB, $arr["DOB"])) {
+                echo $this->view("admin/AddUserView", ["error" => "Invalid Date of Birth format"]);
+                return;
             }
-            if($arr["Role"] == "outletmanager"){
-                $C = "OM";
+        
+            // Validate Email
+            $patternEmail = '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/';
+            if (!preg_match($patternEmail, $arr["Email"])) {
+            // Check if email already in use
+            $existingUser = $systemuser->where("Email", $arr["Email"]);
+            if ($existingUser) {
+                echo $this->view("admin/AddUserView", ["error" => "Email already in use"]);
+                return;
             }
-            if($arr["Role"] == "productionmanager"){
-                $C = "PM";
+                echo $this->view("admin/AddUserView", ["error" => "Invalid Email"]);
+                return;
             }
-            if($arr["Role"] == "receptionist"){
-                $C = "RC";
+        
+            // Validate Contact Number
+            $patternContactNo = '/^\d{10}$/';
+            if (!preg_match($patternContactNo, $arr["contactNo"])) {
+            // Check if contact number already in use
+            $existingUser = $systemuser->where("contactNo", $arr["contactNo"]);
+            if ($existingUser) {
+                echo $this->view("admin/AddUserView", ["error" => "Contact number already in use"]);
+                return;
             }
-            if($arr["Role"] == "storemanager"){
-                $C = "SM";
+                
+                echo $this->view("admin/AddUserView", ["error" => "Invalid contact number"]);
+                return;
             }
-
+        
+            // Validate Role
+            $validRoles = ["admin", "billingclerk", "outletmanager", "productionmanager", "receptionist", "storemanager"];
+            if (!in_array($arr["Role"], $validRoles)) {
+                echo $this->view("admin/AddUserView", ["error" => "Invalid Role"]);
+                return;
+            }
+        
+            // Generate EmployeeNo based on Role
+            switch ($arr["Role"]) {
+                case "admin":
+                    $C = "AD";
+                    break;
+                case "billingclerk":
+                    $C = "BC";
+                    break;
+                case "outletmanager":
+                    $C = "OM";
+                    break;
+                case "productionmanager":
+                    $C = "PM";
+                    break;
+                case "receptionist":
+                    $C = "RC";
+                    break;
+                case "storemanager":
+                    $C = "SM";
+                    break;
+                default:
+                    echo $this->view("admin/AddUserView", ["error" => "Invalid Role"]);
+                    return;
+            }
+        
+            // Generate EmployeeNo
             $max_user_id = $systemuser->getMinMax("UserID", "max");
             $max_user_id = $max_user_id[0]->{"max(UserID)"};
             $max_user_id = $max_user_id + 1;
             $max_user_id = str_pad($max_user_id, 5, '0', STR_PAD_LEFT);
-
+        
             $arr["EmployeeNo"] = $C.$max_user_id;
-
+        
             $systemuser->insert($arr);
-
+        
             $this->redirect(BASE_URL."AdminControls/loadUsersView");
         }
+        
 
         function loadUsersView(){
 
@@ -255,77 +314,131 @@ use function PHPSTORM_META\type;
 
         function editsystemuser(){
             session_start();
-
+        
             $systemuser = new Systemuser();
-
+            $outlets = new Outlet();
+        
             $id = $_POST['id'];
+            $data = []; // Initialize an empty array to store validated data
+        
             if (!empty($_POST['Name'])){
                 $data['Name'] = $_POST['Name'];
             } 
             if (!empty($_POST['NIC'])){
+                // Validate NIC
+                $patternNIC = '/^\d{9}[vV]$|^\d{12}$/';
+                if (!preg_match($patternNIC, $_POST["NIC"])) {
+                    $data = $systemuser->where("UserID", $id);
+                    echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Invalid NIC format"]);
+                    return;
+                }
                 $data['NIC'] = $_POST['NIC'];
             }
             if (!empty($_POST['DOB'])){
+                // Validate Date of Birth (DOB)
+                $patternDOB = '/^\d{4}-\d{2}-\d{2}$/';
+                if (!preg_match($patternDOB, $_POST["DOB"])) {
+                    $data = $systemuser->where("UserID", $id);
+                    echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Invalid Date of Birth format"]);
+                    return;
+                }
                 $data['DOB'] = $_POST['DOB'];
             }
             if (!empty($_POST['Email'])){
+                // Validate Email
+                $patternEmail = '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/';
+                if (!preg_match($patternEmail, $_POST["Email"])) {
+                    // Check if email already in use
+                    $existingUser = $systemuser->where("Email", $_POST["Email"]);
+                    if ($existingUser && $existingUser[0]->UserID != $id) {
+                        $data = $systemuser->where("UserID", $id);
+                        echo $this->view("admin/editsystemuser", ["data" => $data , "error" => "Email already in use"]);
+                        return;
+                    }
+                    $data = $systemuser->where("UserID", $id);
+                    echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Invalid Email"]);
+                    return;
+                }
                 $data['Email'] = $_POST['Email'];
             }
             if (!empty($_POST['contactNo'])){
+                // Validate Contact Number
+                $patternContactNo = '/^\d{10}$/';
+                if (!preg_match($patternContactNo, $_POST["contactNo"])) {
+                    // Check if contact number already in use
+                    $existingUser = $systemuser->where("contactNo", $_POST["contactNo"]);
+                    if ($existingUser && $existingUser[0]->UserID != $id) {
+                        $data = $systemuser->where("UserID", $id);
+                        echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Contact number already in use"]);
+                        return;
+                    }
+                    $data = $systemuser->where("UserID", $id);
+                    echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Invalid contact number"]);
+                    return;
+                }
                 $data['contactNo'] = $_POST['contactNo'];
             }
             if (!empty($_POST['Address'])){
                 $data['Address'] = $_POST['Address'];
             }
             if (!empty($_POST['Role'])){
-                $data['Role'] = $_POST['Role'];
-                if($data["Role"] == "admin"){
-                    $C = "AD";
+                // Validate Role
+                $validRoles = ["admin", "billingclerk", "outletmanager", "productionmanager", "receptionist", "storemanager"];
+                if (!in_array($_POST["Role"], $validRoles)) {
+                    $data = $systemuser->where("UserID", $id);
+                    echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Invalid Role"]);
+                    return;
                 }
-                if($data["Role"] == "billingclerk"){
-                    $C = "BC";
+        
+                // Generate EmployeeNo based on Role
+                switch ($_POST["Role"]) {
+                    case "admin":
+                        $C = "AD";
+                        break;
+                    case "billingclerk":
+                        $C = "BC";
+                        break;
+                    case "outletmanager":
+                        $C = "OM";
+                        break;
+                    case "productionmanager":
+                        $C = "PM";
+                        break;
+                    case "receptionist":
+                        $C = "RC";
+                        break;
+                    case "storemanager":
+                        $C = "SM";
+                        break;
+                    default:
+                        $data = $systemuser->where("UserID", $id);
+                        echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Invalid Role"]);
+                        return;
                 }
-                if($data["Role"] == "outletmanager"){
-                    $C = "OM";
-                }
-                if($data["Role"] == "productionmanager"){
-                    $C = "PM";
-                }
-                if($data["Role"] == "receptionist"){
-                    $C = "RC";
-                }
-                if($data["Role"] == "storemanager"){
-                    $C = "SM";
-                }
-    
+        
+                // Generate EmployeeNo
                 $max_user_id = $systemuser->getMinMax("UserID", "max");
                 $max_user_id = $max_user_id[0]->{"max(UserID)"};
                 $max_user_id = $max_user_id + 1;
                 $max_user_id = str_pad($max_user_id, 5, '0', STR_PAD_LEFT);
-    
+        
                 $data["EmployeeNo"] = $C.$max_user_id;
             }
             if (!empty($_POST['UserName'])){
                 $data['UserName'] = $_POST['UserName'];
             }
-
+        
             if ($_POST['Password'] == $_SESSION["USER"]->Password){
-                $outlets = new Outlet();
-                
-                echo $outlets->update($id,"OutletId",[ "Manager" => $data["EmployeeNo"]]);
-
-                echo $systemuser->update($id,"UserID",$data);
+                // Update data in the tables
+                echo $outlets->update($id, "OutletId", ["Manager" => $data["EmployeeNo"]]);
+                echo $systemuser->update($id, "UserID", $data);
                 $this->redirect(BASE_URL."AdminControls/loadUsersView");
-            }else
-            {
-                $systemuser = new Systemuser();
+            } else {
                 $data = $systemuser->where("UserID", $id);
                 echo $this->view("admin/editsystemuser", ["data" => $data, "error" => "Password is incorrect"]);
             }
-            
-            
-           
         }
+        
 
         public function searchUsers() {
             $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
@@ -429,74 +542,90 @@ use function PHPSTORM_META\type;
             $this->redirect(BASE_URL."AdminControls/loadOutletsView");
         }
 
-        function AddOutlet(){
+        function AddOutlet() {
             $outlets = new Outlet();
-
-            $arr["DOS"] = $_POST["DOS"];
-            $arr["contactNo"] = $_POST["contactNo"];
-            $arr["ActiveState"] = $_POST["ActiveState"];
-            $arr["Address"] = $_POST["Address"];
-            $arr["District"] = $_POST["District"];
-            $arr["Email"] = $_POST["Email"];
-            $arr["Manager"] = $_POST["Manager"];
-            
-
-            if($arr['District'] == "Dehiwala"){
-                $C = "DH";
+        
+            if (
+                isset($_POST["DOS"]) && isset($_POST["contactNo"]) && isset($_POST["ActiveState"]) &&
+                isset($_POST["Address"]) && isset($_POST["District"]) && isset($_POST["Email"]) &&
+                isset($_POST["Manager"]))   
+             {
+                $arr["DOS"] = $_POST["DOS"];
+        
+                $pattern = '/^\d{10}$/';
+                if (preg_match($pattern, $_POST["contactNo"]) == 1) {
+                    // Check if contact number already in use
+                    $existingOutlet = $outlets->where("contactNo", $_POST["contactNo"]);
+                    if ($existingOutlet) {
+                        echo $this->view("admin/addoutlet", ["error" => "Contact number already in use"]);
+                        return; // Stop execution if contact number is already in use
+                    }
+                    else{
+                        $arr["contactNo"] = $_POST["contactNo"];
+                    }
+                } else {
+                    echo $this->view("admin/addoutlet", ["error" => "Invalid contact number"]);
+                    return; // Stop execution if contact number is invalid
+                }
+        
+                if ($_POST["ActiveState"] == 1 || $_POST["ActiveState"] == 0) {
+                    $arr["ActiveState"] = $_POST["ActiveState"];
+                } else {
+                    echo $this->view("admin/addoutlet", ["error" => "Invalid Active State"]);
+                    return; // Stop execution if Active State is invalid
+                }
+        
+                $arr["Address"] = $_POST["Address"];
+                $arr["District"] = $_POST["District"];
+        
+                $pattern = '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/';
+                if (preg_match($pattern, $_POST["Email"]) == 1) {
+                    // Check if email already in use
+                    $existingOutlet = $outlets->where("Email", $_POST["Email"]);
+                    if ($existingOutlet) {
+                        echo $this->view("admin/addoutlet", ["error" => "Email already in use"]);
+                    }else{
+                        $arr["Email"] = $_POST["Email"];
+                    }
+                } else {
+                    echo $this->view("admin/addoutlet", ["error" => "Invalid Email"]);
+                    return; // Stop execution if email is invalid
+                }
+        
+                $arr["Manager"] = $_POST["Manager"];
+            } else {
+                echo $this->view("admin/addoutlet", ["error" => "Please fill all the fields"]);
+                return; // Stop execution if any required field is missing
             }
-            if($arr['District'] == "Nugegoda"){
-                $C = "NG";
+        
+            // District validation and code generation
+            $districtCodes = [
+                "Dehiwala" => "DH", "Nugegoda" => "NG", "Rajagiriya" => "RG", "Battaramulla" => "BT",
+                "Kotte" => "KT", "Malabe" => "MB", "Kohuwala" => "KW", "Nawala" => "NW", "Pamankada" => "PM",
+                "Wellawatte" => "WL", "Bambalapitiya" => "BP", "Kirulapone" => "KP", "Kolonnawa" => "KN",
+                "Ethul Kotte" => "EK", "Maharagama" => "MG"
+            ];
+        
+            if (isset($districtCodes[$arr['District']])) {
+                $C = $districtCodes[$arr['District']];
+            } else {
+                echo $this->view("admin/addoutlet", ["error" => "Invalid District"]);
+                return; // Stop execution if district is invalid
             }
-            if($arr['District'] == "Rajagiriya"){
-                $C = "RG";
-            }
-            if($arr['District'] == "Battaramulla"){
-                $C = "BT";
-            }
-            if($arr['District'] == "Kotte"){
-                $C = "KT";
-            }
-            if($arr['District'] == "Malabe"){
-                $C = "MB";
-            }
-            if($arr['District'] == "Kohuwala"){
-                $C = "KW";
-            }
-            if($arr['District'] == "Nawala"){
-                $C = "NW";
-            }
-            if($arr['District'] == "Pamankada"){
-                $C = "PM";
-            }
-            if($arr['District'] == "Wellawatte"){
-                $C = "WL";
-            }
-            if($arr['District'] == "Bambalapitiya"){
-                $C = "BP";
-            }
-            if($arr['District'] == "Kirulapone"){
-                $C = "KP";
-            }
-            if($arr['District'] == "Kolonnawa"){
-                $C = "KN";
-            }
-            if($arr['District'] == "Ethul Kotte"){
-                $C = "EK";
-            }
-            if($arr['District'] == "Maharagama"){
-                $C = "MG";
-            }
-
+        
+            // Generate OutletCode
             $max_outlet_id = $outlets->getMinMax("OutletID", "max");
             $max_outlet_id = $max_outlet_id[0]->{"max(OutletID)"};
             $max_outlet_id = $max_outlet_id + 1;
             $max_outlet_id = str_pad($max_outlet_id, 5, '0', STR_PAD_LEFT);
-
-            $arr["OutletCode"] = $C.$max_outlet_id;
-
+        
+            $arr["OutletCode"] = $C . $max_outlet_id;
+        
+            // Insert data into the table
             $outlets->insert($arr);
-            $this->redirect(BASE_URL."AdminControls/loadOutletsView");
+            $this->redirect(BASE_URL . "AdminControls/loadOutletsView");
         }
+        
 
         function AddOutletview(){
 
@@ -531,8 +660,11 @@ use function PHPSTORM_META\type;
                     $managersWithoutOutlets[] = $manager;
                 }
             }
-
-            echo $this->view("admin/addoutlet", ["managers" => $managersWithoutOutlets]);
+            if(count($managersWithoutOutlets) > 0){
+                echo $this->view("admin/addoutlet", ["managers" => $managersWithoutOutlets]);
+            }else{
+                echo $this->view("admin/addoutlet", ["error" => "No outlet managers available"]);
+            }
         }
 
         function EditOutletView($id){
@@ -575,104 +707,110 @@ use function PHPSTORM_META\type;
             echo $this->view("admin/editoutlet", ["data" => $data,"managers" => $managersWithoutOutlets]);
         }
 
+
         function EditOutlet(){
             session_start();
             $outlets = new Outlet();
-
+        
             $id = $_POST['id'];
-            
+            $data = []; 
+
             if (!empty($_POST['DOS'])){
                 $data['DOS'] = $_POST['DOS'];
-            } 
+            }
+        
             if (!empty($_POST['contactNo'])){
-                $data['contactNo'] = $_POST['contactNo'];
-            }
-            if (!empty($_POST['ActiveState'])) {
-                    if ($_POST['ActiveState'] == "active") {
-                        $data['ActiveState'] = 1;
-                    } else {
-                        $data['ActiveState'] = 0;
+                $pattern = '/^\d{10}$/';
+                if (preg_match($pattern, $_POST["contactNo"]) == 1){
+
+                    // Check if contact number already in use
+                    $existingOutlet = $outlets->where("contactNo", $_POST["contactNo"]);
+                    if ($existingOutlet) {
+                        $outlets = new Outlet();
+                        $data = $outlets->where("OutletID", $id);
+                        echo $this->view("admin/editoutlet", ["data" => $data, "error" => "Contact number already in use"]);
+                    }else{
+                        $data['contactNo'] = $_POST['contactNo'];
                     }
+                } else {
+                    $outlets = new Outlet();
+                    $data = $outlets->where("OutletID", $id);
+                    echo $this->view("admin/editoutlet", ["data"=>$data,  "error" => "Invalid contact number"]);
+                    return;
+                }
             }
+        
+            if (!empty($_POST['ActiveState'])) {
+                if ($_POST['ActiveState'] == "active") {
+                    $data['ActiveState'] = 1;
+                } else {
+                    $data['ActiveState'] = 0;
+                }
+            }
+        
             if (!empty($_POST['Address'])){
                 $data['Address'] = $_POST['Address'];
             }
+        
             if (!empty($_POST['District'])){
-                $data['District'] = $_POST['District'];
-
-                if($data["District"] == "Dehiwala"){
-                    $C = "DH";
+                $districtCodes = [
+                    "Dehiwala" => "DH", "Nugegoda" => "NG", "Rajagiriya" => "RG", "Battaramulla" => "BT",
+                    "Kotte" => "KT", "Malabe" => "MB", "Kohuwala" => "KW", "Nawala" => "NW", "Pamankada" => "PM",
+                    "Wellawatte" => "WL", "Bambalapitiya" => "BP", "Kirulapone" => "KP", "Kolonnawa" => "KN",
+                    "Ethul Kotte" => "EK", "Maharagama" => "MG"
+                ];
+        
+                if (isset($districtCodes[$_POST['District']])) {
+                    $C = $districtCodes[$_POST['District']];
+        
+                    $max_outlet_id = $outlets->getMinMax("OutletId", "max");
+                    $max_outlet_id = $max_outlet_id[0]->{"max(OutletId)"};
+                    $max_outlet_id = $max_outlet_id + 1;
+                    $max_outlet_id = str_pad($max_outlet_id, 5, '0', STR_PAD_LEFT);
+        
+                    $data["OutletCode"] = $C.$max_outlet_id;
+                } else {
+                    $outlets = new Outlet();
+                    $data = $outlets->where("OutletID", $id);
+                    echo $this->view("admin/editoutlet", ["data" => $data ,"error" => "Invalid District"]);
+                    return;
                 }
-                if($data["District"] == "Nugegoda"){
-                    $C = "NG";
-                }
-                if($data["District"] == "Rajagiriya"){
-                    $C = "RG";
-                }
-                if($data["District"] == "Battaramulla"){
-                    $C = "BT";
-                }
-                if($data["District"] == "Kotte"){
-                    $C = "KT";
-                }
-                if($data["District"] == "Malabe"){
-                    $C = "MB";
-                }
-                if($data["District"] == "Kohuwala"){
-                    $C = "KW";
-                }
-                if($data["District"] == "Nawala"){
-                    $C = "NW";
-                }
-                if($data["District"] == "Pamankada"){
-                    $C = "PM";
-                }
-                if($data["District"] == "Wellawatte"){
-                    $C = "WL";
-                }
-                if($data["District"] == "Bambalapitiya"){
-                    $C = "BP";
-                }
-                if($data["District"] == "Kirulapone"){
-                    $C = "KP";
-                }
-                if($data["District"] == "Kolonnawa"){
-                    $C = "KN";
-                }
-                if($data["District"] == "Ethul Kotte"){
-                    $C = "EK";
-                }
-                if($data["District"] == "Maharagama"){
-                    $C = "MG";
-                }
-                
-                $max_outlet_id = $outlets->getMinMax("OutletId", "max");
-                $max_outlet_id = $max_outlet_id[0]->{"max(OutletId)"};
-                $max_outlet_id = $max_outlet_id + 1;
-                $max_outlet_id = str_pad($max_outlet_id, 5, '0', STR_PAD_LEFT);
-    
-                $data["OutletCode"] = $C.$max_outlet_id;
-
             }
+        
             if (!empty($_POST['Email'])){
-                $data['Email'] = $_POST['Email'];
+                $pattern = '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/';
+                if (preg_match($pattern, $_POST["Email"]) == 1){
+                    // Check if email already in use
+                    $existingOutlet = $outlets->where("Email", $_POST["Email"]);
+                    if ($existingOutlet) {
+                        $outlets = new Outlet();
+                        $data = $outlets->where("OutletID", $id);
+                        echo $this->view("admin/editoutlet", ["data" => $data, "error" => "Email already in use"]);
+                    }else{
+                        $data['Email'] = $_POST['Email'];
+                    }
+                } else {
+                    $outlets = new Outlet();
+                    $data = $outlets->where("OutletID", $id);
+                    echo $this->view("admin/editoutlet", ["data" => $data,"error" => "Invalid Email"]);
+                    return;
+                }
             }
+        
             if (!empty($_POST['Manager'])){
                 $data['Manager'] = $_POST['Manager'];
             }
-
+        
             if ($_POST['Password'] == $_SESSION["USER"]->Password){
-                var_dump($data);
                 echo $outlets->update($id,"OutletID",$data);
                 $this->redirect(BASE_URL."AdminControls/loadOutletsView");
-            }else
-            {
+            } else {
                 $outlets = new Outlet();
                 $data = $outlets->where("OutletID", $id);
-                echo $this->view("admin/EditOutletView", ["data" => $data, "error" => "Password is incorrect"]);
+                echo $this->view("admin/editoutlet", ["data" => $data, "error" => "Password is incorrect"]);
             }
-           
         }
+        
 
         function searchOutlet(){
             $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';

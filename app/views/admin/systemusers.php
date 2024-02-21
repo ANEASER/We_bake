@@ -79,7 +79,13 @@
                             echo '<td>' . $user->NIC . '</td>';
                             echo '<td class="hideonmobile">' . $user->DOB . '</td>';
                             echo '<td class="hideonmobile">' . $user->contactNo . '</td>';
-                            echo '<td>' . $user->ActiveState . '</td>';
+
+                            if($user->ActiveState == 1) {
+                                $ActiveState = 'Active';
+                            } else {
+                                $ActiveState = 'Inactive';
+                            }
+                            echo '<td>' . $ActiveState . '</td>';
                             echo '<td class="hideonmobile">' . $user->Address . '</td>';
                             echo '<td>' . $user->EmployeeNo . '</td>';
                             echo '<td>' . $user->Role . '</td>';

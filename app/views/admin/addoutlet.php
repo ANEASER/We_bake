@@ -6,14 +6,44 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title>Add Outlet</title>
 </head>
 <body>
     
     <div>
     <?php
-        include "adminnav.php"
-    ?>
+    include "adminnav.php";
+
+    if (isset($error)) {
+        echo "<script>
+            const showAlert = async () => {
+                const SwalwithButton = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'greenbutton',
+                    },
+                    buttonsStyling: false
+                });
+
+                if (typeof Swal !== 'undefined') {
+                    await SwalwithButton.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: '$error',
+                        confirmButtonText: 'OK',
+                    });
+                    window.location.href = '" . BASE_URL . "AdminControls/AddOutletview';
+
+                } else {
+                    alert('$error');
+                }
+            };
+
+            // Call the async function to show the alert
+            showAlert();
+        </script>";
+    }
+?>
 
     <section>
         <div class="form-container">
