@@ -9,7 +9,8 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
-    <title>Receptionist_Place Order</title>
+    <h1 style="background-color:Lightbrown;">Receptionist Dashboard</h1>
+    <title>Place Order</title>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -32,7 +33,7 @@
         <?php
         include "recnavbar.php";
     ?>
- <h1>Receptionist Place Order</h1>
+ <h1>Place Order</h1>
         <form action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" method="post">
 
         <?php

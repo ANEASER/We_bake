@@ -11,7 +11,7 @@
 
 <body>
 
-    <h1 > Receptionist Dashboard</h1>
+    
     <nav>
         <input type="checkbox" id="check" name="" value="">
         <label for="check" class="checkbtn container" onclick="changemobilemode(this)">

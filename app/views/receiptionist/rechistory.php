@@ -8,6 +8,7 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <h1 style="background-color:Lightbrown;">Receptionist Dashboard</h1>
     <title>Purchase History</title>
 </head>
   
@@ -17,7 +18,7 @@
     <?php
         include "recnavbar.php";
     ?>
-    <h1>Receptionist Purchase History</h1>
+    <h1> Purchase History</h1>
     <?php
         
             echo "<table>";
