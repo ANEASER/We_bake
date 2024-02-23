@@ -249,7 +249,11 @@
                 $data['capacity'] = $_POST['capacity'];
             }
             if (!empty($_POST['availability'])){
-                $data['availability'] = $_POST['availability'];
+                if ($_POST['availability'] == "1"){
+                    $data['availability'] = 1;
+                }else{
+                    $data['availability'] = 0;
+                }
             }
             if (!empty($_POST['chassinumber'])){
                 $data['chassinumber'] = $_POST['chassinumber'];
@@ -260,9 +264,8 @@
             if (!empty($_POST['modelname'])){
                 $data['modelname'] = $_POST['modelname'];
             }
-    
+            var_dump($data);
             echo $vehicle->update($vehicleid,"vehicleno",$data);
-            //$vehicle = $vehicle->find($vehicleid,"vehicleno");
             $this->redirect(BASE_URL."PmControls/loadVehiclesView");
         }
 

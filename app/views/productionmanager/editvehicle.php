@@ -66,7 +66,7 @@
                     <label for="availability">Availability:</label>
                     <select id="availability" name="availability" >
                         <option value="1">Available</option>
-                        <option value="0">Not Available</option>
+                        <option value="2">Not Available</option>
                     </select>
                 </div>
                     
