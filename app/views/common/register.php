@@ -49,8 +49,11 @@
 
 
     <script>
+
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
         function loadLogin() {
-            window.location.href = "http://localhost/we_bake/public/CommonControls/loadLoginView";
+            window.location.href = BASE_URL + "CommonControls/loadLoginView";
         }
     </script>
 </body>

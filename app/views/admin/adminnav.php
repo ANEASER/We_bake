@@ -18,28 +18,31 @@
         </ul>
     </div>
     <script>
+
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
         function laodItems() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/loadItemsView";
+            window.location.href = BASE_URL + "AdminControls/loadItemsView";
         }
 
         function loadOutlets() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/loadOutletsView";
+            window.location.href = BASE_URL + "AdminControls/loadOutletsView";
         }
 
         function loadStocks() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/loadStocksView";
+            window.location.href = BASE_URL + "AdminControls/loadStocksView";
         }
 
         function loadUsers() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/loadUsersView";
+            window.location.href = BASE_URL + "AdminControls/loadUsersView";
         }
 
         function advertiesments() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/AddAdvertiesment";
+            window.location.href = BASE_URL + "AdminControls/AddAdvertiesment";
         }
 
         function logout() {
-            window.location.href = "http://localhost/we_bake/public/CommonControls/logout";
+            window.location.href = BASE_URL + "CommonControls/logout";
         }
 
     </script>

@@ -13,46 +13,102 @@
             ?>
             
             <button  onclick="add()">Add New Products</button>
-
+            <h1>Available Item</h1>
             <?php
-                echo '<table style="margin-left:-5%">';
+                echo '<table>';
                 echo '<tr>
                     <th>Item ID</th>
+                    <th>Item Code</th>
                     <th>Retail Price</th>
                     <th>Stock Price</th>
                     <th>Item Description</th>
                     <th>Item Name</th>
+                    <th>category</th>
+                    <th>Image</th>
+                    <th>Availability</th>
                     <th>Update</th>
                     <th>Delete</th>
 
                 </tr>';
                 
                 foreach ($items as $item) {
-                    echo '<tr>';
-                    echo '<td>' . $item->itemid . '</td>';
-                    echo '<td>' . $item->retailprice . '</td>';
-                    echo '<td>' . $item->stockprice . '</td>';
-                    echo '<td>' . $item->itemdescription . '</td>';
-                    echo '<td>' . $item->itemname . '</td>';
-                    echo '<td><button onclick="edit(' . $item->itemid . ')">Update</button></td>';
-                    echo '<td><button onclick="del(' . $item->itemid . ')">Delete</button></td>';
-                    echo '</tr>';
+                    if ($item->availability == 1) {
+                        echo '<tr>';
+                        echo '<td>' . $item->itemid . '</td>';
+                        echo '<td>' . $item->Itemcode . '</td>';
+                        echo '<td>' . $item->retailprice . '</td>';
+                        echo '<td>' . $item->stockprice . '</td>';
+                        echo '<td>' . $item->itemdescription . '</td>';
+                        echo '<td>' . $item->itemname . '</td>';
+                        echo '<td>' . $item->category . '</td>';
+                        echo '<td><img src="' . BASE_URL . 'media/uploads/Product/' . $item->imagelink . '" width="100px" height="100px"></td>';
+                        echo '<td>' . $item->availability . '</td>';
+                        echo '<td><button onclick="edit(' . $item->itemid . ')">Update</button></td>';
+                        echo '<td><button onclick="del(' . $item->itemid . ')">Delete</button></td>';
+                        echo '</tr>';
+                    }
+                }
+                
+                echo '</table>';
+                ?>
+
+                <h1>Unavailable Item</h1>
+                <?php
+                echo '<table>';
+                echo '<tr>
+                    <th>Item ID</th>
+                    <th>Item Code</th>
+                    <th>Retail Price</th>
+                    <th>Stock Price</th>
+                    <th>Item Description</th>
+                    <th>Item Name</th>
+                    <th>category</th>
+                    <th>Image</th>
+                    <th>Availability</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+
+                </tr>';
+                
+                foreach ($items as $item) {
+                    if ($item->availability == 0) {
+                        echo '<tr>';
+                        echo '<td>' . $item->itemid . '</td>';
+                        echo '<td>' . $item->Itemcode . '</td>';
+                        echo '<td>' . $item->retailprice . '</td>';
+                        echo '<td>' . $item->stockprice . '</td>';
+                        echo '<td>' . $item->itemdescription . '</td>';
+                        echo '<td>' . $item->itemname . '</td>';
+                        echo '<td>' . $item->category . '</td>';
+                        echo '<td><img src="' . BASE_URL . 'media/uploads/Product/' . $item->imagelink . '" width="100px" height="100px"></td>';
+                        echo '<td>' . $item->availability . '</td>';
+                        echo '<td><button onclick="edit(' . $item->itemid . ')">Update</button></td>';
+                        echo '<td><button onclick="undo(' . $item->itemid . ')">Undo</button></td>';
+                        echo '</tr>';
+                    }
                 }
                 
                 echo '</table>';
                 ?>
 
     <script>
+
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
         function add() {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/AddItem";
+            window.location.href = BASE_URL + "AdminControls/AddItem";
         }
 
         function edit(itemid) {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/EditItem/"+itemid;
+            window.location.href = BASE_URL + "AdminControls/EditItem/"+itemid;
         }
 
         function del(itemid) {
-            window.location.href = "http://localhost/we_bake/public/AdminControls/deleteproduct/"+itemid;
+            window.location.href = BASE_URL + "AdminControls/deleteproduct/"+itemid;
+        }
+
+        function undo(itemid) {
+            window.location.href = BASE_URL + "AdminControls/undoproduct/"+itemid;
         }
     </script>
 

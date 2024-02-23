@@ -1,8 +1,11 @@
 <?php
-class outletControls extends Controller {
+class OutletControls extends Controller {
     
     
     function index($id = null) {
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
         $this->view("outlet/outletdash");
     }
 

@@ -14,7 +14,7 @@
 
         <div>
 
-            <form method="POST" action="http://localhost/we_bake/public/AdminControls/addsystemuser">
+            <form method="POST" action="<?php echo BASE_URL; ?>AdminControls/addsystemuser">
 
                 <label for="Name">Name:</label><br>
                 <input type="text" id="Name" name="Name" required><br><br>

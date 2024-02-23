@@ -1,0 +1,23 @@
+.cart {
+    width: 40%; margin: 5% auto; display:flex; flex-direction:column; border:solid black 2px; justify-content:space-around;
+    background-color: rgba(245, 242, 242, 0.658);
+
+}
+
+.content{
+    padding: 10%;
+}
+
+.buttongroup{
+    display: flex; justify-content: space-around;
+}
+
+@media (max-width: 858px){
+    .cart {
+        width: 100%; margin: 5% auto; display:flex; flex-direction:column; border:solid black 2px; justify-content:space-around
+    }
+
+    .content{
+        padding: 5%;
+    }
+}

@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="http://localhost/we_bake/app/views/admin/adminstyle.css">
     <title>Vehicle</title>
 </head>
 <body>
@@ -50,16 +49,18 @@
 
     <script>
 
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
         function add() {
-            window.location.href = "http://localhost/we_bake/public/pmControls/addVehicle";
+            window.location.href = BASE_URL +  "PmControls/addVehicle";
         }
 
         function del(vehicleid) {
-            window.location.href = "http://localhost/we_bake/public/pmControls/deletevehicle/"+vehicleid;
+            window.location.href = BASE_URL +  "PmControls/deletevehicle/"+vehicleid;
         }
 
         function edit(vehicleid) {
-            window.location.href = "http://localhost/we_bake/public/pmControls/EditVehicleView/"+vehicleid;
+            window.location.href = BASE_URL +  "PmControls/EditVehicleView/"+vehicleid;
         }
     </script>
 </body>

@@ -16,18 +16,21 @@
 
 <script>
 
-function PlaceOrder() {
-    window.location.href = "http://localhost/we_bake/public/outletControls/placeorder"};
+    var BASE_URL = "<?php echo BASE_URL; ?>";
 
-function PurchaseHistory() {
-    window.location.href = "http://localhost/we_bake/public/outletControls/purchasehistory"};
+    function PlaceOrder() {
+        window.location.href = BASE_URL +  "OutletControls/placeorder"};
 
-function Outletdash() {
-    window.location.href = "http://localhost/we_bake/public/outletControls/outletdash"};
+    function PurchaseHistory() {
+        window.location.href = BASE_URL +  "OutletControls/purchasehistory"};
+
+    function Outletdash() {
+        window.location.href = BASE_URL +  "OutletControls/outletdash"};
 
     function logout() {
-    window.location.href = "http://localhost/We_bake/public/CommonControls/logout";
-}
+        window.location.href = BASE_URL +  "CommonControls/logout";
+    }
+    
 </script>
 
 </body>

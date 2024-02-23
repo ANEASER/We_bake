@@ -25,8 +25,10 @@
     </div>
     
     <script>
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+        
         function resend() {
-            window.location.href = "http://localhost/we_bake/public/CommonControls/otpvalidation";
+            window.location.href = BASE_URL + "CommonControls/otpvalidation";
         }
     </script>
 

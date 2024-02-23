@@ -63,7 +63,27 @@ class Model extends Database {
 
         return $this->query($query, $bindings);
     }
+
+
+    public function loadWithSort($sortColumn, $sortType) {
+
+        $query = "SELECT * FROM $this->table ORDER BY $sortColumn $sortType";
+        
+        return $this->query($query, []);
+
+    }
     
+    // get distinct items
+    public function getDistinct($column) {
+        $query = "SELECT DISTINCT $column FROM $this->table";
+        return $this->query($query, []);
+    }
+
+    // get min or max
+    public function getMinMax($column, $minmax) {
+        $query = "SELECT $minmax($column) FROM $this->table";
+        return $this->query($query, []);
+    }
     
 }
 ?>

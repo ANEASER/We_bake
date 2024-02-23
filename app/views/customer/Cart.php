@@ -3,13 +3,42 @@
 <html>
 <head>
     <title>Bakery Products</title>
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
 </head>
 <body>
-    <button  onclick="placeorder()" > Customer Checkout</button>
+        <section class="cart">
+            <section class="content">
+                <?php
+                    include 'cartitems.php';
+                ?>
+            </section>
+            <section class="buttongroup">
+                <button class="yellowbutton" onclick="edit()">edit</button>
+                <button class="greenbutton" onclick="checkout()">checkout</button>
+                <button class="redbutton" onclick="cancel()">cancel</button>
+                <button class="bluebutton" onclick="addmore()">addmore</button>
+            </section>
+        </section>
+
     <script>
-        function placeorder(){
-            window.location.href = "http://localhost/we_bake/public/customercontrols/placeorder";
-    }
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
+        function checkout(){
+            window.location.href = BASE_URL +"CustomerControls/checkout";
+        }
+
+        function cancel(){
+            window.location.href = BASE_URL +"CustomerControls/deletecart";
+        }
+
+        function edit(){
+            window.location.href = BASE_URL +"CustomerControls/updatecart";
+        }
+
+        function addmore(){
+            window.location.href = BASE_URL +"CustomerControls/showcategories";
+        }
     </script>
 </body>
 </html>

@@ -12,17 +12,19 @@
 
 <script>
 
-function loadDash() {
-    window.location.href = "http://localhost/we_bake/public/billingcontrols";
-}
+    var BASE_URL = "<?php echo BASE_URL; ?>";
 
-function loadProfile() {
-    window.location.href = "http://localhost/We_bake/public/BillingControls/viewProfile";
-}
+    function loadDash() {
+        window.location.href = BASE_URL +"public/BillingControls";
+    }
 
-function logout() {
-    window.location.href = "http://localhost/We_bake/public/CommonControls/logout";
-}
+    function loadProfile() {
+        window.location.href = BASE_URL + "BillingControls/viewProfile";
+    }
+
+    function logout() {
+        window.location.href = BASE_URL + "CommonControls/logout";
+    }
 
 </script>
 

@@ -6,6 +6,9 @@
     <title>Make Inquiry</title>
 </head>
 <body >
-  
+    <?php
+        include 'customernav.php';
+    ?>
+    <h1>Make Inquiry</h1>
 </body>
 </html>

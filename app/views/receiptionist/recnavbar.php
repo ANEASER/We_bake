@@ -7,31 +7,32 @@
             <li><button onclick="loadDash()">Home</button></li>
             <li><button onclick="loadProfile()">Profile</button></li>
             <li><button onclick="loadHistory()">Purchase History</button></li>
-            <li><button onclick="loadOrders()">Orders</button></li>
+            <li><button onclick="PlaceOrders()">Place Orders</button></li>
             <li><button onclick="logout()">Logout</button></li>
         </ul>
 
 
 <script>
+var BASE_URL = "<?php echo BASE_URL; ?>";
 
 function loadDash() {
-    window.location.href = "http://localhost/We_bake/public/Recieptioncontrols";
+    window.location.href = BASE_URL +  "Recieptioncontrols";
 }
 
 function loadProfile() {
-    window.location.href = "http://localhost/We_bake/public/Recieptioncontrols/viewProfile";
+    window.location.href = BASE_URL +  "Recieptioncontrols/viewProfile";
 }
 
 function loadHistory() {
-    window.location.href = "http://localhost/We_bake/public/Recieptioncontrols/viewHistory";
+    window.location.href = BASE_URL +  "Recieptioncontrols/viewHistory";
 }
 
-function loadOrders() {
-    window.location.href = "http://localhost/We_bake/public/Recieptioncontrols/viewOrders";
+function PlaceOrders() {
+    window.location.href = BASE_URL +  "Recieptioncontrols/customernumber";
 }
 
 function logout() {
-    window.location.href = "http://localhost/We_bake/public/CommonControls/logout";
+    window.location.href = BASE_URL +  "CommonControls/logout";
 }
 
 </script>
