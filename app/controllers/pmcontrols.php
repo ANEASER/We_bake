@@ -20,6 +20,10 @@
         //order handle
         function processOrder($orderid){
 
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             if($_SESSION["USER"]->Role != "productionmanager"){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
@@ -32,6 +36,10 @@
         function completedOrder($orderid){
             $productorder = new ProductOrder();
             $vehicle = new Vehicle();
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
 
             if($_SESSION["USER"]->Role != "productionmanager"){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -47,6 +55,10 @@
         }
 
         function cancelOrder($orderid){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
 
             if($_SESSION["USER"]->Role != "productionmanager"){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -70,6 +82,10 @@
 
         function showassignvehicles($orderid){  
 
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             if($_SESSION["USER"]->Role != "productionmanager"){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
@@ -80,6 +96,10 @@
         }
 
         function assignvehicle($vehicleno, $orderid){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
 
             if($_SESSION["USER"]->Role != "productionmanager"){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -128,17 +148,44 @@
 
         function createvehicle(){
 
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             if($_SESSION["USER"]->Role != "productionmanager"){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
             
             $vehicle = new Vehicle();
 
-            $arr["registrationnumber"] = $_POST["registrationnumber"];
+            $foundvehiclebyregisternumber = $vehicle->where("registrationnumber",$_POST["registrationnumber"]);
+            $foundvehiclebychassinumber = $vehicle->where("chassinumber",$_POST["chassinumber"]);
+            $foundvehiclebyenginenumber = $vehicle->where("enginenumber",$_POST["enginenumber"]);
+
+            if ($foundvehiclebyregisternumber[0]->registrationnumber == $_POST["registrationnumber"]){
+                $error = "Vehicle already exists";
+                echo $this->view("PmControls/addvehicle",["error"=>$error]);
+            }else {
+                $arr["registrationnumber"] = $_POST["registrationnumber"];
+            }
+
             $arr["type"] = $_POST["type"];
             $arr["capacity"] = $_POST["capacity"];
-            $arr["chassinumber"] = $_POST["chassinumber"];
-            $arr["enginenumber"] = $_POST["enginenumber"];
+
+            if($foundvehiclebychassinumber[0]->chassinumber == $_POST["chassinumber"]){
+                $error = "Chassis Number already exists";
+                echo $this->view("PmControls/addvehicle",["error"=>$error]);
+            }else {
+                $arr["chassinumber"] = $_POST["chassinumber"];
+            }
+
+            if($foundvehiclebyenginenumber[0]->enginenumber == $_POST["enginenumber"]){
+                $error = "Engine Number already exists";
+                echo $this->view("PmControls/addvehicle",["error"=>$error]);
+            }else {
+                $arr["enginenumber"] = $_POST["enginenumber"];
+            }
+            
             $arr["modelname"] = $_POST["modelname"];
 
             $vehicle->insert($arr);
@@ -146,6 +193,10 @@
         }
 
         function loadVehiclesView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
 
             if($_SESSION["USER"]->Role != "productionmanager"){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -158,17 +209,26 @@
 
         function deletevehicle($vehicleid){
 
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             if($_SESSION["USER"]->Role != "productionmanager"){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
             
             $vehicle = new Vehicle();
-            $vehicle->delete($vehicleid,"vehicleno");
+            $vehicle->update($vehicleid,"vehicleno",["ActiveState"=>0, "availability"=>0]);
+
             $this->redirect(BASE_URL."PmControls/loadVehiclesView");
         
         }
 
         function editvehicle(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
 
             if($_SESSION["USER"]->Role != "productionmanager"){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -210,14 +270,23 @@
         // views
         function AddVehicle(){
 
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             if($_SESSION["USER"]->Role != "productionmanager"){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
+
 
             echo $this->view("productionmanager/addvehicle");
         }
 
         function EditVehicleView($vehicleid){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
 
             if($_SESSION["USER"]->Role != "productionmanager"){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");

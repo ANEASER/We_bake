@@ -52,19 +52,35 @@
                             <th>Delete</th>
                         </tr>';
                         foreach ($vehicles as  $vehicle) {
-                                echo '<tr>';
-                                echo '<td>' . $vehicle->registrationnumber. '</td>';
-                                echo '<td>' . $vehicle->type . '</td>';
-                                echo '<td>' . $vehicle->capacity . '</td>';
-                                echo '<td>' . $vehicle->availability . '</td>';
-                                echo '<td>' . $vehicle->chassinumber . '</td>';
-                                echo '<td>' . $vehicle->vehicleno  . '</td>';
-                                echo '<td>' . $vehicle->enginenumber . '</td>';
-                                echo '<td>' . $vehicle->modelname . '</td>';
-                                echo '<td><button class="yellowbutton"  onclick="edit(' . $vehicle->vehicleno . ')">Update</button></td>';
-                                echo '<td><button class="redbutton" onclick="del(' . $vehicle->vehicleno . ')">Delete</button></td>';
-                                echo '</tr>';
-                            }
+                            if($vehicle->ActiveState == 1){
+                                if($vehicle->availability == 1){
+                                    echo '<tr>';
+                                    echo '<td>' . $vehicle->registrationnumber. '</td>';
+                                    echo '<td>' . $vehicle->type . '</td>';
+                                    echo '<td>' . $vehicle->capacity . '</td>';
+                                    echo '<td>' . $vehicle->availability . '</td>';
+                                    echo '<td>' . $vehicle->chassinumber . '</td>';
+                                    echo '<td>' . $vehicle->vehicleno  . '</td>';
+                                    echo '<td>' . $vehicle->enginenumber . '</td>';
+                                    echo '<td>' . $vehicle->modelname . '</td>';
+                                    echo '<td><button class="yellowbutton"  onclick="edit(' . $vehicle->vehicleno . ')">Update</button></td>';
+                                    echo '<td><button class="redbutton" onclick="del(' . $vehicle->vehicleno . ')">Delete</button></td>';
+                                    echo '</tr>';}
+                                else{
+                                    echo '<tr style="background-color:red">';
+                                    echo '<td>' . $vehicle->registrationnumber. '</td>';
+                                    echo '<td>' . $vehicle->type . '</td>';
+                                    echo '<td>' . $vehicle->capacity . '</td>';
+                                    echo '<td>' . $vehicle->availability . '</td>';
+                                    echo '<td>' . $vehicle->chassinumber . '</td>';
+                                    echo '<td>' . $vehicle->vehicleno  . '</td>';
+                                    echo '<td>' . $vehicle->enginenumber . '</td>';
+                                    echo '<td>' . $vehicle->modelname . '</td>';
+                                    echo '<td><button class="yellowbutton"  onclick="edit(' . $vehicle->vehicleno . ')">Update</button></td>';
+                                    echo '<td><button class="redbutton" onclick="del(' . $vehicle->vehicleno . ')">Delete</button></td>';
+                                    echo '</tr>';
+                                }
+                            }}
                         
                         echo'</table>'; ?>
             </section>
