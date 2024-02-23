@@ -57,8 +57,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="stockprice">Stock Price:</label>
-                    <input type="number" id="stockprice" min="1" name="stockprice" required>
+                    <label for="stockprice">Cost:</label>
+                    <input type="number" id="cost" min="1" name="cost" required>
                 </div>
 
                 <div class="form-group">
@@ -99,7 +99,7 @@
     <script>
         function validateForm() {
         var retailPrice = document.getElementById('retailprice').value;
-        var stockPrice = document.getElementById('stockprice').value;
+        var stockPrice = document.getElementById('cost').value;
 
         if (parseFloat(stockPrice) >= parseFloat(retailPrice)) {
             Swal.fire({

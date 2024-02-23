@@ -32,7 +32,7 @@ use function PHPSTORM_META\type;
 
                 $arr["itemname"] = $_POST["itemname"];
                 $arr["retailprice"] = $_POST["retailprice"];
-                $arr["stockprice"] = $_POST["stockprice"];
+                $arr["cost"] = $_POST["cost"];
                 $arr["itemdescription"] = $_POST["itemdescription"];
                 $arr["category"] = $_POST["category"];
 
@@ -163,7 +163,7 @@ use function PHPSTORM_META\type;
                 $data['retailprice'] = $_POST['retailprice'];
             }
             if (!empty($_POST['stockprice'])){
-                $data['stockprice'] = $_POST['stockprice'];
+                $data['cost'] = $_POST['cost'];
             }
             if (!empty($_POST['itemdescription'])){
                 $data['itemdescription'] = $_POST['itemdescription'];

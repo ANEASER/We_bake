@@ -59,8 +59,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="stockprice">Stock Price:</label>
-                    <input type="number" id="stockprice" name="stockprice" min="1" placeholder="<?php echo $data[0]->stockprice; ?>">
+                    <label for="stockprice">Cost:</label>
+                    <input type="number" id="cost" name="cost" min="1" placeholder="<?php echo $data[0]->cost; ?>">
                 </div>
 
                 <div class="form-group">
@@ -95,7 +95,7 @@
     <script>
         function validateForm() {
             var retailPrice = document.getElementById('retailprice').value;
-            var stockPrice = document.getElementById('stockprice').value;
+            var stockPrice = document.getElementById('cost').value;
             var itemDescription = document.getElementById('itemdescription').value;
 
             if (parseFloat(stockPrice) >= parseFloat(retailPrice)) {
