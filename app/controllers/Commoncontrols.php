@@ -42,7 +42,12 @@ class CommonControls extends Controller {
                             }elseif ($role == 'billingclerk') {
                                 $this->redirect(BASE_URL."BillingControls");
                             } elseif($role=="outletmanager"){
-                                $this->redirect(BASE_URL."OutletControls");}
+                                $this->redirect(BASE_URL."OutletControls");
+                            }elseif($role=="storemanager"){
+                                $this->redirect(BASE_URL."StoreControls");
+                            }elseif($role=="owner"){
+                                $this->redirect(BASE_URL."OwnerControls");
+                            }
                             else {
                                 $this->redirect(BASE_URL."Pmcontrols");
                             }
