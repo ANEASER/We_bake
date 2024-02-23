@@ -147,22 +147,40 @@ class CommonControls extends Controller {
                 $error = "Passwords do not match";
                 $this->view("common/register",["error"=>$error]); 
             } else {
+
                 $row = $systemuser->where("UserName", $arr["UserName"]);
                 $user = $row[0];
+
+                $emailRegex = '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/';
+                $contactNoRegex = '/^[0-9]{10,14}$/';
+
+                if (!preg_match($emailRegex, $arr["Email"])) {
+                    $error = "Invalid email format";
+                    $this->view("common/register", ["error" => $error]);
+                }
+
+                if (!preg_match($contactNoRegex, $arr["contactNo"])) {
+                    $error = "Invalid contact number";
+                    $this->view("common/register", ["error" => $error]);
+                }
+
+                if (session_status() == PHP_SESSION_NONE) {
+                    session_start();
+                }
+
                 if ($user->UserName == $arr["UserName"]) {
-                
                     $error = "Username already exists";
                     $this->view("common/register",["error"=>$error]);}
-    
-                else{
+
+                if ($user->Email == $arr["Email"]) {
+                    $error = "Email already exists";
+                    $this->view("common/register",["error"=>$error]);
+                }
+
+                $_SESSION['arr'] = $arr;
+                $_SESSION['redirect'] = "CommonControls/insertuser";
+                $this->redirect(BASE_URL."CommonControls/otpvalidation");
                     
-                    if (session_status() == PHP_SESSION_NONE) {
-                        session_start();
-                    }
-                    $_SESSION['arr'] = $arr;
-                    $_SESSION['redirect'] = "CommonControls/insertuser";
-                    $this->redirect(BASE_URL."CommonControls/otpvalidation");
-                    }
                 }
             }
     }
@@ -175,7 +193,6 @@ class CommonControls extends Controller {
             $arr = $_SESSION['arr'];
             $customer = new Customer();
             $customer->insert($arr);
-            echo "Registration Successful";
             session_destroy();
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
     }

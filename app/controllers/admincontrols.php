@@ -40,41 +40,45 @@ use function PHPSTORM_META\type;
                 if($arr["category"] == "Bread"){
                     $C = "BR";
                 }
-                if($arr["category"] == "Pastries"){
+                else if($arr["category"] == "Pastries"){
                     $C = "PA";
                 }
-                if($arr["category"] == "Cakes"){
+                else if($arr["category"] == "Cakes"){
                     $C = "CK";
                 }
-                if($arr["category"] == "Cookies"){
+                else if($arr["category"] == "Cookies"){
                     $C = "CO";
                 }
-                if($arr["category"] == "Muffins"){
+                else if($arr["category"] == "Muffins"){
                     $C = "MU";
                 }
-                if($arr["category"] == "Doughnuts"){
+                else if($arr["category"] == "Doughnuts"){
                     $C = "DN";
                 }
-                if($arr["category"] == "Pies"){
+                else if($arr["category"] == "Pies"){
                     $C = "PI";
                 }
-                if($arr["category"] == "Buns"){
+                else if($arr["category"] == "Buns"){
                     $C = "BN";
                 }
-                if($arr["category"] == "Rolls"){
+                else if($arr["category"] == "Rolls"){
                     $C = "RL";
                 }
-                if($arr["category"] == "Sandwiches"){
+                else if($arr["category"] == "Sandwiches"){
                     $C = "SW";
                 }
-                if($arr["category"] == "Pizza"){
+                else if($arr["category"] == "Pizza"){
                     $C = "PZ";
                 }
-                if($arr["category"] == "Others"){
+                else if($arr["category"] == "Others"){
                     $C = "OT";
                 }
-                if($arr["category"] == "Specials"){
+                else if($arr["category"] == "Specials"){
                     $C = "SP";
+                }
+                else {
+                    $error = "Invalid Category";
+                    echo $this->view("admin/additem", ["error" => $error]);
                 }
 
                 $max_itemm_id = $productitem->getMinMax("itemid", "max");
@@ -97,29 +101,24 @@ use function PHPSTORM_META\type;
                 if($check !== false) {
                     $uploadOk = 1;
                 } else {
-                    echo "File is not an image.";
-                    $uploadOk = 0;
-
-                    return;
+                    $error = "File is not an image.";
+                    echo $this->view("admin/additem", ["error" => $error]);
                 }
                 if (file_exists($target_file)) {
-                    echo "Sorry, file already exists.";
-                    $uploadOk = 0;
-                    return;
+                    $error = "Sorry, file already exists.";
+                    echo $this->view("admin/additem", ["error" => $error]);
                 }
                 if ($_FILES["image"]["size"] > 500000) {
-                    echo "Sorry, your file is too large.";
-                    $uploadOk = 0;
-                    return;
+                    $error = "Sorry, your file is too large.";
+                    echo $this->view("admin/additem", ["error" => $error]);
                 }
                 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                    echo "Sorry, only JPG, JPEG, PNG files are allowed.";
-                    $uploadOk = 0;
-                    return;
+                    $error = "Sorry, only JPG, JPEG, PNG files are allowed.";
+                    echo $this->view("admin/additem", ["error" => $error]);
                 }
                 if ($uploadOk == 0) {
-                    echo "Sorry, your file was not uploaded.";
-                    return;
+                    $error = "Sorry, your file was not uploaded.";
+                    echo $this->view("admin/additem", ["error" => $error]);
                 } else {
                     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
                         $arr["imagelink"] = $newfilename;
@@ -132,8 +131,8 @@ use function PHPSTORM_META\type;
                
             }
             else{
-                echo "Sorry, there was an error uploading your file.";
-                $this->redirect(BASE_URL."AdminControls/index");
+                $error = "Sorry, there was an error uploading your file.";
+                echo $this->view("admin/additem", ["error" => $error]);
             }
 
         }

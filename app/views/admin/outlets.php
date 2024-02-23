@@ -22,7 +22,7 @@
                     <?php
                         if (isset($_GET['search'])) {
                             echo '<input type="text" id="search" name="search" placeholder="Manager, District or OutletCode" value="' . $_GET['search'] . '" class="searchbox">';
-                            echo '<input type="submit" value="Search" class="searchbutton">';
+                            echo '<input type="submit" style="margin-right:1%" value="Search" class="searchbutton">';
                             echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
                         } else {
                             echo '<input type="text" id="search" name="search" placeholder="Manager, District or OutletCode" class="searchbox">';
@@ -48,7 +48,7 @@
                             <th class="hideonmobile">Address</th>
                             <th class="hideonmobile">Email</th>
                             <th class="hideonmobile">Manager</th>
-                            <th class="hideonmobile">District</th>
+                            <th class="hideonmobile">City</th>
                             <th class="hideonmobile">OutletCode</th>
                             <th >Edit</th>
                         </tr>';

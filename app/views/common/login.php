@@ -75,7 +75,7 @@
                 <div class="form-group">
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
-                    <p>forgot password  <a onclick="resetpassword()" >reset</a></p>
+                    <p>forgot password ? <span style="border-bottom: solid brown; cursor:pointer" onclick="resetpassword()">reset</span> </p>
                 </div>
                
                 <button class="greenbutton">Login</button>
