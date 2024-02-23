@@ -38,7 +38,7 @@
         } 
         echo "</table>";
         echo "<br>";
-        echo "<p style='text-align:left'>TOTAL PRICE: Rs. " . $total."</p>";
+        echo "<p style='padding-left:2%'>TOTAL PRICE: Rs. " . $total."</p>";
         echo "<br>";
     ?>
     </div>

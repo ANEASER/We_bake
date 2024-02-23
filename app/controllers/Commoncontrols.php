@@ -27,6 +27,8 @@ class CommonControls extends Controller {
                     
                     if (isset($user->Role)) {
                         $role = $user->Role;
+
+                        
                         
                         if ($_POST["password"] == $user->Password) {
                             Auth::authenticate($user);
@@ -40,7 +42,12 @@ class CommonControls extends Controller {
                             }elseif ($role == 'billingclerk') {
                                 $this->redirect(BASE_URL."BillingControls");
                             } elseif($role=="outletmanager"){
-                                $this->redirect(BASE_URL."OutletControls");}
+                                $this->redirect(BASE_URL."OutletControls");
+                            }elseif($role=="storemanager"){
+                                $this->redirect(BASE_URL."StoreControls");
+                            }elseif($role=="owner"){
+                                $this->redirect(BASE_URL."OwnerControls");
+                            }
                             else {
                                 $this->redirect(BASE_URL."Pmcontrols");
                             }
@@ -62,8 +69,9 @@ class CommonControls extends Controller {
                     if (is_array($row) && count($row) > 0) {
                     
                         $user = $row[0];
+                        $verifiedpassword = password_verify($_POST["password"], $user->Password);
                             
-                            if ($_POST["password"] == $user->Password) {
+                            if ($verifiedpassword ) {
                                 Auth::authenticate($user);
                                 $this->redirect(BASE_URL."CustomerControls");
                             } else {
@@ -84,7 +92,7 @@ class CommonControls extends Controller {
 
     public function otpvalidation() {
 
-        $err = "";  
+        $error = "";  
 
         $mail = new Mail();
     
@@ -105,8 +113,8 @@ class CommonControls extends Controller {
             if ($_POST["otp"] == $_SESSION['otp']) {
                 $this->redirect(BASE_URL.$redirect);
             } else {
-                $err = "Invalid OTP"; 
-                $this->view("common/otpverification",["err"=>$err]);
+                $error = "Invalid OTP"; 
+                $this->view("common/otpverification",["error"=>$error]);
             }
         }else{
             $otp = generateOTP();
@@ -118,7 +126,6 @@ class CommonControls extends Controller {
         }
         
     }
-    
 
     function register(){
 
@@ -129,7 +136,7 @@ class CommonControls extends Controller {
             $systemuser = new Systemuser();
             
             $arr["Name"] = $_POST["Name"];
-            $arr["Password"] = $_POST["Password1"];
+            $arr["Password"] =   password_hash($_POST["Password1"], PASSWORD_DEFAULT);
             $arr["DOB"] = $_POST["DOB"];
             $arr["contactNo"] = $_POST["contactNo"];
             $arr["Address"] = $_POST["Address"];
@@ -145,22 +152,40 @@ class CommonControls extends Controller {
                 $error = "Passwords do not match";
                 $this->view("common/register",["error"=>$error]); 
             } else {
+
                 $row = $systemuser->where("UserName", $arr["UserName"]);
                 $user = $row[0];
+
+                $emailRegex = '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/';
+                $contactNoRegex = '/^[0-9]{10,14}$/';
+
+                if (!preg_match($emailRegex, $arr["Email"])) {
+                    $error = "Invalid email format";
+                    $this->view("common/register", ["error" => $error]);
+                }
+
+                if (!preg_match($contactNoRegex, $arr["contactNo"])) {
+                    $error = "Invalid contact number";
+                    $this->view("common/register", ["error" => $error]);
+                }
+
+                if (session_status() == PHP_SESSION_NONE) {
+                    session_start();
+                }
+
                 if ($user->UserName == $arr["UserName"]) {
-                
                     $error = "Username already exists";
                     $this->view("common/register",["error"=>$error]);}
-    
-                else{
+
+                if ($user->Email == $arr["Email"]) {
+                    $error = "Email already exists";
+                    $this->view("common/register",["error"=>$error]);
+                }
+
+                $_SESSION['arr'] = $arr;
+                $_SESSION['redirect'] = "CommonControls/insertuser";
+                $this->redirect(BASE_URL."CommonControls/otpvalidation");
                     
-                    if (session_status() == PHP_SESSION_NONE) {
-                        session_start();
-                    }
-                    $_SESSION['arr'] = $arr;
-                    $_SESSION['redirect'] = "CommonControls/insertuser";
-                    $this->redirect(BASE_URL."CommonControls/otpvalidation");
-                    }
                 }
             }
     }
@@ -173,17 +198,127 @@ class CommonControls extends Controller {
             $arr = $_SESSION['arr'];
             $customer = new Customer();
             $customer->insert($arr);
-            echo "Registration Successful";
             session_destroy();
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
     }
 
 
+    // Product
+    function loadProductsView() {
+
+        $productitem = new ProductItem();
+        $categories = $productitem->getDistinct("category");
+
+        $this->view("common/productscatergories",[ "categories" => $categories]);
+    }
+
+    function productitem($category) {
+
+        $productitem = new ProductItem();
+        $items = $productitem->where("category", $category);
+
+        $this->view("common/productitems",["items" => $items]);
+    }
 
     function logout() {
         Auth::logout();
-        $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        $this->redirect(BASE_URL."CommonControls/");
         
+    }
+
+        
+    public function FindProfileView(){
+        $this->view("common/findprofileview");
+    }
+    
+    public function ShowFoundProfile(){
+        $usernameemail = $_POST["usernameemail"];
+        $systemuser = new Systemuser();
+        $customer = new Customer();
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        if ($row = $systemuser->where("UserName", $usernameemail)) {
+                $user = $row[0];
+                $_SESSION['USER'] = $user;
+                $this->view("common/foundprofile",["user"=>$user]);
+            }
+        else if ($row = $customer->where("UserName", $usernameemail)) {
+                $user = $row[0];
+                $_SESSION['USER'] = $user;
+                $this->view("common/foundprofile",["user"=>$user]);
+            }
+        else if ($row = $customer->where("Email", $usernameemail)) {
+                $user = $row[0];
+                $_SESSION['USER'] = $user;
+                $this->view("common/foundprofile",["user"=>$user]);
+            }
+        else if ($row = $systemuser->where("Email", $usernameemail)) {
+                $user = $row[0];
+                $_SESSION['USER'] = $user;
+                $this->view("common/foundprofile",["user"=>$user]);
+            }
+        else{
+            $error = "User not found";
+            $this->view("common/resetpassword",["error"=>$error]);    
+        
+        }
+
+        
+    }
+
+    public function ValidateProfileView(){
+        $mail = new Mail();
+
+        function generateOTP1() {
+            return str_pad(rand(0, 999999), 6, '0', STR_PAD_LEFT);
+        }
+
+        $otp = generateOTP1();
+        $_SESSION['otp'] = $otp;
+        $_SESSION['email'] = $_SESSION['USER']->Email;
+        $_SESSION['redirect'] = "CommonControls/ResetPasswordView";
+
+        $mail->sendOTPByEmail();
+        $this->view("common/validateprofileview");
+    }
+
+    public function ResetPasswordView(){
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        $this->view("common/resetpasswordview");
+    }
+
+    public function resetpassword(){
+        
+        $password1 = $_POST["password1"];
+        $password2 = $_POST["password2"];
+
+        if($password1 == $password2){
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+           
+            $password = password_hash($password1, PASSWORD_DEFAULT);
+           
+            if(isset($_SESSION['USER']->Role)){
+                $systemuser = new Systemuser();
+                $systemuser->update($_SESSION['USER']->UserName,"UserName",[ "Password" => $password]);
+                $message = "Password reset successful";
+                $this->view("common/login",["message"=>$message]);
+            }else {
+                    $customer = new Customer();
+                    $customer->update($_SESSION['USER']->UserName,"UserName",[ "Password" => $password]);
+                    $message = "Password reset successful";
+                    $this->view("common/login",["message"=>$message]);
+                }           
+        } else{
+            $error = "Passwords do not match";
+            $this->view("common/resetpasswordview",["error"=>$error]);
+        }
     }
 }
     

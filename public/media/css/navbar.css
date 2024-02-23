@@ -1,8 +1,9 @@
 nav{
-    background: #f7b424;
+    background-color: antiquewhite;
     height: 80px;
     width: 100%;
     position: sticky;
+    top: 0px;
 }
 
 *{
@@ -22,20 +23,23 @@ nav ul li{
     display: inline-block;
     line-height: 80px;
     margin: 0 5px;
+    cursor: pointer;
 }
 
 nav ul li a{
-    color: white;
+    color: rgb(95, 37, 37);
     font-size: 17px;
     padding: 7px 13px;
     border-radius: 3px;
     text-transform: uppercase;
+    font-family: poppins;
 }
 
 a.active,a:hover{
     border-radius: 10px;
     background: #351a07;
     transition: .5s;
+    color: white;
 }
 
 

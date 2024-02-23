@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <title>Edit Profile Details</title>
 </head>
 <body>
@@ -13,7 +14,7 @@
     ?>
    
     <section>
-        <div class="form-container">
+        <div class="form-container" >
             <form class="form" action="<?php echo BASE_URL; ?>CustomerControls/editprofile" method="post">
                 
                 <div class="form-group">
@@ -43,7 +44,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password">CHANGE PASSWORD</label>
+                    <label for="password">ENTER PASSWORD</label>
                     <input type="password" name="password" required><br>
                 </div>
 

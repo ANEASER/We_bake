@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/navbar.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <title></title>
 </head>
 <body>
@@ -20,10 +21,10 @@
         ?>
         <ul>
             <li><a onclick="home(this)">Home</a></li>
-            <li><a onclick="profile(this)">Profile</a></li>
+            <li><a onclick="placeorder(this)">Place order</a></li>
             <li><a onclick="purchasehistory(this)">Purchase History</a></li>
             <li><a onclick="makeinquiry(this)">Make Inquiry</a></li>
-            <li><a onclick="placeorder(this)">Place order</a></li>
+            <li style="font-weight: bolder;"><a onclick="profile(this)"><?php if(isset($_SESSION["USER"]->role)){echo $_SESSION["USER"]->role;}else{ echo $_SESSION["USER"]->UserName;}?></a></li>
             
         </ul>
     </nav>
@@ -77,11 +78,11 @@
         }
         function makeinquiry(link){
                 changeActive(link);
-                window.location.href = BASE_URL + "CustomerControls/makeinquiry";
+                window.location.href = BASE_URL + "CustomerControls/makeinquiryview";
         }
         function placeorder(link){
                 changeActive(link);
-                window.location.href = BASE_URL + "CustomerControls/placeorder";
+                window.location.href = BASE_URL + "OrderControls/placeorder";
         }
         
 
