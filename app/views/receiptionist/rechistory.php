@@ -11,8 +11,8 @@
     <title>Purchase History</title>
 </head>
   
-    <title>Receptionist_Purchase History</title>
-</head>
+    <title>Receptionist Purchase History</title>
+
 <body>
     <?php
         include "recnavbar.php";
