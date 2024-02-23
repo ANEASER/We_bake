@@ -106,7 +106,7 @@
                         confirmButtonText: 'OK'
                     });
                     return false;
-}
+                }
 
                 if (chassisNumber.length !== 17) {
                     Swal.fire({
