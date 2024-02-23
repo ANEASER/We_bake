@@ -21,7 +21,7 @@
             ?>
 
         <button id="cartbutton" type="button" onclick="veiwcart()"></button> 
-        <section class="content" style="padding: 0%;" >
+        <section class="content" style="padding: 0%;height:100vh">
             <section class="category" style="display:flex;justify-content: flex-start;">
                         <form class="form" id="addToCartForm" method="post" action="<?php echo BASE_URL; ?>OrderControls/storeinsession">
 

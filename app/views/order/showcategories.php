@@ -19,7 +19,7 @@
 
     <button id="cartbutton" type="button" onclick="veiwcart()"></button> 
 
-    <section class="content" style="padding: 0%;">
+    <section class="content" style="padding: 0%;height:100vh">
         <section class="category" style="display:flex;justify-content: flex-start;">
             <div class="menu-category">
                 <?php

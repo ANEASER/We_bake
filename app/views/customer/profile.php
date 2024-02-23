@@ -17,123 +17,119 @@
     <?php
         include 'customernav.php';
     ?>
+        <section class="content" style="height: 120vh">
+                <section class="dashboard" >
+                    <section class="stats">
+                        <div class="statscard">
+                            <h3>Pending Orders</h3>
+                            
+                            <?php
+                                $pendingorders = 0;
+                                foreach($orders as $order){
+                                    if($order->orderstatus == "pending"){
+                                        $pendingorders = $pendingorders + 1;
+                                    }
+                                }
+                                echo "<p>".$pendingorders."</p>";
+                            ?>
+                        </div>
+                        <div class="statscard" style="color:darkblue">
+                            <h3>Completed Orders</h3>
+                            <?php
+                                $completedorders = 0;
+                                foreach($orders as $order){
+                                    if($order->orderstatus == "finished"){
+                                        $completedorders = $completedorders + 1;
+                                    }
+                                }
+                                echo "<p>".$completedorders."</p>";?>
+                        </div>
+                        <div class="statscard" style="color:brown">
+                            <h3>Cancelled Orders</h3>
+                            <?php
+                                $cancelledorders = 0;
+                                foreach($orders as $order){
+                                    if($order->orderstatus == "cancelled"){
+                                        $cancelledorders = $cancelledorders + 1;
+                                    }
+                                }
+                                echo "<p>".$cancelledorders."</p>";?>
+                        </div>
 
-    <section class="content">
-            <section class="dashboard">
-                <section class="stats">
-                    <div class="statscard">
-                        <h3>Pending Orders</h3>
+                        <div class="statscard">
+                            <h3>Total Orders</h3>
+                            <?php
+                                $totalorders = 0;
+                                foreach($orders as $order){
+                                    $totalorders = $totalorders + 1;
+                                }
+                                echo "<p>".$totalorders."</p>";?>
+                        </div>
                         
-                        <?php
-                            $pendingorders = 0;
-                            foreach($orders as $order){
-                                if($order->orderstatus == "pending"){
-                                    $pendingorders = $pendingorders + 1;
+                        <div class="statscard">
+                            <h3>Total Purchasings (Rs)</h3>
+                            <?php
+                                $totalpurchasings = 0;
+                                foreach($orders as $order){
+                                    $totalpurchasings = $totalpurchasings + $order->total;
                                 }
-                            }
-                            echo "<p>".$pendingorders."</p>";
-                        ?>
-                    </div>
-                    <div class="statscard">
-                        <h3>Completed Orders</h3>
-                        <?php
-                            $completedorders = 0;
-                            foreach($orders as $order){
-                                if($order->orderstatus == "finished"){
-                                    $completedorders = $completedorders + 1;
-                                }
-                            }
-                            echo "<p>".$completedorders."</p>";?>
-                    </div>
-                    <div class="statscard">
-                        <h3>Cancelled Orders</h3>
-                        <?php
-                            $cancelledorders = 0;
-                            foreach($orders as $order){
-                                if($order->orderstatus == "cancelled"){
-                                    $cancelledorders = $cancelledorders + 1;
-                                }
-                            }
-                            echo "<p>".$cancelledorders."</p>";?>
-                    </div>
+                                echo "<p>".$totalpurchasings."</p>";?>
+                        </div>
 
-                    <div class="statscard">
-                        <h3>Total Orders</h3>
-                        <?php
-                            $totalorders = 0;
-                            foreach($orders as $order){
-                                $totalorders = $totalorders + 1;
-                            }
-                            echo "<p>".$totalorders."</p>";?>
-                    </div>
+                        <div class="statscard">
+                            <h3>Total units</h3>
+                            <?php
+                            $totalunits = array_sum($itemQuantities);
+                            echo "<p>".$totalunits."</p>";?>
+                        </div>
+                        
                     
-                    <div class="statscard">
-                        <h3>Total Purchasings (Rs)</h3>
-                        <?php
-                            $totalpurchasings = 0;
-                            foreach($orders as $order){
-                                $totalpurchasings = $totalpurchasings + $order->total;
-                            }
-                            echo "<p>".$totalpurchasings."</p>";?>
-                    </div>
-
-                    <div class="statscard">
-                        <h3>Total units</h3>
-                        <?php
-                        $totalunits = array_sum($itemQuantities);
-                        echo "<p>".$totalunits."</p>";?>
-                    </div>
-                    
-                
-            </section>
-            <h1 style="text-align: center;">Most Purchaced Items</h1>
-            <section style="display:flex;padding: 1%;">
-                <?php
-                        if(is_array($mostPurchasedItems) && !empty($mostPurchasedItems)){
-                        foreach($mostPurchasedItems as $item){
-                                echo "<div class='statscard' style='background-image:url(" . BASE_URL . 'media/uploads/Product/' . $item->Link . ")'>";
-                                echo "<h4>".$item->Name."</h4>";
-                                echo "<h4>".$item->ItemCode."</h4>";
-                                echo "<h4>".$item->Quantity."</h4>";
-                                echo "</div>";
-                            }} else {
-                                echo "<h3 style='text-align:center;'>No Purchased Items</h3>";
-                            }
-                ?>
-            </section>
-    </section>
-            <section class="profile" style="font-weight: bolder; padding-left:3%">
-                <h1 style="margin-left:10%;font-size:1.5em"><span id="greeting"></span><td>  <?php echo $_SESSION["USER"]->UserName ?></td></h1>
-                <br>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" style="border-radius: 80px;margin-left:20%"  alt="propic" height="100px" width="100px">
-                <p></p><br>
-                <table>
-                    <tr>
-                        
-                        <td><?php echo $_SESSION["USER"]->Name; ?></td>
-                    </tr>
-                    <tr>
-                        
-                        <td><?php echo $_SESSION["USER"]->Address; ?></td>
-                    </tr>
-                    <tr>
-                       
-                        <td><?php echo $_SESSION["USER"]->contactNo; ?></td>
-                    </tr>
-                    <tr>
-                        <td><?php echo $_SESSION["USER"]->Email; ?></td>
-                    </tr>
-                </table>
-                <br>
-                <section class="buttongroup" style="display:flex; flex-direction:column">
-                        <button class="brownbutton" onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
-
-                        <button class="brownbutton" onclick="changepassword()" class="buttonedit">Change Password</button>
-
-                        <button class="brownbutton" onclick="logout()">Log Out</button>
                 </section>
-    </section>
-    
+                <h1 style="text-align: center;color:darkblue">Most Purchaced Items</h1>
+                        <section style="display:flex;padding: 1%;">
+                            <?php
+                                    if(is_array($mostPurchasedItems) && !empty($mostPurchasedItems)){
+                                    foreach($mostPurchasedItems as $item){
+                                            echo "<div class='statscard' style='background-image:url(" . BASE_URL . 'media/uploads/Product/' . $item->Link . ")'>";
+                                            echo "<h4>".$item->Name."</h4>";
+                                            echo "<h4>".$item->ItemCode."</h4>";
+                                            echo "<h4>".$item->Quantity."</h4>";
+                                            echo "</div>";
+                                        }} else {
+                                            echo "<h3 style='text-align:center;'>No Purchased Items</h3>";
+                                        }
+                            ?>
+                        </section>
+        </section>
+        <section class="profile" style="font-weight: bolder; padding-left:3%">
+                    <h1 style="margin-left:10%;font-size:1.5em"><span id="greeting"></span><td>  <?php echo $_SESSION["USER"]->UserName ?></td></h1>
+                    <br>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" style="border-radius: 80px;margin-left:20%"  alt="propic" height="100px" width="100px">
+                    <p></p><br>
+                    <table>
+                        <tr>
+                            <td><?php echo $_SESSION["USER"]->Name; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $_SESSION["USER"]->Address; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $_SESSION["USER"]->contactNo; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $_SESSION["USER"]->Email; ?></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <section class="buttongroup" style="display:flex; flex-direction:column">
+                            <button class="brownbutton" onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
+
+                            <button class="brownbutton" onclick="changepassword()" class="buttonedit">Change Password</button>
+
+                            <button class="brownbutton" onclick="logout()">Log Out</button>
+                    </section>
+            </section>
+        </section>
     <script>
     
     var BASE_URL = "<?php echo BASE_URL; ?>";

@@ -7,40 +7,38 @@
     <style>
         th, td {
             padding: 5px;
-            text-align: left;
+            text-align: right;
             border-bottom: 1px solid #ddd;
         }
     </style>
 </head>
 <body>
-    <div>
+
     <?php
-        echo "<table>
-        <tr>
-            
-            <th>CODE</th>
-            <th>ITEM NAME</th>
-            <th>AMOUNT</th>
-            <th>SUBTOTAL</th>
-        </tr>";
-        $total = 0;
+    echo "<table style='margin: 0 auto;'>
+    <tr>
+        <th>ITEM NAME</th>
+        <th>AMOUNT</th>
+        <th>SUBTOTAL</th>
+    </tr>";
 
-        foreach ($cartItems as $item) {
-            echo '<tr>
-                    <td>' . htmlspecialchars($item['code']) . '</td>
-                    <td>' . htmlspecialchars(strtoupper($item['name'])) . '</td>
-                    <td>' . htmlspecialchars($item['quantity']) . '</td>
-                    <td>' . htmlspecialchars($item['quantity'] * $item['price']) . '</td>
-                </tr>';
+    $total = 0;
 
-            $total += $item['quantity'] * $item['price'];
+    foreach ($cartItems as $item) {
+        echo '<tr>
+                <td>' . htmlspecialchars(strtoupper($item['name'])) . '</td>
+                <td>' . htmlspecialchars($item['quantity']) . '</td>
+                <td>' . htmlspecialchars($item['quantity'] * $item['price']) . '</td>
+            </tr>';
 
-        } 
-        echo "</table>";
-        echo "<br>";
-        echo "<p style='padding-left:2%'>TOTAL PRICE: Rs. " . $total."</p>";
-        echo "<br>";
-    ?>
-    </div>
+        $total += $item['quantity'] * $item['price'];
+    } 
+
+    echo "</table>";
+    echo "<br>";
+    echo "<p style='padding-left:2%'>TOTAL PRICE: Rs. " . $total."</p>";
+    echo "<br>";
+?>
+
 </body>
 </html>

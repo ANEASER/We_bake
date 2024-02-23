@@ -10,13 +10,19 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
+
+    <style>
+        button {
+            min-height: 100px;
+        }
+    </style>
         <section class="cart">
             <section class="content">
                 <?php
                     include 'cartitems.php';
                 ?>
             </section>
-            <section class="buttongroup">
+            <section class="buttongroup" style="margin: 0%;padding:0%">
                 <button class="yellowbutton" onclick="edit()">edit</button>
                 <button class="greenbutton" onclick="checkout()">checkout</button>
                 <button class="redbutton" onclick="cancel()">cancel</button>

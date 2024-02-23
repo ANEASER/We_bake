@@ -30,13 +30,19 @@
             <div class="form-group">
                     <label for="inquirytext">INQUIRY:</label>
                     <textarea id="inquirytext" name="inquirytext" row="10" required></textarea><br>
+                    <p id="charCount" style="font-size: 10px;">Characters remaining: 250</p>
             </div>
                 
                 <input class="bluebutton"  type="submit" value="SUBMIT">
             </form>
         </div>
     </section>
-    
+    <script>
+        document.getElementById('inquirytext').addEventListener('input', function () {
+            var charCount = 250 - this.value.length;
+            document.getElementById('charCount').innerText = 'Characters remaining: ' + charCount;
+        });
+    </script>
 </body>
 </html>
 
