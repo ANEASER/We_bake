@@ -46,9 +46,10 @@
         function submitorder(){
             session_start();
             $_SESSION["date"] = $_POST['orderdate'];
-            $_SESSION["adress"] = $_POST['deliver_address'];
             $_SESSION["deliverstatus"] = $_POST['deliverystatus'];
             $_SESSION['picker'] = $_POST['pickername'];
+            
+            
 
             if (isset($_SESSION['unique_id'])) {
                unset($_SESSION['unique_id']);
@@ -56,6 +57,17 @@
             }
 
             $unique_id = uniqid();
+
+            if(isset($_POST['deliver_address'])) {
+                $_SESSION["adress"] = $_POST['deliver_address'];
+            }
+
+            if(isset($_POST['deliver_city'])) {
+                $deliver_city = $_POST['deliver_city'];
+                $deliver_charges = new DeliveryCharges();
+                $charges = $deliver_charges->where("city", $deliver_city);
+                $_SESSION['charges'] = $charges[0];
+            }
 
             $_SESSION['unique_id'] = $unique_id;
 
@@ -213,6 +225,9 @@
             $max_orderid += 1;
             $max_orderid = str_pad($max_orderid, 7, '0', STR_PAD_LEFT);
 
+            $deliveryChargeString = $_SESSION["delivery_charge"];
+            $deliveryChargeInt = intval($deliveryChargeString);
+
             $arr2["orderdate"] = $_SESSION["date"];
             $arr2["deliver_address"] = $_SESSION["adress"];
             $arr2["deliverystatus"] = $_SESSION["deliverstatus"];
@@ -221,7 +236,7 @@
             $arr2["orderstatus"] = "pending";
             $arr2["paymentstatus"] = "pending";
             $arr2["pickername"] = $_SESSION["picker"];
-            $arr2["total"] = $total;
+            $arr2["total"] = $total + $deliveryChargeInt;
 
             if($arr2["deliverystatus"] == "delivery"){
                 $orderref = "D".$max_orderid;

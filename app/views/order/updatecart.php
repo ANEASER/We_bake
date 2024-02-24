@@ -19,6 +19,16 @@
         <section class="content">
         <?php
 
+            if(!isset($_SESSION)){
+                session_start();
+            }
+
+            if(isset($_SESSION["charges"])){
+                $_SESSION["delivery_charge"] = $_SESSION["charges"]->cap_10;
+            }else{
+                $_SESSION["delivery_charge"] = 0;
+            }
+
             echo "<table>
             <tr>
                 <th>ID</th>
@@ -29,6 +39,7 @@
             </tr>";
 
             $total = 0;
+            $quantity = 0;
 
             foreach ($cartItems as $item) {
                 echo "<tr>
@@ -43,12 +54,27 @@
                 </td>
                 </tr>";
                 $total += $item['quantity'] * $item['price'];
+                $quantity += $item['quantity'];
+
+                if($quantity > 10 && $quantity <= 80 && $_SESSION["deliverstatus"] == "delivery"){
+                    $_SESSION["delivery_charge"] = $_SESSION["charges"]->cap_80;
+                }
+                else if($quantity > 80 && $quantity <= 300 && $_SESSION["deliverstatus"] == "delivery"){
+                    $_SESSION["delivery_charge"] = $_SESSION["charges"]->cap_300;
+                }else if ($quantity > 300 && $quantity <= 1000 && $_SESSION["deliverstatus"] == "delivery"){
+                    $_SESSION["delivery_charge"] = $_SESSION["charges"]->cap_1000;
+                }
+                else if($quantity > 1000 && $_SESSION["deliverstatus"] == "delivery"){
+                    $_SESSION["delivery_charge"] = $_SESSION["charges"]->cap_1000;
+                }
 
             }
             echo "</table>";
             echo "<br>";
-                echo "<p style='text-align:left'>TOTAL PRICE: Rs. " . $total."</p>";
-            echo "<br>";
+                echo "<p style='text-align:left'>CART PRICE: Rs. " . $total."</p>";
+                echo "<p style='text-align:left'>DELIVERY CHARGE: Rs. " . $_SESSION["delivery_charge"]."</p>";
+                echo "<p style='text-align:left'>Quantity " . $quantity."</p>";
+            "<br>";
         ?>
         </section>
         <section class="buttongroup">
