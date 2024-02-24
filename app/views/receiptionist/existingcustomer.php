@@ -38,8 +38,8 @@
     ?>
  <h1>Place Order</h1>
 
-
-        <form action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" method="post">
+       <div class = "form-container">
+        <form class="form" action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" method="post">
 
         <?php
         if (isset($customerfound)) {
@@ -51,15 +51,19 @@
                     <input type="hidden" id="customername" name="name" value="' . $customerfound[0]->Name . '" required><br>
                     <input type="hidden" id="customeremail" name="email" value="' . $customerfound[0]->Email . '" required><br>
                     <input type="hidden" id="customerphone" name="phone" value="' . $customerfound[0]->contactNo . '" required><br>
-            
+
+            <div class="form-group">
                     <label for="orderdate">Order Date:</label>
                     <input type="date" id="orderdate" name="orderdate" required><br>
-            
+            </div>
+
+            <div class="form-group">
                     <label for="deliver_address">Delivery Address:</label>
                     <input type="text" id="deliver_address" name="deliver_address" required><br>
-                    
-                    <label for="deliverystatus">Delivery/Pickup:</label>
-
+            </div>       
+                  
+            
+            <label for="deliverystatus">Delivery/Pickup:</label>
                     <select id="deliverystatus" name="deliverystatus" required>
                     <option value="delivery">Delivery</option>
                     <option value="pickup">Pickup</option>
@@ -70,24 +74,36 @@
             echo '<label for="customername">Customer Name:</label>
                 <input type="text" id="customername" name="name" required><br>
 
+                <div class="form-group">
                 <label for="customeremail">Customer Email:</label>
                 <input type="email" id="customeremail" name="email" required><br>
+                </div> 
 
+
+                <div class="form-group">
                 <label for="customerphone">Customer Phone:</label>
                 <input type="tel" id="customerphone" name="phone" required><br>
+                </div> 
 
+
+                <div class="form-group">
                 <label for="orderdate">Order Date:</label>
                 <input type="date" id="orderdate" name="orderdate" required><br>
+                </div>
 
+
+                <div class="form-group">
                 <label for="deliver_address">Delivery Address:</label>
                 <input type="text" id="deliver_address" name="deliver_address" required><br>
-                
                 <label for="deliverystatus">Delivery/Pickup:</label>
+                </div> 
+
                 
                 <select id="deliverystatus" name="deliverystatus" required>
                 <option value="delivery">Delivery</option>
                 <option value="pickup">Pickup</option>
                 </select><br>';
+                
             }
             ?>
             
