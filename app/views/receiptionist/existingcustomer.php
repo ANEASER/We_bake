@@ -10,8 +10,7 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
-    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
-    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    
     <h1 style="background-color:Lightbrown;">Receptionist Dashboard</h1>
     <title>Place Order</title>
 
@@ -57,13 +56,11 @@
                     <input type="date" id="orderdate" name="orderdate" required><br>
             </div>
 
-            <div class="form-group">
                     <label for="deliver_address">Delivery Address:</label>
                     <input type="text" id="deliver_address" name="deliver_address" required><br>
-            </div>       
-                  
-            
-            <label for="deliverystatus">Delivery/Pickup:</label>
+                    
+                    <label for="deliverystatus">Delivery/Pickup:</label>
+
                     <select id="deliverystatus" name="deliverystatus" required>
                     <option value="delivery">Delivery</option>
                     <option value="pickup">Pickup</option>
@@ -74,36 +71,24 @@
             echo '<label for="customername">Customer Name:</label>
                 <input type="text" id="customername" name="name" required><br>
 
-                <div class="form-group">
                 <label for="customeremail">Customer Email:</label>
                 <input type="email" id="customeremail" name="email" required><br>
-                </div> 
 
-
-                <div class="form-group">
                 <label for="customerphone">Customer Phone:</label>
                 <input type="tel" id="customerphone" name="phone" required><br>
-                </div> 
 
-
-                <div class="form-group">
                 <label for="orderdate">Order Date:</label>
                 <input type="date" id="orderdate" name="orderdate" required><br>
-                </div>
 
-
-                <div class="form-group">
                 <label for="deliver_address">Delivery Address:</label>
                 <input type="text" id="deliver_address" name="deliver_address" required><br>
-                <label for="deliverystatus">Delivery/Pickup:</label>
-                </div> 
-
                 
+                <label for="deliverystatus">Delivery/Pickup:</label>
+
                 <select id="deliverystatus" name="deliverystatus" required>
                 <option value="delivery">Delivery</option>
                 <option value="pickup">Pickup</option>
                 </select><br>';
-                
             }
             ?>
             

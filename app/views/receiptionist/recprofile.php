@@ -15,7 +15,6 @@
     <?php
         include "recnavbar.php";
     ?>
-
     <h1>Profile</h1>
     
      <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
