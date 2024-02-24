@@ -47,7 +47,7 @@
                 <td>{$item['code']}</td>
                 <td>{$item['quantity']}</td>
                 <td>
-                    <button class='yellowbutton' type='button' onclick='editCartItem({$item['id']}, {$item['quantity']})'>Edit</button>
+                    <button  class='yellowbutton' type='button' onclick='editCartItem({$item['id']}, {$item['quantity']})'>Edit</button>
                 </td>
                 <td>
                     <button class='redbutton' type='button' onclick='deletecartitem({$item['id']})'>Delete</button>
