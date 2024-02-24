@@ -13,7 +13,8 @@
 
     <style>
         button {
-            min-height: 100px;
+            min-height: 50px;
+            min-width: 100px;
         }
     </style>
         <section class="cart">

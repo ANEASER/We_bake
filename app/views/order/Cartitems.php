@@ -17,7 +17,7 @@
     <?php
     echo "<table style='margin: 0 auto;'>
     <tr>
-        <th>ITEM NAME</th>
+        <th style='text-align: center;'>ITEM NAME</th>
         <th>AMOUNT</th>
         <th>SUBTOTAL</th>
     </tr>";
@@ -26,7 +26,7 @@
 
     foreach ($cartItems as $item) {
         echo '<tr>
-                <td>' . htmlspecialchars(strtoupper($item['name'])) . '</td>
+                <td style="text-align: center;">' . htmlspecialchars(strtoupper($item['name'])) . '</td>
                 <td>' . htmlspecialchars($item['quantity']) . '</td>
                 <td>' . htmlspecialchars($item['quantity'] * $item['price']) . '</td>
             </tr>';
@@ -36,7 +36,7 @@
 
     echo "</table>";
     echo "<br>";
-    echo "<p style='padding-left:2%'>TOTAL PRICE: Rs. " . $total."</p>";
+    echo "<p style='padding-left:2%; text-align:center'>TOTAL PRICE: Rs. " . $total."</p>";
     echo "<br>";
 ?>
 
