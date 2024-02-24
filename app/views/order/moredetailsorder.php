@@ -85,7 +85,6 @@
     </section>
     <script>
     var BASE_URL = "<?php echo BASE_URL; ?>";
-
     // Make sure to properly encode the user information
     var user = <?php echo json_encode($_SESSION["USER"]); ?>;
     
@@ -102,6 +101,7 @@
             window.location.href = BASE_URL + "CustomerControls/purchasehistory";
         }
     }
+
     </script>
 
 

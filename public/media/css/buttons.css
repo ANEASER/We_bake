@@ -9,7 +9,8 @@ button, input[type="submit"] {
 
 
 .bluebutton {
-    margin: 5%;
+    margin: 0% 5%;
+
     background-color: #3498db;
     color: white;
 }
@@ -20,7 +21,9 @@ button, input[type="submit"] {
 
 
 .greenbutton {
-    margin: 5%;
+
+    margin: 0% 5%;
+
     background-color: #2ecc71;
     color: white;
 }
@@ -31,7 +34,8 @@ button, input[type="submit"] {
 
 
 .redbutton {
-    margin: 5%;
+    margin: 0% 5%;
+
     background-color: #e74c3c;
     color: white;
 }
@@ -42,7 +46,7 @@ button, input[type="submit"] {
 
 
 .yellowbutton {
-    margin: 5%;
+    margin: 0% 5%;
     background-color: #f1c40f;
     color: white;
 }
@@ -65,7 +69,7 @@ button, input[type="submit"] {
 }
 
 .brownbutton {
-    margin: 5%;
+    margin: 1% 5%;
     background-color: #41201f;
     color: white;
 }
@@ -81,9 +85,16 @@ button, input[type="submit"] {
     border: none;
     border-radius: 4px; 
     cursor: pointer;
-    margin: 2%;
+    height: 40px;
 }
 
 .searchbox {
-    padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-right: 5px;white-space: nowrap;
+    padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-right: 5px;white-space: nowrap;height: 40px;
+}
+
+.yellowbutton2 {
+    margin: 5%;
+    background-color: #f1c40f;
+    color: white;
+
 }

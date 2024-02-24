@@ -268,7 +268,7 @@
             if(isset($_SESSION["USER"]->Role)){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
-            
+
            echo $this->view("customer/makeinquiry");
     
         }

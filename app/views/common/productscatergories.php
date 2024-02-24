@@ -10,6 +10,7 @@
     <title>Product Categories</title>
 </head>
 <body>
+
 <?php 
         session_start();
         if(isset($_SESSION["USER"])){
@@ -37,10 +38,24 @@
                                 </div>
                             </div>';
                     }
+
+                    if(isset($_SESSION["USER"]) && ($_SESSION["USER"]->Role == 'admin')){
+                        echo '<div class="menu-item" onclick="add()">
+                                    <img src="' . BASE_URL .'media/uploads/Content/add.png" alt="ADD" style="height: 210px; width: 250px;">
+                                    <div class="item-details" style="">
+                                        <h3>ADD ITEM</h3>
+                                    </div>
+                            </div>';}
                 ?>
             </div>
         </section>
         <script>
+            var BASE_URL = "<?php echo BASE_URL; ?>";
+
+            function add() {
+                window.location.href = BASE_URL + "AdminControls/AddItem";
+            }
+
             function selectCategory(category) {
                 window.location.href = "<?php echo BASE_URL; ?>CommonControls/productitem/" + category;
             }

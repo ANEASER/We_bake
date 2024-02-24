@@ -7,6 +7,7 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/category.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
     <title>Select Category</title>
 </head>
 <body>
@@ -18,9 +19,8 @@
 
     <button id="cartbutton" type="button" onclick="veiwcart()"></button> 
 
-    <section class="content">
-        
-        <section class="category">
+    <section class="content" style="padding: 0%;">
+        <section class="category" style="display:flex;justify-content: flex-start;">
             <div class="menu-category">
                 <?php
 
@@ -39,14 +39,13 @@
         </section>
         <section class="cart">
                 <?php
-                    include 'cartitems.php';
+                    include 'Cartitems.php';
                 ?>
                 <div>
                     <button class="greenbutton" type="button" onclick="veiwcart()">checkout</button>
                     <button class="yellowbutton" onclick="edit()">edit</button>      
                 </div>
         </section>
-    
     </section>
         <script>
             function selectCategory(category) {
