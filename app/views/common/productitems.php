@@ -29,31 +29,37 @@
                             <?php
 
                                 foreach ($items as $item) {
-                                    echo '<div class="menu-item">';
+                                    if($_SESSION["USER"]->Role == 'admin'){
+                                        echo '<div class="menu-item" style="height: 330px;">';
+                                    }else {
+                                        echo '<div class="menu-item">';
+                                    }
                                         echo '<p>' . $item->itemname . '</p>';
                                         echo '<img src="'. BASE_URL .'media/uploads/Product/'.$item->imagelink.'" alt="' . $item->itemname . '" style="height: 210px; width: 250px;">';
                                         echo '<input type="hidden" name="items[' . $item->itemid . '][id]" value="' . $item->itemid . '">';
                                         echo '<input type="hidden" name="items[' . $item->itemid . '][code]" value="' . $item->Itemcode . '">';
                                         echo '<input type="hidden" name="items[' . $item->itemid . '][name]" value="' . $item->itemname . '">';
                                         echo '<input type="hidden" name="items[' . $item->itemid . '][price]" value="' . $item->retailprice . '">';
-                                        echo '<p> Price :' . $item->retailprice.'</p>';
+                                        echo '<p style="text-align:center"> Price :' . $item->retailprice.'</p>';
                                         if ($item->availability == 0) {
-                                            echo '<p style="color:red">Not Available</p>';
+                                            echo '<p style="color:red;text-align:center">Not Available</p>';
                                         } else{
-                                            echo '<p style="color:rgb(78, 255, 8)"> Available </p>';
+                                            echo '<p style="color:rgb(78, 255, 8);text-align:center"> Available </p>';
                                         }
-                                        if(isset($_SESSION["USER"])){
-                                            echo '<td><button onclick="edit(' . $item->itemid . ')">Update</button></td>';
-                                            echo '<td><button onclick="undo(' . $item->itemid . ')">Undo</button></td>';
-                                            echo '<td><button onclick="del(' . $item->itemid . ')">Delete</button></td>';
+                                        if($_SESSION["USER"]->Role == 'admin'){
+                                            echo '<div style="display:flex;flex-direction:row">';
+                                            echo '<button style="width: 80px;" onclick="edit(' . $item->itemid . ')">Update</button>';
+                                            echo '<button style="width: 80px;" onclick="undo(' . $item->itemid . ')">Undo</button>';
+                                            echo '<button style="width: 80px;" onclick="del(' . $item->itemid . ')">Delete</button>';
+                                            echo '</div>';
                                         }
                                         
                                     echo '</div>';
                                 }
 
                                 if(isset($_SESSION["USER"]) && ($_SESSION["USER"]->Role == 'admin')){
-                                echo '<div class="menu-item" onclick="add()">
-                                            <img src="' . BASE_URL .'media/uploads/Content/add.png" alt="ADD" style="height: 210px; width: 250px;">
+                                echo '<div class="menu-item" style="height: 330px;" onclick="add()">
+                                            <img src="' . BASE_URL .'media/uploads/Content/add.png" alt="ADD" style="height: 250px; width: 250px;">
                                             <div class="item-details" style="">
                                                 <h3>ADD ITEM</h3>
                                             </div>

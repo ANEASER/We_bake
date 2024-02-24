@@ -72,17 +72,18 @@
                 <div class="form-group">
                     <label for="category">Category:</label>
                     <select id="category" name="category">
-                        <option value="Bread">Bread</option>
-                        <option value="Pastries">Pastries</option>
+                    <option value="Pastries">Pastries</option>
                         <option value="Cakes">Cakes</option>
                         <option value="Cookies">Cookies</option>
                         <option value="Muffins">Muffins</option>
                         <option value="Doughnuts">Doughnuts</option>
                         <option value="Pies">Pies</option>
-                        <option value="Rolls and Buns">Rolls and Buns</option>
+                        <option value="Buns">Buns</option>
+                        <option value="Rolls">Rolls</option>
                         <option value="Sandwiches">Sandwiches</option>
                         <option value="Pizza">Pizza</option>
                         <option value="Others">Others</option>
+                        <option value="Specials">Specials</option>
                     </select>
                 </div>
 

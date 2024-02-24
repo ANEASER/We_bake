@@ -42,7 +42,7 @@
                                                 echo '<p style="color:red">Not Available</p>';
                                             } else{
                                                
-                                                echo '<input style="width: 120px;" type="number" placeholder="Enter value" min="0" name="items[' . $item->itemid . '][quantity]" />';
+                                                echo '<input style="width: 80px; margin-left:20px" type="number" placeholder="Enter value" min="0" name="items[' . $item->itemid . '][quantity]" />';
                                                 echo '<button class="bluebutton" type="submit" value="Submit">Add to Cart</button>';
                                                 
                                             }

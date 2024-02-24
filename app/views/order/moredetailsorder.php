@@ -45,8 +45,8 @@
                     echo "<tr>
                             <th>Item Code </th>
                             <th>Item Name</th>
-                            <th>Price</th>
                             <th>Quantity</th>
+                            <th>Price</th>
                             <th>Subtotal</th>
                         </tr>";
 
