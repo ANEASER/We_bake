@@ -44,7 +44,7 @@
             <input class="searchbutton" type="submit" value="Search">
         </form>
         <section class="buttongroup">
-            <button class="bluebutton" onclick="add()">Add New User</button>
+            <button style="width: 200px;"  class="bluebutton" onclick="add()">Add New User</button>
             <button class="greenbutton" onclick="viewall()">View All</button>
         </section>
     </div>
@@ -73,7 +73,7 @@
                     </tr>';
 
                     foreach ($users as $user) {
-                        if ($user->Role !== 'admin' && (stripos($user->UserName, $searchQuery) !== false || (stripos($user->NIC, $searchQuery) !== false) || (stripos($user->Role, $searchQuery) !== false))) {
+                        if ($user->Role !== 'admin'&& $user->Role !== 'owner'  && (stripos($user->UserName, $searchQuery) !== false || (stripos($user->NIC, $searchQuery) !== false) || (stripos($user->Role, $searchQuery) !== false))) {
                             echo '<tr>';
                             echo '<td class="hideonmobile">' . $user->Name . '</td>';
                             echo '<td>' . $user->NIC . '</td>';
