@@ -9,6 +9,9 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <h1 style="background-color:Lightbrown;">Receptionist Dashboard</h1>
     <title>Place Order</title>
 
@@ -34,6 +37,8 @@
         include "recnavbar.php";
     ?>
  <h1>Place Order</h1>
+
+
         <form action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" method="post">
 
         <?php
@@ -54,10 +59,12 @@
                     <input type="text" id="deliver_address" name="deliver_address" required><br>
                     
                     <label for="deliverystatus">Delivery/Pickup:</label>
+
                     <select id="deliverystatus" name="deliverystatus" required>
                     <option value="delivery">Delivery</option>
                     <option value="pickup">Pickup</option>
                     </select><br>';
+
             echo "<button type='button' onclick='newcustomer()'>New Customer</button>";
         } else {
             echo '<label for="customername">Customer Name:</label>
@@ -76,6 +83,7 @@
                 <input type="text" id="deliver_address" name="deliver_address" required><br>
                 
                 <label for="deliverystatus">Delivery/Pickup:</label>
+                
                 <select id="deliverystatus" name="deliverystatus" required>
                 <option value="delivery">Delivery</option>
                 <option value="pickup">Pickup</option>
