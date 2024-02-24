@@ -19,21 +19,29 @@ section.stats {
     font-weight: bold;
 }
 
+.buttongroup {
+    display: flex;
+    width: 200px;
+    flex-direction: column;
+}
+
 section.stats h3 {
     font-size: 1.5em;
 }
 
 section.dashboard {
-    width: 78%;
+    width: 76%;
     height: 100vh;
 }
 
 section.profile {
     width: 22%;
-    padding: 15px;
-    padding-left: 15px;
+    padding: 20px;
     background-color: rgba(245, 242, 242, 0.658);
     font-size: 0.8em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 section.content {
@@ -47,17 +55,19 @@ section.content {
     display: none;
 }  
 
-.buttongroup{
-    display: flex; justify-content: space-around;
+#dashboardbutton {
+    display: none;
 }
 
-button {
-    justify-content: flex-start;
-}
+
 
 @media screen and (max-width: 1100px){
     section.profile {
        display: none;
+       width: 100%;
+       margin: 10%;
+       flex-direction: column;
+       padding-left: 8%;
     }
 
     section.stats {
@@ -65,11 +75,38 @@ button {
         padding: 20px;
     }
     #profilebutton {
-        display: block; 
+        display: block;
         position: fixed; 
         top: 100px; 
         right: 10px; 
         z-index: 2;
+        margin: 5%;
+        background-image: url("../uploads/Content/Profileicon.png");
+        width: 100px;
+        height: 100px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: solid 3px rgb(58, 31, 6);
+        border-radius:  4px ;
+        cursor: pointer;
+    }
+
+    #dashboardbutton {
+        display: none;
+        position: fixed; 
+        top: 100px; 
+        right: 10px; 
+        z-index: 2;
+        background-image: url("../uploads/Content/Dash.png");
+        width: 100px;
+        height: 100px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        border: solid 3px rgb(58, 31, 6);
+        border-radius:  4px ;
+        cursor: pointer;
     }
 
     section.content {

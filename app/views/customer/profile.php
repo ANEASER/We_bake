@@ -17,7 +17,11 @@
     <?php
         include 'customernav.php';
     ?>
-        <section class="content" style="height: 120vh">
+
+    <button id="profilebutton" type="button" onclick="viewProfile()"></button>
+    <button id="dashboardbutton" type="button" onclick="viewDashboard()"></button>
+
+        <section class="content" style="height: 120vh; width:100vw">
                 <section class="dashboard" >
                     <section class="stats">
                         <div class="statscard">
@@ -102,9 +106,10 @@
                         </section>
         </section>
         <section class="profile" style="font-weight: bolder; padding-left:3%">
-                    <h1 style="margin-left:3%;font-size:1.5em"><span id="greeting"></span><td>  <?php echo $_SESSION["USER"]->UserName ?></td></h1>
+                    <h1 style="font-size:1.5em;text-align:center"><span id="greeting"></span><td>  <?php echo $_SESSION["USER"]->UserName ?></td></h1>
                     <br>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" style="border-radius: 80px;margin-left:20%"  alt="propic" height="100px" width="100px">
+                    <br>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" style="border-radius: 80px"  alt="propic" height="100px" width="100px">
                     <p></p><br>
                     <table>
                         <tr>
@@ -121,7 +126,8 @@
                         </tr>
                     </table>
                     <br>
-                    <section class="buttongroup" style="display:flex; flex-direction:column">
+                    <br>
+                    <section class="buttongroup">
                             <button class="brownbutton" onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
 
                             <button class="brownbutton" onclick="changepassword()" class="buttonedit">Change Password</button>
@@ -177,13 +183,55 @@
             var greetingElement = document.getElementById('greeting');
 
             if (currentHour >= 5 && currentHour < 12) {
-                greetingElement.textContent = 'Good morning!';
+                greetingElement.textContent = 'Good Morning!';
             } else if (currentHour >= 12 && currentHour < 18) {
-                greetingElement.textContent = 'Good afternoon!';
+                greetingElement.textContent = 'Good Afternoon!';
             } else {
-                greetingElement.textContent = 'Good evening!';
+                greetingElement.textContent = 'Good Evening!';
             }
     }
+
+    function viewProfile() {
+            console.log('view profile');
+            var profileSection = document.querySelector('.profile');
+            var dashboardSection = document.querySelector('.dashboard');
+            var profileButton = document.getElementById('profilebutton');
+            var dashboardButton = document.getElementById('dashboardbutton');
+
+            profileSection.style.display = 'flex';
+            dashboardSection.style.display = 'none';
+            profileButton.style.display = 'none';
+            dashboardButton.style.display = 'block';
+        }
+
+    function viewDashboard() {
+            console.log('view dashboard');
+            var profileSection = document.querySelector('.profile');
+            var dashboardSection = document.querySelector('.dashboard');
+            var profileButton = document.getElementById('profilebutton');
+            var dashboardButton = document.getElementById('dashboardbutton');
+
+            profileSection.style.display = 'none';
+            dashboardSection.style.display = 'block';
+            profileButton.style.display = 'block';
+            dashboardButton.style.display = 'none';
+        }
+
+        var previousWidth = window.innerWidth;
+
+    function checkAndRefresh() {
+        var currentWidth = window.innerWidth;
+
+        if (currentWidth > 1100 && currentWidth !== previousWidth) {
+            location.reload(true);
+        }
+
+        // Update the previousWidth variable
+        previousWidth = currentWidth;
+    }
+    window.addEventListener('resize', checkAndRefresh);
+
+    window.onload = checkAndRefresh;
 
     updateGreeting();
 
