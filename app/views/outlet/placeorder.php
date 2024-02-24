@@ -7,6 +7,7 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
     <h1 style="background-color:Lightbrown;">Outlet Manager Dashboard</h1>
     <title>Place Order</title>
 </head>
@@ -17,7 +18,8 @@
     ?>
 <h1> Place Order </h1>
    
-<form action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" method="post">
+<div class = "form-container">
+        <form class="form" action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" method="post">
 
 
 <label for="orderdate"><br>Order Date:</label>
