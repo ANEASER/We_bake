@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <style>
+        body { 
+           margin-right: -10px;
+           overflow-y: scroll; 
+        }
+
+        body::-webkit-scrollbar {
+                scrollbar-width: thin;
+                scrollbar-color: #888 transparent;
+        }
+
+        body::-webkit-scrollbar-thumb {
+        background-color: #888;
+        }
+
+
         .adds{
                 display: flex;
                 flex-direction: column;

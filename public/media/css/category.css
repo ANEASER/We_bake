@@ -17,6 +17,7 @@ section.content {
     width: 100%;
     justify-content: space-between;
     flex-direction: row;
+    height: 100vh;
 }
 
 .menu-category {

@@ -9,12 +9,18 @@
     <title></title>
 </head>
 <body>
-<div>
-    <h1> Billing clerk Dashboard</h1>
+    <nav>
+        <input type="checkbox" id="check" name="" value="">
+        <label for="check" class="checkbtn container" onclick="changemobilemode(this)">
+            <div class="bar1"> <i id="sidebar_btn"></i> </div>
+            <div class="bar2"> <i id="sidebar_btn"></i> </div>
+            <div class="bar3"> <i id="sidebar_btn"></i> </div>
+        </label>
+        <?php
+            echo '<img class="logo" src="' . BASE_URL . 'media/uploads/Content/logo.png" width="200px">';
+        ?>
         <ul>
-            <li><button class="navbutton" onclick="loadDash()">Home</button></li>
-            <li><button class="navbutton" onclick="loadProfile()">Profile</button></li>
-            <li><button class="navbutton" onclick="logout()">Logout</button></li>
+            <li><a onclick="logout(this)">logout</a></li>
         </ul>
     </nav>
     <script>

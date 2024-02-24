@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
     class AdminControls extends Controller{
 
         function index($id=null){
@@ -8,9 +11,16 @@
             }
 
             $systemuser = new Systemuser();
-            $data = $systemuser->where("UserName", $_SESSION["USER"]->UserName);
+            $producorder = new ProductOrder();
+            $productorderline = new ProductOrderLine();
+            $productitem = new ProductItem();
 
-            echo $this->view("admin/admindash",[ "data" => $data]);
+            $data = $systemuser->where("UserName", $_SESSION["USER"]->UserName);
+            $producorderdata = $producorder->findall();
+            $productorderlinedata = $productorderline->findall();
+            $productitemdata = $productitem->findall();
+
+            echo $this->view("admin/admindash",[ "data" => $data, "producorderdata" => $producorderdata, "productorderlinedata" => $productorderlinedata, "productitemdata" => $productitemdata]);
         }
 
         // CRUDS
@@ -22,47 +32,54 @@
 
                 $arr["itemname"] = $_POST["itemname"];
                 $arr["retailprice"] = $_POST["retailprice"];
-                $arr["stockprice"] = $_POST["stockprice"];
+                $arr["cost"] = $_POST["cost"];
                 $arr["itemdescription"] = $_POST["itemdescription"];
                 $arr["category"] = $_POST["category"];
 
+                
                 if($arr["category"] == "Bread"){
                     $C = "BR";
                 }
-                if($arr["category"] == "Pastries"){
+                else if($arr["category"] == "Pastries"){
                     $C = "PA";
                 }
-                if($arr["category"] == "Cakes"){
+                else if($arr["category"] == "Cakes"){
                     $C = "CK";
                 }
-                if($arr["category"] == "Cookies"){
+                else if($arr["category"] == "Cookies"){
                     $C = "CO";
                 }
-                if($arr["category"] == "Muffins"){
+                else if($arr["category"] == "Muffins"){
                     $C = "MU";
                 }
-                if($arr["category"] == "Doughnuts"){
+                else if($arr["category"] == "Doughnuts"){
                     $C = "DN";
                 }
-                if($arr["category"] == "Pies"){
+                else if($arr["category"] == "Pies"){
                     $C = "PI";
                 }
-                if($arr["category"] == "Buns"){
+                else if($arr["category"] == "Buns"){
                     $C = "BN";
                 }
-                if($arr["category"] == "Rolls"){
+                else if($arr["category"] == "Rolls"){
                     $C = "RL";
                 }
-                if($arr["category"] == "Sandwiches"){
+                else if($arr["category"] == "Sandwiches"){
                     $C = "SW";
                 }
-                if($arr["category"] == "Pizza"){
+                else if($arr["category"] == "Pizza"){
                     $C = "PZ";
                 }
-                if($arr["category"] == "Others"){
+                else if($arr["category"] == "Others"){
                     $C = "OT";
                 }
-
+                else if($arr["category"] == "Specials"){
+                    $C = "SP";
+                }
+                else {
+                    $error = "Invalid Category";
+                    echo $this->view("admin/additem", ["error" => $error]);
+                }
 
                 $max_itemm_id = $productitem->getMinMax("itemid", "max");
                 $max_itemm_id = $max_itemm_id[0]->{"max(itemid)"};
@@ -84,34 +101,29 @@
                 if($check !== false) {
                     $uploadOk = 1;
                 } else {
-                    echo "File is not an image.";
-                    $uploadOk = 0;
-
-                    return;
+                    $error = "File is not an image.";
+                    echo $this->view("admin/additem", ["error" => $error]);
                 }
                 if (file_exists($target_file)) {
-                    echo "Sorry, file already exists.";
-                    $uploadOk = 0;
-                    return;
+                    $error = "Sorry, file already exists.";
+                    echo $this->view("admin/additem", ["error" => $error]);
                 }
                 if ($_FILES["image"]["size"] > 500000) {
-                    echo "Sorry, your file is too large.";
-                    $uploadOk = 0;
-                    return;
+                    $error = "Sorry, your file is too large.";
+                    echo $this->view("admin/additem", ["error" => $error]);
                 }
                 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                    echo "Sorry, only JPG, JPEG, PNG files are allowed.";
-                    $uploadOk = 0;
-                    return;
+                    $error = "Sorry, only JPG, JPEG, PNG files are allowed.";
+                    echo $this->view("admin/additem", ["error" => $error]);
                 }
                 if ($uploadOk == 0) {
-                    echo "Sorry, your file was not uploaded.";
-                    return;
+                    $error = "Sorry, your file was not uploaded.";
+                    echo $this->view("admin/additem", ["error" => $error]);
                 } else {
                     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
                         $arr["imagelink"] = $newfilename;
                         $productitem->insert($arr);
-                        $this->redirect(BASE_URL."AdminControls/loadItemsView");
+                        $this->redirect(BASE_URL."CommonControls/loadProductsView");
                     }
                 }
 
@@ -119,13 +131,22 @@
                
             }
             else{
-                echo "Sorry, there was an error uploading your file.";
-                $this->redirect(BASE_URL."AdminControls/index");
+                $error = "Sorry, there was an error uploading your file.";
+                echo $this->view("admin/additem", ["error" => $error]);
             }
 
         }
 
         function loadItemsView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $productitem = new ProductItem();
             $items = $productitem->findall();
             echo $this->view("admin/items", [ "items" => $items]);
@@ -142,7 +163,7 @@
                 $data['retailprice'] = $_POST['retailprice'];
             }
             if (!empty($_POST['stockprice'])){
-                $data['stockprice'] = $_POST['stockprice'];
+                $data['cost'] = $_POST['cost'];
             }
             if (!empty($_POST['itemdescription'])){
                 $data['itemdescription'] = $_POST['itemdescription'];
@@ -151,19 +172,19 @@
                 $data['category'] = $_POST['category'];
             }
             echo $productitem->update($id,"itemid",$data);
-            $this->redirect(BASE_URL."AdminControls/loadItemsView");
+            $this->redirect(BASE_URL."CommonControls/loadProductsView");
         }
 
         function deleteproduct($id){
             $productitem = new ProductItem();
             $productitem->update($id,"itemid",["availability" => "0"]);
-            $this->redirect(BASE_URL."AdminControls/loadItemsView");
+            $this->redirect(BASE_URL."CommonControls/loadProductsView");
         }
 
         function undoproduct($id){
             $productitem = new ProductItem();
             $productitem->update($id,"itemid",["availability" => "1"]);
-            $this->redirect(BASE_URL."AdminControls/loadItemsView");
+            $this->redirect(BASE_URL."CommonControls/loadProductsView");
         }
 
 
@@ -171,7 +192,7 @@
 
         function addsystemuser(){
             $systemuser = new Systemuser();
-
+            
             $arr["Name"] = $_POST["Name"];
             $arr["NIC"] = $_POST["NIC"];
             $arr["DOB"] = $_POST["DOB"];
@@ -181,13 +202,104 @@
             $arr["Role"] = $_POST["Role"];
             $arr["UserName"] = $_POST["UserName"];
             $arr["Password"] = $_POST["Password1"];
-
+        
+            // Validate NIC
+            $patternNIC = '/^\d{9}[vV]$|^\d{12}$/';
+            if (!preg_match($patternNIC, $arr["NIC"])) {
+                echo $this->view("admin/AddUserView", ["error" => "Invalid NIC format"]);
+                return;
+            }
+        
+            // Validate Date of Birth (DOB)
+            $patternDOB = '/^\d{4}-\d{2}-\d{2}$/';
+            if (!preg_match($patternDOB, $arr["DOB"])) {
+                echo $this->view("admin/AddUserView", ["error" => "Invalid Date of Birth format"]);
+                return;
+            }
+        
+            // Validate Email
+            $patternEmail = '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/';
+            if (!preg_match($patternEmail, $arr["Email"])) {
+            // Check if email already in use
+            $existingUser = $systemuser->where("Email", $arr["Email"]);
+            if ($existingUser) {
+                echo $this->view("admin/AddUserView", ["error" => "Email already in use"]);
+                return;
+            }
+                echo $this->view("admin/AddUserView", ["error" => "Invalid Email"]);
+                return;
+            }
+        
+            // Validate Contact Number
+            $patternContactNo = '/^\d{10}$/';
+            if (!preg_match($patternContactNo, $arr["contactNo"])) {
+            // Check if contact number already in use
+            $existingUser = $systemuser->where("contactNo", $arr["contactNo"]);
+            if ($existingUser) {
+                echo $this->view("admin/AddUserView", ["error" => "Contact number already in use"]);
+                return;
+            }
+                
+                echo $this->view("admin/AddUserView", ["error" => "Invalid contact number"]);
+                return;
+            }
+        
+            // Validate Role
+            $validRoles = ["admin", "billingclerk", "outletmanager", "productionmanager", "receptionist", "storemanager"];
+            if (!in_array($arr["Role"], $validRoles)) {
+                echo $this->view("admin/AddUserView", ["error" => "Invalid Role"]);
+                return;
+            }
+        
+            // Generate EmployeeNo based on Role
+            switch ($arr["Role"]) {
+                case "admin":
+                    $C = "AD";
+                    break;
+                case "billingclerk":
+                    $C = "BC";
+                    break;
+                case "outletmanager":
+                    $C = "OM";
+                    break;
+                case "productionmanager":
+                    $C = "PM";
+                    break;
+                case "receptionist":
+                    $C = "RC";
+                    break;
+                case "storemanager":
+                    $C = "SM";
+                    break;
+                default:
+                    echo $this->view("admin/AddUserView", ["error" => "Invalid Role"]);
+                    return;
+            }
+        
+            // Generate EmployeeNo
+            $max_user_id = $systemuser->getMinMax("UserID", "max");
+            $max_user_id = $max_user_id[0]->{"max(UserID)"};
+            $max_user_id = $max_user_id + 1;
+            $max_user_id = str_pad($max_user_id, 5, '0', STR_PAD_LEFT);
+        
+            $arr["EmployeeNo"] = $C.$max_user_id;
+        
             $systemuser->insert($arr);
-
+        
             $this->redirect(BASE_URL."AdminControls/loadUsersView");
         }
+        
 
         function loadUsersView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $systemuser = new Systemuser();
             $users = $systemuser->findall();
             echo $this->view("admin/systemusers", [ "users" => $users]);
@@ -200,90 +312,681 @@
         }
 
         function editsystemuser(){
-            
+            session_start();
+        
             $systemuser = new Systemuser();
+            $outlets = new Outlet();
+        
             $id = $_POST['id'];
+            $data = []; // Initialize an empty array to store validated data
+        
             if (!empty($_POST['Name'])){
                 $data['Name'] = $_POST['Name'];
             } 
             if (!empty($_POST['NIC'])){
+                // Validate NIC
+                $patternNIC = '/^\d{9}[vV]$|^\d{12}$/';
+                if (!preg_match($patternNIC, $_POST["NIC"])) {
+                    $data = $systemuser->where("UserID", $id);
+                    echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Invalid NIC format"]);
+                    return;
+                }
                 $data['NIC'] = $_POST['NIC'];
             }
             if (!empty($_POST['DOB'])){
+                // Validate Date of Birth (DOB)
+                $patternDOB = '/^\d{4}-\d{2}-\d{2}$/';
+                if (!preg_match($patternDOB, $_POST["DOB"])) {
+                    $data = $systemuser->where("UserID", $id);
+                    echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Invalid Date of Birth format"]);
+                    return;
+                }
                 $data['DOB'] = $_POST['DOB'];
             }
             if (!empty($_POST['Email'])){
+                // Validate Email
+                $patternEmail = '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/';
+                if (!preg_match($patternEmail, $_POST["Email"])) {
+                    // Check if email already in use
+                    $existingUser = $systemuser->where("Email", $_POST["Email"]);
+                    if ($existingUser && $existingUser[0]->UserID != $id) {
+                        $data = $systemuser->where("UserID", $id);
+                        echo $this->view("admin/editsystemuser", ["data" => $data , "error" => "Email already in use"]);
+                        return;
+                    }
+                    $data = $systemuser->where("UserID", $id);
+                    echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Invalid Email"]);
+                    return;
+                }
                 $data['Email'] = $_POST['Email'];
             }
             if (!empty($_POST['contactNo'])){
+                // Validate Contact Number
+                $patternContactNo = '/^\d{10}$/';
+                if (!preg_match($patternContactNo, $_POST["contactNo"])) {
+                    // Check if contact number already in use
+                    $existingUser = $systemuser->where("contactNo", $_POST["contactNo"]);
+                    if ($existingUser && $existingUser[0]->UserID != $id) {
+                        $data = $systemuser->where("UserID", $id);
+                        echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Contact number already in use"]);
+                        return;
+                    }
+                    $data = $systemuser->where("UserID", $id);
+                    echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Invalid contact number"]);
+                    return;
+                }
                 $data['contactNo'] = $_POST['contactNo'];
             }
             if (!empty($_POST['Address'])){
                 $data['Address'] = $_POST['Address'];
             }
             if (!empty($_POST['Role'])){
-                $data['Role'] = $_POST['Role'];
+                // Validate Role
+                $validRoles = ["admin", "billingclerk", "outletmanager", "productionmanager", "receptionist", "storemanager"];
+                if (!in_array($_POST["Role"], $validRoles)) {
+                    $data = $systemuser->where("UserID", $id);
+                    echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Invalid Role"]);
+                    return;
+                }
+        
+                // Generate EmployeeNo based on Role
+                switch ($_POST["Role"]) {
+                    case "admin":
+                        $C = "AD";
+                        break;
+                    case "billingclerk":
+                        $C = "BC";
+                        break;
+                    case "outletmanager":
+                        $C = "OM";
+                        break;
+                    case "productionmanager":
+                        $C = "PM";
+                        break;
+                    case "receptionist":
+                        $C = "RC";
+                        break;
+                    case "storemanager":
+                        $C = "SM";
+                        break;
+                    default:
+                        $data = $systemuser->where("UserID", $id);
+                        echo $this->view("admin/editsystemuser", ["data" => $data ,"error" => "Invalid Role"]);
+                        return;
+                }
+        
+                // Generate EmployeeNo
+                $max_user_id = $systemuser->getMinMax("UserID", "max");
+                $max_user_id = $max_user_id[0]->{"max(UserID)"};
+                $max_user_id = $max_user_id + 1;
+                $max_user_id = str_pad($max_user_id, 5, '0', STR_PAD_LEFT);
+        
+                $data["EmployeeNo"] = $C.$max_user_id;
             }
             if (!empty($_POST['UserName'])){
                 $data['UserName'] = $_POST['UserName'];
             }
-            echo $systemuser->update($id,"UserID",$data);
-            $this->redirect(BASE_URL."AdminControls/loadUsersView");
+        
+            if ($_POST['Password'] == $_SESSION["USER"]->Password){
+                // Update data in the tables
+                echo $outlets->update($id, "OutletId", ["Manager" => $data["EmployeeNo"]]);
+                echo $systemuser->update($id, "UserID", $data);
+                $this->redirect(BASE_URL."AdminControls/loadUsersView");
+            } else {
+                $data = $systemuser->where("UserID", $id);
+                echo $this->view("admin/editsystemuser", ["data" => $data, "error" => "Password is incorrect"]);
+            }
         }
+        
 
+        public function searchUsers() {
+            $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
 
+            $systemuser = new Systemuser();
+            $usersbyNIC = $systemuser->where("NIC", $searchQuery);
+            $usersbyName = $systemuser->where("UserName", $searchQuery);
+            $usersbyRole = $systemuser->where("Role", $searchQuery);
 
+            if (count($usersbyNIC) > 0) {
+                $users = $usersbyNIC;
+            } else if (count($usersbyName) > 0) {
+                $users = $usersbyName;
+            }else if (count($usersbyRole) > 0) {
+                $users = $usersbyRole;
+            }
+            else {
+                $users = [];
+            }
+            echo $this->view("admin/systemusers", [ "users" => $users]);
+        }
         
         //view table functions
-        function loadOutletsView(){
-            echo $this->view("admin/outlets");
-        }
 
         function loadStocksView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("admin/stocks");
         }
 
 
         //view add functions
         function AddItem(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("admin/additem");
         }
 
-        function AddOutlet(){
-            echo $this->view("admin/addoutlet");
-        }
-
         function AddStock(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("admin/addstock");
         }
 
         function AddUser(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("admin/addsystemuser");
         }
 
+        
+
+        // outlet functions
+        function loadOutletsView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $outlets = new Outlet();
+            $outlets = $outlets->findall();
+
+            echo $this->view("admin/outlets", ["outlets" => $outlets]);
+        }
+
+        function deleteoutlet($id){
+            $outlets = new Outlet();
+            $outlets->delete($id,"OutletID");
+            $this->redirect(BASE_URL."AdminControls/loadOutletsView");
+        }
+
+        function AddOutlet() {
+            $outlets = new Outlet();
+        
+            if (
+                isset($_POST["DOS"]) && isset($_POST["contactNo"]) && isset($_POST["ActiveState"]) &&
+                isset($_POST["Address"]) && isset($_POST["District"]) && isset($_POST["Email"]) &&
+                isset($_POST["Manager"]))   
+             {
+                $arr["DOS"] = $_POST["DOS"];
+        
+                $pattern = '/^\d{10}$/';
+                if (preg_match($pattern, $_POST["contactNo"]) == 1) {
+                    // Check if contact number already in use
+                    $existingOutlet = $outlets->where("contactNo", $_POST["contactNo"]);
+                    if ($existingOutlet) {
+                        echo $this->view("admin/addoutlet", ["error" => "Contact number already in use"]);
+                        return; // Stop execution if contact number is already in use
+                    }
+                    else{
+                        $arr["contactNo"] = $_POST["contactNo"];
+                    }
+                } else {
+                    echo $this->view("admin/addoutlet", ["error" => "Invalid contact number"]);
+                    return; // Stop execution if contact number is invalid
+                }
+        
+                if ($_POST["ActiveState"] == 1 || $_POST["ActiveState"] == 0) {
+                    $arr["ActiveState"] = $_POST["ActiveState"];
+                } else {
+                    echo $this->view("admin/addoutlet", ["error" => "Invalid Active State"]);
+                    return; // Stop execution if Active State is invalid
+                }
+        
+                $arr["Address"] = $_POST["Address"];
+                $arr["District"] = $_POST["District"];
+        
+                $pattern = '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/';
+                if (preg_match($pattern, $_POST["Email"]) == 1) {
+                    // Check if email already in use
+                    $existingOutlet = $outlets->where("Email", $_POST["Email"]);
+                    if ($existingOutlet) {
+                        echo $this->view("admin/addoutlet", ["error" => "Email already in use"]);
+                    }else{
+                        $arr["Email"] = $_POST["Email"];
+                    }
+                } else {
+                    echo $this->view("admin/addoutlet", ["error" => "Invalid Email"]);
+                    return; // Stop execution if email is invalid
+                }
+        
+                $arr["Manager"] = $_POST["Manager"];
+            } else {
+                echo $this->view("admin/addoutlet", ["error" => "Please fill all the fields"]);
+                return; // Stop execution if any required field is missing
+            }
+        
+            // District validation and code generation
+            $districtCodes = [
+                "Dehiwala" => "DH", "Nugegoda" => "NG", "Rajagiriya" => "RG", "Battaramulla" => "BT",
+                "Kotte" => "KT", "Malabe" => "MB", "Kohuwala" => "KW", "Nawala" => "NW", "Pamankada" => "PM",
+                "Wellawatte" => "WL", "Bambalapitiya" => "BP", "Kirulapone" => "KP", "Kolonnawa" => "KN",
+                "Ethul Kotte" => "EK", "Maharagama" => "MG"
+            ];
+        
+            if (isset($districtCodes[$arr['District']])) {
+                $C = $districtCodes[$arr['District']];
+            } else {
+                echo $this->view("admin/addoutlet", ["error" => "Invalid District"]);
+                return; // Stop execution if district is invalid
+            }
+        
+            // Generate OutletCode
+            $max_outlet_id = $outlets->getMinMax("OutletID", "max");
+            $max_outlet_id = $max_outlet_id[0]->{"max(OutletID)"};
+            $max_outlet_id = $max_outlet_id + 1;
+            $max_outlet_id = str_pad($max_outlet_id, 5, '0', STR_PAD_LEFT);
+        
+            $arr["OutletCode"] = $C . $max_outlet_id;
+        
+            // Insert data into the table
+            $outlets->insert($arr);
+            $this->redirect(BASE_URL . "AdminControls/loadOutletsView");
+        }
+        
+
+        function AddOutletview(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $systemuser = new Systemuser();
+            $outlets = new Outlet();
+        
+            // Get all outlet managers
+            $managers = $systemuser->where("Role", "outletmanager");
+        
+            // Get all outlets
+            $allOutlets = $outlets->findall();
+        
+            // Filter managers who do not have outlets
+            $managersWithoutOutlets = [];
+            foreach ($managers as $manager) {
+                $hasOutlet = false;
+                foreach ($allOutlets as $outlet) {
+                    if ($manager->EmployeeNo == $outlet->Manager) {
+                        $hasOutlet = true;
+                        break;
+                    }
+                }
+                if (!$hasOutlet) {
+                    $managersWithoutOutlets[] = $manager;
+                }
+            }
+            if(count($managersWithoutOutlets) > 0){
+                echo $this->view("admin/addoutlet", ["managers" => $managersWithoutOutlets]);
+            }else{
+                echo $this->view("admin/addoutlet", ["error" => "No outlet managers available"]);
+            }
+        }
+
+        function EditOutletView($id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $outlets = new Outlet();
+            $systemuser = new Systemuser();
+            $outlets = new Outlet();
+        
+            // Get all outlet managers
+            $managers = $systemuser->where("Role", "outletmanager");
+        
+            // Get all outlets
+            $allOutlets = $outlets->findall();
+        
+            // Filter managers who do not have outlets
+            $managersWithoutOutlets = [];
+            foreach ($managers as $manager) {
+                $hasOutlet = false;
+                foreach ($allOutlets as $outlet) {
+                    if ($manager->EmployeeNo == $outlet->Manager) {
+                        $hasOutlet = true;
+                        break;
+                    }
+                }
+                if (!$hasOutlet) {
+                    $managersWithoutOutlets[] = $manager;
+                }
+            }
+
+            $data = $outlets->where("OutletID", $id);
+            
+            echo $this->view("admin/editoutlet", ["data" => $data,"managers" => $managersWithoutOutlets]);
+        }
+
+
+        function EditOutlet(){
+            session_start();
+            $outlets = new Outlet();
+        
+            $id = $_POST['id'];
+            $data = []; 
+
+            if (!empty($_POST['DOS'])){
+                $data['DOS'] = $_POST['DOS'];
+            }
+        
+            if (!empty($_POST['contactNo'])){
+                $pattern = '/^\d{10}$/';
+                if (preg_match($pattern, $_POST["contactNo"]) == 1){
+
+                    // Check if contact number already in use
+                    $existingOutlet = $outlets->where("contactNo", $_POST["contactNo"]);
+                    if ($existingOutlet) {
+                        $outlets = new Outlet();
+                        $data = $outlets->where("OutletID", $id);
+                        echo $this->view("admin/editoutlet", ["data" => $data, "error" => "Contact number already in use"]);
+                    }else{
+                        $data['contactNo'] = $_POST['contactNo'];
+                    }
+                } else {
+                    $outlets = new Outlet();
+                    $data = $outlets->where("OutletID", $id);
+                    echo $this->view("admin/editoutlet", ["data"=>$data,  "error" => "Invalid contact number"]);
+                    return;
+                }
+            }
+        
+            if (!empty($_POST['ActiveState'])) {
+                if ($_POST['ActiveState'] == "active") {
+                    $data['ActiveState'] = 1;
+                } else {
+                    $data['ActiveState'] = 0;
+                }
+            }
+        
+            if (!empty($_POST['Address'])){
+                $data['Address'] = $_POST['Address'];
+            }
+        
+            if (!empty($_POST['District'])){
+                $districtCodes = [
+                    "Dehiwala" => "DH", "Nugegoda" => "NG", "Rajagiriya" => "RG", "Battaramulla" => "BT",
+                    "Kotte" => "KT", "Malabe" => "MB", "Kohuwala" => "KW", "Nawala" => "NW", "Pamankada" => "PM",
+                    "Wellawatte" => "WL", "Bambalapitiya" => "BP", "Kirulapone" => "KP", "Kolonnawa" => "KN",
+                    "Ethul Kotte" => "EK", "Maharagama" => "MG"
+                ];
+        
+                if (isset($districtCodes[$_POST['District']])) {
+                    $C = $districtCodes[$_POST['District']];
+        
+                    $max_outlet_id = $outlets->getMinMax("OutletId", "max");
+                    $max_outlet_id = $max_outlet_id[0]->{"max(OutletId)"};
+                    $max_outlet_id = $max_outlet_id + 1;
+                    $max_outlet_id = str_pad($max_outlet_id, 5, '0', STR_PAD_LEFT);
+        
+                    $data["OutletCode"] = $C.$max_outlet_id;
+                } else {
+                    $outlets = new Outlet();
+                    $data = $outlets->where("OutletID", $id);
+                    echo $this->view("admin/editoutlet", ["data" => $data ,"error" => "Invalid District"]);
+                    return;
+                }
+            }
+        
+            if (!empty($_POST['Email'])){
+                $pattern = '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/';
+                if (preg_match($pattern, $_POST["Email"]) == 1){
+                    // Check if email already in use
+                    $existingOutlet = $outlets->where("Email", $_POST["Email"]);
+                    if ($existingOutlet) {
+                        $outlets = new Outlet();
+                        $data = $outlets->where("OutletID", $id);
+                        echo $this->view("admin/editoutlet", ["data" => $data, "error" => "Email already in use"]);
+                    }else{
+                        $data['Email'] = $_POST['Email'];
+                    }
+                } else {
+                    $outlets = new Outlet();
+                    $data = $outlets->where("OutletID", $id);
+                    echo $this->view("admin/editoutlet", ["data" => $data,"error" => "Invalid Email"]);
+                    return;
+                }
+            }
+        
+            if (!empty($_POST['Manager'])){
+                $data['Manager'] = $_POST['Manager'];
+            }
+        
+            if ($_POST['Password'] == $_SESSION["USER"]->Password){
+                echo $outlets->update($id,"OutletID",$data);
+                $this->redirect(BASE_URL."AdminControls/loadOutletsView");
+            } else {
+                $outlets = new Outlet();
+                $data = $outlets->where("OutletID", $id);
+                echo $this->view("admin/editoutlet", ["data" => $data, "error" => "Password is incorrect"]);
+            }
+        }
+        
+
+        function searchOutlet(){
+            $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+
+            $outlets = new Outlet();
+            $outletsbyCode= $outlets->where("OutletCode", $searchQuery);
+            $outletsbyDistrict = $outlets->where("District", $searchQuery);
+            $outletsbyManager = $outlets->where("Manager", $searchQuery);
+
+            if (count($outletsbyCode) > 0) {
+                $outlets = $outletsbyCode;
+            } else if (count($outletsbyDistrict) > 0) {
+                $outlets = $outletsbyDistrict;
+            }else if (count($outletsbyManager) > 0) {
+                $outlets = $outletsbyManager;
+            }
+            else {
+                $outlets = [];
+            }
+            echo $this->view("admin/outlets", [ "outlets" => $outlets]);
+        }
+
+
+        //advertiesment functions
         function AddAdvertiesment(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             echo $this->view("admin/createadvertiesment");
+        }
+
+        function createAdvertisement1() {
+            $type = $_POST["type"];
+
+            $target_dir = "../public/media/uploads/Advertiesments/";
+            $target_file = $target_dir . basename($_FILES["image"]["name"]);
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        
+            // Set the new filename based on the type
+            if ($type == "Desktop") {
+                $newfilename = "bg1" . "." . $imageFileType;
+                echo $newfilename;
+            } elseif ($type == "Mobile") {
+                $newfilename = "bg1m" . "." . $imageFileType;
+                echo $newfilename;
+            } else {
+                // Handle other cases if needed
+                return false;
+            }
+        
+            // Construct the final target file path
+            $target_file = $target_dir . $newfilename;
+            echo $target_file;
+        
+            // Perform the upload
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $this->redirect(BASE_URL."AdminControls/AddAdvertiesment");
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+
+        function createAdvertisement2(){
+            $type = $_POST["type"];
+
+            $target_dir = "../public/media/uploads/Advertiesments/";
+            $target_file = $target_dir . basename($_FILES["image"]["name"]);
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        
+            // Set the new filename based on the type
+            if ($type == "Desktop") {
+                $newfilename = "bg2" . "." . $imageFileType;
+                echo $newfilename;
+            } elseif ($type == "Mobile") {
+                $newfilename = "bg2m" . "." . $imageFileType;
+                echo $newfilename;
+            } else {
+                // Handle other cases if needed
+                return false;
+            }
+        
+            // Construct the final target file path
+            $target_file = $target_dir . $newfilename;
+            echo $target_file;
+        
+            // Perform the upload
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $this->redirect(BASE_URL."AdminControls/AddAdvertiesment");
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+
+        function createAdvertisement3(){
+            $type = $_POST["type"];
+
+            $target_dir = "../public/media/uploads/Advertiesments/";
+            $target_file = $target_dir . basename($_FILES["image"]["name"]);
+            $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+        
+            // Set the new filename based on the type
+            if ($type == "Desktop") {
+                $newfilename = "bg3" . "." . $imageFileType;
+                echo $newfilename;
+            } elseif ($type == "Mobile") {
+                $newfilename = "bg3m" . "." . $imageFileType;
+                echo $newfilename;
+            } else {
+                // Handle other cases if needed
+                return false;
+            }
+        
+            // Construct the final target file path
+            $target_file = $target_dir . $newfilename;
+            echo $target_file;
+        
+            // Perform the upload
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $this->redirect(BASE_URL."AdminControls/AddAdvertiesment");
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
         }
 
         //view edit functions
         function EditItem($id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $productitem = new ProductItem();
             $data = $productitem->where("itemid", $id);
             echo $this->view("admin/edititem", ["data" => $data]);
         }
 
-        function EditOutlet(){
-            echo $this->view("admin/editoutlet");
-        }
-
         function EditStock(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+            
             echo $this->view("admin/editstockalertlevels");
         }
 
         function EditUser($id){
             $systemuser = new Systemuser();
             $data = $systemuser->where("UserID", $id);
-            echo $this->view("admin/editsystemuser", ["data" => $data]);
+
+            if($data[0]->Role == "outletmanager"){
+                $outlets = new Outlet();
+                $outlet = $outlets->where("Manager", $data[0]->EmployeeNo);
+                $data[0]->Outlet = $outlet[0]->OutletCode;
+                if($data[0]->Outlet == null){
+                    echo $this->view("admin/editsystemuser", ["data" => $data]);
+                }
+                else{
+                   $this->redirect(BASE_URL."AdminControls/loadUsersView");
+                }
+            }else{
+                echo $this->view("admin/editsystemuser", ["data" => $data]);
+            }
+            
         }
 
     }

@@ -11,12 +11,21 @@ class BillingControls extends Controller {
         $currentDate = date("Y-m-d");
         
         $productorder = new ProductOrder();
-        $productorders = $productorder->findByDate($currentDate);
+        $productorders = $productorder->findOnToday();
         $this->view("billingclerk/billingdash",["productorders" => $productorders]);
     }
 
     // order handle
     function processOrder($orderid,$paymentstatus) {
+
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        if (!Auth::isBillingClerk()) {
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        
         $productorder = new ProductOrder();
         $order = $productorder->where("orderid",$orderid);
         $total = $order[0]->total;
@@ -40,7 +49,7 @@ class BillingControls extends Controller {
 
                 $paymentproofs->insertImage($initialorfinal, $orderid, $base64Image);
                 $productorder->update($orderid,"orderid",["paymentstatus" => $initialorfinal, "paid_amount" => $amount]);
-                
+
                 $this->redirect(BASE_URL."BillingControls/index");
     
             } else {
@@ -52,18 +61,17 @@ class BillingControls extends Controller {
     }
 
     function viewProfile(){
-        echo $this->view("billingclerk/profile");
-    }
 
-    function moredetails($orderid ,$unique_id){
-        $productorderline = new ProductOrderLine();
-        $payment = new Payment();
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
 
-        $productorderlines = $productorderline->where("unique_id",$unique_id);
+        if (!Auth::isBillingClerk()) {
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
         
-        $payments = $payment->where("orderid",$orderid);
-
-        echo $this->view("billingclerk/moredetails",["productorderlines"=>$productorderlines, "payments"=>$payments]);
+        
+        echo $this->view("billingclerk/profile");
     }
     
 }
