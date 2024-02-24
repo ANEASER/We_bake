@@ -27,7 +27,7 @@
                     <input class="searchbutton" type="submit" value="Search">
                 </form>
                 <section class="buttongroup">
-                    <button class="bluebutton" onclick="add()">Add New Vehicle</button>
+                    <button class="bluebutton" style="min-width: 150px;" onclick="add()">Add New Vehicle</button>
                     <button class="greenbutton" onclick="viewall()">View All</button>
                 </section>
             </div>

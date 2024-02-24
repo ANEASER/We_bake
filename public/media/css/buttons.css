@@ -5,6 +5,7 @@ button, input[type="submit"] {
     border-radius: 4px;
     cursor: pointer;
     max-width: 200px;
+    min-width: 100px;
 }
 
 
@@ -57,7 +58,7 @@ button, input[type="submit"] {
 
 #cartbutton {
     margin: 5%;
-    background-image: url("https://img.lovepik.com/free-png/20210918/lovepik-shopping-cart-png-image_400246975_wh1200.png");
+    background-image: url("../uploads/Content/Cart.png");
     width: 75px;
     height: 75px;
     background-position: center;

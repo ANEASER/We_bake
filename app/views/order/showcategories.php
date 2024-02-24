@@ -10,6 +10,12 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
     <title>Select Category</title>
 </head>
+<style>
+    button {
+        min-height: 30px;
+        min-width: 80px;
+    }
+</style>
 <body>
     <?php
     if (isset($_SESSION["USER"]) && !isset($_SESSION["USER"]->role)) {
@@ -19,7 +25,7 @@
 
     <button id="cartbutton" type="button" onclick="veiwcart()"></button> 
 
-    <section class="content" style="padding: 0%;">
+    <section class="content" style="padding: 0%;height:100vh">
         <section class="category" style="display:flex;justify-content: flex-start;">
             <div class="menu-category">
                 <?php
