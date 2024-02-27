@@ -45,8 +45,8 @@
                     echo "<tr>
                             <th>Item Code </th>
                             <th>Item Name</th>
-                            <th>Price</th>
                             <th>Quantity</th>
+                            <th>Price</th>
                             <th>Subtotal</th>
                         </tr>";
 
@@ -66,11 +66,11 @@
 
                     echo "</table>";
 
-                    if($proofs > 0){
+                    if ($proofs > 0) {
                         echo "<div style='display:flex; padding:3%; justify-content: space-around'>";
                         foreach ($proofs as $proof) {
                             echo "<div style='display:flex; flex-direction:column'>";
-                            echo "<img src='data:image/jpeg;base64," .$proof->proofdocument. "' alt='Proof Image' height=200px width=170px>";
+                            echo "<img src='data:image/jpeg;base64," .$proof->proofdocument. "' alt='Proof Image' height=200px width=170px onclick='enlargeImage(this)'>";
                             echo "Total Price : ".$proof->Type."<br>";
                             echo "</div>";
                         }
@@ -103,6 +103,40 @@
             window.location.href = BASE_URL + "CustomerControls/purchasehistory";
         }
     }
+
+    function enlargeImage(image) {
+    // Create a modal for image enlargement
+        var modal = document.createElement('div');
+        modal.style.display = 'flex';
+        modal.style.alignItems = 'center';
+        modal.style.justifyContent = 'center';
+        modal.style.position = 'fixed';
+        modal.style.top = '0';
+        modal.style.left = '0';
+        modal.style.width = '100%';
+        modal.style.height = '100%';
+        modal.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+        modal.style.zIndex = '1';
+
+        // Create an image element inside the modal
+        var enlargedImage = document.createElement('img');
+        enlargedImage.src = image.src;
+        enlargedImage.style.maxWidth = '90%';
+        enlargedImage.style.maxHeight = '90%';
+
+        // Append the image to the modal
+        modal.appendChild(enlargedImage);
+
+        // Close the modal when clicking outside the image
+        modal.onclick = function() {
+            modal.style.display = 'none';
+        };
+
+        // Append the modal to the body
+        document.body.appendChild(modal);
+    }
+
+
     </script>
 
 
