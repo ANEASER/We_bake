@@ -13,7 +13,9 @@
             }
 
             $productorder = new ProductOrder();
+
             $productorders = $productorder->findOnToday();
+
             $this->view("productionmanager/pmdash", ["productorders" => $productorders]);
         }
 
