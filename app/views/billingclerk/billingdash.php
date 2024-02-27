@@ -17,10 +17,10 @@
     ?>
 
         <div style="display: flex; flex-direction:row; justify-content:space-between; padding:2%;">
-        <form method="GET" action="<?php echo BASE_URL; ?>OrderControls/searchOrders" class="search" style="display: flex; flex-direction:row;">
+            <form method="GET" action="<?php echo BASE_URL; ?>OrderControls/searchOrders" class="search" style="display: flex; flex-direction:row;">
                     <?php
                         if (isset($_GET['search'])) {
-                            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="' . $_GET['search'] . '" class="searchbox">';
+                            echo '<input type="text" id="search" name="search" placeholder="Enter Order Ref or Place BY" value="' . $_GET['search'] . '" class="searchbox">';
                             echo '<input type="submit" value="Search" class="searchbutton">';
                             echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
                         } else {
@@ -44,14 +44,13 @@
             echo "<div id='pendingOrdersTable'>";
             echo "<table>";
             echo "<tr>
-                <th>Order ID</th>
+                <th>Order Ref</th>
                 <th>Placed By</th>
                 <th>Order Date</th>
                 <th>Payment Status</th>
                 <th>Delivery Status</th>
                 <th>Total</th>
                 <th>Deliver By</th>
-                <th>Ordder reference</th>
                 <th>Deliver Address</th>
                 <th>Update</th>
                 <th>More</th>
@@ -61,14 +60,13 @@
 
                 if($productorder->orderstatus == "pending" && $productorder->paymentstatus == "pending"){
                     echo "<tr>";
-                    echo "<td>" . $productorder->orderid . "</td>";
+                    echo "<td>" . $productorder->orderref . "</td>";
                     echo "<td>" . $productorder->placeby . "</td>";
                     echo "<td>" . $productorder->orderdate . "</td>";
                     echo "<td>" . $productorder->paymentstatus . "</td>";
                     echo "<td>" . $productorder->deliverystatus . "</td>";
                     echo "<td>" . $productorder->total . "</td>";
                     echo "<td>" . $productorder->deliverby . "</td>";
-                    echo "<td>" . $productorder->orderref . "</td>";
                     echo "<td>" . $productorder->deliver_address . "</td>";
                     echo "<td><button class='greenbutton' onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
                     echo "<td><button class='bluebutton'  onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
@@ -86,14 +84,13 @@
         echo "<div id='advancedOrdersTable'>";
         echo "<table>";
         echo "<tr>
-            <th>Order ID</th>
+            <th>Order Ref</th>
             <th>Placed By</th>
             <th>Order Date</th>
             <th>Payment Status</th>
             <th>Delivery Status</th>
             <th>Total</th>
             <th>Deliver By</th>
-            <th>Ordder reference</th>
             <th>Deliver Address</th>
             <th>Update</th>
             <th>More</th>
@@ -101,16 +98,15 @@
 
         foreach($data["productorders"] as $productorder){ 
 
-            if($productorder->orderstatus == "pending" && $productorder->paymentstatus == "advanced"){
+            if($productorder->paymentstatus == "advanced"){
                 echo "<tr>";
-                echo "<td>" . $productorder->orderid . "</td>";
+                echo "<td>" . $productorder->orderref . "</td>";
                 echo "<td>" . $productorder->placeby . "</td>";
                 echo "<td>" . $productorder->orderdate . "</td>";
                 echo "<td>" . $productorder->paymentstatus . "</td>";
                 echo "<td>" . $productorder->deliverystatus . "</td>";
                 echo "<td>" . $productorder->total . "</td>";
                 echo "<td>" . $productorder->deliverby . "</td>";
-                echo "<td>" . $productorder->orderref . "</td>";
                 echo "<td>" . $productorder->deliver_address . "</td>";
                 echo "<td><button class='greenbutton' onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
                 echo "<td><button class='bluebutton'  onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
@@ -128,14 +124,13 @@
         echo "<div id='paidOrdersTable'>";
         echo "<table>";
         echo "<tr>
-            <th>Order ID</th>
+            <th>Order Ref</th>
             <th>Placed By</th>
             <th>Order Date</th>
             <th>Payment Status</th>
             <th>Delivery Status</th>
             <th>Total</th>
             <th>Deliver By</th>
-            <th>Ordder reference</th>
             <th>Deliver Address</th>
             <th>Update</th>
             <th>More</th>
@@ -145,14 +140,13 @@
 
             if($productorder->orderstatus == "pending" && $productorder->paymentstatus == "paid"){
                 echo "<tr>";
-                echo "<td>" . $productorder->orderid . "</td>";
+                echo "<td>" . $productorder->orderref . "</td>";
                 echo "<td>" . $productorder->placeby . "</td>";
                 echo "<td>" . $productorder->orderdate . "</td>";
                 echo "<td>" . $productorder->paymentstatus . "</td>";
                 echo "<td>" . $productorder->deliverystatus . "</td>";
                 echo "<td>" . $productorder->total . "</td>";
                 echo "<td>" . $productorder->deliverby . "</td>";
-                echo "<td>" . $productorder->orderref . "</td>";
                 echo "<td>" . $productorder->deliver_address . "</td>";
                 echo "<td><button class='greenbutton' onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
                 echo "<td><button class='bluebutton'  onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";
@@ -169,14 +163,13 @@
             echo "<div id='closedOrdersTable'>";
             echo "<table>";
             echo "<tr>
-                <th>Order ID</th>
+                <th>Order Ref</th>
                 <th>Placed By</th>
                 <th>Order Date</th>
                 <th>Payment Status</th>
                 <th>Delivery Status</th>
                 <th>Total</th>
                 <th>Deliver By</th>
-                <th>Ordder reference</th>
                 <th>Deliver Address</th>
                 <th>Update</th>
                 <th>More</th>
@@ -186,14 +179,13 @@
 
                 if($productorder->orderstatus == "finished"){
                     echo "<tr>";
-                    echo "<td>" . $productorder->orderid . "</td>";
+                    echo "<td>" . $productorder->orderref . "</td>";
                     echo "<td>" . $productorder->placeby . "</td>";
                     echo "<td>" . $productorder->orderdate . "</td>";
                     echo "<td>" . $productorder->paymentstatus . "</td>";
                     echo "<td>" . $productorder->deliverystatus . "</td>";
                     echo "<td>" . $productorder->total . "</td>";
                     echo "<td>" . $productorder->deliverby . "</td>";
-                    echo "<td>" . $productorder->orderref . "</td>";
                     echo "<td>" . $productorder->deliver_address . "</td>";
                     echo "<td><button class='greenbutton' onclick='Process(\"" . $productorder->orderid . "\", \"" . $productorder->paymentstatus . "\")'>Complete</button></td>";
                     echo "<td><button class='bluebutton'  onclick='more(\"" . $productorder->unique_id . "\", \"" . $productorder->orderid . "\")'>More</button></td>";

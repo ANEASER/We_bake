@@ -8,7 +8,7 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
-    <title>Outlet dashboard</title>
+    <title>Home</title>
 </head>
   
     <body>
@@ -16,7 +16,7 @@
         include "omnavbar2.php";
     ?>
 
-<h1> Outlet Dashboard </h1>
+<h1> Welcome To The Outlet Manager Dashboard </h1>
     <div class="content">
             
     </div>

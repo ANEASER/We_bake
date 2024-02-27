@@ -11,7 +11,7 @@
 
 <body>
 
-    <h1 > Receptionist Dashboard</h1>
+    
     <nav>
         <input type="checkbox" id="check" name="" value="">
         <label for="check" class="checkbtn container" onclick="changemobilemode(this)">
@@ -25,14 +25,12 @@
         <ul>
             <li><button onclick="loadDash()">Home</button></li>
             <li><button onclick="loadProfile()">Profile</button></li>
-            <li><button onclick="loadHistory()">Purchase History</button></li>
             <li><button onclick="PlaceOrders()">Place Orders</button></li>
+            <li><button onclick="loadHistory()">Purchase History</button></li>
             <li><button onclick="logout()">Logout</button></li>
+        
         </ul>
     </nav>
-
-        
-
 
 <script>
 var BASE_URL = "<?php echo BASE_URL; ?>";

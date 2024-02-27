@@ -39,6 +39,28 @@
                 alert('$error');
             }
           </script>";}
+        elseif (isset($message)){
+            echo "<script>
+
+            const SwalwithButton = Swal.mixin({
+                customClass: {
+                    confirmButton: 'greenbutton',
+                },
+                buttonsStyling: false
+            });
+
+            
+            if (typeof Swal !== 'undefined') {
+                SwalwithButton.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '$message',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                alert('$message');
+            }
+          </script>";}
     ?>
 
     <section>  
@@ -53,11 +75,13 @@
                 <div class="form-group">
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
+                    <p>forgot password ? <span style="border-bottom: solid brown; cursor:pointer" onclick="resetpassword()">reset</span> </p>
                 </div>
-
+               
                 <button class="greenbutton">Login</button>
             </form>
-
+            
+            <br>
             <p>Don't have account? <button class="bluebutton" onclick="loadRegister()">Register</button></p>
 
     </div>
@@ -66,8 +90,15 @@
         
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
+        sessionStorage.removeItem('activeLink');
+
         function loadRegister() {
             window.location.href = BASE_URL + "CommonControls/loadRegisterView";
+        }
+
+        function resetpassword(){
+            console.log("reset password");
+            window.location.href = BASE_URL + "CommonControls/FindProfileView";
         }
     </script>
 </body>

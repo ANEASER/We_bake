@@ -18,124 +18,124 @@
         include 'customernav.php';
     ?>
 
-    <section class="content">
-            <section class="dashboard">
-                <section class="stats">
-                    <div class="statscard">
-                        <h3>Pending Orders</h3>
+    <button id="profilebutton" type="button" onclick="viewProfile()"></button>
+    <button id="dashboardbutton" type="button" onclick="viewDashboard()"></button>
+
+        <section class="content" style="height: 120vh; width:100vw">
+                <section class="dashboard" >
+                    <section class="stats">
+                        <div class="statscard">
+                            <h3>Pending Orders</h3>
+                            
+                            <?php
+                                $pendingorders = 0;
+                                foreach($orders as $order){
+                                    if($order->orderstatus == "pending"){
+                                        $pendingorders = $pendingorders + 1;
+                                    }
+                                }
+                                echo "<p>".$pendingorders."</p>";
+                            ?>
+                        </div>
+                        <div class="statscard" style="color:darkblue">
+                            <h3>Completed Orders</h3>
+                            <?php
+                                $completedorders = 0;
+                                foreach($orders as $order){
+                                    if($order->orderstatus == "finished"){
+                                        $completedorders = $completedorders + 1;
+                                    }
+                                }
+                                echo "<p>".$completedorders."</p>";?>
+                        </div>
+                        <div class="statscard" style="color:brown">
+                            <h3>Cancelled Orders</h3>
+                            <?php
+                                $cancelledorders = 0;
+                                foreach($orders as $order){
+                                    if($order->orderstatus == "cancelled"){
+                                        $cancelledorders = $cancelledorders + 1;
+                                    }
+                                }
+                                echo "<p>".$cancelledorders."</p>";?>
+                        </div>
+
+                        <div class="statscard">
+                            <h3>Total Orders</h3>
+                            <?php
+                                $totalorders = 0;
+                                foreach($orders as $order){
+                                    $totalorders = $totalorders + 1;
+                                }
+                                echo "<p>".$totalorders."</p>";?>
+                        </div>
                         
-                        <?php
-                            $pendingorders = 0;
-                            foreach($orders as $order){
-                                if($order->orderstatus == "pending"){
-                                    $pendingorders = $pendingorders + 1;
+                        <div class="statscard">
+                            <h3>Total Purchasings (Rs)</h3>
+                            <?php
+                                $totalpurchasings = 0;
+                                foreach($orders as $order){
+                                    $totalpurchasings = $totalpurchasings + $order->total;
                                 }
-                            }
-                            echo "<p>".$pendingorders."</p>";
-                        ?>
-                    </div>
-                    <div class="statscard">
-                        <h3>Completed Orders</h3>
-                        <?php
-                            $completedorders = 0;
-                            foreach($orders as $order){
-                                if($order->orderstatus == "finished"){
-                                    $completedorders = $completedorders + 1;
-                                }
-                            }
-                            echo "<p>".$completedorders."</p>";?>
-                    </div>
-                    <div class="statscard">
-                        <h3>Cancelled Orders</h3>
-                        <?php
-                            $cancelledorders = 0;
-                            foreach($orders as $order){
-                                if($order->orderstatus == "cancelled"){
-                                    $cancelledorders = $cancelledorders + 1;
-                                }
-                            }
-                            echo "<p>".$cancelledorders."</p>";?>
-                    </div>
+                                echo "<p>".$totalpurchasings."</p>";?>
+                        </div>
 
-                    <div class="statscard">
-                        <h3>Total Orders</h3>
-                        <?php
-                            $totalorders = 0;
-                            foreach($orders as $order){
-                                $totalorders = $totalorders + 1;
-                            }
-                            echo "<p>".$totalorders."</p>";?>
-                    </div>
+                        <div class="statscard">
+                            <h3>Total units</h3>
+                            <?php
+                            $totalunits = array_sum($itemQuantities);
+                            echo "<p>".$totalunits."</p>";?>
+                        </div>
+                        
                     
-                    <div class="statscard">
-                        <h3>Total Purchasings (Rs)</h3>
-                        <?php
-                            $totalpurchasings = 0;
-                            foreach($orders as $order){
-                                $totalpurchasings = $totalpurchasings + $order->total;
-                            }
-                            echo "<p>".$totalpurchasings."</p>";?>
-                    </div>
-
-                    <div class="statscard">
-                        <h3>Total units</h3>
-                        <?php
-                        $totalunits = array_sum($itemQuantities);
-                        echo "<p>".$totalunits."</p>";?>
-                    </div>
-                    
-                
-            </section>
-            <h1 style="text-align: center;">Most Purchaced Items</h1>
-            <section style="display:flex;padding: 1%;">
-                <?php
-                        if(is_array($mostPurchasedItems) && !empty($mostPurchasedItems)){
-                        foreach($mostPurchasedItems as $item){
-                                echo "<div class='statscard' style='background-image:url(" . BASE_URL . 'media/uploads/Product/' . $item->Link . ")'>";
-                                echo "<h4>".$item->Name."</h4>";
-                                echo "<h4>".$item->ItemCode."</h4>";
-                                echo "<h4>".$item->Quantity."</h4>";
-                                echo "</div>";
-                            }} else {
-                                echo "<h3 style='text-align:center;'>No Purchased Items</h3>";
-                            }
-                ?>
-            </section>
-    </section>
-            <section class="profile" style="font-weight: bolder;">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" style="border-radius: 80px;"  alt="propic" height="200px" width="200px">
-                <p></p><br>
-                <table>
-                    <tr>
-                        <td>Customer Username </td>
-                        <td><?php echo $_SESSION["USER"]->UserName ?></td>
-                    </tr>
-                    <tr>
-                        <td>Name</td>
-                        <td><?php echo $_SESSION["USER"]->Name; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Address</td>
-                        <td><?php echo $_SESSION["USER"]->Address; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Phone Number</td>
-                        <td><?php echo $_SESSION["USER"]->contactNo; ?></td>
-                    </tr>
-                    <tr>
-                        <td>Email</td>
-                        <td><?php echo $_SESSION["USER"]->Email; ?></td>
-                    </tr>
-                </table>
-                <section class="buttongroup">
-                        <button class="brownbutton" onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
-
-                        <button class="brownbutton" onclick="changepassword()" class="buttonedit">Change Password</button>
-
-                        <button class="brownbutton" onclick="logout()">Log Out</button>
                 </section>
-    </section>
-    
+                <h1 style="text-align: center;color:darkblue">Most Purchaced Items</h1>
+                        <section style="display:flex;padding: 1%;">
+                            <?php
+                                    if(is_array($mostPurchasedItems) && !empty($mostPurchasedItems)){
+                                    foreach($mostPurchasedItems as $item){
+                                            echo "<div class='statscard' style='background-image:url(" . BASE_URL . 'media/uploads/Product/' . $item->Link . ")'>";
+                                            echo "<h4>".$item->Name."</h4>";
+                                            echo "<h4>".$item->ItemCode."</h4>";
+                                            echo "<h4>".$item->Quantity."</h4>";
+                                            echo "</div>";
+                                        }} else {
+                                            echo "<h3 style='text-align:center;'>No Purchased Items</h3>";
+                                        }
+                            ?>
+                        </section>
+        </section>
+        <section class="profile" style="font-weight: bolder; padding-left:3%">
+                    <h1 style="font-size:1.5em;text-align:center"><span id="greeting"></span><td>  <?php echo $_SESSION["USER"]->UserName ?></td></h1>
+                    <br>
+                    <br>
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" style="border-radius: 80px"  alt="propic" height="100px" width="100px">
+                    <p></p><br>
+                    <table>
+                        <tr>
+                            <td><?php echo $_SESSION["USER"]->Name; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $_SESSION["USER"]->Address; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $_SESSION["USER"]->contactNo; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $_SESSION["USER"]->Email; ?></td>
+                        </tr>
+                    </table>
+                    <br>
+                    <br>
+                    <section class="buttongroup">
+                            <button class="brownbutton" onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
+
+                            <button class="brownbutton" onclick="changepassword()" class="buttonedit">Change Password</button>
+
+                            <button class="brownbutton" onclick="logout()">Log Out</button>
+                    </section>
+            </section>
+        </section>
     <script>
     
     var BASE_URL = "<?php echo BASE_URL; ?>";
@@ -151,8 +151,8 @@
 
         const SwalwithButton = Swal.mixin({
                     customClass: {
-                        confirmButton: "yellowbutton",
-                        cancelButton: "yellowbutton"
+                        confirmButton: "yellowbutton2",
+                        cancelButton: "yellowbutton2"
                     },
                     buttonsStyling: false
                 });
@@ -176,6 +176,67 @@
             }
             });
     }
+    
+    function updateGreeting() {
+            var currentTime = new Date();
+            var currentHour = currentTime.getHours();
+            var greetingElement = document.getElementById('greeting');
+
+            if (currentHour >= 5 && currentHour < 12) {
+                greetingElement.textContent = 'Good Morning!';
+            } else if (currentHour >= 12 && currentHour < 18) {
+                greetingElement.textContent = 'Good Afternoon!';
+            } else {
+                greetingElement.textContent = 'Good Evening!';
+            }
+    }
+
+    function viewProfile() {
+            console.log('view profile');
+            var profileSection = document.querySelector('.profile');
+            var dashboardSection = document.querySelector('.dashboard');
+            var profileButton = document.getElementById('profilebutton');
+            var dashboardButton = document.getElementById('dashboardbutton');
+
+            profileSection.style.display = 'flex';
+            dashboardSection.style.display = 'none';
+            profileButton.style.display = 'none';
+            dashboardButton.style.display = 'block';
+        }
+
+    function viewDashboard() {
+            console.log('view dashboard');
+            var profileSection = document.querySelector('.profile');
+            var dashboardSection = document.querySelector('.dashboard');
+            var profileButton = document.getElementById('profilebutton');
+            var dashboardButton = document.getElementById('dashboardbutton');
+
+            profileSection.style.display = 'none';
+            dashboardSection.style.display = 'block';
+            profileButton.style.display = 'block';
+            dashboardButton.style.display = 'none';
+        }
+
+        var previousWidth = window.innerWidth;
+
+    function checkAndRefresh() {
+        var currentWidth = window.innerWidth;
+
+        if (currentWidth > 1100 && currentWidth !== previousWidth) {
+            location.reload(true);
+        }
+
+        // Update the previousWidth variable
+        previousWidth = currentWidth;
+    }
+    window.addEventListener('resize', checkAndRefresh);
+
+    window.onload = checkAndRefresh;
+
+    updateGreeting();
+
+    setInterval(updateGreeting, 60000);
+
     </script>
 </body>
 </html>

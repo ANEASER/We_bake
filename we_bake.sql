@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 05, 2024 at 09:43 AM
+-- Generation Time: Jan 17, 2024 at 05:06 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `customer` (
   `Name` varchar(100) NOT NULL,
-  `Password` varchar(20) NOT NULL,
+  `Password` varchar(199) NOT NULL,
   `DOB` date NOT NULL,
   `contactNo` int(14) NOT NULL,
   `ActiveState` tinyint(1) NOT NULL DEFAULT 1,
@@ -43,8 +43,8 @@ CREATE TABLE `customer` (
 --
 
 INSERT INTO `customer` (`Name`, `Password`, `DOB`, `contactNo`, `ActiveState`, `Address`, `UserName`, `Email`) VALUES
-('amal', 'amal', '2023-09-12', 0, 1, 'sfsdfgv sfgfgdfg rfgdfg', 'amal', 'amal@hmail.com'),
-('sadun', 'sadun', '2023-08-30', 723232545, 1, 'sadun sadun', 'sadun', 'sadun@gmail.com');
+('amal', '1234', '2023-09-12', 0, 1, 'sfsdfgv sfgfgdfg rfgdfg', 'dumal', 'anuatyake@gmail.com'),
+('Ruwan', '$2y$10$X5yQtk1cVwKpm.ZDE.Ks0.Y04ODH1omWgB9Y38k9tPPdS3H5DYDSO', '2024-01-23', 782567545, 1, 'F 109', 'ruwan', 'anudaattanayake@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -79,10 +79,20 @@ INSERT INTO `deliveryvehicles` (`registrationnumber`, `type`, `capacity`, `avail
 --
 
 CREATE TABLE `inquiries` (
-  `ID` int(11) NOT NULL,
-  `from` varchar(20) NOT NULL,
-  `comment` varchar(255) NOT NULL
+  `comment` varchar(255) NOT NULL,
+  `inquiryid` int(10) NOT NULL,
+  `placeby` varchar(40) NOT NULL,
+  `address` varchar(90) NOT NULL,
+  `inquirysubject` varchar(50) NOT NULL,
+  `inquirytext` varchar(500) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `inquiries`
+--
+
+INSERT INTO `inquiries` (`comment`, `inquiryid`, `placeby`, `address`, `inquirysubject`, `inquirytext`) VALUES
+('', 1, 'ruwan', 'F 109', 'Suggestion', 'qsdwsd sdsadfsdf');
 
 -- --------------------------------------------------------
 
@@ -172,8 +182,13 @@ CREATE TABLE `productorder` (
 --
 
 INSERT INTO `productorder` (`orderid`, `placeby`, `orderdate`, `paymentstatus`, `deliverystatus`, `orderstatus`, `total`, `deliverby`, `deliver_address`, `unique_id`, `pickername`, `orderref`) VALUES
-(17, 'amal', '2024-01-12', 'pending', 'delivery', 'pending', 48, '', 'fre dfhfjk', '6597b6c779bbc', 'picker1', 'CP0000001'),
-(18, 'amal', '2024-01-17', 'pending', 'delivery', 'pending', 15, '', 'Jaffna', '6597b77065510', 'picker2', 'CP0000018');
+(18, 'dumal', '2024-01-17', 'pending', 'delivery', 'finished', 15, '13', 'Jaffna', '6597b77065510', 'picker2', 'CP0000018'),
+(19, 'dumal', '2024-01-19', 'pending', 'delivery', 'pending', 42, '', 'fre dfhfjk', '659abfde826e9', 'picker1', 'CP0000019'),
+(22, '', '2024-01-16', 'pending', 'delivery', 'pending', 40, '', 'wdfwdfwf', '659e531281e4b', 'picker1', 'CP0000020'),
+(26, 'ruwan', '2024-01-19', 'pending', 'delivery', 'pending', 64, '', 'wdfwdfwf', '65a7557958c69', 'picker2', 'CD0000026'),
+(27, 'ruwan', '2024-01-19', 'pending', 'delivery', 'pending', 16, '', 'Jaffna', '65a7604765592', 'amalpicker', 'CD0000027'),
+(28, 'ruwan', '2024-01-19', 'pending', 'delivery', 'pending', 15, '', 'fre dfhfjk', '65a761958a768', 'amalpicker', 'CD0000028'),
+(29, 'ruwan', '2024-01-21', 'pending', 'delivery', 'pending', 15, '', 'fre dfhfjk', '65a761acb79be', 'picker2', 'CD0000029');
 
 -- --------------------------------------------------------
 
@@ -197,8 +212,17 @@ CREATE TABLE `productorderline` (
 --
 
 INSERT INTO `productorderline` (`shoppingid`, `quantity`, `unit`, `itemid`, `totalprice`, `unique_id`, `price`, `Itemcode`) VALUES
-(36, 4, '', 32, 48, '6597b6c779bbc', 12, 'BR00032'),
-(37, 3, '', 36, 15, '6597b77065510', 5, 'SW00036');
+(45, 8, '', 36, 40, '659e531281e4b', 5, 'SW00036'),
+(46, 4, '', 40, 16, '659e7d6509276', 4, 'BN00040'),
+(47, 4, '', 37, 20, '659e7d6509276', 5, 'PI00037'),
+(48, 4, '', 36, 20, '65a40338e6900', 5, 'SW00036'),
+(49, 3, '', 37, 15, '65a7550f8996d', 5, 'PI00037'),
+(50, 3, '', 37, 15, '65a7554bf12a5', 5, 'PI00037'),
+(51, 4, '', 32, 48, '65a7557958c69', 12, 'BR00032'),
+(52, 4, '', 35, 16, '65a7557958c69', 4, 'BR00033'),
+(53, 4, '', 40, 16, '65a7604765592', 4, 'BN00040'),
+(54, 3, '', 37, 15, '65a761958a768', 5, 'PI00037'),
+(55, 3, '', 36, 15, '65a761acb79be', 5, 'SW00036');
 
 -- --------------------------------------------------------
 
@@ -301,7 +325,7 @@ CREATE TABLE `supplyrequest` (
 CREATE TABLE `systemuser` (
   `Name` varchar(100) NOT NULL,
   `NIC` varchar(11) NOT NULL,
-  `Password` varchar(20) NOT NULL,
+  `Password` varchar(200) NOT NULL,
   `DOB` date NOT NULL,
   `contactNo` int(14) NOT NULL,
   `ActiveState` tinyint(1) NOT NULL DEFAULT 1,
@@ -362,8 +386,7 @@ ALTER TABLE `deliveryvehicles`
 -- Indexes for table `inquiries`
 --
 ALTER TABLE `inquiries`
-  ADD PRIMARY KEY (`ID`),
-  ADD KEY `from` (`from`);
+  ADD PRIMARY KEY (`inquiryid`);
 
 --
 -- Indexes for table `outlet`
@@ -451,6 +474,12 @@ ALTER TABLE `deliveryvehicles`
   MODIFY `vehicleno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
+-- AUTO_INCREMENT for table `inquiries`
+--
+ALTER TABLE `inquiries`
+  MODIFY `inquiryid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `payment`
 --
 ALTER TABLE `payment`
@@ -466,13 +495,13 @@ ALTER TABLE `productitem`
 -- AUTO_INCREMENT for table `productorder`
 --
 ALTER TABLE `productorder`
-  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `productorderline`
 --
 ALTER TABLE `productorderline`
-  MODIFY `shoppingid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `shoppingid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `stockorderline`

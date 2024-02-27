@@ -10,13 +10,20 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
+
+    <style>
+        button {
+            min-height: 50px;
+            min-width: 100px;
+        }
+    </style>
         <section class="cart">
             <section class="content">
                 <?php
                     include 'cartitems.php';
                 ?>
             </section>
-            <section class="buttongroup">
+            <section class="buttongroup" style="margin: 0%;padding:0%">
                 <button class="yellowbutton" onclick="edit()">edit</button>
                 <button class="greenbutton" onclick="checkout()">checkout</button>
                 <button class="redbutton" onclick="cancel()">cancel</button>
@@ -28,7 +35,16 @@
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
         function checkout(){
-            window.location.href = BASE_URL +"OrderControls/checkout";
+
+            Swal.fire({
+                title: "Order Placed!",
+                text: "Your order has been placed successfully.",
+                icon: "success",
+                showConfirmButton: false, 
+                timer: 1000, 
+            }).then((result) => {
+                window.location.href = BASE_URL +"OrderControls/checkout";
+            });
         }
 
         function cancel(){

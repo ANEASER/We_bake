@@ -50,7 +50,8 @@
 
                 <div class="form-group">
                     <label for="DOB">Date of Birth:</label>
-                    <input type="date" name="DOB" required>
+                    <input type="date" name="DOB" max="<?php echo date('Y-m-d', strtotime('-16 years')); ?>" required>
+
                 </div>
 
                 <div class="form-group">
@@ -83,8 +84,8 @@
                     <input type="password" name="Password2" required>
                 </div>
                     <button class="bluebutton" style="width: 200px;" type="submit">Register</button>
-
             </form>
+            <br>
 
             <p>Already have account? <button class="greenbutton" onclick="loadLogin()">Login</button></p>
         </div>
