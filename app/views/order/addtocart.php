@@ -30,9 +30,9 @@
                                 <?php
 
                                     foreach ($items as $item) {
-                                        echo '<div class="menu-item">';
+                                        echo '<div class="menu-item" style="height:310px;padding:1%">';
                                             echo '<p>' . $item->itemname . '</p>';
-                                            echo '<img src="'. BASE_URL .'media/uploads/Product/'.$item->imagelink.'" alt="' . $item->itemname . '" style="height: 210px; width: 250px;">';
+                                            echo '<img src="'. BASE_URL .'media/uploads/Product/'.$item->imagelink.'" alt="' . $item->itemname . '" style="height: 200px; width: 240px;margin:1%">';
                                             echo '<input type="hidden" name="items[' . $item->itemid . '][id]" value="' . $item->itemid . '">';
                                             echo '<input type="hidden" name="items[' . $item->itemid . '][code]" value="' . $item->Itemcode . '">';
                                             echo '<input type="hidden" name="items[' . $item->itemid . '][name]" value="' . $item->itemname . '">';
@@ -41,9 +41,10 @@
                                             if ($item->availability == 0) {
                                                 echo '<p style="color:red">Not Available</p>';
                                             } else{
-                                                echo '<p style="color:rgb(78, 255, 8)"> Available </p>';
-                                                echo '<p> <input type="number" placeholder="Enter value" min="0" name="items[' . $item->itemid . '][quantity]" /> </p>';
+                                               
+                                                echo '<input style="width: 80px; margin-left:20px" type="number" placeholder="Enter value" min="0" name="items[' . $item->itemid . '][quantity]" />';
                                                 echo '<button class="bluebutton" type="submit" value="Submit">Add to Cart</button>';
+                                                
                                             }
                                             
                                         echo '</div>';
