@@ -9,6 +9,8 @@
     <?php
         include "smnavbar.php";
     ?>
+
+    <h1>Store Manager_Profile</h1>
     
 </body>
 </html>
