@@ -6,6 +6,7 @@
     <title>Admin</title>
     <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>media/css/form.css">
     <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>media/css/main.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
 </head>
 <body>
 
@@ -13,90 +14,151 @@
         include "adminnav.php"
     ?>
 
-    <div style="padding: 2%; background-color:antiquewhite; margin:2%; display:flex; width:100% ; flex-wrap:wrap;justify-content:space-around">
+    <style>
+        .linechart {
+            width: 700px;
+            height: 400px;
+            padding: 1%;
+            background-color: rgba(245, 242, 242, 0.658);
+        }
 
-        <div  class="day" style="width:100%;height:300px">
+        .barchart {
+            width: 700px;
+            height: 400px;
+            padding: 1%;
+            margin-top: 1%;
+            background-color: rgba(245, 242, 242, 0.658);
+        }
+        
+        .piecharts{
+            width: 700px;
+            background-color: rgba(245, 242, 242, 0.658);
+            display: flex;
+            flex-direction: row;
+        }
+
+        .piechart {
+            width: 300px;
+            height: 400px;
+            padding: 1%;
+        }
+        
+        .piechart1 {
+            width: 400px;
+            height: 400px;
+            padding: 1%;
+        }
+    </style>
+
+    <div style="margin-top:2%; display:flex; width:96vw ; flex-wrap:wrap;justify-content:space-around">
+
+        <div  class="day linechart">
             <button class="daybutton" onclick="daily()">Daily</button>
             <button class="monthbutton" onclick="monthly()">Monthly</button>
             <canvas id="myChart1"></canvas>
         </div>
 
-        <div  class="month" style="width:100%;height:300px">
+        <div  class="month linechart">
             <button class="daybutton" onclick="daily()">Daily</button>
             <button class="monthbutton" onclick="monthly()">Monthly</button>
             <canvas id="myChart2"></canvas>
         </div>
 
-        <div style="width:500px; margin:5%">
+        <div class="piecharts">
+            <div class="piechart">
+                <form method="post" style="display: flex;flex-direction:row;">
+                    <select id="month" name="selected_month">
+                        <option value="none">Select Month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                    <button class="brownbutton" type="submit">OK</button>
+                </form>
+                <canvas id="myChart6"></canvas>
+            </div> 
+
+            <div class="piechart1">
+                <canvas id="myChart5"></canvas>
+            </div> 
+        </div>
+
+        <div class="barchart">
             <canvas id="myChart3"></canvas>
         </div>
 
-        <div  style="width:500px; margin:5%" >
+        <div class="barchart">
             <canvas id="myChart4"></canvas>
         </div>
 
-        <div style="width:300px; margin:5%">
-            <canvas id="myChart5"></canvas>
-        </div> 
+        
 
-        <div style="width:300px; margin:2%">
-            <form method="post">
-            <label for="month">Select Month:</label>
-                <select id="month" name="selected_month">
-                    <option value="none">Select Month</option>
-                    <option value="January">January</option>
-                    <option value="February">February</option>
-                    <option value="March">March</option>
-                    <option value="April">April</option>
-                    <option value="May">May</option>
-                    <option value="June">June</option>
-                    <option value="July">July</option>
-                    <option value="August">August</option>
-                    <option value="September">September</option>
-                    <option value="October">October</option>
-                    <option value="November">November</option>
-                    <option value="December">December</option>
-                </select>
-                <button type="submit">Filter Orders</button>
-            </form>
-            <canvas id="myChart6"></canvas>
-        </div> 
-
+       
     </div>
 
     <?php
         $totalsByDay = [];
         $totalsByMonth = [];
 
-        foreach ($producorderdata as $row) {
-            $total = $row->total;
-            $orderdate = $row->orderdate;
+        // Assuming $producorderdata is your original data
 
-            if (array_key_exists($orderdate, $totalsByDay)) {
-                $totalsByDay[$orderdate] += $total;
-            } else {
-                $totalsByDay[$orderdate] = $total;
-            }
+        // Calculate the last 14 days dynamically
+        $last14Days = [];
+        for ($i = 13; $i >= 0; $i--) {
+            $last14Days[] = date('Y-m-d', strtotime("-$i days"));
+        }
+
+        // Calculate the last 12 months dynamically
+        $last12Months = [];
+        for ($i = 11; $i >= 0; $i--) {
+            $last12Months[] = date('F', strtotime("-$i months"));
         }
 
         foreach ($producorderdata as $row) {
             $total = $row->total;
             $orderdate = $row->orderdate;
+
+            if (in_array($orderdate, $last14Days)) {
+                if (array_key_exists($orderdate, $totalsByDay)) {
+                    $totalsByDay[$orderdate] += $total;
+                } else {
+                    $totalsByDay[$orderdate] = $total;
+                }
+            }
+
             $month = date('F', strtotime($orderdate));
 
-            if (array_key_exists($month, $totalsByMonth)) {
-                $totalsByMonth[$month] += $total;
-            } else {
-                $totalsByMonth[$month] = $total;
+            if (in_array($month, $last12Months)) {
+                if (array_key_exists($month, $totalsByMonth)) {
+                    $totalsByMonth[$month] += $total;
+                } else {
+                    $totalsByMonth[$month] = $total;
+                }
             }
         }
 
-        $orderdates = array_keys($totalsByDay);
-        $totals = array_values($totalsByDay);
+        $orderdates = array_values($last14Days);
+        $totals = [];
+        foreach ($last14Days as $day) {
+            $totals[] = isset($totalsByDay[$day]) ? $totalsByDay[$day] : 0;
+        }
 
-        $orderdatesMonth = array_keys($totalsByMonth);
-        $totalsMonth = array_values($totalsByMonth);
+        $orderdatesMonth = $last12Months;
+        $totalsMonth = [];
+        foreach ($last12Months as $month) {
+            $totalsMonth[] = isset($totalsByMonth[$month]) ? $totalsByMonth[$month] : 0;
+        }
     ?>
+
 
     <?php
 
@@ -278,29 +340,36 @@
             const productNamesJSON = <?php echo json_encode($productnames); ?>;
             const productQuantitiesJSON = <?php echo json_encode($productquantities); ?>;
 
+            // Convert productQuantitiesJSON to array of objects
             const entries = Object.entries(productQuantitiesJSON);
-
+            
+            // Sort entries by quantity in descending order
             entries.sort((a, b) => b[1] - a[1]);
 
-            const sortedObj = Object.fromEntries(entries);
+            // Take only the top 5 entries
+            const top5Entries = entries.slice(0, 5);
+
+            // Convert back to object
+            const top5Obj = Object.fromEntries(top5Entries);
 
             new Chart(ctx, {
-                type: 'bar', // Change type to 'pie'
+                type: 'bar',
                 data: {
-                    labels: productNamesJSON,
+                    labels: Object.keys(top5Obj),
                     datasets: [{
                         label: 'Product Quantities',
-                        data: sortedObj,
+                        data: Object.values(top5Obj),
                         backgroundColor: 'rgba(0, 0, 255, 1)',
                         borderColor: 'rgba(0, 0, 255, 1)',
                         borderWidth: 1
                     }]
                 },
                 options: {
-                    
+                    // Add your options here if needed
                 }
             });
         });
+
 
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('myChart4');
@@ -309,29 +378,36 @@
             const productNamesJSON = <?php echo json_encode($productnames); ?>;
             const productSaleJSON = <?php echo json_encode($productsale); ?>;
 
+            // Convert productSaleJSON to array of objects
             const entries = Object.entries(productSaleJSON);
-
+            
+            // Sort entries by sales in descending order
             entries.sort((a, b) => b[1] - a[1]);
 
-            const sortedObj = Object.fromEntries(entries);
+            // Take only the top 5 entries
+            const top5Entries = entries.slice(0, 5);
+
+            // Convert back to object
+            const top5Obj = Object.fromEntries(top5Entries);
 
             new Chart(ctx, {
-                type: 'bar', // Change type to 'pie'
+                type: 'bar',
                 data: {
-                    labels: productNamesJSON,
+                    labels: Object.keys(top5Obj),
                     datasets: [{
                         label: 'Product Sales',
-                        data: sortedObj,
+                        data: Object.values(top5Obj),
                         backgroundColor: 'rgba(0, 255, 0, 1)',
                         borderColor: 'rgba(0, 255, 0, 1)',
                         borderWidth: 1
                     }]
                 },
                 options: {
-                    // You can customize pie chart options here if needed
+                    // You can customize bar chart options here if needed
                 }
             });
         });
+
 
         document.addEventListener('DOMContentLoaded', function() {
             const ctx = document.getElementById('myChart5');
@@ -340,7 +416,7 @@
             const orderStatusesJSON = <?php echo json_encode(array_keys($orderCounts)); ?>;
             const orderCountsJSON = <?php echo json_encode(array_values($orderCounts)); ?>;
 
-            const colors = ['rgba(0, 255, 0, 1)', 'rgba(255, 0, 0, 1)', 'rgba(0, 0, 255, 1)', 'rgba(255, 255, 0, 1)', 'rgba(255, 0, 255, 1)'];
+            const colors = ['rgba(0, 255, 0, 1)', 'rgba(255, 255, 0, 1)', 'rgba(0, 0, 255, 1)', 'rgba(255, 0, 0, 1)', 'rgba(255, 0, 255, 1)'];
 
             new Chart(ctx, {
                 type: 'pie',
@@ -390,7 +466,7 @@
             const orderStatusesJSON = <?php echo json_encode(array_keys($monthlyorderCounts)); ?>;
             const orderCountsJSON = <?php echo json_encode(array_values($monthlyorderCounts)); ?>;
 
-            const colors = ['rgba(0, 255, 0, 1)', 'rgba(255, 0, 0, 1)', 'rgba(0, 0, 255, 1)', 'rgba(255, 255, 0, 1)', 'rgba(255, 0, 255, 1)'];
+            const colors = ['rgba(0, 255, 0, 1)', 'rgba(255, 255, 0, 1)', 'rgba(0, 0, 255, 1)', 'rgba(255, 0, 0, 1)', 'rgba(255, 0, 255, 1)'];
 
             new Chart(ctx, {
                 type: 'pie',
