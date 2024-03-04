@@ -8,7 +8,6 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
-    <h1 style="background-color:Lightbrown;">Outlet Manager Dashboard</h1>
     <title>Place Order</title>
 </head>
 <body>
@@ -16,18 +15,20 @@
        <?php
         include "omnavbar2.php";
     ?>
-<h1> Place Order </h1>
-   
-<div class = "form-container">
-        <form class="form" action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" method="post">
+        <section>
+    
+            <div class = "form-container">
+                    <form class="form" action="<?php echo BASE_URL; ?>OutletControls/submitorder" method="post">
+                    <div class="form-group">
+                        <label for="orderdate"><br>Order Date:</label>
+                        <input type="date" id="orderdate"  min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" name="orderdate" required><br>
+                    </div>
+    
+                    <input  class="bluebutton" type="submit" value="Submit">
+                </form>
+            </div>
 
-
-<label for="orderdate"><br>Order Date:</label>
-                    <input type="date" id="orderdate" name="orderdate" required><br>
-
-          <br>          
-        <input type="submit" value="Submit">
-    </form>
+        </section>
 
 
      <script>

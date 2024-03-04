@@ -26,7 +26,7 @@
             <li><a onclick="placeorder(this)">Place Order</a></li>
             <li><a onclick="purchasehistory(this)">Purchase History</a></li>
             <li><a onclick="constantorder(this)">Constant Orders</a></li>
-            <li><a onlick="navbutton" onclick="logout()">logout</li>
+            <li><a onclick="logout()">logout</a></li>
         </ul>
     </nav>
 

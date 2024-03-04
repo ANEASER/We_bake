@@ -16,10 +16,9 @@
         include "omnavbar2.php";
     ?>
 
-<h1> Welcome To The Outlet Manager Dashboard </h1>
-    <div class="content">
-            
-    </div>
+    <?php
+        var_dump($user);
+    ?>
    
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
