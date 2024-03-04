@@ -9,6 +9,8 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
+    
     <h1 style="background-color:Lightbrown;">Receptionist Dashboard</h1>
     <title>Place Order</title>
 
@@ -34,7 +36,9 @@
         include "recnavbar.php";
     ?>
  <h1>Place Order</h1>
-        <form action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" method="post">
+
+       <div class = "form-container">
+        <form class="form" action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" method="post">
 
         <?php
         if (isset($customerfound)) {
@@ -46,18 +50,22 @@
                     <input type="hidden" id="customername" name="name" value="' . $customerfound[0]->Name . '" required><br>
                     <input type="hidden" id="customeremail" name="email" value="' . $customerfound[0]->Email . '" required><br>
                     <input type="hidden" id="customerphone" name="phone" value="' . $customerfound[0]->contactNo . '" required><br>
-            
+
+            <div class="form-group">
                     <label for="orderdate">Order Date:</label>
                     <input type="date" id="orderdate" name="orderdate" required><br>
-            
+            </div>
+
                     <label for="deliver_address">Delivery Address:</label>
                     <input type="text" id="deliver_address" name="deliver_address" required><br>
                     
                     <label for="deliverystatus">Delivery/Pickup:</label>
+
                     <select id="deliverystatus" name="deliverystatus" required>
                     <option value="delivery">Delivery</option>
                     <option value="pickup">Pickup</option>
                     </select><br>';
+
             echo "<button type='button' onclick='newcustomer()'>New Customer</button>";
         } else {
             echo '<label for="customername">Customer Name:</label>
@@ -76,6 +84,7 @@
                 <input type="text" id="deliver_address" name="deliver_address" required><br>
                 
                 <label for="deliverystatus">Delivery/Pickup:</label>
+
                 <select id="deliverystatus" name="deliverystatus" required>
                 <option value="delivery">Delivery</option>
                 <option value="pickup">Pickup</option>

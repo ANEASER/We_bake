@@ -7,8 +7,6 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
-    <h1 style="background-color:Lightbrown;">Outlet Manager Dashboard</h1>
-    <title>Constant Orders</title>
 </head>
 <body>
       
@@ -16,8 +14,6 @@
         include "omnavbar2.php";
     ?>
 
-
-<h1>Constant Orders</h1>
 
      <script>
 

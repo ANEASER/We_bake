@@ -15,7 +15,6 @@
     <?php
         include "recnavbar.php";
     ?>
-
     <h1>Profile</h1>
     
      <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
@@ -34,23 +33,23 @@
      <th>MORE</th>
      </tr>';
 
-     foreach($orders as $order){
-        echo '<tr>';
-        echo '<td>' . $order->orderref. '</td>';
-        echo '<td>' . $order->orderdate . '</td>';
-        echo '<td class="hideonmobile">' . $order->deliver_address . '</td>';
-        echo '<td class="hideonmobile">' . $order->deliverystatus . '</td>';
-        echo '<td class="hideonmobile">' . $order->orderstatus . '</td>';
-        echo '<td class="hideonmobile">' . $order->paymentstatus . '</td>';
-        echo '<td>' . $order->total . '</td>';
-        echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
-        echo '</tr>';
+     //foreach($orders as $order){
+      //  echo '<tr>';
+      //  echo '<td>' . $order->orderref. '</td>';
+      //  echo '<td>' . $order->orderdate . '</td>';
+      //  echo '<td class="hideonmobile">' . $order->deliver_address . '</td>';
+      //  echo '<td class="hideonmobile">' . $order->deliverystatus . '</td>';
+      //  echo '<td class="hideonmobile">' . $order->orderstatus . '</td>';
+      //  echo '<td class="hideonmobile">' . $order->paymentstatus . '</td>';
+      //  echo '<td>' . $order->total . '</td>';
+      //  echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
+      //  echo '</tr>';
         
-    }
+    // }
+    
     echo '</table>';
          ?>
-
-        </section>
+    </section>
     
      <script>
 
@@ -66,4 +65,5 @@
      </script>
 
 </body>
+
 </html>
