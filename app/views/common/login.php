@@ -75,14 +75,14 @@
                 <div class="form-group">
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required>
-                    <p>forgot password ? <span style="border-bottom: solid brown; cursor:pointer" onclick="resetpassword()">reset</span> </p>
+                    <p>forgot password or username? <span style="text-decoration: underline; cursor:pointer" onclick="resetpassword()">find & reset</span> </p>
                 </div>
                
                 <button class="greenbutton">Login</button>
             </form>
             
             <br>
-            <p>Don't have account? <button class="bluebutton" onclick="loadRegister()">Register</button></p>
+            <p>Don't have account? <span style="cursor:pointer; text-decoration: underline;" onclick="loadRegister()">Register</span></p>
 
     </div>
     </section>
