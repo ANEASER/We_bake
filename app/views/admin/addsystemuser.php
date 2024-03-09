@@ -44,7 +44,6 @@
         </script>";
     }
 ?>
-    ?>
     <section>
             <div class="form-container">
 

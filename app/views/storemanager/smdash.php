@@ -11,7 +11,7 @@
     ?>
 
     <div class="content">
-            <h1>Stocks</h1>
+            <h1>This is the Store Manager Dashboard</h1>
     </div>
    
     <script>
