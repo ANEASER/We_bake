@@ -40,6 +40,8 @@
             } else {
                 echo $this->view("admin/admindash",["productorders" => $productorders]);
             }
+
+
             
         }
 
@@ -232,9 +234,16 @@
             $arr2["deliver_address"] = $_SESSION["adress"];
             $arr2["deliverystatus"] = $_SESSION["deliverstatus"];
             $arr2["unique_id"] = $unique_id;
-            $arr2["placeby"] = $_SESSION["USER"]->UserName;
+
+            if(isset($_SESSION['USER']->Role)){
+                $arr2["placeby"] = $_SESSION["USER"]->EmployeeNo;
+                $arr2["paymentstatus"] = "paid";
+            }else{
+                $arr2["placeby"] = $_SESSION["USER"]->UserName;
+                $arr2["paymentstatus"] = "pending";
+            }  
+
             $arr2["orderstatus"] = "pending";
-            $arr2["paymentstatus"] = "pending";
             $arr2["pickername"] = $_SESSION["picker"];
             $arr2["total"] = $total + $deliveryChargeInt;
 
@@ -245,16 +254,32 @@
                 $orderref  = "P".$max_orderid;
             }
 
-            $orderref = "C".$orderref;
+            if(isset($_SESSION['USER']->Role)){
+                if($_SESSION['USER']->Role == "outletmanager"){
+                    $orderref = "O".$orderref;
+                }
+                else if($_SESSION['USER']->Role == "receptionist"){
+                    $orderref = "R".$orderref;
+                }
+            }
+            else{
+                $orderref = "C".$orderref;
+            }
+        
             $arr2["orderref"] = $orderref;
 
             $productorder->insert($arr2);
 
             unset($_SESSION['unique_id']); 
 
-            $this->redirect(BASE_URL."OrderControls/placeorder");
+            if($_SESSION['USER']->Role == "outletmanager"){
+                $this->redirect(BASE_URL."OutletControls/index");
+            }else{
+                $this->redirect(BASE_URL."OrderControls/placeorder");
+            }
                 
         }
+
 
         // Cart
         function viewcart(){

@@ -20,9 +20,9 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/stocks");
     }
 
-    function addSupplier(){
-        echo $this->view("storemanager/addsupplier");
-    }
+    // function addSupplier(){
+    //     echo $this->view("storemanager/addsupplier");
+    // }
 
 
     function addStockItem(){
