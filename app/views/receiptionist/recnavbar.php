@@ -23,11 +23,11 @@
             echo '<img class="logo" src="' . BASE_URL . 'media/uploads/Content/logo.png" width="200px">';
         ?>
         <ul>
-            <li><button onclick="loadDash()">Home</button></li>
-            <li><button onclick="loadProfile()">Profile</button></li>
-            <li><button onclick="PlaceOrders()">Place Orders</button></li>
-            <li><button onclick="loadHistory()">Purchase History</button></li>
-            <li><button onclick="logout()">Logout</button></li>
+            <li><a onclick="loadDash()">Home</a></li>
+            <li><a onclick="loadProfile()">Profile</a></li>
+            <li><a onclick="PlaceOrders()">Place Orders</a></li>
+            <li><a onclick="loadHistory()">Purchase History</a></li>
+            <li><a onclick="logout()">Logout</a></li>
         
         </ul>
     </nav>
