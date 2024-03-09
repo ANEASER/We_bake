@@ -16,10 +16,8 @@
         include "omnavbar2.php";
     ?>
 
-    <?php
-        var_dump($user);
-    ?>
-   
+    <h1> kumudu </h1>
+
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
         
