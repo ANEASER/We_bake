@@ -64,6 +64,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="stockprice">Items per Container</label>
+                    <input type="number" id="cost" min="1" name="ipc" placeholder="<?php echo $data[0]->ipc; ?>" >
+                </div>
+
+                <div class="form-group">
                     <label for="itemdescription">Item Description:</label>
                     <textarea id="itemdescription" name="itemdescription" rows="4" placeholder="<?php echo $data[0]->itemdescription; ?>"></textarea>
                     <p id="charCount" style="font-size: 10px;">Characters remaining: 250</p>
@@ -72,7 +77,9 @@
                 <div class="form-group">
                     <label for="category">Category:</label>
                     <select id="category" name="category">
-                    <option value="Pastries">Pastries</option>
+                        <option value="<?php echo $data[0]->category; ?>" selected><?php echo $data[0]->category; ?></option>
+                        <option value="Bread">Bread</option>
+                        <option value="Pastries">Pastries</option>
                         <option value="Cakes">Cakes</option>
                         <option value="Cookies">Cookies</option>
                         <option value="Muffins">Muffins</option>

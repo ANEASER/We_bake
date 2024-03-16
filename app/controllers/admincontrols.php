@@ -33,6 +33,7 @@ use function PHPSTORM_META\type;
                 $arr["itemname"] = $_POST["itemname"];
                 $arr["retailprice"] = $_POST["retailprice"];
                 $arr["cost"] = $_POST["cost"];
+                $arr["ipc"] = $_POST["ipc"];
                 $arr["itemdescription"] = $_POST["itemdescription"];
                 $arr["category"] = $_POST["category"];
 
@@ -171,6 +172,10 @@ use function PHPSTORM_META\type;
             if (!empty($_POST['category'])){
                 $data['category'] = $_POST['category'];
             }
+            if (!empty($_POST['ipc'])){
+                $data['ipc'] = $_POST['ipc'];
+            }
+
             echo $productitem->update($id,"itemid",$data);
             $this->redirect(BASE_URL."CommonControls/loadProductsView");
         }

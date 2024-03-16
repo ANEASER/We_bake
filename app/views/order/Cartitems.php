@@ -35,6 +35,7 @@
 
     $total = 0;
     $quantity = 0;
+    $containercount = 0;
 
     foreach ($cartItems as $item) {
         echo '<tr>
@@ -42,27 +43,33 @@
                 <td>' . htmlspecialchars($item['quantity']) . '</td>
                 <td>' . htmlspecialchars($item['quantity'] * $item['price']) . '</td>
             </tr>';
+
         $quantity += $item['quantity'];
         $total += $item['quantity'] * $item['price'];
+    }
 
-        if($quantity > 10 && $quantity <= 80 && $_SESSION["deliverstatus"] == "delivery"){
+    $containercount = 0; // Reset container count for the second loop
+
+    foreach ($cartItems as $item) {
+        $containercount += ceil($item['quantity'] / $item['ipc']);
+
+        if ($containercount > 4 && $containercount <= 20 && $_SESSION["deliverstatus"] == "delivery") {
             $_SESSION["delivery_charge"] = $_SESSION["charges"]->cap_80;
-        }
-        else if($quantity > 80 && $quantity <= 300 && $_SESSION["deliverstatus"] == "delivery"){
+        } else if ($containercount > 20 && $containercount <= 50 && $_SESSION["deliverstatus"] == "delivery") {
             $_SESSION["delivery_charge"] = $_SESSION["charges"]->cap_300;
-        }else if ($quantity > 300 && $quantity <= 1000 && $_SESSION["deliverstatus"] == "delivery"){
+        } else if ($containercount > 50 && $containercount <= 100 && $_SESSION["deliverstatus"] == "delivery") {
+            $_SESSION["delivery_charge"] = $_SESSION["charges"]->cap_1000;
+        } else if ($containercount > 100 && $_SESSION["deliverstatus"] == "delivery") {
             $_SESSION["delivery_charge"] = $_SESSION["charges"]->cap_1000;
         }
-        else if($quantity > 1000 && $_SESSION["deliverstatus"] == "delivery"){
-            $_SESSION["delivery_charge"] = $_SESSION["charges"]->cap_1000;
-        }
-    } 
+    }
 
     echo "</table>";
     echo "<br>";
     echo "<p style='padding-left:2%; text-align:center'>CART PRICE: Rs. " . $total."</p>";
     echo "<p style='padding-left:2%; text-align:center'>DELIVERY CHARGE: Rs. " . $_SESSION["delivery_charge"]."</p>";
-    echo "<p style='padding-left:2%; text-align:center'>Quantity " . $quantity."</p>";
+    echo "<p style='padding-left:2%; text-align:center'>Quantity : " . $quantity."</p>";
+    echo "<p style='padding-left:2%; text-align:center'>No. Container : " . $containercount."</p>";
     echo "<br>";
 ?>
 
