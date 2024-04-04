@@ -10,65 +10,6 @@
     <title></title>
 </head>
 <body>
-    <nav>
-        <input type="checkbox" id="check" name="" value="">
-        <label for="check" class="checkbtn container" onclick="changemobilemode(this)">
-            <div class="bar1"> <i id="sidebar_btn"></i> </div>
-            <div class="bar2"> <i id="sidebar_btn"></i> </div>
-            <div class="bar3"> <i id="sidebar_btn"></i> </div>
-        </label>
-        <?php
-            echo '<img class="logo" src="' . BASE_URL . 'media/uploads/Content/logo.png" width="200px">';
-        ?>
-        <ul>
-            <li><a class="navbutton" onclick="home(this)">Home</a></li>
-            <li><a class="navbutton" onclick="loadVehicles(this)">Vehicles</a></li>
-            <li><a class="navbutton" onclick="logout()">Log Out</a></li>
-        </ul>
-    </nav>
-    <script>
-
-        var BASE_URL = "<?php echo BASE_URL; ?>";
-
-        var activeLink = sessionStorage.getItem('activeLink');
-        if (activeLink) {
-            var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
-            if (linkElement) {
-                linkElement.classList.add('active');
-            } 
-        } else {
-            var homeLink = document.querySelector('a[onclick="home(this)"]');
-            if (homeLink) {
-                homeLink.classList.add('active');
-
-            sessionStorage.setItem('activeLink', homeLink.getAttribute('onclick'));
-        }}
-        
-        function changeActive(link) {
-            var links = document.querySelectorAll('body nav ul li a');
-            links.forEach(function (el) {
-                el.classList.remove('active');
-            });
-
-            link.classList.add('active');
-
-            sessionStorage.setItem('activeLink', link.getAttribute('onclick'));
-        }
-
-        function home(link) {
-            changeActive(link);
-            window.location.href = BASE_URL + "PmControls/index";
-        }
-
-        function logout() {
-            window.location.href = BASE_URL + "CommonControls/logout";
-        }
-
-        function loadVehicles(link) {
-            changeActive(link);
-            window.location.href = BASE_URL +  "PmControls/loadVehiclesView";
-        }
-
-    </script>
+   
 </body>
 </html>
