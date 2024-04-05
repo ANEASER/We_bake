@@ -44,7 +44,7 @@
     ?>
      <section>
         <div class="form-container">
-            <form method="POST" class="form" action="<?php echo BASE_URL; ?>AdminControls/editproduct" onsubmit="return validateForm()">
+            <form method="POST" class="form" enctype="multipart/form-data" action="<?php echo BASE_URL; ?>AdminControls/editproduct" onsubmit="return validateForm()">
 
                 <input type="hidden" name="id" value="<?php echo $data[0]->itemid; ?>">
 
@@ -92,6 +92,33 @@
                         <option value="Others">Others</option>
                         <option value="Specials">Specials</option>
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="availability">Availability:</label>
+                    <select id="availability" name="availability">
+                        <option value="<?php echo $data[0]->availability; ?>" selected>
+                            <?php 
+                            if($data[0]->availability == 1) {
+                                echo "Available";
+                            } else if ($data[0]->availability == 0) {
+                                echo "Not Available";
+                            } 
+                            ?>
+                        </option>
+                        <?php
+                        if($data[0]->availability == 1) {
+                            echo "<option value='0'>Not Available</option>";
+                        } else {
+                            echo "<option value='1'>Available</option>";
+                        } 
+                        ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Item Image</label>
+                    <input type="file" name="image" id="image">
                 </div>
 
                 <input class="bluebutton" type="submit" value="Submit">

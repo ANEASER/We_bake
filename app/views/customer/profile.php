@@ -93,15 +93,18 @@
                         <section style="display:flex;padding: 1%;">
                             <?php
                                     if(is_array($mostPurchasedItems) && !empty($mostPurchasedItems)){
-                                    foreach($mostPurchasedItems as $item){
-                                            echo "<div class='statscard' style='background-image:url(" . BASE_URL . 'media/uploads/Product/' . $item->Link . ")'>";
-                                            echo "<h4>".$item->Name."</h4>";
-                                            echo "<h4>".$item->ItemCode."</h4>";
-                                            echo "<h4>".$item->Quantity."</h4>";
+                                        foreach($mostPurchasedItems as $item){
+                                            echo "<div class='statscard' style='position: relative; background-image: url(" . BASE_URL . 'media/uploads/Product/' . $item->Link . "); background-size: cover; background-repeat: no-repeat; background-position: center;'>";
+                                                echo "<div style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.7); display:flex;flex-direction:column;justify-content:center; font-weight:bolder' ";
+                                                    echo "<h4>".$item->Name."</h4>";
+                                                    echo "<h4>".$item->ItemCode."</h4>";
+                                                    echo "<h4>".$item->Quantity."</h4>";
+                                                echo "</div>";
                                             echo "</div>";
-                                        }} else {
-                                            echo "<h3 style='text-align:center;'>No Purchased Items</h3>";
-                                        }
+                                        
+                                            }} else {
+                                                echo "<h3 style='text-align:center;'>No Purchased Items</h3>";
+                                    }
                             ?>
                         </section>
         </section>

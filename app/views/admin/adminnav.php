@@ -24,7 +24,6 @@
             <li><a onclick="home(this)">Home</a></li>
             <li><a onclick="laodItems(this)">Items</a></li>
             <li><a onclick="loadOutlets(this)">Outlets</a></li>
-            <li><a onclick="loadStocks(this)">Stocks</a></li>
             <li><a onclick="loadUsers(this)">Users</a></li>
             <li><a onclick="advertiesments(this)">Advertiesments</a></li>
             <li><a onclick="logout(this)">logout</a></li>
@@ -82,11 +81,6 @@
         function loadOutlets(link) {
             changeActive(link);
             window.location.href = BASE_URL + "AdminControls/loadOutletsView";
-        }
-        
-        function loadStocks(link) {
-            changeActive(link);
-            window.location.href = BASE_URL + "AdminControls/loadStocksView";
         }
 
         function loadUsers(link) {
