@@ -8,13 +8,13 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/navbar.css">
-    <title>Vehicles</title>
+    <title>Raw Materials Request</title>
 </head>
 <body>
+    
     <?php
     require('pmnavbar.php');
     ?>
-
     
 
 </body>

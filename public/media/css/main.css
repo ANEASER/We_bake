@@ -17,3 +17,15 @@ body {
     padding:2%;
     height: 100px;
 }
+
+.column1{
+    margin-top: 50%;
+     margin-bottom: 50%;
+  }   
+  .row{
+      
+      display: grid;
+      grid-template-columns: 50% 50%;
+      grid-gap: 10px;
+      background-color: white;
+  }  
