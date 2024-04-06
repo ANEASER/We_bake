@@ -23,7 +23,20 @@ use function PHPSTORM_META\type;
             echo $this->view("admin/admindash",[ "data" => $data, "producorderdata" => $producorderdata, "productorderlinedata" => $productorderlinedata, "productitemdata" => $productitemdata]);
         }
 
-        // CRUDS
+        //Item functions
+        function AddItem(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            echo $this->view("admin/additem");
+        }
+
         function addproductitem(){
 
             if(isset($_FILES["image"])){
@@ -153,6 +166,21 @@ use function PHPSTORM_META\type;
             echo $this->view("admin/items", [ "items" => $items]);
         }
 
+        function EditItem($id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $productitem = new ProductItem();
+            $data = $productitem->where("itemid", $id);
+            echo $this->view("admin/edititem", ["data" => $data]);
+        }
+
         function editproduct(){
 
             if(!Auth::loggedIn()){
@@ -192,7 +220,7 @@ use function PHPSTORM_META\type;
                 $data['availability'] = 0;
             }
 
-            if(isset($_FILES["image"])){
+            if(isset($_FILES["image"]) && isset($_FILES["image"]["tmp_name"]) && !empty($_FILES["image"]["tmp_name"])){
                 
                 $arr = $productitem->where("itemid", $id);
                 $arr = $arr[0];
@@ -239,6 +267,7 @@ use function PHPSTORM_META\type;
             echo $productitem->update($id,"itemid",$data);
             $this->redirect(BASE_URL."CommonControls/loadProductsView");
         }
+
 
 
         // System User
@@ -342,7 +371,6 @@ use function PHPSTORM_META\type;
             $this->redirect(BASE_URL."AdminControls/loadUsersView");
         }
         
-
         function loadUsersView(){
 
             if(!Auth::loggedIn()){
@@ -489,8 +517,7 @@ use function PHPSTORM_META\type;
                 $data = $systemuser->where("UserID", $id);
                 echo $this->view("admin/editsystemuser", ["data" => $data, "error" => "Password is incorrect"]);
             }
-        }
-        
+        }      
 
         public function searchUsers() {
             $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
@@ -513,49 +540,6 @@ use function PHPSTORM_META\type;
             echo $this->view("admin/systemusers", [ "users" => $users]);
         }
         
-        //view table functions
-
-        function loadStocksView(){
-
-            if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
-            }
-
-            if(!Auth::isAdmin()){
-                $this->redirect(BASE_URL."CommonControls/loadLoginView");
-            }
-
-            echo $this->view("admin/stocks");
-        }
-
-
-        //view add functions
-        function AddItem(){
-
-            if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
-            }
-
-            if(!Auth::isAdmin()){
-                $this->redirect(BASE_URL."CommonControls/loadLoginView");
-            }
-
-            echo $this->view("admin/additem");
-        }
-
-        function AddStock(){
-
-            if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
-            }
-
-            if(!Auth::isAdmin()){
-                $this->redirect(BASE_URL."CommonControls/loadLoginView");
-            }
-
-            echo $this->view("admin/addstock");
-        }
-
         function AddUser(){
 
             if(!Auth::loggedIn()){
@@ -569,8 +553,27 @@ use function PHPSTORM_META\type;
             echo $this->view("admin/addsystemuser");
         }
 
-        
+        function EditUser($id){
+            $systemuser = new Systemuser();
+            $data = $systemuser->where("UserID", $id);
 
+            if($data[0]->Role == "outletmanager"){
+                $outlets = new Outlet();
+                $outlet = $outlets->where("Manager", $data[0]->EmployeeNo);
+                $data[0]->Outlet = $outlet[0]->OutletCode;
+                if($data[0]->Outlet == null){
+                    echo $this->view("admin/editsystemuser", ["data" => $data]);
+                }
+                else{
+                   $this->redirect(BASE_URL."AdminControls/loadUsersView");
+                }
+            }else{
+                echo $this->view("admin/editsystemuser", ["data" => $data]);
+            }
+            
+        }
+
+        
         // outlet functions
         function loadOutletsView(){
 
@@ -678,7 +681,6 @@ use function PHPSTORM_META\type;
             $this->redirect(BASE_URL . "AdminControls/loadOutletsView");
         }
         
-
         function AddOutletview(){
 
             if(!Auth::loggedIn()){
@@ -758,7 +760,6 @@ use function PHPSTORM_META\type;
             
             echo $this->view("admin/editoutlet", ["data" => $data,"managers" => $managersWithoutOutlets]);
         }
-
 
         function EditOutlet(){
             session_start();
@@ -862,7 +863,6 @@ use function PHPSTORM_META\type;
                 echo $this->view("admin/editoutlet", ["data" => $data, "error" => "Password is incorrect"]);
             }
         }
-        
 
         function searchOutlet(){
             $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
@@ -993,54 +993,7 @@ use function PHPSTORM_META\type;
             }
         }
 
-        //view edit functions
-        function EditItem($id){
-
-            if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
-            }
-
-            if(!Auth::isAdmin()){
-                $this->redirect(BASE_URL."CommonControls/loadLoginView");
-            }
-
-            $productitem = new ProductItem();
-            $data = $productitem->where("itemid", $id);
-            echo $this->view("admin/edititem", ["data" => $data]);
-        }
-
-        function EditStock(){
-
-            if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
-            }
-
-            if(!Auth::isAdmin()){
-                $this->redirect(BASE_URL."CommonControls/loadLoginView");
-            }
-            
-            echo $this->view("admin/editstockalertlevels");
-        }
-
-        function EditUser($id){
-            $systemuser = new Systemuser();
-            $data = $systemuser->where("UserID", $id);
-
-            if($data[0]->Role == "outletmanager"){
-                $outlets = new Outlet();
-                $outlet = $outlets->where("Manager", $data[0]->EmployeeNo);
-                $data[0]->Outlet = $outlet[0]->OutletCode;
-                if($data[0]->Outlet == null){
-                    echo $this->view("admin/editsystemuser", ["data" => $data]);
-                }
-                else{
-                   $this->redirect(BASE_URL."AdminControls/loadUsersView");
-                }
-            }else{
-                echo $this->view("admin/editsystemuser", ["data" => $data]);
-            }
-            
-        }
+        
 
     }
 ?>

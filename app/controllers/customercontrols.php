@@ -60,7 +60,7 @@
 
             if (!empty($itemQuantities)) {
                 // Get the top 3 products or fewer if there are less than 3
-                $topProducts = array_slice($itemQuantities, 0, 3, true);
+                $topProducts = array_slice($itemQuantities, 0, 5, true);
 
                 $produictitem = new ProductItem();
 
@@ -290,6 +290,22 @@
 
             
             $this->redirect(BASE_URL."CustomerControls/profile");
+        }
+
+        // cancel order
+        function cancelorder($unique_id){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(isset($_SESSION["USER"]->Role)){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $productorder = new ProductOrder();
+            $productorder->update($unique_id,"unique_id",["orderstatus"=>"cancelled"]);
+
+            $this->redirect(BASE_URL."CustomerControls/purchasehistory");
         }
         
         // Logout

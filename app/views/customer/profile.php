@@ -21,6 +21,28 @@
     <button id="profilebutton" type="button" onclick="viewProfile()"></button>
     <button id="dashboardbutton" type="button" onclick="viewDashboard()"></button>
 
+    <style>
+        .pagination-container {
+            text-align: center;
+            margin-top: 10px; /* Adjust as needed */
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 4px;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .swal2-actions {
+            width: 50%;
+            display: flex;
+            justify-content: space-between;
+        }
+
+    </style>
+
         <section class="content" style="height: 120vh; width:100vw">
                 <section class="dashboard" >
                     <section class="stats">
@@ -79,21 +101,15 @@
                                 }
                                 echo "<p>".$totalpurchasings."</p>";?>
                         </div>
-
-                        <div class="statscard">
-                            <h3>Total units</h3>
-                            <?php
-                            $totalunits = array_sum($itemQuantities);
-                            echo "<p>".$totalunits."</p>";?>
-                        </div>
-                        
                     
                 </section>
+
+                <br>
                 <h1 style="text-align: center;color:darkblue">Most Purchaced Items</h1>
-                        <section style="display:flex;padding: 1%;">
-                            <?php
-                                    if(is_array($mostPurchasedItems) && !empty($mostPurchasedItems)){
-                                        foreach($mostPurchasedItems as $item){
+                <section class="stats" style="display:flex;padding: 1%;">
+                        <?php
+                            if(is_array($mostPurchasedItems) && !empty($mostPurchasedItems)){
+                                foreach($mostPurchasedItems as $item){
                                             echo "<div class='statscard' style='position: relative; background-image: url(" . BASE_URL . 'media/uploads/Product/' . $item->Link . "); background-size: cover; background-repeat: no-repeat; background-position: center;'>";
                                                 echo "<div style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.7); display:flex;flex-direction:column;justify-content:center; font-weight:bolder' ";
                                                     echo "<h4>".$item->Name."</h4>";
@@ -102,11 +118,71 @@
                                                 echo "</div>";
                                             echo "</div>";
                                         
-                                            }} else {
-                                                echo "<h3 style='text-align:center;'>No Purchased Items</h3>";
+                                    }} else {
+                                        echo "<h3 style='text-align:center;'>No Purchased Items</h3>";
+                            }
+                        ?>                        
+                </section>
+                
+
+                <section class="pendingorderstable" style="display:flex;justify-content:space-around; padding-top:3%; width:100%;">
+                    <?php
+                        $itemsPerPage = 4;
+                        $totalOrders = count($orders);
+                        $totalPages = ceil($totalOrders / $itemsPerPage);
+
+                        $currentPage = isset($_GET['page']) ? max(1, min((int)$_GET['page'], $totalPages)) : 1;
+
+                        $startIndex = ($currentPage - 1) * $itemsPerPage;
+                        $endIndex = min($startIndex + $itemsPerPage, $totalOrders);
+
+                        echo '<div class="table-container">';
+                        echo '<table>';
+                        echo '<tr>
+                            <th>ORDER REF</th>
+                            <th>DELIVERY DATE</th>
+                            <th class="hideonmobile">DELIVERY STATUS</th>
+                            <th class="hideonmobile">PAYMENT STATUS</th>
+                            <th>TOTAL</th>
+                            <th>CANCEL</th>
+                            <th>MORE</th>
+                        </tr>';
+
+                        for ($i = $startIndex; $i < $endIndex; $i++) {
+                            $order = $orders[$i];
+
+                                if($order->orderstatus != "cancelled" && $order->orderstatus != "finished"){
+                                    echo '<tr>';
+                                    echo '<td>' . $order->orderref. '</td>';
+                                    echo '<td>' . $order->orderdate . '</td>';
+                                    echo '<td class="hideonmobile">' . $order->deliverystatus . '</td>';
+                                    echo '<td class="hideonmobile">' . $order->paymentstatus . '</td>';
+                                    echo '<td>' . $order->total . '</td>';
+                                    if ($order->orderstatus == "pending") {
+                                        echo "<td><button class='redbutton' onclick='cancel(\"" . $order->unique_id . "\")'>Cancel</button></td>";
+                                    } else {
+                                        echo "<td>Not Available</td>";
                                     }
-                            ?>
-                        </section>
+                                    echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
+                                    echo '</tr>';
+                                }
+                        }
+
+                        echo '</table>';
+                    ?>
+                    <?php
+                        // Pagination links
+                        echo '<div class="pagination-container">';
+                        echo '<div class="pagination">';
+                        for ($page = 1; $page <= $totalPages; $page++) {
+                            echo '<a class="brownbutton" href="?page=' . $page . '">' . $page . '</a>';
+                        }
+                        echo '</div>';
+                        echo '</div>';
+                    ?>
+
+                </section>
+                
         </section>
         <section class="profile" style="font-weight: bolder; padding-left:3%">
                     <h1 style="font-size:1.5em;text-align:center"><span id="greeting"></span><td>  <?php echo $_SESSION["USER"]->UserName ?></td></h1>
@@ -146,6 +222,7 @@
     function editprofiledetails(){
                 window.location.href = BASE_URL + "CustomerControls/editprofiledetailsview";
     }
+    
     function changepassword(){
                 window.location.href = BASE_URL + "CustomerControls/changepasswordview";
     }
@@ -194,6 +271,10 @@
             }
     }
 
+    function more(unique_id){
+            window.location.href = BASE_URL + "OrderControls/moredetails/" + unique_id;
+    }
+
     function viewProfile() {
             console.log('view profile');
             var profileSection = document.querySelector('.profile');
@@ -205,7 +286,7 @@
             dashboardSection.style.display = 'none';
             profileButton.style.display = 'none';
             dashboardButton.style.display = 'block';
-        }
+    }
 
     function viewDashboard() {
             console.log('view dashboard');
@@ -218,9 +299,9 @@
             dashboardSection.style.display = 'block';
             profileButton.style.display = 'block';
             dashboardButton.style.display = 'none';
-        }
+    }
 
-        var previousWidth = window.innerWidth;
+    var previousWidth = window.innerWidth;
 
     function checkAndRefresh() {
         var currentWidth = window.innerWidth;
@@ -232,6 +313,40 @@
         // Update the previousWidth variable
         previousWidth = currentWidth;
     }
+
+    function cancel(unique_id){
+            const SwalwithButton = Swal.mixin({
+                    customClass: {
+                        confirmButton: "redbutton",
+                        cancelButton: "yellowbutton",
+                    },
+                    buttonsStyling: false
+                });
+            
+            SwalwithButton.fire({
+                    text: "Are you sure you want to cancel this order?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Yes, Cancel",
+                    cancelButtonText: "Keep",
+                    reverseButtons: true,
+                    preConfirm: async () => {
+                        try {
+                            await SwalwithButton.fire({
+                                title: "Cancelled!",
+                                text: "Your order has been canceled.",
+                                icon: "success",
+                                confirmButtonText: "OK",
+                                confirmButtonClass: "greenbutton"
+                            });
+                            window.location.href = BASE_URL +"CustomerControls/cancelorder/" + unique_id;
+                        } catch (error) {
+                            SwalwithButton.showValidationMessage(`Request failed: ${error}`);
+                        }
+                    },
+                });
+    }
+
     window.addEventListener('resize', checkAndRefresh);
 
     window.onload = checkAndRefresh;

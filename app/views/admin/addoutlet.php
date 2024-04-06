@@ -32,7 +32,7 @@
                         text: '$error',
                         confirmButtonText: 'OK',
                     });
-                    window.location.href = '" . BASE_URL . "AdminControls/AddOutletview';
+                    window.location.href = '" . BASE_URL . "AdminControls/loadOutletsView';
 
                 } else {
                     alert('$error');
