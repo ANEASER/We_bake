@@ -188,7 +188,18 @@
                     <h1 style="font-size:1.5em;text-align:center"><span id="greeting"></span><td>  <?php echo $_SESSION["USER"]->UserName ?></td></h1>
                     <br>
                     <br>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" style="border-radius: 80px"  alt="propic" height="100px" width="100px">
+                    <?php 
+                        if(isset($_SESSION["USER"]->profilepic)){
+                            $profilePic = $_SESSION["USER"]->profilepic;
+                            if (base64_decode($profilePic, true) !== false) {
+                                echo "<img src='data:image/jpeg;base64," . $profilePic . "' height=200px width=170px onclick='enlargeImage(this)'>";
+                            } else {
+                                echo "Invalid base64 encoded image.";
+                            }
+                        } else {
+                            echo "<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU' style='border-radius: 80px' alt='propic' height='100px' width='100px'>";
+                        }
+                    ?>
                     <p></p><br>
                     <table>
                         <tr>
@@ -208,6 +219,8 @@
                     <br>
                     <section class="buttongroup">
                             <button class="brownbutton" onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
+
+                            <button class="brownbutton" onclick="uploadprofilepic()">Edit Profile Picture</button>
 
                             <button class="brownbutton" onclick="changepassword()" class="buttonedit">Change Password</button>
 
@@ -345,6 +358,10 @@
                         }
                     },
                 });
+    }
+
+    function uploadprofilepic(){
+        window.location.href = BASE_URL + "CustomerControls/uploadprofilepicview";
     }
 
     window.addEventListener('resize', checkAndRefresh);

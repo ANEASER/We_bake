@@ -183,6 +183,44 @@
                 }
         }
 
+        function uploadprofilepicview(){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(isset($_SESSION["USER"]->Role)){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            echo $this->view("customer/uploadprofilepic");
+        }
+
+        function uploadproof(){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(isset($_SESSION["USER"]->Role)){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
+                $username = $_POST["username"];
+                $image = $_FILES["image"];
+                $imageData = file_get_contents($image["tmp_name"]);
+                $base64Image = base64_encode($imageData);
+
+                $customer = new Customer();
+                $customer->update($username, "UserName", ["profilepic" => $base64Image]);
+
+                $_SESSION["USER"]->profilepic = $base64Image;
+
+                $this->redirect(BASE_URL."CustomerControls/profile");
+            } else {
+                echo "Form not submitted!";
+            }
+        }
+
 
         // Change password
         function changepasswordview(){
