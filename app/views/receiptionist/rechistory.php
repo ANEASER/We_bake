@@ -8,17 +8,19 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
-    <h1 style="background-color:Lightbrown;">Receptionist Dashboard</h1>
+   
     <title>Purchase History</title>
 </head>
   
-    <title>Receptionist Purchase History</title>
+    
 
 <body>
     <?php
         include "recnavbar.php";
     ?>
-    <h1> Purchase History</h1>
+    <br><br>
+    
+    <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
     <?php
         
             echo "<table>";
@@ -61,6 +63,8 @@
             echo "</table>";
     
     ?>
+
+</section>
 
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";

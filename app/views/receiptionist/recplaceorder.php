@@ -11,11 +11,11 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
-    <h1 style="background-color:Lightbrown;">Receptionist Dashboard</h1>
+   
     <title>Receptionist_Place Order</title>
 </head>
     <body>
-        <h1>Place Order</h1>
+        
 
         <form action="<?php echo BASE_URL; ?>RecieptionControls/checkcustomer" method="post">
 
