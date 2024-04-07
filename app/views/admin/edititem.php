@@ -44,7 +44,7 @@
     ?>
      <section>
         <div class="form-container">
-            <form method="POST" class="form" action="<?php echo BASE_URL; ?>AdminControls/editproduct" onsubmit="return validateForm()">
+            <form method="POST" class="form" enctype="multipart/form-data" action="<?php echo BASE_URL; ?>AdminControls/editproduct" onsubmit="return validateForm()">
 
                 <input type="hidden" name="id" value="<?php echo $data[0]->itemid; ?>">
 
@@ -64,6 +64,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="stockprice">Items per Container</label>
+                    <input type="number" id="cost" min="1" name="ipc" placeholder="<?php echo $data[0]->ipc; ?>" >
+                </div>
+
+                <div class="form-group">
                     <label for="itemdescription">Item Description:</label>
                     <textarea id="itemdescription" name="itemdescription" rows="4" placeholder="<?php echo $data[0]->itemdescription; ?>"></textarea>
                     <p id="charCount" style="font-size: 10px;">Characters remaining: 250</p>
@@ -72,7 +77,9 @@
                 <div class="form-group">
                     <label for="category">Category:</label>
                     <select id="category" name="category">
-                    <option value="Pastries">Pastries</option>
+                        <option value="<?php echo $data[0]->category; ?>" selected><?php echo $data[0]->category; ?></option>
+                        <option value="Bread">Bread</option>
+                        <option value="Pastries">Pastries</option>
                         <option value="Cakes">Cakes</option>
                         <option value="Cookies">Cookies</option>
                         <option value="Muffins">Muffins</option>
@@ -85,6 +92,33 @@
                         <option value="Others">Others</option>
                         <option value="Specials">Specials</option>
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="availability">Availability:</label>
+                    <select id="availability" name="availability">
+                        <option value="<?php echo $data[0]->availability; ?>" selected>
+                            <?php 
+                            if($data[0]->availability == 1) {
+                                echo "Available";
+                            } else if ($data[0]->availability == 0) {
+                                echo "Not Available";
+                            } 
+                            ?>
+                        </option>
+                        <?php
+                        if($data[0]->availability == 1) {
+                            echo "<option value='0'>Not Available</option>";
+                        } else {
+                            echo "<option value='1'>Available</option>";
+                        } 
+                        ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Item Image</label>
+                    <input type="file" name="image" id="image">
                 </div>
 
                 <input class="bluebutton" type="submit" value="Submit">

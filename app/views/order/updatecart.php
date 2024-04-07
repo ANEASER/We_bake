@@ -33,9 +33,10 @@
             <tr>
                 <th>ID</th>
                 <th>Code</th>
+                <th>Item Name</th>
                 <th>Quantity</th>
-                <th></th>
-                <th></th>
+                <th>Edit</th>
+                <th>Delete</th>
             </tr>";
 
             $total = 0;
@@ -45,6 +46,7 @@
                 echo "<tr>
                 <td>{$item['id']}</td>
                 <td>{$item['code']}</td>
+                <td>{$item['name']}</td>
                 <td>{$item['quantity']}</td>
                 <td>
                     <button  class='yellowbutton' type='button' onclick='editCartItem({$item['id']}, {$item['quantity']})'>Edit</button>
@@ -134,7 +136,9 @@
                         text: "Enter the amount of quantity you want to order:",
                         input: "number",  
                         inputAttributes: {
-                            autocapitalize: "off"
+                            autocapitalize: "off",
+                            min: 0,
+
                         },
                         showCancelButton: true,
                         confirmButtonText: "Done",

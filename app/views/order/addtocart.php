@@ -30,12 +30,14 @@
                                 <?php
 
                                     foreach ($items as $item) {
-                                        echo '<div class="menu-item" style="height:310px;padding:1%">';
+                                        echo '<div class="menu-item" style="height:310px">';
+                                            
+                                            echo '<img src="'. BASE_URL .'media/uploads/Product/'.$item->imagelink.'" alt="' . $item->itemname . '" style="height: 200px; width: 250px;margin-bottom:1%">';
                                             echo '<p>' . $item->itemname . '</p>';
-                                            echo '<img src="'. BASE_URL .'media/uploads/Product/'.$item->imagelink.'" alt="' . $item->itemname . '" style="height: 200px; width: 240px;margin:1%">';
                                             echo '<input type="hidden" name="items[' . $item->itemid . '][id]" value="' . $item->itemid . '">';
                                             echo '<input type="hidden" name="items[' . $item->itemid . '][code]" value="' . $item->Itemcode . '">';
                                             echo '<input type="hidden" name="items[' . $item->itemid . '][name]" value="' . $item->itemname . '">';
+                                            echo '<input type="hidden" name="items[' . $item->itemid . '][ipc]" value="' . $item->ipc . '">';
                                             echo '<input type="hidden" name="items[' . $item->itemid . '][price]" value="' . $item->retailprice . '">';
                                             echo '<p> Price :' . $item->retailprice.'</p>';
                                             if ($item->availability == 0) {

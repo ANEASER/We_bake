@@ -383,6 +383,9 @@
 
             session_start();
             unset($_SESSION['cart']); // destroy cart
+            unset($_SESSION['delivery_charge']); // destroy unique_id
+            unset($_SESSION["containercount"]);
+
             $this->redirect(BASE_URL."OrderControls/showcategories");
         }
 
