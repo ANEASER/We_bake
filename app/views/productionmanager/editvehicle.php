@@ -10,6 +10,7 @@
     <title>Edit Delivery Vehicle</title>
 </head>
 <body>
+<<<<<<< HEAD
         <?php
                 require('pmnavbar.php');
 
@@ -121,5 +122,8 @@
                 return true;
             }
         </script>
+=======
+
+>>>>>>> 9e63d9fc1c235fa40a648d6cb053b7a1205d3a4f
 </body>
 </html>
