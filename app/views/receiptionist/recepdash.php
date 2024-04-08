@@ -14,7 +14,7 @@
     <?php
         include "recnavbar.php";
     ?>
-    
+
 </body>
 </html>
 

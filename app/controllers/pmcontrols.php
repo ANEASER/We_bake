@@ -24,10 +24,12 @@ function pendingOrdersView(){
 }
 //process order
 
+
 //cancle order
 //complete order
 
 //more details
+
 
                               //vehicles
 //load vehicle view

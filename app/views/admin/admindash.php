@@ -19,7 +19,7 @@
             width: 700px;
             height: 400px;
             padding: 1%;
-            background-color: rgba(245, 242, 242, 0.658);
+            background-color: rgba(255, 255, 255, 0.8);
         }
 
         .barchart {
@@ -27,12 +27,12 @@
             height: 400px;
             padding: 1%;
             margin-top: 1%;
-            background-color: rgba(245, 242, 242, 0.658);
+            background-color: rgba(255, 255, 255, 0.8);
         }
         
         .piecharts{
             width: 700px;
-            background-color: rgba(245, 242, 242, 0.658);
+            background-color: rgba(255, 255, 255, 0.8);
             display: flex;
             flex-direction: row;
         }
