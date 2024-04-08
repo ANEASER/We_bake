@@ -4,370 +4,107 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Production Manager Dashboard</title>
-    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
-    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
-    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
-    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
-    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/navbar.css">
-   
+    <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>media/css/tables.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>media/css/buttons.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>media/css/cart.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>media/css/main.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>media/css/navbar.css">
+    <style>
+    nav{
+                align-items: center;
+    height: 100%;
+    width: 100%;
+    
+    top: 0px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+nav ol{
+    
+    margin-right: 10%;
+    margin-left: 10%;
+}
+
+nav ol li{
+    display: column;
+    
+    line-height: 80px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+nav ol li a{
+    color: rgb(95, 37, 37);
+    
+    padding: 7px 13px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-family: poppins;
+}
+
+a.active,a:hover{
+    border-radius: 10px;
+    background: #351a07;
+    transition: .5s;
+    color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+
+.column1{
+  margin-top: 50%;
+   margin-bottom: 50%;
+}   
+.row{
+    
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 10px;
+    background-color: white;
+    
+}
+
+</style>
 </head>
+
 <body>
-    <?php
-        require('pmnavbar.php');
-    ?>
-    <div class="searchpanel">
-                
-                <form method="GET" action="<?php echo BASE_URL; ?>OrderControls/searchOrders" class="search" style="display: flex; flex-direction:row;">
-                    <?php
-                        if (isset($_GET['search'])) {
-                            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="' . $_GET['search'] . '" class="searchbox">';
-                            echo '<input type="submit" value="Search" class="searchbutton">';
-                            echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
-                        } else {
-                            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" class="searchbox">';
-                            echo '<input type="submit" value="Search" class="searchbutton">';
-                        }
-                    ?>
-                </form>
-
-    
-                <ul style="display: flex; padding: 0; list-style: none; margin: 0;">
-                    <li style="margin-right: 10px;"><a id="home" onclick="showpendingOrdersTable(this)" style="padding: 5px;">Pending Orders</a></li>
-                    <li style="margin-right: 10px;"><a onclick="showPickupOrderTable(this)" style="padding: 5px;">Pickup Orders</a></li>
-                    <li style="margin-right: 10px;"><a onclick="showDeliverOrderTable(this)" style="padding: 5px;">Deliver Orders</a></li>
-                    <li style="margin-right: 10px;"><a onclick="showOnDeliverOrderTable(this)" style="padding: 5px;">OnDeliver Orders</a></li>
-                    <li style="margin-right: 10px;"><a onclick="showCompletedOrderTable(this)" style="padding: 5px;">Completed Orders</a></li>
-                </ul>
-        </div>
-    <section style="display:flex;justify-content:space-around; width:100%">
-    <?php
-            echo "<div id='pendingOrdersTable'>";
-            echo "<table>";
-            echo "<tr>
-                <th>Order REF</th>
-                <th>Placed By</th>
-                <th>Order Date</th>
-                <th>Payment Status</th>
-                <th>Order Status</th>
-                <th>Total</th>
-                <th>Deliver By</th>
-                <th>Unique ID</th>
-                <th>Deliver Address</th>
-                <th>Update</th>
-                <th>Cancel</th>
-                <th>More</th>
-            </tr>";
-
-            foreach($productorders as $productorder){ 
-
-                if($productorder->orderstatus == "pending"){
-                    echo "<tr>";
-                    echo "<td>".$productorder->orderref."</td>";
-                    echo "<td>".$productorder->placeby."</td>";
-                    echo "<td>".$productorder->orderdate."</td>";
-                    echo "<td>".$productorder->paymentstatus."</td>";
-                    echo "<td>".$productorder->orderstatus."</td>";
-                    echo "<td>".$productorder->total."</td>";
-                    echo "<td>".$productorder->deliverby."</td>";
-                    echo "<td>".$productorder->unique_id."</td>";
-                    echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button class='greenbutton' onclick='Process(".$productorder->orderid.", \"".$productorder->deliverystatus."\")'>Process</button></td>";
-                    echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
-                    echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
-                    echo "</tr>";
-                }    
-            }    
-            
-            echo "</table>";
-            echo "</div>";
-    
-    ?>
-    <?php
-            echo "<div id='PickupOrderTable'>";
-            echo "<table>";
-            echo "<th>Order REF</th>
-                <th>Placed By</th>
-                <th>Order Date</th>
-                <th>Payment Status</th>
-                <th>Order Status</th>
-                <th>Total</th>
-                <th>Deliver By</th>
-                <th>Unique ID</th>
-                <th>Deliver Address</th>
-                <th>Update</th>
-                <th>Cancel</th>
-                <th>More</th>
-            </tr>";
-
-            foreach($productorders as $productorder){ 
-
-                if($productorder->orderstatus == "processing" and $productorder->deliverystatus == "pickup"){
-                    echo "<tr>";
-                    echo "<td>".$productorder->orderref."</td>";
-                    echo "<td>".$productorder->placeby."</td>";
-                    echo "<td>".$productorder->orderdate."</td>";
-                    echo "<td>".$productorder->paymentstatus."</td>";
-                    echo "<td>".$productorder->orderstatus."</td>";
-                    echo "<td>".$productorder->total."</td>";
-                    echo "<td>".$productorder->deliverby."</td>";
-                    echo "<td>".$productorder->unique_id."</td>";
-                    echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button class='greenbutton' onclick='Process(".$productorder->orderid.")'>Process</button></td>";
-                    echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
-                    echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
-                    echo "</tr>";
-                }    
-            }
-            echo "</table>";
-            echo "</div>";
+<div class="row">
+<div class="column1" style="background-color:white;">
+    <div>
+        <?php 
+        echo '<img src="' . BASE_URL . 'media/uploads/Content/bg1.jpg" alt="logo" style="margin-left:auto; margin-right:auto; display:block; width:50%; height:100%; transform:scale(2);">'
         ?>
-    <?php
-            echo "<div id='DeliverOrderTable'>";
-            echo "<table>";
-            echo "<th>Order REF</th>
-                <th>Placed By</th>
-                <th>Order Date</th>
-                <th>Payment Status</th>
-                <th>Order Status</th>
-                <th>Total</th>
-                <th>Deliver By</th>
-                <th>Unique ID</th>
-                <th>Deliver Address</th>
-                <th>Update</th>
-                <th>Cancel</th>
-                <th>More</th>
-            </tr>";
-
-            foreach($productorders as $productorder){ 
-
-                if($productorder->orderstatus == "processing" and $productorder->deliverystatus != "pickup"){
-                    echo "<tr>";
-                    echo "<td>".$productorder->orderref."</td>";
-                    echo "<td>".$productorder->placeby."</td>";
-                    echo "<td>".$productorder->orderdate."</td>";
-                    echo "<td>".$productorder->paymentstatus."</td>";
-                    echo "<td>".$productorder->orderstatus."</td>";
-                    echo "<td>".$productorder->total."</td>";
-                    echo "<td>".$productorder->deliverby."</td>";
-                    echo "<td>".$productorder->unique_id."</td>";
-                    echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button class='greenbutton' onclick='AssignVehicle(".$productorder->orderid.")'>Assighn Vehicle</button></td>";
-                    echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
-                    echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
-                    echo "</tr>";
-                }    
-            }
-            echo "</table>";
-            echo "</div>";
-        ?>
-
-    <?php
-            echo "<div id='OnDeliverOrderTable'>";
-            echo "<table>";
-            echo "<th>Order REF</th>
-                    <th>Placed By</th>
-                    <th>Order Date</th>
-                    <th>Payment Status</th>
-                    <th>Order Status</th>
-                    <th>Total</th>
-                    <th>Deliver By</th>
-                    <th>Unique ID</th>
-                    <th>Deliver Address</th>
-                    <th>Update</th>
-                    <th>Cancel</th>
-                    <th>More</th>
-                </tr>";
-
-                foreach($productorders as $productorder){ 
-
-                if($productorder->orderstatus == "ondelivery"){
-                    echo "<tr>";
-                    echo "<td>".$productorder->orderref."</td>";
-                    echo "<td>".$productorder->placeby."</td>";
-                    echo "<td>".$productorder->orderdate."</td>";
-                    echo "<td>".$productorder->paymentstatus."</td>";
-                    echo "<td>".$productorder->orderstatus."</td>";
-                    echo "<td>".$productorder->total."</td>";
-                    echo "<td>".$productorder->deliverby."</td>";
-                    echo "<td>".$productorder->unique_id."</td>";
-                    echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button class='greenbutton' onclick='Completed(".$productorder->orderid.")'>Complete</button></td>";
-                    echo "<td><button class='redbutton' onclick='cancel(".$productorder->orderid.")'>Cancel</button></td>";
-                    echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
-                    echo "</tr>";
-                }    
-            }
-            echo "</table>";
-            echo "</div>";
-        ?>
-
-
-
-    <?php
-            echo "<div id='CompletedOrderTable'>";
-            echo "<table>";
-            echo "<th>Order REF</th>
-                    <th>Placed By</th>
-                    <th>Order Date</th>
-                    <th>Payment Status</th>
-                    <th>Order Status</th>
-                    <th>Total</th>
-                    <th>Deliver By</th>
-                    <th>Unique ID</th>
-                    <th>Deliver Address</th>
-                    <th>More</th>
-                </tr>";
-
-                foreach($productorders as $productorder) {
-                if ($productorder->orderstatus == "finished") {
-                    echo "<tr>";
-                    echo "<td>".$productorder->orderref."</td>";
-                    echo "<td>".$productorder->placeby."</td>";
-                    echo "<td>".$productorder->orderdate."</td>";
-                    echo "<td>".$productorder->paymentstatus."</td>";
-                    echo "<td>".$productorder->orderstatus."</td>";
-                    echo "<td>".$productorder->total."</td>";
-                    echo "<td>".$productorder->deliverby."</td>";
-                    echo "<td>".$productorder->unique_id."</td>";
-                    echo "<td>".$productorder->deliver_address."</td>";
-                    echo "<td><button class='bluebutton' onclick='more(\"" . $productorder->unique_id . "\")'>More</button></td>";
-                    echo "</tr>";
-                }
-            }
-            
-            echo "</table>";
-            echo "</div>";
-        ?>
-    </section>
+    </div>
+</div>
+<div class="column" style="background-color:antiquewhite;">
     
-    
-    <script>
-        
-        var BASE_URL = "<?php echo BASE_URL; ?>";
-        
-        function changeActive(link) {
-            var links = document.querySelectorAll('body div ul li a');
-            links.forEach(function (el) {
-                el.classList.remove('active');
-            });
+    <nav align="center" style="padding-top:30%;font-size:20px; ">
+    <h1 style="color:rgb(95,37,37); padding-bottom: 40px;"> Production Manager</h1>
+        <ol>
+        <li><a class="navbutton" onclick="pendingOrders()">Production Orders</a></li>
+        <li><a class="navbutton" onclick="rm()">Raw Materials Requests</a></li>
+        <li><a class="navbutton" onclick="loadVehicles()">Vehicles</a></li>
+        <li><a class="navbutton" onclick="logout()">Log Out</a></li>
+        </ol>
+        </nav>
+    </div>
+</div>
 
-            link.classList.add('active');
+<script>
+       var BASE_URL = "<?php echo BASE_URL; ?>";
 
-            sessionStorage.setItem('activeLink', link.getAttribute('onclick'));
-            }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('DOMContentLoaded');
-            var activeLink = sessionStorage.getItem('activeLink');
-            console.log(activeLink);
-            if (activeLink != "showpendingOrdersTable(this)" || activeLink != "showCompletedOrderTable(this)" || activeLink != "showDeliverOrderTable(this)" || activeLink != "showOnDeliverOrderTable" || activeLink != "showPickupOrderTable" || activeLink == null){
-                var homeLink = document.getElementById('home');
-                if (homeLink) {
-                    homeLink.click();
-                }
-            } else {
-                var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
-                if (linkElement) {
-                    linkElement.classList.add('active');
-
-                    var functionName = activeLink.match(/([a-zA-Z]+)\(/)[1];
-
-                    if (typeof window[functionName] === 'function') {
-                        window[functionName](linkElement);
-                    }
-                }
-            }
-        });
-
-
-
-
-
-        function Process(orderid, deliverystatus) {
-            if(deliverystatus == "pickup"){
-                sessionStorage.setItem('activeLink', 'showpendingOrdersTable(this)');
-            }else{
-                sessionStorage.setItem('activeLink', 'showpendingOrdersTable(this)');
-            }
-            window.location.href = BASE_URL +  "PmControls/processOrder/"+orderid;
+        function pendingOrders() {
+            window.location.href = BASE_URL + "pmcontrols/pendingOrdersView";
         }
-
-        function Completed(orderid) {
-            sessionStorage.setItem('activeLink', 'showCompletedOrderTable(this)');
-            window.location.href = BASE_URL +  "PmControls/completedOrder/"+orderid;
+        function rm() {
+            window.location.href = BASE_URL + "pmcontrols/rmView";
         }
-
-        function cancel(orderid) {
-            window.location.href = BASE_URL +  "PmControls/cancelOrder/"+orderid;
-        }
-
-        function AssignVehicle(orderid) {
-            sessionStorage.setItem('activeLink', 'showDeliverOrderTable(this)');
-            window.location.href = BASE_URL +  "PmControls/showassignvehicles/"+orderid;
-        }
-
         function loadVehicles() {
-            window.location.href = BASE_URL +  "PmControls/loadVehiclesView";
+            window.location.href = BASE_URL +  "pmcontrols/loadVehiclesView";
         }
-
         function logout() {
-            window.location.href = BASE_URL +  "CommonControls/logout";
-        }
-
-        function showpendingOrdersTable(link){
-            changeActive(link);
-            document.getElementById("pendingOrdersTable").style.display = "block";
-            document.getElementById("PickupOrderTable").style.display = "none";
-            document.getElementById("DeliverOrderTable").style.display = "none";
-            document.getElementById("OnDeliverOrderTable").style.display = "none";
-            document.getElementById("CompletedOrderTable").style.display = "none";
-        }
-
-        function showPickupOrderTable(link){
-            changeActive(link);
-            document.getElementById("pendingOrdersTable").style.display = "none";
-            document.getElementById("PickupOrderTable").style.display = "block";
-            document.getElementById("DeliverOrderTable").style.display = "none";
-            document.getElementById("OnDeliverOrderTable").style.display = "none";
-            document.getElementById("CompletedOrderTable").style.display = "none";
-        }
-
-        function showDeliverOrderTable(link){
-            changeActive(link);
-            document.getElementById("pendingOrdersTable").style.display = "none";
-            document.getElementById("PickupOrderTable").style.display = "none";
-            document.getElementById("DeliverOrderTable").style.display = "block";
-            document.getElementById("OnDeliverOrderTable").style.display = "none";
-            document.getElementById("CompletedOrderTable").style.display = "none";
-        }
-
-        function showOnDeliverOrderTable(link){
-            changeActive(link);
-            document.getElementById("pendingOrdersTable").style.display = "none";
-            document.getElementById("PickupOrderTable").style.display = "none";
-            document.getElementById("DeliverOrderTable").style.display = "none";
-            document.getElementById("OnDeliverOrderTable").style.display = "block";
-            document.getElementById("CompletedOrderTable").style.display = "none";
-        }
-
-        function showCompletedOrderTable(link){
-            changeActive(link);
-            document.getElementById("pendingOrdersTable").style.display = "none";
-            document.getElementById("PickupOrderTable").style.display = "none";
-            document.getElementById("DeliverOrderTable").style.display = "none";
-            document.getElementById("OnDeliverOrderTable").style.display = "none";
-            document.getElementById("CompletedOrderTable").style.display = "block";
-        }
-
-        function clearSearch() {
-            window.location.href = BASE_URL +  "PMControls";
-        }
-
-        function more(unique_id) {
-            
-            var url = BASE_URL + "OrderControls/moredetails/" + unique_id ;
-
-            window.location.href = url;
+            window.location.href = BASE_URL + "CommonControls/logout";
         }
 
     </script>
