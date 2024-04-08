@@ -13,7 +13,9 @@
             }
 
             $productorder = new ProductOrder();
+
             $productorders = $productorder->findOnToday();
+
             $this->view("productionmanager/pmdash", ["productorders" => $productorders]);
         }
 
@@ -238,10 +240,6 @@
             
             $vehicleid = $_POST['id'];
 
-
-            if (!empty($_POST['registrationnumber'])){
-                $data['registrationnumber'] = $_POST['registrationnumber'];
-            }
             if (!empty($_POST['type'])){
                 $data['type'] = $_POST['type'];
             }
@@ -255,12 +253,7 @@
                     $data['availability'] = 0;
                 }
             }
-            if (!empty($_POST['chassinumber'])){
-                $data['chassinumber'] = $_POST['chassinumber'];
-            }
-            if (!empty($_POST['enginenumber'])){
-                $data['enginenumber'] = $_POST['enginenumber'];
-            }
+           
             if (!empty($_POST['modelname'])){
                 $data['modelname'] = $_POST['modelname'];
             }

@@ -1,21 +1,22 @@
 section.stats {
-    padding: 20px;
+    padding: 10px;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .statscard {
-    height: 220px;
-    width: 325px;
-    margin: 20px;
+    height: 150px;
+    width: 200px;
+    margin: 10px;
     padding: 1%;
     text-align: center;
-    background-color: rgba(250, 232, 205, 0.89);
+    background-color: rgba(250, 232, 205,0.95);
 }
 
 .statscard p {
     margin-top: 12%;
-    font-size: 4em;
+    font-size: 2em;
     font-weight: bold;
 }
 
@@ -26,7 +27,7 @@ section.stats {
 }
 
 section.stats h3 {
-    font-size: 1.5em;
+    font-size: 1em;
 }
 
 section.dashboard {
@@ -72,7 +73,8 @@ section.content {
 
     section.stats {
         width: 100vw;
-        padding: 20px;
+        display: flex;
+        flex-wrap: wrap;
     }
     #profilebutton {
         display: block;
@@ -111,7 +113,14 @@ section.content {
 
     section.content {
         display: flex;
-        justify-content: space-around;
+    }
+
+    .pendingorderstable {
+        font-size: small;
+    }
+
+    h1 {
+        padding-left: 30%;
     }
 
 }

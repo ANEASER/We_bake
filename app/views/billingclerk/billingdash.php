@@ -56,7 +56,7 @@
                 <th>More</th>
             </tr>";
 
-            foreach($data["productorders"] as $productorder){ 
+            foreach($productorders as $productorder){ 
 
                 if($productorder->orderstatus == "pending" && $productorder->paymentstatus == "pending"){
                     echo "<tr>";

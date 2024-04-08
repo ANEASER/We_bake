@@ -12,33 +12,80 @@
 
 </head>
 <body>
+
     
        <?php
         include "omnavbar2.php";
     ?>
-<section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
 
-<?php
-        
-            echo "<table>";
+    <style>
+            .pagination-container {
+                text-align: center;
+                margin-top: 10px; /* Adjust as needed */
+            }
 
-            echo "<tr>
-                <th>Order ID</th>
-                <th>Placed By</th>
-                <th>Order Date</th>
-                <th>Delivery Date</th>
-                <th>Payment Status</th>
-                <th>Delivery Status</th>
-                <th>Order Status</th>
-                <th>Total</th>
-                <th>Deliver By</th>
-                <th>Unique ID</th>
-                <th>Deliver Address</th>
-                </tr>";
+            .pagination a {
+                display: inline-block;
+                padding: 8px 16px;
+                margin: 0 4px;
+                color: white;
+                text-decoration: none;
+                border-radius: 4px;
+            }
 
-            echo "</table>";
+    </style>
     
-    ?>
+    <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
+        <?php
+                $itemsPerPage = 9;
+                $totalOrders = count($orders);
+                $totalPages = ceil($totalOrders / $itemsPerPage);
+
+                // Assuming you have a page parameter in your URL, e.g., ?page=2
+                $currentPage = isset($_GET['page']) ? max(1, min((int)$_GET['page'], $totalPages)) : 1;
+
+                $startIndex = ($currentPage - 1) * $itemsPerPage;
+                $endIndex = min($startIndex + $itemsPerPage, $totalOrders);
+
+                echo '<div class="table-container">';
+                echo '<table>';
+                echo '<tr>
+                    <th>ORDER REF</th>
+                    <th>DELIVERY DATE</th>
+                    <th class="hideonmobile">DELIVERY ADDRESS</th>
+                    <th class="hideonmobile">DELIVERY STATUS</th>
+                    <th class="hideonmobile">ORDER STATUS</th>
+                    <th class="hideonmobile">PAYMENT STATUS</th>
+                    <th>TOTAL</th>
+                    <th>MORE</th>
+                </tr>';
+
+                for ($i = $startIndex; $i < $endIndex; $i++) {
+                    $order = $orders[$i];
+                    echo '<tr>';
+                    echo '<td>' . $order->orderref. '</td>';
+                    echo '<td>' . $order->orderdate . '</td>';
+                    echo '<td class="hideonmobile">' . $order->deliver_address . '</td>';
+                    echo '<td class="hideonmobile">' . $order->deliverystatus . '</td>';
+                    echo '<td class="hideonmobile">' . $order->orderstatus . '</td>';
+                    echo '<td class="hideonmobile">' . $order->paymentstatus . '</td>';
+                    echo '<td>' . $order->total . '</td>';
+                    echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
+                    echo '</tr>';
+                }
+
+                echo '</table>';
+        ?>
+        <?php
+            echo '<div class="pagination-container">';
+            echo '<div class="pagination">';
+            for ($page = 1; $page <= $totalPages; $page++) {
+                echo '<a class="brownbutton" href="?page=' . $page . '">' . $page . '</a>';
+            }
+            echo '</div>';
+            echo '</div>';
+        ?>
+
     </section>
 
      <script>
@@ -50,7 +97,7 @@
         }
 
         function more(unique_id){
-            window.location.href = BASE_URL + "outletControls/moredetails/" + unique_id;
+            window.location.href = BASE_URL + "OrderControls/moredetails/" + unique_id;
         }
      </script>
 </body>

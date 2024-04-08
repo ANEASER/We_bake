@@ -48,8 +48,7 @@
 
                     <input type="hidden" name="id" value="<?php echo $data[0]->vehicleno; ?>">
                 <div class="form-group">
-                    <label for="registrationnumber">Registration Number:</label>
-                    <input type="text" id="registrationnumber" name="registrationnumber" placeholder="<?php echo $data[0]->	registrationnumber; ?>">
+                    <label for="registrationnumber">Registration Number: <?php echo $data[0]->	registrationnumber; ?></label>
                 </div>
                     
                 <div class="form-group"> 
@@ -70,15 +69,6 @@
                     </select>
                 </div>
                     
-                <div class="form-group"> 
-                    <label for="chassinumber">Chassis Number:</label>
-                    <input type="text" id="chassinumber" name="chassinumber" placeholder="<?php echo $data[0]->chassinumber; ?>">
-                </div>
-                    
-                <div class="form-group"> 
-                    <label for="enginenumber">Engine Number:</label>
-                    <input type="text" id="enginenumber" name="enginenumber" placeholder="<?php echo $data[0]->enginenumber; ?>">
-                </div>
                     
                 <div class="form-group"> 
                     <label for="modelname">Model Name:</label>

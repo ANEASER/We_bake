@@ -62,6 +62,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="stockprice">Items per Container</label>
+                    <input type="number" id="cost" min="1" name="ipc" required>
+                </div>
+
+                <div class="form-group">
                     <label for="itemdescription">Item Description:</label>
                     <textarea id="itemdescription" name="itemdescription" rows="4" maxlength="250" required></textarea>
                     <p id="charCount" style="font-size: 10px;">Characters remaining: 250</p>

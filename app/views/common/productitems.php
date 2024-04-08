@@ -29,7 +29,7 @@
                             <?php
 
                                 foreach ($items as $item) {
-                                    if($_SESSION["USER"]->Role == 'admin'){
+                                    if(isset($_SESSION["USER"]->Role) && $_SESSION["USER"]->Role == 'admin'){
                                         echo '<div class="menu-item" style="height: 330px;">';
                                     }else {
                                         echo '<div class="menu-item">';
@@ -47,10 +47,8 @@
                                             echo '<p style="color:rgb(78, 255, 8);text-align:center"> Available </p>';
                                         }
                                         if($_SESSION["USER"]->Role == 'admin'){
-                                            echo '<div style="display:flex;flex-direction:row">';
-                                            echo '<button style="width: 80px;" onclick="edit(' . $item->itemid . ')">Update</button>';
-                                            echo '<button style="width: 80px;" onclick="undo(' . $item->itemid . ')">Undo</button>';
-                                            echo '<button style="width: 80px;" onclick="del(' . $item->itemid . ')">Delete</button>';
+                                            echo '<div style="display:flex;flex-direction:row;justify-content:center">';
+                                                echo '<button style="width: 80px;" onclick="edit(' . $item->itemid . ')">Update</button>';
                                             echo '</div>';
                                         }
                                         
@@ -78,14 +76,7 @@
         function edit(itemid) {
             window.location.href = BASE_URL + "AdminControls/EditItem/"+itemid;
         }
-
-        function del(itemid) {
-            window.location.href = BASE_URL + "AdminControls/deleteproduct/"+itemid;
-        }
-
-        function undo(itemid) {
-            window.location.href = BASE_URL + "AdminControls/undoproduct/"+itemid;
-        }
+        
     </script>
 
 </body>

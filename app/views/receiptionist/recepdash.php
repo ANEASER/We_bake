@@ -14,7 +14,7 @@
     <?php
         include "recnavbar.php";
     ?>
-    <h1>Welcome To The Receptionist Dashboard</h1>
+
 </body>
 </html>
 

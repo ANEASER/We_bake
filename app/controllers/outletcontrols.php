@@ -18,7 +18,18 @@ class OutletControls extends Controller {
     }
     
     function purchasehistory(){
-        echo $this->view("outlet/purchasehistory");
+        
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        if($_SESSION == null){
+            session_start();
+        }
+
+        $productorder = new ProductOrder();
+        $orders = $productorder->where("placeby", $_SESSION["USER"]->EmployeeNo);
+        echo $this->view("outlet/purchasehistory",["orders"=>$orders]);
 
      
     }
@@ -49,9 +60,8 @@ class OutletControls extends Controller {
         $outlet = new Outlet();
         $foundoutlet = $outlet->where("Manager", $_SESSION["USER"]->EmployeeNo);
 
-        $_SESSION["adress"] = $foundoutlet[0]->Address;
-
-        var_dump($_SESSION);
+        $_SESSION["adress"] = $foundoutlet[0]->OutletCode;
+        $_SESSION['unique_id'] = $unique_id;
 
         $this->redirect(BASE_URL."OrderControls/showcategories");
 
