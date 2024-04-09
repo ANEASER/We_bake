@@ -7,7 +7,7 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/navbar.css">
-    <title>Add Delivery Vehicle</title>
+    <title>All Delivery Vehicle</title>
 </head>
 <body>
  <?php

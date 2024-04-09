@@ -7,7 +7,6 @@
             $query = "SELECT * FROM deliveryvehicles WHERE capacity > $capacity";
             return $this->query($query);
         }
-    }
 
-    
+    }
 ?>
