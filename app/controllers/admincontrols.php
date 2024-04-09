@@ -250,8 +250,8 @@ use function PHPSTORM_META\type;
                     $error = "Sorry, your file is too large.";
                     
                 }
-                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                    $error = "Sorry, only JPG, JPEG, PNG files are allowed.";
+                if($imageFileType != "jpeg") {
+                    $error = "Sorry, only JPEG files are allowed.";
                     
                 }
                 if ($uploadOk == 0) {

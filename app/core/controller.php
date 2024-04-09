@@ -9,7 +9,7 @@
            if(file_exists("../app/views/".$viewname.".php")){
                require ("../app/views/".$viewname.".php");
            }else{
-               require ("../app/views/main/404view.php");
+               require ("../app/views/common/404view.php");
            } }
 
         // load model

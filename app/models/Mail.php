@@ -12,9 +12,12 @@
 
             $subject = "OTP from We bake";
             $body = "Your OTP is $otp";
-            $this->sendMail($email, $subject, $body);
             
-            return true;
+            if($this->sendMail($email, $subject, $body)){
+                return true;
+            }else{
+                return false;
+            }
         }
 
     }
