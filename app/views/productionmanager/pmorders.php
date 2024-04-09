@@ -8,7 +8,6 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/navbar.css">
-    <title>Vehicles</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -22,7 +21,7 @@
     <div class="searchpanel">
         <form method="GET" style="display:flex; flex-direction:row;">
        <input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" class="searchbox">
-        <input type="submit" value="Search" class="searchbutton">
+        <input type="submit" value="Search" class="greenbutton">
                         </form>
         <ul style="display: flex;margin-left: 70%;">
                     
