@@ -1,86 +1,77 @@
 <?php
 
-    class PmControls extends Controller{
-
-        function index($id=null){
-
-            if(!Auth::loggedIn()){
-                $this->redirect(BASE_URL."CommonControls/loadLoginView");
-            }
-            $this->view("productionmanager/pmdash");
+class PmControls extends Controller
+{
+    function index($id = null)
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
-    
-
-                                //production orders
-//pending orders (all)
-function pendingOrdersView(){
-
-    if(!Auth::loggedIn()){
-        $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        $this->view("productionmanager/pmdash");
     }
 
-    echo $this->view("productionmanager/pmorders");
-
-}
-//process order
-
-
-//cancle order
-//complete order
-
-//more details
-
-
-                              //vehicles
-//load vehicle view
-function loadVehiclesView(){
-
-    if(!Auth::loggedIn()){
-        $this->redirect(BASE_URL."CommonControls/loadLoginView");
+    // Production Orders
+    // Pending Orders (All)
+    function pendingOrdersView()
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        echo $this->view("productionmanager/pmorders");
     }
 
-    echo $this->view("productionmanager/vehicles");
-}
+    // Process Order
+    // Cancel Order
+    // Complete Order
+    // More Details
 
-//view all vehicles
-function allVehicleView(){
-    if(!Auth::loggedIn()){
-        $this->redirect(BASE_URL."CommonControls/loadLoginView");
+    // Vehicles
+    // Load Vehicle View
+    function loadVehiclesView()
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        $vehicle = new vehicle();
+        $vehicles = $vehicle->findall();
+        echo $this->view("productionmanager/vehicles", ["vehicles" => $vehicles]);
     }
 
-    //$vehicle = new Vehicle();
-    //$vehicles = $vehicles->findall();
-    echo $this->view("productionmanager/allvehicles");
-}
-//Add vehicle
-//view
-function addVehicleView(){
-    if(!Auth::loggedIn()){
-        $this->redirect(BASE_URL."CommonControls/loadLoginView");
+    // View All Vehicles
+    function allVehicleView()
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        $vehicle = new vehicle();
+        $vehicles = $vehicle->findall();
+        echo $this->view("productionmanager/allvehicles", ["vehicles" => $vehicles]);
     }
 
-    echo $this->view("productionmanager/addvehicle");
-}
-//Addvehicle
-
-//assign vehicle
-
-//delete vehicle
-
-//edit vehicle
-//view
-//edit vehicle
-
-//raw materials request
-function rmView() {
-
-    if (!Auth::loggedIn()) {
-        $this->redirect("CommonControls/loadLoginView");
+    // Add Vehicle
+    // View
+    function addVehicleView()
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        echo $this->view("productionmanager/addvehicle");
     }
 
-    echo $this->view("productionmanager/rmrequests");
-}
+    // Add Vehicle
+    // Assign Vehicle
+    // Delete Vehicle
+    // Edit Vehicle
+    // View
+    // Edit Vehicle
 
+    // Raw Materials Request
+    function rmView()
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        echo $this->view("productionmanager/rmrequests");
+    }
 }
-
 ?>
