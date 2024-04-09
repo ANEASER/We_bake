@@ -10,6 +10,9 @@
     <title>Add Delivery Vehicle</title>
 </head>
 <body>
-        
+ <?php
+    require('pmnavbar.php');
+    ?>   
+    
 </body>
 </html>

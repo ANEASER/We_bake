@@ -28,22 +28,17 @@
             background-color: #2ecc71;
         }
     </style>
-    <title>Vehicles</title>
+    <title>All Delivery Vehicles</title>
 </head>
 <body>
-    <?php
-    require('pmnavbar.php');
-    ?>
-
+    <?php require('pmnavbar.php'); ?>
     <div>
-        <h1 style="margin-left:40%; margin-top:30px;">Available Vehicles </h1>
+        <h1 style="margin-left:40%; margin-top:30px;">All Delivery Vehicles </h1>
 
         <a class="button add" onclick="addVehicle()" role="button">Add New Vehicle </a>
-        <a class="button view" onclick="allVehicle()" role="button">View All Vehicles </a>
-        
     </div>
     <div>
-        <table style="margin:auto; margin-top: 30px;">
+    <table style="margin:auto; margin-top: 30px;">
             <tr>
                 <th>Registration Number</th>
                 <th>Vehicle Type</th>
@@ -75,14 +70,10 @@
         </table>
     </div>
 
-<script>
-    function addVehicle(){
-        window.location.href = BASE_URL + "pmcontrols/addVehicleView";
-    }
-    function allVehicle(){
-        window.location.href = BASE_URL + "pmcontrols/allVehicleView";
-    }
-</script>
-
+    <script>
+        function addVehicle(){
+            window.location.href= BASE_URL +"pmcontrols/addVehicleView";
+        }
+    </script>
 </body>
 </html>
