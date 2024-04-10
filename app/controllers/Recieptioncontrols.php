@@ -43,7 +43,20 @@ class RecieptionControls extends Controller {
     }
 
 
-    function customernumber ($id = null) {
+    function customernumbersearch ($id = null) {
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        if($_SESSION["USER"]->Role != "receptionist"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        $telephoneno = $_POST["telephoneno"];
+        echo $telephoneno;
+       //$this->view("receiptionist/recustomerno");
+    
+    }
+
+    function customernumberformview ($id = null) {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
@@ -51,10 +64,7 @@ class RecieptionControls extends Controller {
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
       
-        $customer = new Customer(); //any name for the variable = model name 
-        $customerdetails = $customer->where("contactNo","782567545");
-
-        $this->view("receiptionist/recustomerno" , ["customerdetails" => $customerdetails ]);
+        $this->view("receiptionist/recustomerno");
         
     
     }
