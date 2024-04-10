@@ -14,6 +14,15 @@
     <?php
         include "recnavbar.php";
     ?>
+ 
+ <form action="<?php echo BASE_URL; ?>RecieptionControls/customernumbersearch" method="post" >
+    <label for="telephoneno">Telephone No:</label>
+ <br>
+ <input type="numbers" id="telephoneno" name="telephoneno">
+ <input type="submit" value="submit">
+ 
+
+</form>
 
 </body>
 </html>

@@ -35,7 +35,7 @@
     
     <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
         <?php
-                $itemsPerPage = 9;
+                $itemsPerPage = 9;//thani page ekata ena ite gana
                 $totalOrders = count($purchasedetails);
                 $totalPages = ceil($totalOrders / $itemsPerPage);
 
