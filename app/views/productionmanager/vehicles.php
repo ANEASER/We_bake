@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>media/css/main.css">
     <link rel="stylesheet" type="text/css" href="<?php echo BASE_URL; ?>media/css/navbar.css">
     <style>
-        .button{
+        .button {
             border: none;
             color: white;
             padding: 10px;
@@ -18,13 +18,13 @@
             justify-content: center;
             align-items: right;
             font-size: 16px;
-            margin-left:30px;
-            border-radius:9px;
+            margin-left: 30px;
+            border-radius: 9px;
         }
-        .add{
+        .add {
             background-color: #3498db;
         }
-        .view{            
+        .view {            
             background-color: #2ecc71;
         }
     </style>
@@ -36,10 +36,10 @@
     ?>
 
     <div>
-        <h1 style="margin-left:40%; margin-top:30px;">Available Vehicles </h1>
+        <h1 style="margin-left:40%; margin-top:30px;">Available Vehicles</h1>
 
-        <a class="button add" onclick="addVehicle()" role="button">Add New Vehicle </a>
-        <a class="button view" onclick="allVehicle()" role="button">View All Vehicles </a>
+        <a class="button add" onclick="addVehicle()" role="button">Add New Vehicle</a>
+        <a class="button view" role="button">View All Vehicles</a>
         
     </div>
     <div>
@@ -57,31 +57,31 @@
                 <th>Delete</th>
             </tr>
             <?php foreach ($vehicles as $vehicle) : ?>
-                <?php if ($vehicle->ActiveState == 1 && $vehicle->availability == 1) : ?>
+                <?php if ($vehicle->availability == 1): ?>
                     <tr>
-                        <td><?php echo $vehicle->registrationnumber; ?></td>
-                        <td><?php echo $vehicle->type; ?></td>
-                        <td><?php echo $vehicle->vehicleno; ?></td>
-                        <td><?php echo $vehicle->modelname; ?></td>
-                        <td><?php echo $vehicle->chassinumber; ?></td>
-                        <td><?php echo $vehicle->enginenumber; ?></td>
-                        <td><?php echo $vehicle->capacity; ?></td>
-                        <td><?php echo $vehicle->availability; ?></td>
-                        <td><button class="yellowbutton" onclick="edit(<?php echo $vehicle->vehicleno; ?>)">Update</button></td>
-                        <td><button class="redbutton" onclick="del(<?php echo $vehicle->vehicleno; ?>)">Delete</button></td>
-                    </tr>
+                <?php else: ?>
+                    <tr style="background-color: red;">
                 <?php endif; ?>
+                    <td><?php echo $vehicle->registrationnumber; ?></td>
+                    <td><?php echo $vehicle->type; ?></td>
+                    <td><?php echo $vehicle->modelname; ?></td>
+                    <td><?php echo $vehicle->vehicleno; ?></td>
+                    <td><?php echo $vehicle->chassinumber; ?></td>
+                    <td><?php echo $vehicle->enginenumber; ?></td>
+                    <td><?php echo $vehicle->capacity; ?></td>
+                    <td><?php echo $vehicle->availability; ?></td>
+                    <td><button class="yellowbutton" onclick="edit(<?php echo $vehicle->vehicleno; ?>)">Update</button></td>
+                    <td><button class="redbutton" onclick="del(<?php echo $vehicle->vehicleno; ?>)">Delete</button></td>
+                </tr>
             <?php endforeach; ?>
         </table>
     </div>
 
 <script>
-    function addVehicle(){
+    function addVehicle() {
         window.location.href = BASE_URL + "pmcontrols/addVehicleView";
     }
-    function allVehicle(){
-        window.location.href = BASE_URL + "pmcontrols/allVehicleView";
-    }
+
 </script>
 
 </body>
