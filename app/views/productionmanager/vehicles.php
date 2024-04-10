@@ -36,7 +36,7 @@
     ?>
 
     <div>
-        <h1 style="margin-left:40%; margin-top:30px;">Available Vehicles</h1>
+        <h1 style="margin-left:40%; margin-top:30px;">Vehicles Availability</h1>
 
         <a class="button add" onclick="addVehicle()" role="button">Add New Vehicle</a>
         <!--<a class="button view" role="button">View All Vehicles</a> -->
