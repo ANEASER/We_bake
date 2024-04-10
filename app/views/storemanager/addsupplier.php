@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/button.css">
     <title>Store Manager_ Suppliers</title>
 </head>
 <body>
@@ -14,6 +17,7 @@
 
 
         <form method="POST" action="<?php echo BASE_URL; ?>addSupplierData">
+        <div class="form-container">
             <div class="form-group">
                 <label for="supplierName">Supplier Name:</label>
                 <input type="text" id="supplierName" name="name" required>
@@ -39,6 +43,8 @@
             <div class="button-container">
                 <button class= "formbutton" type="submit">Save</button>
             </div>
+
+        </div>
 
         </form>
             

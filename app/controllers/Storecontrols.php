@@ -20,10 +20,11 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/stocks");
     }
 
-    // function addSupplier(){
-    //     echo $this->view("storemanager/addsupplier");
-    // }
-
+    function viewSuppliers(){
+        // $supplier = new Supplier();
+        // $data = $supplier->findall();
+        echo $this->view("storemanager/supplier");
+    }
 
     function addStockItem(){
         echo $this->view("storemanager/addstock");
@@ -39,15 +40,16 @@ class StoreControls extends Controller {
 
     //CRUD for Supplier
     //Insert Supplier
-    function addSupplierData(){
-        $supplier = new Supplier();
-        $arr["name"]= $_POST['name'];
-        $arr["contactno"]= $_POST['contactno'];
-        $arr["address"]= $_POST['address'];
-        $arr["email"]= $_POST['email'];
-        $arr["Ratings"]= $_POST['Ratings'];
-        $supplier->insert($arr);
-        $this->redirect("../StoreControls/viewSupplier");
+    function addSupplier(){
+        // $supplier = new Supplier();
+        // $arr["name"]= $_POST['name'];
+        // $arr["contactno"]= $_POST['contactno'];
+        // $arr["address"]= $_POST['address'];
+        // $arr["email"]= $_POST['email'];
+        // $arr["Ratings"]= $_POST['Ratings'];
+        // $supplier->insert($arr);
+        // $this->redirect("../StoreControls/viewSupplier");
+        echo $this->view("storemanager/addsupplier");
     }
     
     //Delete Supplier
@@ -62,13 +64,6 @@ class StoreControls extends Controller {
         $supplier = new Supplier();
         $data = $supplier->where($column, $value);
         echo $this->view("storemanager/updatesuppplier",$data);
-    }
-
-    // View supplier Data - R
-    function viewSupplier(){
-        $supplier = new Supplier();
-        $data = $supplier->findall();
-        echo $this->view("storemanager/supplier",$data);
     }
 
     // Update Supplier Data - U
@@ -96,6 +91,12 @@ class StoreControls extends Controller {
         echo $supplier->update($id,"id",$data);
 
         $this->redirect(BASE_URL."StoreControls/viewSupplier");
+
+
+
+        //CRUD New Stock Items
+        //Insert Stock
+        
     }
 }
 ?>

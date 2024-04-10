@@ -11,7 +11,8 @@
     ?>
 
     <div class="content">
-            <h1>This is the Store Manager Dashboard</h1>
+            <h1>This is the Store Manager Dashboard </h1>
+            <h1>In here goes the table that shows the stocks sorted to the expiry date/FIFO </h1>
     </div>
    
     <script>

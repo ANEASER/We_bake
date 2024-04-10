@@ -126,3 +126,22 @@ button, input[type="submit"] {
     color: #351a07;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); 
 }
+
+.add-supplier-button {
+    position: absolute;
+    top: 90px; /* Adjust this value as needed */
+    right: 20px; /* Adjust this value as needed */
+    padding: 10px 20px;
+    background-color: #351a07;
+    color: antiquewhite;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
+}
+
+.add-supplier-button:hover {
+    background-color: antiquewhite;
+    color: #351a07;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); 
+}
