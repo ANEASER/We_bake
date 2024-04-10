@@ -13,6 +13,11 @@ class CommonControls extends Controller {
         $this->view("common/register");
     }
 
+    function loadInternalServerError() {
+        $this->view("common/internalservererror");
+    }
+
+
     function login() {
         $error = "";
     

@@ -11,6 +11,30 @@
     <?php
         include 'customernav.php';
     ?>
+    <?php
+        if (isset($error)){
+            echo "<script>
+
+            const SwalwithButton = Swal.mixin({
+                customClass: {
+                    confirmButton: 'greenbutton',
+                },
+                buttonsStyling: false
+            });
+
+            
+            if (typeof Swal !== 'undefined') {
+                SwalwithButton.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '$error',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                alert('$error');
+            }
+          </script>";}
+    ?>
     <section>
         <div class="form-container">
             <form  class="form" method="post" action="<?php echo BASE_URL; ?>CustomerControls/changepassword">
