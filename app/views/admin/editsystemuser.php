@@ -38,7 +38,7 @@
     <section>
             <div class="form-container">
 
-            <form class="form" method="POST" action="<?php echo BASE_URL; ?>AdminControls/editsystemuser">
+            <form class="form" method="POST" action="<?php echo BASE_URL; ?>AdminControls/editsystemuser" onsubmit="return validateForm()">
 
             <input type="hidden" name="id" value="<?php echo $data[0]->UserID; ?>">
 
@@ -54,7 +54,7 @@
             
             <div class="form-group">
                 <label for="DOB">Date of Birth:</label>
-                <input type="date" id="DOB" name="DOB" placeholder="<?php echo $data[0]->DOB; ?>">
+                <input type="date" id="DOB" name="DOB"  max="<?php echo date('Y-m-d', strtotime('-17 years')); ?>" placeholder="<?php echo $data[0]->DOB; ?>">
             </div>
                     
             <div class="form-group">
@@ -99,5 +99,61 @@
             </form>
             </div>
         </section>
+        <script>
+            
+            // Function to validate date of birth (DOB)
+            function validateDOB() {
+                var dob = document.getElementById('DOB').value;
+                // Add your custom validation logic for DOB if needed
+                // For example, you can check if the user is above a certain age
+                return true; // Replace with your validation logic
+            }
+
+            // Function to validate NIC
+            function validateNIC() {
+                var nic = document.getElementById('NIC').value;
+                // Add your custom validation logic for NIC if needed
+                return true; // Replace with your validation logic
+            }
+
+            // Function to perform overall form validation
+            function validateForm() {
+                var isDOBValid = validateDOB();
+                var isNICValid = validateNIC();
+
+                // Perform additional validations if needed
+
+                // Display error messages or prevent form submission based on validation results
+                if (!isEmailValid) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please enter a valid email address.',
+                    });
+                    return false;
+                }
+
+                if (!isDOBValid) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Employee at least 18 years old to register.',
+                    });
+                    return false;
+                }
+
+                if (!isNICValid) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please enter a valid NIC.',
+                    });
+                    return false;
+                }
+
+                // If all validations pass, allow form submission
+                return true;
+            }
+        </script>
 </body>
 </html>

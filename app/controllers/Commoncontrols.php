@@ -13,6 +13,11 @@ class CommonControls extends Controller {
         $this->view("common/register");
     }
 
+    function loadInternalServerError() {
+        $this->view("common/internalservererror");
+    }
+
+
     function login() {
         $error = "";
     
@@ -281,8 +286,13 @@ class CommonControls extends Controller {
         $_SESSION['email'] = $_SESSION['USER']->Email;
         $_SESSION['redirect'] = "CommonControls/ResetPasswordView";
 
-        $mail->sendOTPByEmail();
-        $this->view("common/validateprofileview");
+
+        if($mail->sendOTPByEmail()){
+            $this->view("common/otpverification");
+        }else{
+            $error = "There was an error sending the OTP, please try again later";
+            $this->view("common/validateprofileview",["error"=>$error]);
+        }
     }
 
     public function ResetPasswordView(){

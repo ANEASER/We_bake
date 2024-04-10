@@ -12,26 +12,32 @@ class OutletControls extends Controller {
         $this->view("outlet/outletdash",["user"=>$user]);
     }
 
-    
+    //=======================================================================================================================
     function placeorder($id = null) {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
+    $placeorder = new productorder();
+    //$omplaceorder = $placeorder->where("placeby","OM00122");//var dump danne mekata
+     //$omplaceorder = $placeorder->findall();
+    $omplaceorder= $placeorder->where("placeby",$_SESSION["USER"]->EmployeeNo);
 
-        $user = $_SESSION["USER"];
-
-        $this->view("outlet/outletplaceorder",["user"=>$user]);
+        
+        $this->view("outlet/outletplaceorder",["omplaceorder"=>$omplaceorder]);
     }
-
+//----------------------------------------------------------------------------------------------------------------------------------------
     function purchasehistory($id = null) {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
+    $purchaseorder = new productorder();
+    $purchasedetails = $purchaseorder->where("placeby",$_SESSION["USER"]->EmployeeNo);
+   
 
-        $user = $_SESSION["USER"];
+    $this->view("outlet/outletpurchasehistory",["purchasedetails"=>$purchasedetails ]);
 
-        $this->view("outlet/outletpurchasehistory",["user"=>$user]);
     }
+    //------------------------------------------------------------------------------------------------------------------------------
 
     function constantorder($id = null) {
         if(!Auth::loggedIn()){
@@ -45,3 +51,4 @@ class OutletControls extends Controller {
 
 
 }
+?>

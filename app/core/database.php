@@ -9,7 +9,9 @@ class Database {
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $conn;
         } catch (PDOException $e) {
-            die("Could not connect to database: " . $e->getMessage());
+            $redirect = BASE_URL."CommonControls/loadInternalServerError";
+            header("Location: $redirect");
+            exit();
         }
     }
 
@@ -34,7 +36,9 @@ class Database {
             
                 }
             } catch (PDOException $e) {
-                die("Database query failed: " . $e->getMessage());
+                $redirect = BASE_URL."CommonControls/loadInternalServerError";
+                header("Location: $redirect");
+                exit();
             }
         }
 

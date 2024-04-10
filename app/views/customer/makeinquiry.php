@@ -41,6 +41,9 @@
         document.getElementById('inquirytext').addEventListener('input', function () {
             var charCount = 250 - this.value.length;
             document.getElementById('charCount').innerText = 'Characters remaining: ' + charCount;
+            if (charCount <= 0) {
+                this.value = this.value.substring(0, 249);
+            }
         });
     </script>
 </body>

@@ -18,9 +18,51 @@
         include "recnavbar.php";
     ?>
     <br><br>
+    <br><br>
     
-   
+    <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
+    <?php
+        
+            echo "<table>";
+            echo "<tr>
+                <th>Order ID</th>
+                <th>Placed By</th>
+                <th>Order Date</th>
+                <th>Payment Status</th>
+                <th>Delivery Status</th>
+                <th>Order Status</th>
+                <th>Total</th>
+                <th>Deliver By</th>
+                <th>Unique ID</th>
+                <th>Deliver Address</th>
+                <th>Cancel</th>
+                <th>More</th>
+            </tr>";
 
+            foreach($orders as $order){ 
+
+                if($order->orderstatus == "pending"){
+                    echo "<tr>";
+                    echo "<td>".$order->orderid."</td>";
+                    echo "<td>".$order->placeby."</td>";
+                    echo "<td>".$order->orderdate."</td>";
+                    echo "<td>".$order->paymentstatus."</td>";
+                    echo "<td>".$order->deliverystatus."</td>";
+                    echo "<td>".$order->orderstatus."</td>";
+                    echo "<td>".$order->total."</td>";
+                    echo "<td>".$order->deliverby."</td>";
+                    echo "<td>".$order->unique_id."</td>";
+                    echo "<td>".$order->deliver_address."</td>";
+                    echo "<td><button onclick='cancel(".$order->orderid.")'>Cancel</button></td>";
+                    echo "<td><button onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
+                    echo "</tr>";
+                }    
+            }    
+            
+            echo "</table>";
+    
+    ?>
+   
 
 
     <script>

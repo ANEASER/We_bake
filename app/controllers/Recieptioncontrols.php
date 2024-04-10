@@ -23,7 +23,11 @@ class RecieptionControls extends Controller {
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
 
-        $this->view("receiptionist/repurchasehistory");
+        $productorder = new ProductOrder();//load model
+        $orders = $productorder->where("placeby",$_SESSION["USER"]->EmployeeNo);
+        //$omplaceorder = $placeorder->where("placeby","OM00122");
+
+        $this->view("receiptionist/repurchasehistory" ,[ "orders" =>$orders]);//sent to the view
     
     }
 
@@ -34,10 +38,10 @@ class RecieptionControls extends Controller {
         if($_SESSION["USER"]->Role != "receptionist"){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
-
         $this->view("receiptionist/reprofile");
     
     }
+
 
     function customernumber ($id = null) {
         if(!Auth::loggedIn()){
@@ -46,8 +50,11 @@ class RecieptionControls extends Controller {
         if($_SESSION["USER"]->Role != "receptionist"){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
+      
+        $customer = new Customer(); //any name for the variable = model name 
+        $customerdetails = $customer->where("contactNo","782567545");
 
-        $this->view("receiptionist/recustomerno");
+        $this->view("receiptionist/recustomerno" , ["customerdetails" => $customerdetails ]);
         
     
     }
