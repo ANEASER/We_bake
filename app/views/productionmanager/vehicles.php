@@ -35,15 +35,29 @@
     require('pmnavbar.php');
     ?>
 
-    <div>
-        <h1 style="margin-left:40%; margin-top:30px;">Vehicles Availability</h1>
+<h1 style="margin-left:40%; margin-top:20px;">Vehicles Availability</h1>
 
-        <a class="button add" onclick="addVehicle()" role="button">Add New Vehicle</a>
-        <!--<a class="button view" role="button">View All Vehicles</a> -->
+    <div class="searchpanel">
+        <form method="get" action="<?php echo BASE_URL;?> pmcontrols/searchVehicle" style="display:flex; flex-direction:row;">
+        <?php    
+
+        if (isset($_GET['search'])){
+            echo '<input class="searchbox" type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" value="' . $_GET['search'] . '" >';
+            echo '<button class="button view" onclick="viewall()" role="button">View All Vehicles</button>';
+        }
+        else{
+            echo '<input class="searchbox" type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" >';
+        }
+        ?>
+        <input class="searchbutton" type="submit" value="Search">
+        </form>
+    
+        
+        <button class="button add" onclick="addVehicle()" role="button">Add New Vehicle</button>
         
     </div>
     <div>
-        <table style="margin:auto; margin-top: 30px;">
+        <table style="margin:auto; margin-top: 10px;">
             <tr>
                 <th>Registration Number</th>
                 <th>Vehicle Type</th>
@@ -80,6 +94,15 @@
 <script>
     function addVehicle() {
         window.location.href = BASE_URL + "pmcontrols/addVehicleView";
+    }
+    function viewall(){
+        window.location.href = BASE_URL + "pmcontrols/loadVehiclesView";
+    }
+    function edit(){
+        window.location.href = BASE_URL + "pmcontrols/editVehicle";
+    }
+    function del(vehicleid) {
+            window.location.href = BASE_URL +  "pmControls/deleteVehicle/"+vehicleid;
     }
 
 </script>
