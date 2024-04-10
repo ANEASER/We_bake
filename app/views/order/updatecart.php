@@ -14,6 +14,13 @@
 </head>
 <body>
     
+    <style>
+        section.content {
+        display: flex;
+        align-items: center; 
+        flex-direction: column; 
+    }
+    </style>
 
     <section class="cart">
         <section class="content">

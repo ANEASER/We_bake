@@ -23,10 +23,18 @@ button, input[type="submit"] {
 
 .greenbutton {
 
-    margin: 0% 5%;
+    border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none; 
+            justify-content: center;
+            align-items: right;
+            font-size: 16px;
+            margin-left:30px;
+            border-radius:9px;
 
     background-color: #2ecc71;
-    color: white;
 }
 
 .greenbutton:hover {

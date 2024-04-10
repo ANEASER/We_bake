@@ -39,6 +39,15 @@ use function PHPSTORM_META\type;
 
         function addproductitem(){
 
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
             if(isset($_FILES["image"])){
 
                 $productitem = new ProductItem();
@@ -250,8 +259,8 @@ use function PHPSTORM_META\type;
                     $error = "Sorry, your file is too large.";
                     
                 }
-                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
-                    $error = "Sorry, only JPG, JPEG, PNG files are allowed.";
+                if($imageFileType != "jpeg") {
+                    $error = "Sorry, only JPEG files are allowed.";
                     
                 }
                 if ($uploadOk == 0) {
@@ -273,6 +282,15 @@ use function PHPSTORM_META\type;
         // System User
 
         function addsystemuser(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $systemuser = new Systemuser();
             
             $arr["Name"] = $_POST["Name"];
@@ -387,13 +405,34 @@ use function PHPSTORM_META\type;
         }
      
         function deletesystemuser($id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $systemuser = new Systemuser();
             $systemuser->delete($id,"UserID");
             $this->redirect(BASE_URL."AdminControls/loadUsersView");
         }
 
         function editsystemuser(){
-            session_start();
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            
         
             $systemuser = new Systemuser();
             $outlets = new Outlet();
@@ -520,6 +559,15 @@ use function PHPSTORM_META\type;
         }      
 
         public function searchUsers() {
+
+            if(!Auth::loggedIn()){
+                $this->redirect("CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
 
             $systemuser = new Systemuser();
@@ -540,6 +588,7 @@ use function PHPSTORM_META\type;
             echo $this->view("admin/systemusers", [ "users" => $users]);
         }
         
+        //view add user page
         function AddUser(){
 
             if(!Auth::loggedIn()){
@@ -553,6 +602,7 @@ use function PHPSTORM_META\type;
             echo $this->view("admin/addsystemuser");
         }
 
+        //view edit user page
         function EditUser($id){
             $systemuser = new Systemuser();
             $data = $systemuser->where("UserID", $id);
@@ -592,12 +642,30 @@ use function PHPSTORM_META\type;
         }
 
         function deleteoutlet($id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $outlets = new Outlet();
             $outlets->delete($id,"OutletID");
             $this->redirect(BASE_URL."AdminControls/loadOutletsView");
         }
 
         function AddOutlet() {
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $outlets = new Outlet();
         
             if (
@@ -762,7 +830,19 @@ use function PHPSTORM_META\type;
         }
 
         function EditOutlet(){
-            session_start();
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+            
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            
             $outlets = new Outlet();
         
             $id = $_POST['id'];
@@ -865,6 +945,15 @@ use function PHPSTORM_META\type;
         }
 
         function searchOutlet(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
 
             $outlets = new Outlet();
@@ -901,6 +990,15 @@ use function PHPSTORM_META\type;
         }
 
         function createAdvertisement1() {
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $type = $_POST["type"];
 
             $target_dir = "../public/media/uploads/Advertiesments/";
@@ -932,6 +1030,15 @@ use function PHPSTORM_META\type;
         }
 
         function createAdvertisement2(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $type = $_POST["type"];
 
             $target_dir = "../public/media/uploads/Advertiesments/";
@@ -963,6 +1070,15 @@ use function PHPSTORM_META\type;
         }
 
         function createAdvertisement3(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+            
             $type = $_POST["type"];
 
             $target_dir = "../public/media/uploads/Advertiesments/";

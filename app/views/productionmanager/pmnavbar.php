@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/navbar.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <title></title>
 </head>
 <body>
@@ -20,55 +19,35 @@
         <?php
             echo '<img class="logo" src="' . BASE_URL . 'media/uploads/Content/logo.png" width="200px">';
         ?>
-        <ul>
-            <li><a class="navbutton" onclick="home(this)">Home</a></li>
-            <li><a class="navbutton" onclick="loadVehicles(this)">Vehicles</a></li>
-            <li><a class="navbutton" onclick="logout()">Log Out</a></li>
+
+<ul>
+            <li><a class="navbutton" onclick="document.location='pmdash.php'">Home</a></li>
+            <li><a class="navbutton" onclick="pendingOrders()">Production Orders</a></li>
+        <li><a class="navbutton" onclick="rm()">Raw Materials Requests</a></li>
+        <li><a class="navbutton" onclick="loadVehicles()">Vehicles</a></li>
+        <li><a class="navbutton" onclick="logout()">Log Out</a></li>
+           
         </ul>
+
     </nav>
+
     <script>
-
-        var BASE_URL = "<?php echo BASE_URL; ?>";
-
-        var activeLink = sessionStorage.getItem('activeLink');
-        if (activeLink) {
-            var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
-            if (linkElement) {
-                linkElement.classList.add('active');
-            } 
-        } else {
-            var homeLink = document.querySelector('a[onclick="home(this)"]');
-            if (homeLink) {
-                homeLink.classList.add('active');
-
-            sessionStorage.setItem('activeLink', homeLink.getAttribute('onclick'));
-        }}
-        
-        function changeActive(link) {
-            var links = document.querySelectorAll('body nav ul li a');
-            links.forEach(function (el) {
-                el.classList.remove('active');
-            });
-
-            link.classList.add('active');
-
-            sessionStorage.setItem('activeLink', link.getAttribute('onclick'));
+       var BASE_URL = "<?php echo BASE_URL; ?>";
+       
+        function pendingOrders() {
+            window.location.href = BASE_URL + "pmcontrols/pendingOrdersView";
         }
-
-        function home(link) {
-            changeActive(link);
-            window.location.href = BASE_URL + "PmControls/index";
+        function rm() {
+            window.location.href = BASE_URL + "pmcontrols/rmView";
         }
-
+        function loadVehicles() {
+            window.location.href = BASE_URL +  "pmcontrols/loadVehiclesView";
+        }
         function logout() {
             window.location.href = BASE_URL + "CommonControls/logout";
         }
 
-        function loadVehicles(link) {
-            changeActive(link);
-            window.location.href = BASE_URL +  "PmControls/loadVehiclesView";
-        }
-
     </script>
+
 </body>
 </html>
