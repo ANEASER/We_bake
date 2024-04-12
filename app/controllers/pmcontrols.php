@@ -12,8 +12,10 @@ class PmControls extends Controller
         }
         $this->view("productionmanager/pmdash");
     }
-
-    // Pending Orders (All)
+    
+                                    // PRODUCTION ORDERS
+    // views
+    // Pending Orders View(All)
     function pendingOrdersView()
     {
         if (!Auth::loggedIn()) {
@@ -23,13 +25,14 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
-        $porder = new ProductOrder;
-        $productorder = $porder->findall();
-        echo $this->view("productionmanager/pmorders", ["porder" => $productorder]);
+        $ProductOrder = new ProductOrder;
+        $productorder = $ProductOrder->findall();
+        echo $this->view("productionmanager/pmorders", ["productorder" => $productorder]);
     }
 
+    // functions
     // Process Order
-    function processOrder($orderid, $deliverystatus)
+    function processOrder($orderid)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -38,10 +41,12 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
-        echo $this->view("productionmanager/pmorders");
+        $ProductOrder = new ProductOrder;
+        $ProductOrder->update($orderid, "orderid", ["orderstatus" => "processing"]);
+        $this->redirect(BASE_URL . "pmcontrols/index");
     }
 
-    // Cancel Order
+    // Cancel Order View
     function cancelOrder($orderid)
     {
         if (!Auth::loggedIn()) {
@@ -51,9 +56,12 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
-        echo $this->view("productionmanager/pmorders");
+        $ProductOrder = new ProductOrder;
+        $ProductOrder->update($orderid, "orderid", ["orderstatus" => "canceled"]);
+        $this->redirect(BASE_URL . "pmcontrols/index");
     }
 
+    
     // Complete Order
     function completeOrder($orderid)
     {
@@ -67,8 +75,8 @@ class PmControls extends Controller
         echo $this->view("productionmanager/pmorders");
     }
 
-    // More Details
-    function moreDetails($orderid)
+    // More Details View
+    function moreDetails($orderref)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -79,7 +87,21 @@ class PmControls extends Controller
 
         echo $this->view("productionmanager/pmorders");
     }
+    // Assign Vehicle View
+    function assignVehicle($vehicleno, $orderid)
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        if ($_SESSION["USER"]->Role != "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
 
+        echo $this->view("productionmanager/assignvehicle");
+    }
+
+    // VEHICLE
+    // views
     // Load Vehicle View
     function loadVehiclesView()
     {
@@ -107,6 +129,7 @@ class PmControls extends Controller
         echo $this->view("productionmanager/addvehicle");
     }
 
+    // functions
     // Create Vehicle
     function createVehicle()
     {
@@ -181,6 +204,9 @@ class PmControls extends Controller
         $this->redirect(BASE_URL . "PmControls/loadVehiclesView");
     }
 
+
+    // RAW MATERIALS
+    // views
     // Raw Materials Request View
     function rmView()
     {
