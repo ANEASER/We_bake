@@ -12,4 +12,5 @@ class Vehicle extends Model {
         $query = "UPDATE deliveryvehicles SET availability = 0 AND ActiveState = 0 WHERE vehicleno = $vehicleNo";
         return $this->query($query);
     }
+
 }
