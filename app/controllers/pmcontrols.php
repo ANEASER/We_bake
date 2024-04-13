@@ -37,17 +37,6 @@ class PmControls extends Controller
         echo $this->view("productionmanager/vehicles", ["vehicles" => $vehicles]);
     }
 
-    // View All Vehicles
-    function allVehicleView()
-    {
-        if (!Auth::loggedIn()) {
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-        $vehicle = new vehicle();
-        $vehicles = $vehicle->findall();
-        echo $this->view("productionmanager/allvehicles", ["vehicles" => $vehicles]);
-    }
-
     // Add Vehicle
     // View
     function addVehicleView()

@@ -2,14 +2,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Store Manager_ Suppliers</title>
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
+    <title>Store Manager_Suppliers</title>
 </head>
 <body>
     <?php
         include "smnavbar.php";
     ?>
+
+    <a onclick="addSuppliers(this)" class="add-supplier-button">Add New Supplier</a>
+
+
+
     <div class="content">
         <h1>Suppliers</h1>
 
@@ -21,16 +28,16 @@
             window.location.href = BASE_URL +  "StoreControls/addSupplier";
         }
 
-        function updateSuppliers(id) {
-            window.location.href = BASE_URL +  "StoreControls/updateSupplier/id/"+id;
-        }
-        function getSupplierData() {
-            window.location.href = BASE_URL +  "StoreControls/getSupplierData";
-        }
+        // function updateSuppliers(id) {
+        //     window.location.href = BASE_URL +  "StoreControls/updateSupplier/id/"+id;
+        // }
+        // function getSupplierData() {
+        //     window.location.href = BASE_URL +  "StoreControls/getSupplierData";
+        // }
 
-        function deleteSuppliers(id) {
-            window.location.href = BASE_URL +  "StoreControls/deleteSupplierData/id/"+id;
-        }
+        // function deleteSuppliers(id) {
+        //     window.location.href = BASE_URL +  "StoreControls/deleteSupplierData/id/"+id;
+        // }
 
     </script>
 </body>
