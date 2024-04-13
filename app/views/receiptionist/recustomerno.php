@@ -8,6 +8,7 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
    
     <title>Place order</title>
 </head>
@@ -16,15 +17,19 @@
     <?php
         include "recnavbar.php";
     ?>
- 
- <form action="<?php echo BASE_URL; ?>RecieptionControls/customernumbersearch" method="post" >
-    <label for="telephoneno">Telephone No:</label>
- <br>
- <input type="numbers" id="telephoneno" name="telephoneno">
- <input type="submit" value="submit">
- 
+ <section>
+ <div class="form-container">
 
+<form class="form" method="POST" action="<?php echo BASE_URL; ?>RecieptionControls/customernumbersearch" class="formisland">
+    <div class="form-group">
+        <label for="telephoneno">Telephoneno:</label>
+        <input type="numbers" id="telephoneno" name="telephoneno" required>
+    </div>
+    <button class="greenbutton">Submit</button>
 </form>
+</div>
+</section>
+
    
 </body>
 </html>
