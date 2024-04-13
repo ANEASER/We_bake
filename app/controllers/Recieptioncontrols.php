@@ -50,8 +50,10 @@ class RecieptionControls extends Controller {
         if($_SESSION["USER"]->Role != "receptionist"){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
+
         $telephoneno = $_POST["telephoneno"];
         echo $telephoneno;
+
        //$this->view("receiptionist/recustomerno");
     
     }
