@@ -1,6 +1,6 @@
 <?php
 
     class Supplier extends Model {
-        protected $table = 'suppllier';
+        protected $table = 'suppliers';
     }
 ?>
