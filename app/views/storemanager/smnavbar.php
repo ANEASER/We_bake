@@ -23,7 +23,6 @@
         <ul>
             <li><a class="navbutton" onclick="home(this)">Home</a></li>
             <li><a class="navbutton" onclick="stocks(this)">Stocks</a></li>
-            <li><a class="navbutton" onclick="suppliers(this)">Suppliers</a></li>
             <li><a class="navbutton" onclick="profile(this)">Profile</a></li> 
             <li><a class="navbutton" onclick="logout()">Log Out</a></li>
         </ul>
@@ -70,11 +69,6 @@
         function stocks(link) {
             changeActive(link);
             window.location.href = BASE_URL + "StoreControls/viewStocks";
-        }
-
-        function suppliers(link) {
-            changeActive(link);
-            window.location.href = BASE_URL + "StoreControls/viewSuppliers";
         }
 
         function logout() {

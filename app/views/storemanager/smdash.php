@@ -18,13 +18,13 @@
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
         
-        function loadSuppliers() {
-            window.location.href = BASE_URL +  "StoreControls/viewSupplier";
-        }
+        // function loadSuppliers() {
+        //     window.location.href = BASE_URL +  "StoreControls/viewSupplier";
+        // }
 
-        function loadStocks() {
-            window.location.href = BASE_URL +  "StoreControls/viewStocks";
-        }
+        // function loadStocks() {
+        //     window.location.href = BASE_URL +  "StoreControls/viewStocks";
+        // }
     </script>
 </body>
 </html>

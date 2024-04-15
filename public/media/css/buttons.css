@@ -80,7 +80,7 @@ button, input[type="submit"] {
 .brownbutton {
     margin: 1% 5%;
     background-color: #41201f;
-    color: white;
+    color: #41201f;
 }
 
 .brownbutton:hover {
@@ -107,6 +107,8 @@ button, input[type="submit"] {
     color: white;
 
 }
+
+/* Store Manager Button CSS*/
 
 .add-stocks-button {
     position: absolute;
@@ -144,4 +146,21 @@ button, input[type="submit"] {
     background-color: antiquewhite;
     color: #351a07;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+.formbutton{
+    position: absolute;
+    padding: 10px 20px;
+    background-color: #351a07;
+    color: antiquewhite;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+}
+
+.formbutton:hover {
+    background-color: #56312c; 
 }
