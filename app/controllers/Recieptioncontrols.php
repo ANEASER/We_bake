@@ -52,11 +52,18 @@ class RecieptionControls extends Controller {
         }
 
         $telephoneno = $_POST["telephoneno"];
-        echo $telephoneno;
+        $foundcustomer = new customer();//load model
+        $customer = $foundcustomer->where("contactNo",$telephoneno);
+        // see data var_dump($customer);
+    if($customer){
+        $this->view("receiptionist/customerfoundview", ["customer"=> $customer]);
+    }else{
+        $this->view("receiptionist/customernotfoundview", ["customer" => null]);
 
-       //$this->view("receiptionist/recustomerno");
-    
     }
+    //$this->view("receiptionist/recustomerno");
+    }
+
 
     function customernumberformview ($id = null) {
         if(!Auth::loggedIn()){
@@ -66,14 +73,9 @@ class RecieptionControls extends Controller {
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
       
-        $this->view("receiptionist/recustomerno");
-        
-    
+        $this->view("receiptionist/recustomerno");   
     }
 
-    
-
-
-
 }
+
 ?>
