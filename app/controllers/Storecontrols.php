@@ -32,7 +32,8 @@ class StoreControls extends Controller {
 
 
     function viewStocks(){
-        echo $this->view("storemanager/stocks");
+        echo $this->redirect(BASE_URL."StoreControls/loadStocksView");
+        //echo $this->view("storemanager/stocks");
     }
 
     function addStock(){

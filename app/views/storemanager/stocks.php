@@ -23,26 +23,28 @@
     <section style="display:flex;justify-content:space-around; width:100%">
     <?php //The table structure 
         if (count($stocks) > 0){
-            echo '<table style="width:100%">';
+            echo '<table style="width:90%">';
             echo '<tr>
                     <th> Item ID </th>
                     <th> Name </th>
-                    <th class="hideonmobile" > Item Type </th>
-                    <th class="hideonmobile" > Unit of Measurement</th>
-                    <th class="hideonmobile" > Minimum Stock</th>
-                    <th class="hideonmobile" > Critical Stock</th>
+                    <th> Item Type </th>
+                    <th> Unit of Measurement</th>
+                    <th> Minimum Stock</th>
+                    <th> Critical Stock</th>
+                    <th> Update</th>
+                    <th> Delete</th>
                 </tr>';
 
                 foreach($stocks as $stocks){
                     echo '<tr>';
                     echo '<td>' . $stocks->ItemID . '</td>';
                     echo '<td>' . $stocks->Name . '</td>';
-                    echo '<td class="hideonmobile>' . $stocks->Type . '</td>';
-                    echo '<td class="hideonmobile>' . $stocks->UnitOfMeasurement . '</td>';
-                    echo '<td class="hideonmobile>' . $stocks->MinimumStock . '</td>';
-                    echo '<td class="hideonmobile>' . $stocks->CriticalStock . '</td>';
-                    // echo '<td class="hideonmobile"><button class="yellowbutton" onclick="edit(' . $stocks->UserID . ')">Update</button></td>';
-                    // echo '<td class="hideonmobile"><button class="redbutton" onclick="del(' . $user->UserID . ')">Delete</button></td>';
+                    echo '<td>' . $stocks->Type . '</td>';
+                    echo '<td>' . $stocks->UnitOfMeasurement . '</td>';
+                    echo '<td>' . $stocks->MinimumStock . '</td>';
+                    echo '<td>' . $stocks->CriticalStock . '</td>';
+                    echo '<td> <button class="yellowbutton" onclick="edit(' . $stocks->ItemID . ')">Update</button></td>';
+                    echo '<td class="hideonmobile"><button class="redbutton" onclick="del(' . $stocks->ItemID . ')">Delete</button></td>';
                     echo '</tr>';
 
                 }
