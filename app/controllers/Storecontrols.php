@@ -11,6 +11,13 @@ class StoreControls extends Controller {
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
 
+
+        $stockItem = new StockItem();
+        
+        $stocks = $stockItem->findall();
+
+
+
         $this->view("storemanager/smdash");
     }
 
@@ -42,6 +49,12 @@ class StoreControls extends Controller {
         $arr["CriticalStock"] = $_POST["CriticalStock"];
         $stockItem->insert($arr);
         $this->redirect(BASE_URL."StoreControls/viewStocks");
+    }
+
+    function loadStocksView(){
+        $stockItem = new StockItem();
+        $stocks = $stockItem->findall();
+        echo $this->view("storemanager/stocks", [ "stocks" => $stocks]);        
     }
 
     function updateStocks($id){
