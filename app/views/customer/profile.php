@@ -127,7 +127,7 @@
 
                 <section class="pendingorderstable" style="display:flex;justify-content:space-around; padding-top:3%; width:100%;">
                     <?php
-                        $itemsPerPage = 4;
+                        $itemsPerPage = 5;
                         $totalOrders = count($orders);
                         $totalPages = ceil($totalOrders / $itemsPerPage);
 

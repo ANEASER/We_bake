@@ -80,7 +80,7 @@ button, input[type="submit"] {
 .brownbutton {
     margin: 1% 5%;
     background-color: #41201f;
-    color: #41201f;
+    color: #ffffff;
 }
 
 .brownbutton:hover {
