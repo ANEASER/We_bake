@@ -11,6 +11,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+        .button{
+            
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none; 
+            justify-content: center;
+            align-items: right;
+            font-size: 16px;
+            margin-left: 30px;
+            border-radius: 9px;
+        
+        }
+        .red{
+            background-color: #e74c3c;
+        }
+        .green{
+            background-color: #2ecc71;
+        }
+        .blue{
+            background-color: #3498db;
+        }
+    </style>
     <title>Production Orders</title>
 </head>
 <body>
@@ -21,7 +46,7 @@
         if(isset($_GET['search'])){
             echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="'.$_GET['search'].'" class="searchbox">';
             echo '<input type="submit" value="Search" class="greenbutton">';
-            echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
+            echo '<button class="button green" onclick="clearSearch(); return false;">Clear Search</button>';
         }
         else{
             echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="'.$_GET['search'].'" class="searchbox">';
@@ -69,12 +94,12 @@
                     echo "<td>".$ProductOrder->paymentstatus."</td>";
                     echo "<td>".$ProductOrder->orderstatus."</td>";
                     echo "<td>".$ProductOrder->total."</td>";
-                    echo "<td>".$ProductOrder->deliveryby."</td>";
+                    echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->unique_id."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
-                    echo "<td><button class='greenbutton' onclick='process(".$ProductOrder->orderref.", \"".$ProductOrder->deliverystatus."\")'>Process</button></td>";
-                    echo "<td><button class='redbutton' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
-                    echo "<td><button class='bluebutton' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
+                    echo "<td><button class='button green' onclick='process(".$ProductOrder->orderref.", \"".$ProductOrder->deliverystatus."\")'>Process</button></td>";
+                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
+                    echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }
             }
@@ -101,47 +126,8 @@
             </tr>";
             
             foreach ($productorder as $ProductOrder){
-                if ($ProductOrder->orderstatus == "processing" and $ProductOrder->deliverystatus == "pickup" and $ProductOrder->paymentstatus == "completed"){
-                    echo "<tr>";
-                    echo "<td>".$ProductOrder->orderref."</td>";
-                    echo "<td>".$ProductOrder->placeby."</td>";
-                    echo "<td>".$ProductOrder->orderdate."</td>";
-                    echo "<td>".$ProductOrder->paymentstatus."</td>";
-                    echo "<td>".$ProductOrder->orderstatus."</td>";
-                    echo "<td>".$ProductOrder->total."</td>";
-                    echo "<td>".$ProductOrder->deliveryby."</td>";
-                    echo "<td>".$ProductOrder->unique_id."</td>";
-                    echo "<td>".$ProductOrder->deliver_address."</td>";
-                    echo "<td><button class='greenbutton' onclick='process(".$ProductOrder->orderref.")'>Process</button></td>";
-                    echo "<td><button class='redbutton' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
-                    echo "<td><button class='bluebutton' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
-                    echo "</tr>";
-                }
-            }
-        echo "</table>";
-        echo "</div>";
-        ?>
+                if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "completed" || $ProductOrder->paymentstatus == "advanced")) {
 
-        <?php
-        echo "<div id='DeliveryOrderTable'>";
-        echo "<table>";
-        echo "<th>Order REF</th>
-                <th>Placed By</th>
-                <th>Order Date</th>
-                <th>Payment Status</th>
-                <th>Order Status</th>
-                <th>Total</th>
-                <th>Deliver By</th>
-                <th>Unique ID</th>
-                <th>Deliver Address</th>
-                <th>Update</th>
-                <th>Cancel</th>
-                <th>More</th>
-            </tr>";
-
-            foreach($productorder as $ProductOrder){ 
-
-                if($ProductOrder->orderstatus == "processing" and $ProductOrder->deliverystatus != "pickup" and $ProductOrder->paymentstatus == "completed"){
                     echo "<tr>";
                     echo "<td>".$ProductOrder->orderref."</td>";
                     echo "<td>".$ProductOrder->placeby."</td>";
@@ -152,9 +138,50 @@
                     echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->unique_id."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
-                    echo "<td><button class='greenbutton' onclick='assignvehicle(".$ProductOrder->orderref.")'>Assighn Vehicle</button></td>";
-                    echo "<td><button class='redbutton' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
-                    echo "<td><button class='bluebutton' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
+                    echo "<td><button class='button green' onclick='process(".$ProductOrder->orderref.")'>Process</button></td>";
+                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
+                    echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
+                    echo "</tr>";
+                }
+            }
+        echo "</table>";
+        echo "</div>";
+        ?>
+
+        <?php
+        echo "<div id='DeliveryOrderTable'>";
+        echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
+        echo "<th>Order REF</th>
+                <th>Placed By</th>
+                <th>Order Date</th>
+                <th>Payment Status</th>
+                <th>Order Status</th>
+                <th>Total</th>
+                <th>Deliver By</th>
+                <th>Unique ID</th>
+                <th>Deliver Address</th>
+                <th>Update Order</th>
+                <th>Cancel Order</th>
+                <th>More Details</th>
+            </tr>";
+
+            foreach($productorder as $ProductOrder){ 
+
+                if($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "completed" || $ProductOrder->paymentstatus == "advanced")) {
+
+                    echo "<tr>";
+                    echo "<td>".$ProductOrder->orderref."</td>";
+                    echo "<td>".$ProductOrder->placeby."</td>";
+                    echo "<td>".$ProductOrder->orderdate."</td>";
+                    echo "<td>".$ProductOrder->paymentstatus."</td>";
+                    echo "<td>".$ProductOrder->orderstatus."</td>";
+                    echo "<td>".$ProductOrder->total."</td>";
+                    echo "<td>".$ProductOrder->deliverby."</td>";
+                    echo "<td>".$ProductOrder->unique_id."</td>";
+                    echo "<td>".$ProductOrder->deliver_address."</td>";
+                    echo "<td><button class='button green' onclick='assignvehicle(".$ProductOrder->orderref.")'>Assign Vehicle</button></td>";
+                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
+                    echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }    
             }
@@ -164,7 +191,7 @@
 
         <?php
         echo "<div id='OnDeliveryOrderTable'>";
-        echo "<table>";
+        echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<th>Order REF</th>
                 <th>Placed By</th>
                 <th>Order Date</th>
@@ -174,14 +201,15 @@
                 <th>Deliver By</th>
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
-                <th>Update</th>
-                <th>Cancel</th>
-                <th>More</th>
+                <th>Update Order</th>
+                <th>Cancel Order</th>
+                <th>More Details</th>
             </tr>";
 
             foreach($productorder as $ProductOrder){ 
 
-            if($ProductOrder->orderstatus == "ondelivery" and $ProductOrder->paymentstatus == "completed"){
+                if($ProductOrder->orderstatus == "ondelivery" && ($ProductOrder->paymentstatus == "completed" || $ProductOrder->paymentstatus == "advanced")) {
+
                 echo "<tr>";
                 echo "<td>".$ProductOrder->orderref."</td>";
                 echo "<td>".$ProductOrder->placeby."</td>";
@@ -192,9 +220,9 @@
                 echo "<td>".$ProductOrder->deliverby."</td>";
                 echo "<td>".$ProductOrder->unique_id."</td>";
                 echo "<td>".$ProductOrder->deliver_address."</td>";
-                echo "<td><button class='greenbutton' onclick='completed(".$ProductOrder->orderref.")'>Complete</button></td>";
-                echo "<td><button class='redbutton' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
-                echo "<td><button class='bluebutton' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
+                echo "<td><button class='button green' onclick='completed(".$ProductOrder->orderref.")'>Complete</button></td>";
+                echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
+                echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                 echo "</tr>";
             }    
         }
@@ -204,7 +232,7 @@
 
         <?php
         echo "<div id='CompletedOrderTable'>";
-        echo "<table>";
+        echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<th>Order REF</th>
                 <th>Placed By</th>
                 <th>Order Date</th>
@@ -214,11 +242,12 @@
                 <th>Deliver By</th>
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
-                <th>More</th>
+                <th>More Details</th>
             </tr>";
 
             foreach($productorder as $ProductOrder) {
-            if ($ProductOrder->orderstatus == "finished" and $ProductOrder->paymentstatus == "completed") {
+            if ($ProductOrder->orderstatus == "finished" && $ProductOrder->paymentstatus == "completed" ){
+
                 echo "<tr>";
                 echo "<td>".$ProductOrder->orderref."</td>";
                 echo "<td>".$ProductOrder->placeby."</td>";
@@ -229,7 +258,7 @@
                 echo "<td>".$ProductOrder->deliverby."</td>";
                 echo "<td>".$ProductOrder->unique_id."</td>";
                 echo "<td>".$ProductOrder->deliver_address."</td>";
-                echo "<td><button class='bluebutton' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
+                echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                 echo "</tr>";
             }
         }
