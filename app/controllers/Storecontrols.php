@@ -26,6 +26,10 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/profile");
     }
 
+    function viewProduction(){
+        echo $this->redirect(BASE_URL."StoreControls/loadProductionView");
+    }
+
 
 
     //Stock Items CRUDs
@@ -33,7 +37,10 @@ class StoreControls extends Controller {
 
     function viewStocks(){
         echo $this->redirect(BASE_URL."StoreControls/loadStocksView");
-        //echo $this->view("storemanager/stocks");
+    }
+
+    function viewSupplies(){
+        echo $this->redirect(BASE_URL."StoreControls/loadSuppliesView");
     }
 
     function addStock(){
@@ -58,12 +65,31 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/stocks", [ "stocks" => $stocks]);        
     }
 
-    function updateStocks($id){
-        echo $this->view("storemanager/updatestock", ["id" => $id]);
+    function updateStocks(){
+        $stockItem = new StockItem();
+        //$data = $stockItem->where("ItemID", $id);
+        echo $this->view("storemanager/updatestock");
     }
 
     function deleteStocks(){
         echo $this->view("storemanager/deletestock");
+    }
+
+
+    ///CRUD for Supplies
+
+    function loadSuppliesView(){
+        // $stockItem = new StockItem();
+        // $stocks = $stockItem->findall(); , [ "stocks" => $stocks]
+        echo $this->view("storemanager/supplies");        
+    }
+
+    //Functions for handling production requests
+
+    function loadProductionView(){
+        // $stockItem = new StockItem();
+        // $stocks = $stockItem->findall(); , [ "stocks" => $stocks]
+        echo $this->view("storemanager/production");        
     }
 
    
