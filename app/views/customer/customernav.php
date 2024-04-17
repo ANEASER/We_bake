@@ -90,8 +90,6 @@
                 <div class="dropdown-menu">
                     <p onclick="profile(this)">Profile</p>
                     <p onclick="editprofiledetails(this)">Edit Profile</p>
-                    <p onclick="uploadprofilepic(this)">Edit Profile Picture</p>
-                    <p onclick="changepassword(this)">Change Password</p>
                     <p onclick="logout(this)">Logout</p>
                 </div>
             </li>
@@ -153,17 +151,6 @@
         function placeorder(link){
                 changeActive(link);
                 window.location.href = BASE_URL + "OrderControls/placeorder";
-        }
-        
-
-        
-    
-        function editprofiledetails(){
-                    window.location.href = BASE_URL + "CustomerControls/editprofiledetailsview";
-        }
-        
-        function changepassword(){
-                    window.location.href = BASE_URL + "CustomerControls/changepasswordview";
         }
 
         function logout() {

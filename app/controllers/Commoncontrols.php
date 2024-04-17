@@ -255,7 +255,7 @@ class CommonControls extends Controller {
             }
         else{
             $error = "User not found";
-            $this->view("common/resetpassword",["error"=>$error]);    
+            $this->view("common/findprofileview",["error"=>$error]);    
         
         }
     }
