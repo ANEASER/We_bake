@@ -7,5 +7,16 @@ class ProductOrder extends Model {
         $query = "SELECT * FROM $this->table WHERE orderdate = CURDATE()";
         return $this->query($query);
     }
+
+    public function findall() {
+        $query = "SELECT * FROM $this->table ORDER BY orderid ASC";
+        return $this->query($query, []);
+    }
+
+    public function complete($orderDirection = 'DESC') {
+        $query = "SELECT * FROM $this->table WHERE orderstatus = 'finished' OR orderstatus = 'canceled' ORDER BY orderid $orderDirection";
+        return $this->query($query, []);
+    }
+    
 }
 ?>

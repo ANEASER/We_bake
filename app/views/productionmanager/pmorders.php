@@ -320,12 +320,12 @@
         else{
             sessionStorage.setItem('activeLink', 'showPendingOrderTable(this)');
         }
-        var url =  BASE_URL + "pmcontrols/processOrder/" + orderid + "/" + deliverystatus;
+        var url =  BASE_URL + "pmcontrols/processOrder/" + orderref + "/" + deliverystatus;
         window.location.href = url;
     }
 
-    function cancel(orderid) {
-        var url = BASE_URL + "pmcontrols/cancelOrder/" + orderid;
+    function cancel(orderref) {
+        var url = BASE_URL + "pmcontrols/cancelOrder/" + orderref;
         window.location.href = url;
     }
 
@@ -340,9 +340,9 @@
         window.location.href = url;
     }
 
-    function completed(orderid){
+    function completed(orderref){
         sessionStorage.setItem('activeLink', 'showCompletedOrderTable(this)')
-        var url = BASE_URL + "pmcontrols/completeOrder/" + orderid;
+        var url = BASE_URL + "pmcontrols/completeOrder/" + orderref;
         window.location.href = url;
     }
 
