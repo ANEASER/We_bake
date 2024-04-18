@@ -19,33 +19,33 @@
     <section>
         <div class="form-container">
 
-        <form class="form" method="POST" action="<?php echo BASE_URL; ?>StoreControls/updateStocks">
+        <form class="form" method="POST" action="<?php echo BASE_URL; ?>StoreControls/updateStocks" onsubmit="return validateForm()">
 
-        <input type="hidden" name="id" value="<?php echo $data[0]->ItemID; ?>">
+        <input type="hidden" name="id" value="<?php echo $stocks[0]->ItemID; ?>">
 
         <div class="form-group">
                 <label for="Name">Name:</label>
-                <input type="text" id="Name" name="Name" placeholder="<?php echo $data[0]->Name; ?>">
+                <input type="text" id="Name" name="Name" placeholder="<?php echo $stocks[0]->Name; ?>">
         </div>
 
         <div class="form-group">
                 <label for="Type">Type:</label>
-                <input type="text" id="Type" name="Type" placeholder="<?php echo $data[0]->Type; ?>">
+                <input type="text" id="Type" name="Type" placeholder="<?php echo $stocks[0]->Type; ?>">
         </div>
 
         <div class="form-group">
                 <label for="Type">Unit of Measurement:</label>
-                <input type="text" id="UnitOfMeasurement" name="UnitOfMeasurement" placeholder="<?php echo $data[0]->UnitOfMeasurement; ?>">
+                <input type="text" id="UnitOfMeasurement" name="UnitOfMeasurement" placeholder="<?php echo $stocks[0]->UnitOfMeasurement; ?>">
         </div>
 
         <div class="form-group">
                 <label for="Type">Minimum Stock:</label>
-                <input type="text" id="MinimumStock" name="MinimumStock" placeholder="<?php echo $data[0]->MinimumStock; ?>">
+                <input type="text" id="MinimumStock" name="MinimumStock" placeholder="<?php echo $stocks[0]->MinimumStock; ?>">
         </div>
 
         <div class="form-group">
                 <label for="Type">Critical Stock:</label>
-                <input type="text" id="CriticalStock" name="CriticalStock" placeholder="<?php echo $data[0]->CriticalStock; ?>">
+                <input type="text" id="CriticalStock" name="CriticalStock" placeholder="<?php echo $stocks[0]->CriticalStock; ?>">
         </div>
 
         <input class="yellowbutton" type="submit" value="Update">
@@ -55,6 +55,15 @@
 
         </div>
     </section> 
+
+    <script>
+
+        //Function to validate form and submit
+
+        function validateForm() {
+            return true;
+        }
+    </script>
         
 </body>
 </html>

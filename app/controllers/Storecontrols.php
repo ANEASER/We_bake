@@ -65,10 +65,11 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/stocks", [ "stocks" => $stocks]);        
     }
 
-    function updateStocks(){
+    function updateStocks($id){
         $stockItem = new StockItem();
-        //$data = $stockItem->where("ItemID", $id);
-        echo $this->view("storemanager/updatestock");
+        $stocks = $stockItem->where("ItemID",$id);
+        echo $this->view("storemanager/updatestock",  ["stocks" => $stocks]);
+        
     }
 
     function deleteStocks($id){

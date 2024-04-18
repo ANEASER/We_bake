@@ -74,8 +74,8 @@
             window.location.href = BASE_URL +  "StoreControls/insertSupply";
         }
 
-        function updateStocks() {
-            window.location.href = BASE_URL +  "StoreControls/updateStocks";
+        function updateStocks(id) {
+            window.location.href = BASE_URL +  "StoreControls/updateStocks/"+id;
         }
 
         function deleteStocks(id) {
