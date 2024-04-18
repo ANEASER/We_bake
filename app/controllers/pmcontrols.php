@@ -17,22 +17,27 @@ class PmControls extends Controller
     // views
     // Pending Orders View(All)
     function pendingOrdersView()
-    {
-        if (!Auth::loggedIn()) {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-        if ($_SESSION["USER"]->Role != "productionmanager") {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-
-        $ProductOrder = new ProductOrder;
-        $productorder = $ProductOrder->findall();
-        echo $this->view("productionmanager/pmorders", ["productorder" => $productorder]);
+{
+    if (!Auth::loggedIn()) {
+        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        return;
     }
+
+    if ($_SESSION["USER"]->Role !== "productionmanager") {
+        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        return;
+    }
+
+    $ProductOrder = new ProductOrder;
+    $productorder = $ProductOrder->findall();
+    $completeorder = $ProductOrder->complete('DESC');
+    echo $this->view("productionmanager/pmorders", ["productorder" => $productorder, "completeorder" => $completeorder]);
+}
+
 
     // functions
     // Process Order
-    function processOrder($orderid)
+    function processOrder($orderref)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -42,12 +47,12 @@ class PmControls extends Controller
         }
 
         $ProductOrder = new ProductOrder;
-        $ProductOrder->update($orderid, "orderid", ["orderstatus" => "processing"]);
+        $ProductOrder->update($orderref, "orderref", ["orderstatus" => "processing"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
     }
 
     // Cancel Order View
-    function cancelOrder($orderid)
+    function cancelOrder($orderref)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -57,13 +62,13 @@ class PmControls extends Controller
         }
 
         $ProductOrder = new ProductOrder;
-        $ProductOrder->update($orderid, "orderid", ["orderstatus" => "canceled"]);
+        $ProductOrder->update($orderref, "orderref", ["orderstatus" => "canceled"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
     }
 
     
     // Complete Order
-    function completeOrder($orderid)
+    function completeOrder($orderref)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -88,7 +93,7 @@ class PmControls extends Controller
         echo $this->view("productionmanager/pmorders");
     }
     // Assign Vehicle View
-    function assignVehicle($vehicleno, $orderid)
+    function assignVehicle($vehicleno, $orderref)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
