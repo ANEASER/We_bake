@@ -96,7 +96,7 @@
         } else if (user.Role === "billingclerk") {
             window.location.href = BASE_URL + "BillingControls";
         } else if (user.Role === "productionmanager") {
-            window.location.href = BASE_URL + "PmControls";
+            window.location.href = BASE_URL + "pmcontrols/pendingOrdersView";
         } else if (user.Role === "admin") {
             window.location.href = BASE_URL + "AdminControls";
         } else {

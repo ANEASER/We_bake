@@ -39,7 +39,7 @@
 <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
 
 <?php
-    if($vehicles==null){
+    if($vehicle==null){
         echo '<script>
     Swal.fire({
         title: "No vehicles available",
@@ -48,8 +48,7 @@
         confirmButtonText: "OK"
     }).then((result) => {
         if (result.isConfirmed) {
-            // Redirect to BASE_URL + "PmControls/index"
-            window.location.href = "' . BASE_URL . 'PmControls/index";
+            window.location.href = "' . BASE_URL . 'pmcontrols/pendingOrdersView";
         }
     });
 </script>';

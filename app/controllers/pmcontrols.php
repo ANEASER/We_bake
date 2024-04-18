@@ -48,7 +48,7 @@ class PmControls extends Controller
 
         $ProductOrder = new ProductOrder;
         $ProductOrder->update($orderid, "orderid", ["orderstatus" => "processing"]);
-        $this->redirect(BASE_URL . "pmcontrols/index");
+        $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
     }
 
     // Cancel Order View
@@ -144,7 +144,7 @@ class PmControls extends Controller
         }
 
         $vehicle = new vehicle;
-        $vehicles = $vehicle->where("availablitiy",1);
+        $vehicles = $vehicle->where("availability",1);
 
         echo $this->view("productionmanager/assignvehicle", ["orderid"=>$orderid, "vehicleno"=>$vehicles]);
     }

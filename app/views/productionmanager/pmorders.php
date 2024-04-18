@@ -129,7 +129,7 @@
             </tr>";
             
             foreach ($productorder as $ProductOrder){
-                if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "completed" || $ProductOrder->paymentstatus == "advanced")) {
+                if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && $ProductOrder->deliverystatus == "pickup") {
 
                     echo "<tr>";
                     echo "<td>".$ProductOrder->orderref."</td>";
@@ -172,7 +172,7 @@
 
             foreach($productorder as $ProductOrder){ 
 
-                if($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "completed" || $ProductOrder->paymentstatus == "advanced")) {
+                if($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && ($ProductOrder->deliverystatus == "delivery" || $ProductOrder->deliverystatus == "outletdelivery")) {
 
                     echo "<tr>";
                     echo "<td>".$ProductOrder->orderref."</td>";
