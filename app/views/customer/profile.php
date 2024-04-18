@@ -104,16 +104,15 @@
                     
                 </section>
 
-                <br>
+
                 <h1 style="text-align: center;color:darkblue">Most Purchaced Items</h1>
-                <section class="stats" style="display:flex;padding: 1%;">
+                <section class="stats" style="padding: 1%;z-index:0">
                         <?php
                             if(is_array($mostPurchasedItems) && !empty($mostPurchasedItems)){
                                 foreach($mostPurchasedItems as $item){
-                                            echo "<div class='statscard' style='position: relative; background-image: url(" . BASE_URL . 'media/uploads/Product/' . $item->Link . "); background-size: cover; background-repeat: no-repeat; background-position: center;'>";
-                                                echo "<div style='position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.7); display:flex;flex-direction:column;justify-content:center; font-weight:bolder' ";
+                                            echo "<div class='statscard' style='background-image: url(" . BASE_URL . 'media/uploads/Product/' . $item->Link . "); background-size: cover; background-repeat: no-repeat; background-position: center;'>";
+                                                echo "<div style='top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.7); display:flex;flex-direction:column;justify-content:center; font-weight:bolder' ";
                                                     echo "<h4>".$item->Name."</h4>";
-                                                    echo "<h4>".$item->ItemCode."</h4>";
                                                     echo "<h4>".$item->Quantity."</h4>";
                                                 echo "</div>";
                                             echo "</div>";
@@ -127,7 +126,7 @@
 
                 <section class="pendingorderstable" style="display:flex;justify-content:space-around; padding-top:3%; width:100%;">
                     <?php
-                        $itemsPerPage = 4;
+                        $itemsPerPage = 3;
                         $totalOrders = count($orders);
                         $totalPages = ceil($totalOrders / $itemsPerPage);
 
@@ -216,16 +215,6 @@
                         </tr>
                     </table>
                     <br>
-                    <br>
-                    <section class="buttongroup">
-                            <button class="brownbutton" onclick="editprofiledetails()" class="buttonedit">Edit Profile Details</button>
-
-                            <button class="brownbutton" onclick="uploadprofilepic()">Edit Profile Picture</button>
-
-                            <button class="brownbutton" onclick="changepassword()" class="buttonedit">Change Password</button>
-
-                            <button class="brownbutton" onclick="logout()">Log Out</button>
-                    </section>
             </section>
         </section>
     <script>

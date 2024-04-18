@@ -72,16 +72,26 @@
                 <input type="text" id="Address" name="Address" placeholder="<?php echo $data[0]->Address; ?>">
             </div>
                     
-            <div class="form-group">
-                <label for="Role">Role:</label>
-                <select id="Role" name="Role" >
-                        <option value="billingclerk">Billing Clerk</option>
-                        <option value="outletmanager">Outlet Manager</option>
-                        <option value="productionmanager">Production Manager</option>
-                        <option value="receptionist">Receptionist</option>
-                        <option value="storemanager">Store Manager</option>
-                </select>
-            </div>
+            <?php
+                if(isset($hasOutlet)){
+                    echo '<div class="form-group">
+                            <label for="Role">Role:</label>
+                            <input type="hidden" id="Role" name="Role" value="'.$data[0]->Role.'">
+                            <p>assigned to outlet</p>   
+                        </div>';
+                    }else{
+                        echo '<div class="form-group">
+                            <label for="Role">Role:</label>
+                            <select id="Role" name="Role" >
+                                    <option value="billingclerk">Billing Clerk</option>
+                                    <option value="outletmanager">Outlet Manager</option>
+                                    <option value="productionmanager">Production Manager</option>
+                                    <option value="receptionist">Receptionist</option>
+                                    <option value="storemanager">Store Manager</option>
+                            </select>
+                        </div>';
+                    }
+            ?>
                     
             <div class="form-group">
                 <label for="UserName">Username:</label>

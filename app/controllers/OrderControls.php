@@ -280,6 +280,41 @@
                 
         }
 
+        function paymentgateway(){
+                
+                if(!Auth::loggedIn()){
+                    $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                }
+    
+                if(!isset($_SESSION['unique_id'])){
+                    $this->redirect(BASE_URL."OrderControls/placeorder");
+                }
+
+                $cartItems = $_SESSION['cart'];
+                $unique_id = $_SESSION['unique_id'];
+
+                if(!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0){
+                    $this->redirect(BASE_URL."OrderControls/showcategories");
+                }
+    
+                echo $this->view("order/paymentmethod",[ "cartItems" => $cartItems, "unique_id" => $unique_id]);
+        }
+
+        function onlinepayment(){
+            
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!isset($_SESSION['unique_id'])){
+                $this->redirect(BASE_URL."OrderControls/placeorder");
+            }
+
+            $total = $_SESSION['total'];
+
+            echo $this->view("order/onlinepayment",[ "total" => $total]);
+        }
+
 
         // Cart
         function viewcart(){

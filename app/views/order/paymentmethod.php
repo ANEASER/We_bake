@@ -24,28 +24,49 @@
                 ?>
             </section>
             <section class="buttongroup" style="margin: 0%;padding:0%">
-                <button class="yellowbutton" onclick="edit()">edit</button>
-                <button class="greenbutton" onclick="paymentgateway()">proceed</button>
+                <button class="greenbutton" onclick="cashondelivery()">cash on delivery</button>
+                <button class="greenbutton" onclick="payonline()">pay online</button>
                 <button class="redbutton" onclick="cancel()">cancel</button>
-                <button class="bluebutton" onclick="addmore()">addmore</button>
             </section>
         </section>
 
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
-
-        function paymentgateway(){
-            Swal.fire({
-                title: "Payment Gateway",
-                text: "Please wait while we redirect you to the payment gateway.",
-                icon: "info",
-                showConfirmButton: false, 
-                timer: 1000, 
-            }).then((result) => {
-                window.location.href = BASE_URL +"OrderControls/paymentgateway";
-            });
+        function cashondelivery(){
+            const SwalwithButton = Swal.mixin({
+                    customClass: {
+                        confirmButton: "greenbutton",
+                        cancelButton: "redbutton",
+                    },
+                    buttonsStyling: false
+                });
+            
+            SwalwithButton.fire({
+                    text: "you need to pay 30% to confirm the order before delivery. and the rest of the amount will be paid on delivery",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonText: "Proceed",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: true,
+                    preConfirm: async () => {
+                        try {
+                            await SwalwithButton.fire({
+                                title: "Order Placed!",
+                                text: "Your order has been placed successfully.",
+                                icon: "success",
+                                showConfirmButton: false, 
+                                timer: 1000, 
+                            }).then((result) => {
+                                window.location.href = BASE_URL +"OrderControls/checkout";
+                            });
+                        } catch (error) {
+                            SwalwithButton.showValidationMessage(`Request failed: ${error}`);
+                        }
+                    },
+                });
         }
+
 
         function cancel(){
             const SwalwithButton = Swal.mixin({
@@ -80,13 +101,18 @@
                 });
         }
 
-        function edit(){
-            window.location.href = BASE_URL +"OrderControls/updatecart";
+        function payonline(){
+            Swal.fire({
+                text: "You will be redirected to the payment gateway.",
+                icon: "info",
+                showConfirmButton: false, 
+                timer: 1000, 
+            }).then((result) => {
+                window.location.href = BASE_URL +"OrderControls/onlinepayment";
+            });
         }
 
-        function addmore(){
-            window.location.href = BASE_URL +"OrderControls/showcategories";
-        }
+        
     </script>
 </body>
 </html>
