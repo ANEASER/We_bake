@@ -615,12 +615,12 @@ use function PHPSTORM_META\type;
                     echo $this->view("admin/editsystemuser", ["data" => $data]);
                 }
                 else{
-                   $this->redirect(BASE_URL."AdminControls/loadUsersView");
+                    $hasOutlet = "yes";
+                    echo $this->view("admin/editsystemuser", ["data" => $data, "hasOutlet" => $hasOutlet]);
                 }
             }else{
                 echo $this->view("admin/editsystemuser", ["data" => $data]);
             }
-            
         }
 
         
