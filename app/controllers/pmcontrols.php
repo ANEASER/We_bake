@@ -37,7 +37,7 @@ class PmControls extends Controller
 
     // functions
     // Process Order
-    function processOrder($orderref)
+    function processOrder($orderid)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -47,12 +47,12 @@ class PmControls extends Controller
         }
 
         $ProductOrder = new ProductOrder;
-        $ProductOrder->update($orderref, "orderref", ["orderstatus" => "processing"]);
+        $ProductOrder->update($orderid, "orderid", ["orderstatus" => "processing"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
     }
 
     // Cancel Order View
-    function cancelOrder($orderref)
+    function cancelOrder($orderid)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -62,13 +62,13 @@ class PmControls extends Controller
         }
 
         $ProductOrder = new ProductOrder;
-        $ProductOrder->update($orderref, "orderref", ["orderstatus" => "canceled"]);
+        $ProductOrder->update($orderid, "orderid", ["orderstatus" => "canceled"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
     }
 
     
     // Complete Order
-    function completeOrder($orderref)
+    function completeOrder($orderid)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -77,11 +77,19 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
+        $ProductOrder = new ProductOrder;
+        $order = $ProductOrder->where("orderid", $orderid);
+        $vehicleno = $order->deliverby;
+        $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
+
+        $vehicle = new vehicle;
+        $vehicle->update($vehicleno,"registrationnumber",["availability"=>1]);
+
         echo $this->view("productionmanager/pmorders");
     }
-
+/*
     // More Details View
-    function moreDetails($orderref)
+    function moreDetails($orderid)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -90,20 +98,11 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
-        echo $this->view("productionmanager/pmorders");
-    }
-    // Assign Vehicle View
-    function assignVehicle($vehicleno, $orderref)
-    {
-        if (!Auth::loggedIn()) {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-        if ($_SESSION["USER"]->Role != "productionmanager") {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-
-        echo $this->view("productionmanager/assignvehicle");
-    }
+        $ProductOrderLine = new ProductOrderLine;
+        $productorderline = $ProductOrderLine->where("unique_id",$unique_id);
+        echo $this->view("productionmanager/moredetails", ["productorderline",$productorderline]);
+    }*/
+    
 
     // VEHICLE
     // views
@@ -132,6 +131,22 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
         echo $this->view("productionmanager/addvehicle");
+    }
+    
+    // Assign Vehicle View
+    function assignVehicleView($orderid)
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        if ($_SESSION["USER"]->Role != "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+
+        $vehicle = new vehicle;
+        $vehicles = $vehicle->where("availablitiy",1);
+
+        echo $this->view("productionmanager/assignvehicle", ["orderid"=>$orderid, "vehicleno"=>$vehicles]);
     }
 
     // functions
@@ -209,6 +224,28 @@ class PmControls extends Controller
         $this->redirect(BASE_URL . "PmControls/loadVehiclesView");
     }
 
+    // Assign Vehicle
+    function assignVehicle($vehicleno, $orderid)
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        if ($_SESSION["USER"]->Role != "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+
+        $ProductOrder = new ProdutOrder;
+        $vehicle = new vehicle;
+
+        $vehicleassign = $vehicle->where("vehicleno",$vehicleno);
+        $registrationnumber = $vehicleassign->registrationnumber;
+
+        $vehicle->update($vehcileno,"vehicleno",["availability"=>0]);
+        $productorder->update($rderid,"orderid",["deliveryby"=>$registrationnumber]);
+        $productorder->update($orderid,"orderid",["ordertatus"=>"ondelivery"]);
+
+        echo $this->view("productionmanager/pmorders");
+    }
 
     // RAW MATERIALS
     // views

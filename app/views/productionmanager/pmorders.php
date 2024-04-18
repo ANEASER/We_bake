@@ -12,8 +12,7 @@
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
-        .button{
-            
+        .button {
             border: none;
             color: white;
             padding: 10px;
@@ -24,15 +23,14 @@
             font-size: 16px;
             margin-left: 30px;
             border-radius: 9px;
-        
         }
-        .red{
+        .red {
             background-color: #e74c3c;
         }
-        .green{
+        .green {
             background-color: #2ecc71;
         }
-        .blue{
+        .blue {
             background-color: #3498db;
         }
     </style>
@@ -49,24 +47,26 @@
             echo '<button class="button green" onclick="clearSearch(); return false;">Clear Search</button>';
         }
         else{
-            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="'.$_GET['search'].'" class="searchbox">';
+            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="" class="searchbox">';
             echo '<input type="submit" value="Search" class="greenbutton">';
         }
-            ?>
+        ?>
         </form>
         
         <ul style="display: flex;margin-left: 70%;">
             <ul style="display: flex; padding: 0; list-style: none; margin: 0;">
                 <li style="margin-right: 10px;"><a id="home" onclick="showPendingOrderTable(this)">PendingOrders</a></li>
-                <li style="margin-right: 10px;"><a onclick="showPickupOrderTable(this)" >PickupOrders</a></li>
-                <li style="margin-right: 10px;"><a onclick="showDeliveryOrderTable(this)" >ToDeliverOrders</a></li>
-                <li style="margin-right: 10px;"><a onclick="showOnDeliveryOrderTable(this)" >OnDeliveryOrders</a></li>
-                <li style="margin-right: 10px;"><a onclick="showCompletedOrderTable(this)" >CompletedOrders</a></li>
+                <li style="margin-right: 10px;"><a onclick="showPickupOrderTable(this)">PickupOrders</a></li>
+                <li style="margin-right: 10px;"><a onclick="showDeliveryOrderTable(this)">ToDeliverOrders</a></li>
+                <li style="margin-right: 10px;"><a onclick="showOnDeliveryOrderTable(this)">OnDeliveryOrders</a></li>
+                <li style="margin-right: 10px;"><a onclick="showCompletedOrderTable(this)">CompletedOrders</a></li>
             </ul>
         </ul>
     </div>
 
     <section style="display:flex;justify-content:space-around; width:100%">
+        
+        <!-- Pending Orders -->
         <?php
         echo "<div id='PendingOrdersTable'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
@@ -97,8 +97,8 @@
                     echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->unique_id."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
-                    echo "<td><button class='button green' onclick='process(".$ProductOrder->orderref.", \"".$ProductOrder->deliverystatus."\")'>Process</button></td>";
-                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
+                    echo "<td><button class='button green' onclick='process(".$ProductOrder->orderid.")'>Process</button></td>";
+                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }
@@ -106,6 +106,9 @@
         echo "</table>";
         echo "</div>";
         ?>
+
+
+        <!-- PickUp Orders -->
 
         <?php
         echo "<div id='PickupOrderTable'>";
@@ -120,7 +123,7 @@
                 <th>Deliver By</th>
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
-                <th>Update Order</th>
+                <th>Complete Order</th>
                 <th>Cancel Order</th>
                 <th>More Details</th>
             </tr>";
@@ -138,8 +141,8 @@
                     echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->unique_id."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
-                    echo "<td><button class='button green' onclick='process(".$ProductOrder->orderref.")'>Process</button></td>";
-                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
+                    echo "<td><button class='button green' onclick='completed(".$ProductOrder->orderid.")'>Complete</button></td>";
+                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }
@@ -147,6 +150,8 @@
         echo "</table>";
         echo "</div>";
         ?>
+
+        <!-- Delivery Orders -->
 
         <?php
         echo "<div id='DeliveryOrderTable'>";
@@ -160,7 +165,7 @@
                 <th>Deliver By</th>
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
-                <th>Update Order</th>
+                <th>Assign Vehicle</th>
                 <th>Cancel Order</th>
                 <th>More Details</th>
             </tr>";
@@ -179,8 +184,8 @@
                     echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->unique_id."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
-                    echo "<td><button class='button green' onclick='assignvehicle(".$ProductOrder->orderref.")'>Assign Vehicle</button></td>";
-                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
+                    echo "<td><button class='button green' onclick='assignvehicle(".$ProductOrder->orderid.")'>Assign</button></td>";
+                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }    
@@ -188,6 +193,8 @@
             echo "</table>";
             echo "</div>";
         ?>
+
+        <!-- On Delivery Orders -->
 
         <?php
         echo "<div id='OnDeliveryOrderTable'>";
@@ -201,7 +208,7 @@
                 <th>Deliver By</th>
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
-                <th>Update Order</th>
+                <th>Complete Order</th>
                 <th>Cancel Order</th>
                 <th>More Details</th>
             </tr>";
@@ -220,8 +227,8 @@
                 echo "<td>".$ProductOrder->deliverby."</td>";
                 echo "<td>".$ProductOrder->unique_id."</td>";
                 echo "<td>".$ProductOrder->deliver_address."</td>";
-                echo "<td><button class='button green' onclick='completed(".$ProductOrder->orderref.")'>Complete</button></td>";
-                echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
+                echo "<td><button class='button green' onclick='completed(".$ProductOrder->orderid.")'>Complete</button></td>";
+                echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
                 echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                 echo "</tr>";
             }    
@@ -229,6 +236,8 @@
         echo "</table>";
         echo "</div>";
         ?>
+
+        <!-- Completed Orders -->
 
         <?php
         echo "<div id='CompletedOrderTable'>";
@@ -292,7 +301,7 @@
             activeLink != "showDeliverOrderTable(this)" &&
             activeLink != "showOnDeliverOrderTable" &&
             activeLink != "showPickupOrderTable" &&
-            activeLink != null
+            activeLink == null
         ) {
             var homeLink = document.getElementById('home');
             if (homeLink) {
@@ -320,12 +329,12 @@
         else{
             sessionStorage.setItem('activeLink', 'showPendingOrderTable(this)');
         }
-        var url =  BASE_URL + "pmcontrols/processOrder/" + orderref + "/" + deliverystatus;
+        var url =  BASE_URL + "pmcontrols/processOrder/" + orderid + "/" + deliverystatus;
         window.location.href = url;
     }
 
-    function cancel(orderref) {
-        var url = BASE_URL + "pmcontrols/cancelOrder/" + orderref;
+    function cancel(orderid) {
+        var url = BASE_URL + "pmcontrols/cancelOrder/" + orderid;
         window.location.href = url;
     }
 
@@ -334,15 +343,15 @@
         window.location.href = url;
     }
 
-    function assignvehicle(orderref){
+    function assignvehicle(orderid){
         sessionStorage.setItem('activeLink', 'showDeliveryOrderTable(this)');
-        var url = BASE_URL + "pmcontrols/assignVehicle/" + orderref;
+        var url = BASE_URL + "pmcontrols/assignVehicleView/" + orderid;
         window.location.href = url;
     }
 
-    function completed(orderref){
+    function completed(orderid){
         sessionStorage.setItem('activeLink', 'showCompletedOrderTable(this)')
-        var url = BASE_URL + "pmcontrols/completeOrder/" + orderref;
+        var url = BASE_URL + "pmcontrols/completeOrder/" + orderid;
         window.location.href = url;
     }
 
