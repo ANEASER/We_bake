@@ -33,6 +33,8 @@
 
     <script>
        var BASE_URL = "<?php echo BASE_URL; ?>";
+
+       
        
         function pendingOrders() {
             window.location.href = BASE_URL + "pmcontrols/pendingOrdersView";
