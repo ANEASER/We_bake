@@ -32,7 +32,6 @@
                     <th> Available Stock</th>
                     <th> Minimum Stock</th>
                     <th> Critical Stock</th>
-                    <th> New Supply</th>
                     <th> Update</th>
                     <th> Delete</th>
                 </tr>';
@@ -46,7 +45,6 @@
                     echo '<td>' . $stocks->AvailableStock . '</td>';
                     echo '<td>' . $stocks->MinimumStock . '</td>';
                     echo '<td>' . $stocks->CriticalStock . '</td>';
-                    echo '<td> <button class="orangebutton" onclick="insertSupply(' . $stocks->ItemID . ')">Insert</button></td>';
                     echo '<td> <button class="yellowbutton" onclick="updateStocks(' . $stocks->ItemID . ')">Update</button></td>';
                     echo '<td class="hideonmobile"><button class="redbutton" onclick="deleteStocks(' . $stocks->ItemID . ')">Delete</button></td>';
                     echo '</tr>';
@@ -68,10 +66,6 @@
 
         function addStockItem() {
             window.location.href = BASE_URL +  "StoreControls/addStock";
-        }
-
-        function insertSupply() {
-            window.location.href = BASE_URL +  "StoreControls/insertSupply";
         }
 
         function updateStocks(id) {
@@ -110,7 +104,6 @@
                         }
                     },
                 });
-            // window.location.href = BASE_URL +  "StoreControls/deleteStocks";
         }
 
     </script>
