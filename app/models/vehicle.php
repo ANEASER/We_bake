@@ -8,8 +8,8 @@ class Vehicle extends Model {
         return $this->query($query);
     }
 
-    function deleteVehicle($vehicleNo){
-        $query = "UPDATE deliveryvehicles SET availability = 0 AND ActiveState = 0 WHERE vehicleno = $vehicleNo";
+    function deleteVehicle($vehicleid){
+        $query = "UPDATE deliveryvehicles SET availability = 0 AND ActiveState = 0 WHERE vehicleno = $vehicleid";
         return $this->query($query);
     }
 
