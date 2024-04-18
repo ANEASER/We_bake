@@ -61,7 +61,17 @@ button, input[type="submit"] {
 }
 
 .yellowbutton:hover {
-    background-color: #f39c12;
+    background-color: #d9bb32;
+}
+
+.orangebutton {
+    margin: 0% 5%;
+    background-color: #e8953c;
+    color: white;
+}
+
+.orangebutton:hover {
+    background-color: #f38212;
 }
 
 #cartbutton {

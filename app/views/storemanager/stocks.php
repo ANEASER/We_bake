@@ -46,6 +46,7 @@
                     echo '<td>' . $stocks->AvailableStock . '</td>';
                     echo '<td>' . $stocks->MinimumStock . '</td>';
                     echo '<td>' . $stocks->CriticalStock . '</td>';
+                    echo '<td> <button class="orangebutton" onclick="insertSupply(' . $stocks->ItemID . ')">Insert</button></td>';
                     echo '<td> <button class="yellowbutton" onclick="updateStocks(' . $stocks->ItemID . ')">Update</button></td>';
                     echo '<td class="hideonmobile"><button class="redbutton" onclick="deleteStocks(' . $stocks->ItemID . ')">Delete</button></td>';
                     echo '</tr>';
@@ -69,12 +70,47 @@
             window.location.href = BASE_URL +  "StoreControls/addStock";
         }
 
+        function insertSupply() {
+            window.location.href = BASE_URL +  "StoreControls/insertSupply";
+        }
+
         function updateStocks() {
             window.location.href = BASE_URL +  "StoreControls/updateStocks";
         }
 
-        function deleteStocks() {
-            window.location.href = BASE_URL +  "StoreControls/deleteStocks";
+        function deleteStocks(id) {
+            const SwalwithButton = Swal.mixin({
+                    customClass: {
+                        confirmButton: "redbutton",
+                        cancelButton: "yellowbutton"
+                    },
+                    buttonsStyling: false
+                });
+
+                SwalwithButton.fire({
+                    title: "Are you sure you want to delete this Item?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonText: "Delete",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: true,
+                    preConfirm: async () => {
+                        try {
+                            await SwalwithButton.fire({
+                                title: "Deleted!",
+                                text: "Item has been deleted.",
+                                icon: "success",
+                                confirmButtonText: "OK",
+                                confirmButtonClass: "greenbutton"
+                            });
+                            window.location.href = BASE_URL + "StoreControls/deleteStocks/"+id;
+                        } catch (error) {
+                            SwalwithButton.showValidationMessage(`Request failed: ${error}`);
+                        }
+                    },
+                });
+            // window.location.href = BASE_URL +  "StoreControls/deleteStocks";
         }
 
     </script>

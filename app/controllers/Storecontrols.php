@@ -71,8 +71,10 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/updatestock");
     }
 
-    function deleteStocks(){
-        echo $this->view("storemanager/deletestock");
+    function deleteStocks($id){
+        $stockItem = new StockItem();
+        $stocks = $stockItem->delete($id,"ItemID");
+        $this->redirect(BASE_URL."StoreControls/viewStocks");
     }
 
 
@@ -84,6 +86,10 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/supplies");        
     }
 
+    function insertSupply(){
+        echo $this->view("storemanager/addsupply");
+    }
+
     //Functions for handling production requests
 
     function loadProductionView(){
@@ -91,6 +97,8 @@ class StoreControls extends Controller {
         // $stocks = $stockItem->findall(); , [ "stocks" => $stocks]
         echo $this->view("storemanager/production");        
     }
+
+    
 
    
 }
