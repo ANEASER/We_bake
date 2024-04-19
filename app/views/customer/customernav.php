@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/navbar.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
@@ -46,6 +47,13 @@
                 display: block;
                 background-color: #f9f9f9;
                 border-bottom: 1px solid #f1f1f1;
+            }
+
+            .swal2-actions {
+                width: 100% !important;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
             }
 
             @media screen and (max-width: 1100px){
@@ -157,8 +165,8 @@
 
             const SwalwithButton = Swal.mixin({
                         customClass: {
-                            confirmButton: "yellowbutton2",
-                            cancelButton: "yellowbutton2"
+                            confirmButton: "yellowbutton",
+                            cancelButton: "yellowbutton"
                         },
                         buttonsStyling: false
                     });
