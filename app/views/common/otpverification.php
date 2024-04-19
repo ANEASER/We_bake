@@ -50,7 +50,7 @@
             </div>
         </form>
 
-        <p>did't recieve OTP? <button class="bluebutton" onclick="resend()">Resend</button></p>
+        <p>did't recieve OTP? <span style="cursor:pointer; text-decoration: underline;" onclick="resend()">Resend</span></p>
     </div>
     </section>
     <script>

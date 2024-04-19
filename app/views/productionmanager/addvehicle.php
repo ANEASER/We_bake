@@ -46,7 +46,7 @@
     </div>
     <section>
         <div class="form-container">
-            <form class="form" method="POST" action="<?php echo BASE_URL ?> pmcontrols/createvehicles" onsubmit="return validateForm()">
+            <form class="form" method="POST" action="<?php echo BASE_URL ?>pmcontrols/createVehicle" onsubmit="return validateForm()">
 
             <div class="form-group">
                 <label for="registrationnumber">Registration Number</label>

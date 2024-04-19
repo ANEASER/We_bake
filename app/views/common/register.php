@@ -87,7 +87,7 @@
             </form>
             <br>
 
-            <p>Already have account? <button class="greenbutton" onclick="loadLogin()">Login</button></p>
+            <p>Already have account? <span style="cursor:pointer; text-decoration: underline;" onclick="loadLogin()">Login</span></p>
         </div>
         
     </section>

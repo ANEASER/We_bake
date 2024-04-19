@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/button.css">
     <title>Store Manager</title>
 </head>
 <body>
@@ -18,13 +21,13 @@
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
         
-        function loadSuppliers() {
-            window.location.href = BASE_URL +  "StoreControls/viewSupplier";
-        }
+        // function loadSuppliers() {
+        //     window.location.href = BASE_URL +  "StoreControls/viewSupplier";
+        // }
 
-        function loadStocks() {
-            window.location.href = BASE_URL +  "StoreControls/viewStocks";
-        }
+        // function loadStocks() {
+        //     window.location.href = BASE_URL +  "StoreControls/viewStocks";
+        // }
     </script>
 </body>
 </html>

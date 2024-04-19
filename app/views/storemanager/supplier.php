@@ -19,6 +19,7 @@
 
     <div class="content">
         <h1>Suppliers</h1>
+        
 
         <script>
 

@@ -10,17 +10,18 @@ use function PHPSTORM_META\type;
                 $this->redirect("CommonControls/loadLoginView");
             }
 
+            $customer = new Customer();
             $systemuser = new Systemuser();
-            $producorder = new ProductOrder();
-            $productorderline = new ProductOrderLine();
+            $outlet = new Outlet();
             $productitem = new ProductItem();
 
-            $data = $systemuser->where("UserName", $_SESSION["USER"]->UserName);
-            $producorderdata = $producorder->findall();
-            $productorderlinedata = $productorderline->findall();
-            $productitemdata = $productitem->findall();
+            $customercount = $customer->getCustomerCount();
+            $systemusercount = $systemuser->getSystemuserCount();
+            $outletcount = $outlet->getOutletCount();
+            $productitemcount = $productitem->countProductItemsGroupByCategory();
 
-            echo $this->view("admin/admindash",[ "data" => $data, "producorderdata" => $producorderdata, "productorderlinedata" => $productorderlinedata, "productitemdata" => $productitemdata]);
+            
+            echo $this->view("admin/admindash", ["customercount" => $customercount, "systemusercount" => $systemusercount, "outletcount" => $outletcount, "productitemcount" => $productitemcount]);
         }
 
         //Item functions
@@ -615,12 +616,12 @@ use function PHPSTORM_META\type;
                     echo $this->view("admin/editsystemuser", ["data" => $data]);
                 }
                 else{
-                   $this->redirect(BASE_URL."AdminControls/loadUsersView");
+                    $hasOutlet = "yes";
+                    echo $this->view("admin/editsystemuser", ["data" => $data, "hasOutlet" => $hasOutlet]);
                 }
             }else{
                 echo $this->view("admin/editsystemuser", ["data" => $data]);
             }
-            
         }
 
         

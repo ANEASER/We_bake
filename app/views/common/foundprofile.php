@@ -15,6 +15,11 @@
 
 
 <body>
+    <style>
+        img.rounded {
+        border-radius: 100px;
+    }
+    </style>
     <?php
         include '..\app\views\common\commonnav.php';
         if (isset($error)){
@@ -45,7 +50,12 @@
     <div class="form-container">
 
            <div>
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU" style="border-radius: 80px;"  alt="propic" height="200px" width="200px">
+                <?php
+                    echo "<h1>User Found</h1>";
+                    echo "<br>";
+                    echo "<img src='data:image/jpeg;base64," .$user->profilepic. "' height=200px width=200px class='rounded' onclick='enlargeImage(this)'>";
+                    echo "<br>";
+                ?>
                 <div>
                     <?php
                         echo "<h1>".$user->Name."</h1>";

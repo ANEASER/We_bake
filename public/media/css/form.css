@@ -1,5 +1,5 @@
 .form-container {
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 auto;
     background-color: antiquewhite;
     border-radius: 8px;
@@ -44,4 +44,44 @@ textarea {
 section {
     padding: 20px;
     text-align: center;
+}
+
+.formbutton{
+    position: absolute;
+    padding: 10px 20px;
+    background-color: #351a07;
+    color: antiquewhite;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+}
+
+.formbutton:hover {
+    background-color: #56312c; 
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff; 
+    color: #56312c; 
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none; 
+}
+
+/* Style for when dropdown is clicked */
+select:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #56312c; 
+    box-shadow: 0 0 5px rgba(140, 180, 230, 0.5);
 }

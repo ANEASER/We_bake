@@ -230,27 +230,20 @@ class CommonControls extends Controller {
         $this->redirect(BASE_URL."CommonControls/");
         
     }
-
-        
+     
     public function FindProfileView(){
         $this->view("common/findprofileview");
     }
     
     public function ShowFoundProfile(){
         $usernameemail = $_POST["usernameemail"];
-        $systemuser = new Systemuser();
         $customer = new Customer();
 
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
         }
         
-        if ($row = $systemuser->where("UserName", $usernameemail)) {
-                $user = $row[0];
-                $_SESSION['USER'] = $user;
-                $this->view("common/foundprofile",["user"=>$user]);
-            }
-        else if ($row = $customer->where("UserName", $usernameemail)) {
+        if ($row = $customer->where("UserName", $usernameemail)) {
                 $user = $row[0];
                 $_SESSION['USER'] = $user;
                 $this->view("common/foundprofile",["user"=>$user]);
@@ -260,18 +253,11 @@ class CommonControls extends Controller {
                 $_SESSION['USER'] = $user;
                 $this->view("common/foundprofile",["user"=>$user]);
             }
-        else if ($row = $systemuser->where("Email", $usernameemail)) {
-                $user = $row[0];
-                $_SESSION['USER'] = $user;
-                $this->view("common/foundprofile",["user"=>$user]);
-            }
         else{
             $error = "User not found";
-            $this->view("common/resetpassword",["error"=>$error]);    
+            $this->view("common/findprofileview",["error"=>$error]);    
         
         }
-
-        
     }
 
     public function ValidateProfileView(){

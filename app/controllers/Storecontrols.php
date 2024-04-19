@@ -7,6 +7,17 @@ class StoreControls extends Controller {
             $this->redirect("CommonControls/loadLoginView");
         }
 
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+
+        $stockItem = new StockItem();
+        
+        $stocks = $stockItem->findall();
+
+
+
         $this->view("storemanager/smdash");
     }
 
@@ -15,88 +26,81 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/profile");
     }
 
+    function viewProduction(){
+        echo $this->redirect(BASE_URL."StoreControls/loadProductionView");
+    }
+
+
+
+    //Stock Items CRUDs
+
 
     function viewStocks(){
-        echo $this->view("storemanager/stocks");
+        echo $this->redirect(BASE_URL."StoreControls/loadStocksView");
     }
 
-    function viewSuppliers(){
-        // $supplier = new Supplier();
-        // $data = $supplier->findall();
-        echo $this->view("storemanager/supplier");
+    function viewSupplies(){
+        echo $this->redirect(BASE_URL."StoreControls/loadSuppliesView");
     }
 
-    function addStockItem(){
+    function addStock(){
         echo $this->view("storemanager/addstock");
     }
 
+    //Adding a new stock item to the system
+    function addStockItem(){
+        $stockItem = new StockItem();
+        $arr["Name"] = $_POST["Name"];
+        $arr["Type"] = $_POST["Type"];
+        $arr["UnitOfMeasurement"] = $_POST["UnitOfMeasurement"];
+        $arr["MinimumStock"] = $_POST["MinimumStock"];
+        $arr["CriticalStock"] = $_POST["CriticalStock"];
+        $stockItem->insert($arr);
+        $this->redirect(BASE_URL."StoreControls/viewStocks");
+    }
+
+    function loadStocksView(){
+        $stockItem = new StockItem();
+        $stocks = $stockItem->findall();
+        echo $this->view("storemanager/stocks", [ "stocks" => $stocks]);        
+    }
+
     function updateStocks($id){
-        echo $this->view("storemanager/updatestock", ["id" => $id]);
+        $stockItem = new StockItem();
+        $stocks = $stockItem->where("ItemID",$id);
+        echo $this->view("storemanager/updatestock",  ["stocks" => $stocks]);
+       
     }
 
-    function deleteStocks(){
-        echo $this->view("storemanager/deletestock");
+    function deleteStocks($id){
+        $stockItem = new StockItem();
+        $stocks = $stockItem->delete($id,"ItemID");
+        $this->redirect(BASE_URL."StoreControls/viewStocks");
     }
 
-    //CRUD for Supplier
-    //Insert Supplier
-    function addSupplier(){
-        // $supplier = new Supplier();
-        // $arr["name"]= $_POST['name'];
-        // $arr["contactno"]= $_POST['contactno'];
-        // $arr["address"]= $_POST['address'];
-        // $arr["email"]= $_POST['email'];
-        // $arr["Ratings"]= $_POST['Ratings'];
-        // $supplier->insert($arr);
-        // $this->redirect("../StoreControls/viewSupplier");
-        echo $this->view("storemanager/addsupplier");
+
+    ///CRUD for Supplies
+
+    function loadSuppliesView(){
+        // $stockItem = new StockItem();
+        // $stocks = $stockItem->findall(); , [ "stocks" => $stocks]
+        echo $this->view("storemanager/supplies");        
     }
+
+    function insertSupply(){
+        echo $this->view("storemanager/addsupply");
+    }
+
+    //Functions for handling production requests
+
+    function loadProductionView(){
+        // $stockItem = new StockItem();
+        // $stocks = $stockItem->findall(); , [ "stocks" => $stocks]
+        echo $this->view("storemanager/production");        
+    }
+
     
-    //Delete Supplier
-    function deleteSupplierData($idcolumn,$id){
-        $supplier = new Supplier();
-        $supplier->delete($id,$idcolumn);
-        $this->redirect(BASE_URL."StoreControls/viewSupplier");
-    }
 
-    //Single Supplier
-    function updateSupplier($column, $value){
-        $supplier = new Supplier();
-        $data = $supplier->where($column, $value);
-        echo $this->view("storemanager/updatesuppplier",$data);
-    }
-
-    // Update Supplier Data - U
-    function editSupplier(){
-        $supplier = new Supplier();
-        $id = $_POST['id'];
-
-        if (!empty($_POST['name'])){
-            $data['name'] = $_POST['name'];
-        } 
-        if (!empty($_POST['contactno'])){
-            $data['contactno'] = $_POST['contactno'];
-        }
-        if (!empty($_POST['address'])){
-            $data['address'] = $_POST['address'];
-        }
-        if (!empty($_POST['email'])){
-            $data['email'] = $_POST['email'];
-        }
-        if (!empty($_POST['Ratings'])){
-            $data['Ratings'] = $_POST['Ratings'];
-        }
-
-        // die(print_r($data));
-        echo $supplier->update($id,"id",$data);
-
-        $this->redirect(BASE_URL."StoreControls/viewSupplier");
-
-
-
-        //CRUD New Stock Items
-        //Insert Stock
-        
-    }
+   
 }
 ?>

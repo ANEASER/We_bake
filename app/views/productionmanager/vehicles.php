@@ -21,11 +21,17 @@
             margin-left: 30px;
             border-radius: 9px;
         }
-        .add {
+        .red{
+            background-color: #e74c3c;
+        }
+        .green{
+            background-color: #2ecc71;
+        }
+        .blue{
             background-color: #3498db;
         }
-        .view {            
-            background-color: #2ecc71;
+        .yellow{
+            background-color: #f1c40f;
         }
     </style>
     <title>Vehicles</title>
@@ -35,7 +41,7 @@
     require('pmnavbar.php');
     ?>
 
-<h1 style="margin-left:40%; margin-top:20px;">Vehicles Availability</h1>
+<h1 style="margin-left:40%; margin-top:20px;">Vehicle Availability</h1>
 
     <div class="searchpanel">
         <form method="get" action="<?php echo BASE_URL;?> pmcontrols/searchVehicle" style="display:flex; flex-direction:row;">
@@ -49,11 +55,11 @@
             echo '<input class="searchbox" type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" >';
         }
         ?>
-        <input class="searchbutton" type="submit" value="Search">
+        <input class="button green" type="submit" value="Search">
         </form>
     
         
-        <button class="button add" onclick="addVehicle()" role="button">Add New Vehicle</button>
+        <button class="button blue" onclick="addVehicle()" role="button">Add New Vehicle</button>
         
     </div>
     <div>
@@ -84,8 +90,8 @@
                     <td><?php echo $vehicle->enginenumber; ?></td>
                     <td><?php echo $vehicle->capacity; ?></td>
                     <td><?php echo $vehicle->availability; ?></td>
-                    <td><button class="yellowbutton" onclick="edit(<?php echo $vehicle->vehicleno; ?>)">Update</button></td>
-                    <td><button class="redbutton" onclick="del(<?php echo $vehicle->vehicleno; ?>)">Delete</button></td>
+                    <td><button class="button yellow" onclick="edit(<?php echo $vehicle->vehicleno; ?>)">Update</button></td>
+                    <td><button class="button red" onclick="del(<?php echo $vehicle->vehicleno; ?>)">Delete</button></td>
                 </tr>
             <?php endforeach; ?>
         </table>
