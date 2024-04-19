@@ -21,27 +21,27 @@
 <section>
  <div class="form-container">
 
-<form class="form" method="POST" action="<?php echo BASE_URL; ?>RecieptionControls/customernumbersearch" class="formisland">
+<form class="form" method="POST" action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" class="formisland">
     <div class="form-group">
     <h1> <b><span style="color:red;">Customer Not Found</span></b> </h1>
 
         <label for="customername">Customer Name:</label>
-        <input type="letters" id="customername" name="customername" required>
+        <input type="Text" id="customername" name="customername" required>
 
         <label for="customeremail">Customer Email:</label>
-        <input type="letters" id="customeremail" name="customeremail" required>
+        <input type="Text" id="customeremail" name="customeremail" required>
  
         <label for="customerphonenumber">Customer Phone Number :</label>
-        <input type="numbers" id="customerphonenumber" name="customerphonenumber" required>
+        <input type="Text" id="customerphonenumber" name="customerphonenumber" required>
 
         <label for="orderdate">Order date :</label>
-        <input type="numbers" id="orderdate" name="orderdate" required>
+        <input type="date" id="orderdate" name="orderdate" required>
 
         <label for="deliveryaddress">Delivery Address</label>
-        <input type="letters" id="deliveryaddress" name="deliveryaddress" required>
+        <input type="Text" id="deliveryaddress" name="deliveryaddress" required>
 
         <label for="delivery/Pickup">Delivery/Pickup:</label>
-        <input type="letters" id="delivery/Pickup" name="delivery/Pickup" required>
+        <input type="Text" id="delivery/Pickup" name="delivery/Pickup" required>
 
 
     </div>

@@ -105,7 +105,22 @@ class RecieptionControls extends Controller {
         $this->view("receiptionist/customernotfoundview");}
     }
 
+    function submitorder () {
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        $_SESSION["name"] = $_POST['customername'];
+        $_SESSION["email"] = $_POST['customeremail'];
+        $_SESSION["phone"] = $_POST['customerphonenumber'];
+        $_SESSION["date"] = $_POST['orderdate'];
+        $_SESSION["adress"] = $_POST['deliveryaddress'];
+        $_SESSION["delivery/Pickup"] = $_POST['delivery/Pickup'];
 
+        $unique_id = uniqid();
+        $_SESSION["unique_id"] = $unique_id;
+        $this->redirect(BASE_URL."OrderControls/showcategories");
+}
 
 }
+
 ?>
