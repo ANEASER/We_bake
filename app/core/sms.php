@@ -10,7 +10,7 @@ use PSpell\Config;
 
 require '../vendor/autoload.php';
 
-class SMS {
+class SMS{
     function sendSMS($phone, $message) {
         $apiURL = SMS_API_URL;
         $apiKey = SMS_API_KEY;

@@ -233,6 +233,7 @@ class PmControls extends Controller
         if ($_SESSION["USER"]->Role != "productionmanager") {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
+        
         $sms = new SMS();
 
         $productorder = new ProductOrder;
@@ -246,20 +247,22 @@ class PmControls extends Controller
         $placedby = $order[0]->placeby;
         $placedcustomer = $customer->where("UserName",$placedby);
 
-        $custoemrcontactno = $placedcustomer[0]->contactNo;
+        if($placedcustomer){
+            $custoemrcontactno = $placedcustomer[0]->contactNo;
+        }
 
         $vehicle->update($vehicleno,"vehicleno",["availability"=>0]);
         $productorder->update($orderid,"orderid",["deliverby"=>$registrationnumber]);
         $productorder->update($orderid,"orderid",["orderstatus"=>"ondelivery"]);
 
 
-        if($customer){
+        if($custoemrcontactno){
             $message = "Your Order RefID : ".$order[0]->orderref." is on the way";
             echo $message;
             $sms->sendSMS($custoemrcontactno,$message);
             $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
         }else{
-            $this->redirect(BASE_URL . "pmcontrols/assignVehicleView");
+            $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
         }
     }
 
