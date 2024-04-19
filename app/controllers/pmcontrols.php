@@ -77,9 +77,9 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
-        $ProductOrder = new ProductOrder;
-        $order = $ProductOrder->where("orderid", $orderid);
-        $vehicleno = $order->deliverby;
+        $productorder = new ProductOrder;
+        $order = $productorder->where("orderid", $orderid);
+        $vehicleno = $order['deliverby'];
         $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
 
         $vehicle = new vehicle;
@@ -146,7 +146,7 @@ class PmControls extends Controller
         $vehicle = new vehicle;
         $vehicles = $vehicle->where("availability",1);
 
-        echo $this->view("productionmanager/assignvehicle", ["orderid"=>$orderid, "vehicleno"=>$vehicles]);
+        echo $this->view("productionmanager/assignvehicle", ["orderid"=>$orderid, "vehicles"=>$vehicles]);
     }
 
     // functions
@@ -234,17 +234,17 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
-        $ProductOrder = new ProdutOrder;
+        $productorder = new ProductOrder;
         $vehicle = new vehicle;
 
         $vehicleassign = $vehicle->where("vehicleno",$vehicleno);
-        $registrationnumber = $vehicleassign->registrationnumber;
+        $registrationnumber = $vehicleassign[0]->registrationnumber;
 
-        $vehicle->update($vehcileno,"vehicleno",["availability"=>0]);
-        $productorder->update($rderid,"orderid",["deliveryby"=>$registrationnumber]);
-        $productorder->update($orderid,"orderid",["ordertatus"=>"ondelivery"]);
+        $vehicle->update($vehicleno,"vehicleno",["availability"=>0]);
+        $productorder->update($orderid,"orderid",["deliverby"=>$registrationnumber]);
+        $productorder->update($orderid,"orderid",["orderstatus"=>"ondelivery"]);
 
-        echo $this->view("productionmanager/pmorders");
+        $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
     }
 
     // RAW MATERIALS

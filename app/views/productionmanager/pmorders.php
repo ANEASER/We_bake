@@ -215,7 +215,7 @@
 
             foreach($productorder as $ProductOrder){ 
 
-                if($ProductOrder->orderstatus == "ondelivery" && ($ProductOrder->paymentstatus == "completed" || $ProductOrder->paymentstatus == "advanced")) {
+                if($ProductOrder->orderstatus == "ondelivery" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced")) {
 
                 echo "<tr>";
                 echo "<td>".$ProductOrder->orderref."</td>";
