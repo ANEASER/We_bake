@@ -21,7 +21,7 @@
             } elseif ($_SESSION["USER"]->Role == "productionmanager") {
                 include '..\app\views\productionmanager\pmnavbar.php';
             } elseif ($_SESSION["USER"]->Role == "receptionist") {
-                include '..\app\views\receptionist\recnavbar.php';
+                include '..\app\views\receiptionist\recnavbar.php';
             } elseif ($_SESSION["USER"]->Role == "outletmanager") {
                 include '..\app\views\outletmanager\omnavbar2.php';
             }
