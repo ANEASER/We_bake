@@ -24,7 +24,6 @@
         ?>
         <ul>
             <li><a onclick="loadDash()">Home</a></li>
-            <li><a onclick="loadProfile()">Profile</a></li>
             <li><a onclick="PlaceOrders()">Place Orders</a></li>
             <li><a onclick="loadHistory()">Purchase History</a></li>
             <li><a onclick="logout()">Logout</a></li>
@@ -37,10 +36,6 @@ var BASE_URL = "<?php echo BASE_URL; ?>";
 
 function loadDash() {
     window.location.href = BASE_URL +  "Recieptioncontrols";
-}
-
-function loadProfile() {
-    window.location.href = BASE_URL +  "Recieptioncontrols/viewProfile";
 }
 
 function loadHistory() {

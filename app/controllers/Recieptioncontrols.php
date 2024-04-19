@@ -54,7 +54,7 @@ class RecieptionControls extends Controller {
         $telephoneno = $_POST["telephoneno"];
         $foundcustomer = new customer();//load model
         $customer = $foundcustomer->where("contactNo",$telephoneno);
-        // see data var_dump($customer);
+        
     if($customer){
         $this->view("receiptionist/customerfoundview", ["customer"=> $customer]);
     }else{
@@ -63,7 +63,6 @@ class RecieptionControls extends Controller {
     }
     //$this->view("receiptionist/recustomerno");
     }
-
 
     function customernumberformview ($id = null) {
         if(!Auth::loggedIn()){
@@ -76,6 +75,37 @@ class RecieptionControls extends Controller {
         $this->view("receiptionist/recustomerno");   
     }
 
-}
+    function customernotfoundview ($id = null) {
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        if($_SESSION["USER"]->Role != "receptionist"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
 
+        $this->view("receiptionist/customernotfoundview");
+    
+    }
+
+    function foundcustomerform ($username= null) {
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        if($_SESSION["USER"]->Role != "receptionist"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        if($username != null){
+            $customer = new Customer();
+            $foundcustomer = $customer->where("UserName",$username);
+            $this->view("receiptionist/foundcustomerform", ["foundcustomer"=>$foundcustomer[0]]);
+            
+        }
+         else{
+        $this->view("receiptionist/customernotfoundview");}
+    }
+
+
+
+}
 ?>
