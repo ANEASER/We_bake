@@ -104,12 +104,10 @@
             window.location.href = BASE_URL + "pmcontrols/pendingOrdersView";
         } else if (user.Role === "receptionist") {
             window.location.href = BASE_URL + "RecieptionControls/viewhistory";
-        } else if (user.Role === "admin") {
-            window.location.href = BASE_URL + "outletcontrols";
         } else if (user.Role === "outletmanager") {
-            window.location.href = BASE_URL + "CustomerControls/purchasehistory";
+            window.location.href = BASE_URL + "outletcontrols";
         } else {
-            window.location.href = BASE_URL + "CustomerControls/purchasehistory";
+            window.location.href = BASE_URL + "CommonControls/logout";
         }
     }
 
