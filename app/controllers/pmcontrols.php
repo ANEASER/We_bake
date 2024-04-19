@@ -79,13 +79,13 @@ class PmControls extends Controller
 
         $productorder = new ProductOrder;
         $order = $productorder->where("orderid", $orderid);
-        $vehicleno = $order['deliverby'];
+        $vehicleno = $order[0]->deliverby;
         $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
 
         $vehicle = new vehicle;
         $vehicle->update($vehicleno,"registrationnumber",["availability"=>1]);
 
-        echo $this->view("productionmanager/pmorders");
+        $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
     }
 /*
     // More Details View
@@ -233,18 +233,34 @@ class PmControls extends Controller
         if ($_SESSION["USER"]->Role != "productionmanager") {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
+        $sms = new SMS();
 
         $productorder = new ProductOrder;
         $vehicle = new vehicle;
+        $customer = new Customer;
 
         $vehicleassign = $vehicle->where("vehicleno",$vehicleno);
         $registrationnumber = $vehicleassign[0]->registrationnumber;
+
+        $order = $productorder->where("orderid",$orderid);
+        $placedby = $order[0]->placeby;
+        $placedcustomer = $customer->where("UserName",$placedby);
+
+        $custoemrcontactno = $placedcustomer[0]->contactNo;
 
         $vehicle->update($vehicleno,"vehicleno",["availability"=>0]);
         $productorder->update($orderid,"orderid",["deliverby"=>$registrationnumber]);
         $productorder->update($orderid,"orderid",["orderstatus"=>"ondelivery"]);
 
-        $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
+
+        if($customer){
+            $message = "Your Order RefID : ".$order[0]->orderref." is on the way";
+            echo $message;
+            $sms->sendSMS($custoemrcontactno,$message);
+            $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
+        }else{
+            $this->redirect(BASE_URL . "pmcontrols/assignVehicleView");
+        }
     }
 
     // RAW MATERIALS
