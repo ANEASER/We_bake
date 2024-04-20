@@ -68,7 +68,7 @@
         
         <!-- Pending Orders -->
         <?php
-        echo "<div id='PendingOrdersTable'>";
+        echo "<div id='PendingOrdersTable' style='display:none'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<tr>
                 <th>Order REF</th>
@@ -97,7 +97,7 @@
                     echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->unique_id."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
-                    echo "<td><button class='button green' onclick='process(".$ProductOrder->orderid.")'>Process</button></td>";
+                    echo "<td><button class='button green' onclick='process(".$ProductOrder->orderid.", \"".$ProductOrder->deliverystatus."\")'>Process</button></td>";
                     echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
@@ -107,11 +107,10 @@
         echo "</div>";
         ?>
 
-
-        <!-- PickUp Orders -->
+        <!-- Pickup Orders -->
 
         <?php
-        echo "<div id='PickupOrderTable'>";
+        echo "<div id='PickupOrderTable' style='display:none'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<tr>
                 <th>Order REF</th>
@@ -154,7 +153,7 @@
         <!-- Delivery Orders -->
 
         <?php
-        echo "<div id='DeliveryOrderTable'>";
+        echo "<div id='DeliveryOrderTable' style='display:none'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<th>Order REF</th>
                 <th>Placed By</th>
@@ -197,7 +196,7 @@
         <!-- On Delivery Orders -->
 
         <?php
-        echo "<div id='OnDeliveryOrderTable'>";
+        echo "<div id='OnDeliveryOrderTable' style='display:none'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<th>Order REF</th>
                 <th>Placed By</th>
@@ -240,7 +239,7 @@
         <!-- Completed Orders -->
 
         <?php
-        echo "<div id='CompletedOrderTable'>";
+        echo "<div id='CompletedOrderTable' style='display:none'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<th>Order REF</th>
                 <th>Placed By</th>
@@ -279,28 +278,17 @@
     <script>
     var BASE_URL = "<?php echo BASE_URL; ?>";
 
-    function changeActiveLink(link){
-        var links = document.querySelectorAll("body div ul li a");
-        links.forEach(function (el){
-            el.classList.remove('active');
-        });
-
-        link.classList.add('active');
-
-        sessionStorage.setItem('activeLink', link.getAttribute('onclick'));
-    }
-
     document.addEventListener('DOMContentLoaded', function () {
         console.log('DOMContentLoaded');
         var activeLink = sessionStorage.getItem('activeLink');
         console.log(activeLink);
 
         if (
-            activeLink != "showPendingOrdersTable(this)" &&
+            activeLink != "showPendingOrderTable(this)" &&
+            activeLink != "showPickupOrderTable(this)" &&
+            activeLink != "showDeliveryOrderTable(this)" &&
+            activeLink != "showOnDeliveryOrderTable(this)" &&
             activeLink != "showCompletedOrderTable(this)" &&
-            activeLink != "showDeliverOrderTable(this)" &&
-            activeLink != "showOnDeliverOrderTable" &&
-            activeLink != "showPickupOrderTable" &&
             activeLink == null
         ) {
             var homeLink = document.getElementById('home');
@@ -322,9 +310,20 @@
         }
     });
 
+    function changeActiveLink(link){
+        var links = document.querySelectorAll("body div ul li a");
+        links.forEach(function (el){
+            el.classList.remove('active');
+        });
+
+        link.classList.add('active');
+
+        sessionStorage.setItem('activeLink', link.getAttribute('onclick'));
+    }
+
     function process(orderid, deliverystatus) {
         if(deliverystatus=="pickup"){
-            sessionStorage.setItem('activeLink', 'showPendingOrdersTable(this)');
+            sessionStorage.setItem('activeLink', 'showPendingOrderTable(this)');
         }
         else{
             sessionStorage.setItem('activeLink', 'showPendingOrderTable(this)');
