@@ -284,7 +284,7 @@
         console.log(activeLink);
 
         if (
-            activeLink != "showPendingOrderTable(this)" &&
+            
             activeLink != "showPickupOrderTable(this)" &&
             activeLink != "showDeliveryOrderTable(this)" &&
             activeLink != "showOnDeliveryOrderTable(this)" &&

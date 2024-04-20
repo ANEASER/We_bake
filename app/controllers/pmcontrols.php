@@ -10,7 +10,11 @@ class PmControls extends Controller
         if ($_SESSION["USER"]->Role != "productionmanager") {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
-        $this->view("productionmanager/pmorders");
+    $ProductOrder = new ProductOrder;
+    $productorder = $ProductOrder->findall();
+    $completeorder = $ProductOrder->complete('DESC');
+    echo $this->view("productionmanager/pmorders", ["productorder" => $productorder, "completeorder" => $completeorder]);
+
     }
     
                                     // PRODUCTION ORDERS
@@ -217,7 +221,7 @@ class PmControls extends Controller
         }
 
         $vehicle = new Vehicle();
-        $vehicle->deleteVehicle($vehicleid);
+        $vehicle->update($vehicleid,"vehicleno",["ActiveState"=>0, "availability"=>0]);
 
         $this->redirect(BASE_URL . "pmControls/loadVehiclesView");
     }
@@ -263,6 +267,38 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
         }
     }
+
+    //Search Vehicle
+    fucntion searchVehicle(){
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        if ($_SESSION["USER"]->Role != "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+
+        $searchQuery = $_GET['search'];
+
+        $vehicle = new vehicle;
+
+        $vehicleByType = $vehicle->where("type",$searchQuery);
+        $vehicleByRegNo = $vehicle->where("registrationnumber",$searchQuery);
+        $vehicleByCapacity = $vehicle->where("capacity",$searchQuery);
+
+        if($vehicleByType){
+            echo $this->view("productionmanager/vehicles",["vehicles",$vehicleByType]);
+        }
+        else if($vehicleByRegNo){
+            echo $this->view("productionmanager/vehicles",["vehicles",$vehicleByRegNo]);
+        }
+        else if($vehicleByCapacity){
+            echo $this->view("productionmanager/vehicles",["vehicles",$vehicleByCapacity]);
+        }
+        else{
+            $this->redirect(BASE_URL."pmcontrols/loadVehiclesView");
+        }
+    }
+
 
     // RAW MATERIALS
     // views
