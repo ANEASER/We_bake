@@ -10,7 +10,10 @@ class PmControls extends Controller
         if ($_SESSION["USER"]->Role != "productionmanager") {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
-        $this->view("productionmanager/pmorders");
+        $ProductOrder = new ProductOrder;
+        $productorder = $ProductOrder->findall();
+        $completeorder = $ProductOrder->complete('DESC');
+        echo $this->view("productionmanager/pmorders", ["productorder" => $productorder, "completeorder" => $completeorder]);
     }
     
                                     // PRODUCTION ORDERS
@@ -78,6 +81,8 @@ class PmControls extends Controller
         }
 
         $productorder = new ProductOrder;
+        $vehicle = new Vehicle;
+        
         $order = $productorder->where("orderid", $orderid);
         $vehicleno = $order[0]->deliverby;
         $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);

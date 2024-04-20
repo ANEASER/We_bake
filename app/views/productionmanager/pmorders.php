@@ -279,36 +279,28 @@
     var BASE_URL = "<?php echo BASE_URL; ?>";
 
     document.addEventListener('DOMContentLoaded', function () {
-        console.log('DOMContentLoaded');
-        var activeLink = sessionStorage.getItem('activeLink');
-        console.log(activeLink);
+            console.log('DOMContentLoaded');
+            var activeLink = sessionStorage.getItem('activeLink');
+            console.log(activeLink);
+            if (activeLink != "showpendingOrdersTable(this)" || activeLink != "showCompletedOrderTable(this)" || activeLink != "showDeliverOrderTable(this)" || activeLink != "showOnDeliverOrderTable" || activeLink != "showPickupOrderTable" || activeLink == null){
+                var homeLink = document.getElementById('home');
+                if (homeLink) {
+                    homeLink.click();
+                }
+            } else {
+                var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
+                if (linkElement) {
+                    linkElement.classList.add('active');
 
-        if (
-            activeLink != "showPendingOrderTable(this)" &&
-            activeLink != "showPickupOrderTable(this)" &&
-            activeLink != "showDeliveryOrderTable(this)" &&
-            activeLink != "showOnDeliveryOrderTable(this)" &&
-            activeLink != "showCompletedOrderTable(this)" &&
-            activeLink == null
-        ) {
-            var homeLink = document.getElementById('home');
-            if (homeLink) {
-                homeLink.click();
-            }
-        } else {
-            var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
+                    var functionName = activeLink.match(/([a-zA-Z]+)\(/)[1];
 
-            if (linkElement) {
-                linkElement.classList.add('active');
-
-                var functionName = activeLink.match(/([a-zA-Z]+)\(/)[1];
-
-                if (typeof window[functionName] == 'function') {
-                    window[functionName](linkElement);
+                    if (typeof window[functionName] === 'function') {
+                        window[functionName](linkElement);
+                    }
                 }
             }
-        }
-    });
+        });
+
 
     function changeActiveLink(link){
         var links = document.querySelectorAll("body div ul li a");
