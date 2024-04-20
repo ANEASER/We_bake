@@ -10,7 +10,7 @@ class PmControls extends Controller
         if ($_SESSION["USER"]->Role != "productionmanager") {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
-        $this->view("productionmanager/pmdash");
+        $this->view("productionmanager/pmorders");
     }
     
                                     // PRODUCTION ORDERS
@@ -46,8 +46,8 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
-        $ProductOrder = new ProductOrder;
-        $ProductOrder->update($orderid, "orderid", ["orderstatus" => "processing"]);
+        $productorder = new ProductOrder;
+        $productorder->update($orderid, "orderid", ["orderstatus" => "processing"]);
         $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
     }
 
@@ -61,8 +61,8 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
-        $ProductOrder = new ProductOrder;
-        $ProductOrder->update($orderid, "orderid", ["orderstatus" => "canceled"]);
+        $productorder = new ProductOrder;
+        $productorder->update($orderid, "orderid", ["orderstatus" => "canceled"]);
         $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
     }
 
@@ -203,7 +203,7 @@ class PmControls extends Controller
         if ($_SESSION["USER"]->Role != "productionmanager") {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
-        echo $this->view("productionmanager/editvehicle");
+        echo $this->redirect("productionmanager/editvehicle");
     }
 
     // Delete Vehicle
@@ -219,7 +219,7 @@ class PmControls extends Controller
         $vehicle = new Vehicle();
         $vehicle->deleteVehicle($vehicleid);
 
-        $this->redirect(BASE_URL . "PmControls/loadVehiclesView");
+        $this->redirect(BASE_URL . "pmControls/loadVehiclesView");
     }
 
     // Assign Vehicle
