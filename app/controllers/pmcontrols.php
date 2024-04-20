@@ -10,12 +10,12 @@ class PmControls extends Controller
         if ($_SESSION["USER"]->Role != "productionmanager") {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
-        $productorder = new ProductOrder();
+    $ProductOrder = new ProductOrder;
+    $productorder = $ProductOrder->findall();
+    $completeorder = $ProductOrder->complete('DESC');
+    echo $this->view("productionmanager/pmorders", ["productorder" => $productorder, "completeorder" => $completeorder]);
 
-        $productorders = $productorder->findall();
-
-        $this->view("productionmanager/pmdash", ["productorders" => $productorders]);
-        }
+    }
     
                                     // PRODUCTION ORDERS
     // views
