@@ -255,7 +255,7 @@
             </tr>";
 
             foreach($productorder as $ProductOrder) {
-            if (($ProductOrder->orderstatus == "finished" && $ProductOrder->paymentstatus == "paid" ) || $ProductOrder->orderstatus == "canceled"){
+            if ($ProductOrder->orderstatus == "finished" && $ProductOrder->paymentstatus == "paid" ){
 
                 echo "<tr>";
                 echo "<td>".$ProductOrder->orderref."</td>";

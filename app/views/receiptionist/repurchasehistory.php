@@ -35,13 +35,14 @@
                 <th>Deliver By</th>
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
-                <th>Cancel</th>
+             
                 <th>More</th>
+
             </tr>";
 
             foreach($orders as $order){ 
 
-                if($order->orderstatus == "pending"){
+                if($order->orderstatus == "finished" || $order->orderstatus == "cancelled"){
                     echo "<tr>";
                     echo "<td>".$order->orderid."</td>";
                     echo "<td>".$order->placeby."</td>";
@@ -53,8 +54,9 @@
                     echo "<td>".$order->deliverby."</td>";
                     echo "<td>".$order->unique_id."</td>";
                     echo "<td>".$order->deliver_address."</td>";
-                    echo "<td><button onclick='cancel(".$order->orderid.")'>Cancel</button></td>";
-                    echo "<td><button onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
+                    
+                    echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
+
                     echo "</tr>";
                 }    
             }    
@@ -64,7 +66,6 @@
     ?>
    
 
-
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
@@ -73,8 +74,10 @@
         }
 
         function more(unique_id){
-            window.location.href = BASE_URL + "RecieptionControls/moredetails/" + unique_id;
+            window.location.href = BASE_URL + "OrderControls/moredetails/" + unique_id;
         }
     </script>
+
 </body>
+
 </html>

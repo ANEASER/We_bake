@@ -78,14 +78,12 @@ class PmControls extends Controller
         }
 
         $productorder = new ProductOrder;
-        $vehicle = new vehicle;
-        
-        $order = $productorder->where("orderid",$orderid);
+        $order = $productorder->where("orderid", $orderid);
         $vehicleno = $order[0]->deliverby;
         $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
         $vehicle->update($vehicleno,"registrationnumber",["availability"=>1]);
 
-        echo $this->view("productionmanager/pmorders");
+        $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
     }
 /*
     // More Details View
@@ -233,18 +231,37 @@ class PmControls extends Controller
         if ($_SESSION["USER"]->Role != "productionmanager") {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
+        
+        $sms = new SMS();
 
         $productorder = new ProductOrder;
         $vehicle = new vehicle;
+        $customer = new Customer;
 
         $vehicleassign = $vehicle->where("vehicleno",$vehicleno);
         $registrationnumber = $vehicleassign[0]->registrationnumber;
+
+        $order = $productorder->where("orderid",$orderid);
+        $placedby = $order[0]->placeby;
+        $placedcustomer = $customer->where("UserName",$placedby);
+
+        if($placedcustomer){
+            $custoemrcontactno = $placedcustomer[0]->contactNo;
+        }
 
         $vehicle->update($vehicleno,"vehicleno",["availability"=>0]);
         $productorder->update($orderid,"orderid",["deliverby"=>$registrationnumber]);
         $productorder->update($orderid,"orderid",["orderstatus"=>"ondelivery"]);
 
-        echo $this->view("productionmanager/pmorders");
+
+        if($custoemrcontactno){
+            $message = "Your Order RefID : ".$order[0]->orderref." is on the way";
+            echo $message;
+            $sms->sendSMS($custoemrcontactno,$message);
+            $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
+        }else{
+            $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
+        }
     }
 
     // RAW MATERIALS

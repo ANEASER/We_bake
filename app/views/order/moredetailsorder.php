@@ -20,7 +20,12 @@
                 include '..\app\views\billingclerk\bcnavbar.php';
             } elseif ($_SESSION["USER"]->Role == "productionmanager") {
                 include '..\app\views\productionmanager\pmnavbar.php';
-            } else {
+            } elseif ($_SESSION["USER"]->Role == "receptionist") {
+                include '..\app\views\receiptionist\recnavbar.php';
+            } elseif ($_SESSION["USER"]->Role == "outletmanager") {
+                include '..\app\views\outletmanager\omnavbar2.php';
+            }
+            else {
                 echo "no navbar";
             }
         } else {
@@ -97,10 +102,12 @@
             window.location.href = BASE_URL + "BillingControls";
         } else if (user.Role === "productionmanager") {
             window.location.href = BASE_URL + "pmcontrols/pendingOrdersView";
-        } else if (user.Role === "admin") {
-            window.location.href = BASE_URL + "AdminControls";
+        } else if (user.Role === "receptionist") {
+            window.location.href = BASE_URL + "RecieptionControls/viewhistory";
+        } else if (user.Role === "outletmanager") {
+            window.location.href = BASE_URL + "outletcontrols";
         } else {
-            window.location.href = BASE_URL + "CustomerControls/purchasehistory";
+            window.location.href = BASE_URL + "CommonControls/logout";
         }
     }
 
