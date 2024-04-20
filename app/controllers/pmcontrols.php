@@ -269,7 +269,7 @@ class PmControls extends Controller
     }
 
     //Search Vehicle
-    fucntion searchVehicle(){
+    function searchVehicle(){
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
