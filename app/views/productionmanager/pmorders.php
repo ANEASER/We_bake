@@ -279,6 +279,7 @@
     var BASE_URL = "<?php echo BASE_URL; ?>";
 
     document.addEventListener('DOMContentLoaded', function () {
+
             console.log('DOMContentLoaded');
             var activeLink = sessionStorage.getItem('activeLink');
             console.log(activeLink);

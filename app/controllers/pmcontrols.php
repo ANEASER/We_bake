@@ -82,8 +82,8 @@ class PmControls extends Controller
         }
 
         $productorder = new ProductOrder;
-        $vehicle = new vehicle;
-
+        $vehicle = new Vehicle;
+        
         $order = $productorder->where("orderid", $orderid);
         $vehicleno = $order[0]->deliverby;
         
