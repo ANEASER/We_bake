@@ -91,9 +91,9 @@
                     echo '<td>'.$vehicle->enginenumber.'</td>';
                     echo '<td>'.$vehicle->capacity.'</td>';
                     echo '<td>'.$vehicle->availability.'</td>';
-                    echo '<td>'<button class="button yellow" onclick="edit('.$vehicle->vehicleno.')">Update</button></td>';
-                    echo '<td>'<button class="button red" onclick="del('.$vehicle->vehicleno.')">Delete</button></td>';
-                echo '</tr>';
+                    echo '<td><button class="button yellow" onclick="edit(\''.$vehicle->vehicleno.'\')">Update</button></td>';
+echo '<td><button class="button red" onclick="del(\''.$vehicle->vehicleno.'\')">Delete</button></td>';
+echo '</tr>';
                 }
                 else{ 
                     echo '<tr style="background-color: red;">';
