@@ -24,6 +24,8 @@
                 include '..\app\views\receiptionist\recnavbar.php';
             } elseif ($_SESSION["USER"]->Role == "outletmanager") {
                 include '..\app\views\outletmanager\omnavbar2.php';
+            }elseif ($_SESSION["USER"]->Role == "productionmanager") {
+                include '..\app\views\customer\customernav.php';
             }
             else {
                 echo "no navbar";
