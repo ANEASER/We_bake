@@ -67,12 +67,12 @@ function home(link) {
 
 
     function rm(link) {
-        changeActiveLink(link);
+        changeActive(link);
         window.location.href = BASE_URL + "pmcontrols/rmView";
     }
 
     function loadVehicles(link) {
-        changeActiveLink(link);
+        changeActive(link);
         window.location.href = BASE_URL + "pmcontrols/loadVehiclesView";
     }
 

@@ -82,8 +82,11 @@ class PmControls extends Controller
         }
 
         $productorder = new ProductOrder;
+        $vehicle = new vehicle;
+
         $order = $productorder->where("orderid", $orderid);
         $vehicleno = $order[0]->deliverby;
+        
         $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
         $vehicle->update($vehicleno,"registrationnumber",["availability"=>1]);
 
