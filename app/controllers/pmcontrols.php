@@ -66,7 +66,7 @@ class PmControls extends Controller
         }
 
         $productorder = new ProductOrder;
-        $productorder->update($orderid, "orderid", ["orderstatus" => "canceled"]);
+        $productorder->update($orderid, "orderid", ["orderstatus" => "cancled"]);
         $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
     }
 
@@ -86,6 +86,7 @@ class PmControls extends Controller
         
         $order = $productorder->where("orderid", $orderid);
         $vehicleno = $order[0]->deliverby;
+        
         $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
         $vehicle->update($vehicleno,"registrationnumber",["availability"=>1]);
 
@@ -201,7 +202,7 @@ class PmControls extends Controller
     }
 
     // Edit Vehicle
-    function editVehicle()
+    function editVehicle($vehicleno)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -209,7 +210,40 @@ class PmControls extends Controller
         if ($_SESSION["USER"]->Role != "productionmanager") {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
-        echo $this->redirect("productionmanager/editvehicle");
+
+        $vehicle = new vehicle;
+        $vehicleid = $_POST['vehicleno'];
+        $data = [];
+
+        if(!empty($_POST['registrationnumber'])){
+            $data['registrationnumber']=$_POST['registrationnumber'];
+        }
+        if(!empty($_POST['type'])){
+            $data['type']=$_POST['type'];
+        }
+        if (!empty($_POST['modelname'])){
+            $data['modelname'] = $_POST['modelname'];
+        }
+        if (!empty($_POST['chassinumber'])){
+            $data['chassinumber'] = $_POST['chassinumber'];
+        }
+        if (!empty($_POST['enginenumber'])){
+            $data['enginenumber'] = $_POST['enginenumber'];
+        }
+        if (!empty($_POST['capacity'])){
+            $data['capacity'] = $_POST['capacity'];
+        }
+        if (!empty($_POST['availability'])){
+            if ($_POST['availability'] == "1"){
+                $data['availability'] = 1;
+            }else{
+                $data['availability'] = 0;
+            }
+        }
+
+        var_dump($data);
+        $vehicle->update($vehicleid,"vehicleno",$data);
+        echo $this->redirect("productionmanager/loadVehiclesView");
     }
 
     // Delete Vehicle
@@ -278,7 +312,7 @@ class PmControls extends Controller
         if ($_SESSION["USER"]->Role != "productionmanager") {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
-
+        
         $searchQuery = $_GET['search'];
 
         $vehicle = new vehicle;
@@ -300,6 +334,7 @@ class PmControls extends Controller
             $this->redirect(BASE_URL."pmcontrols/loadVehiclesView");
         }
     }
+    
 
 
     // RAW MATERIALS
@@ -316,5 +351,5 @@ class PmControls extends Controller
         echo $this->view("productionmanager/rmrequests");
     }
 }
-
 ?>
+
