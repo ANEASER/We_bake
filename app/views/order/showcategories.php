@@ -13,11 +13,30 @@
 
 
 <body>
-    <?php
-    if (isset($_SESSION["USER"]) && !isset($_SESSION["USER"]->role)) {
-        include '..\app\views\customer\customernav.php';
-    }    
-    ?>
+<?php
+    if (isset($_SESSION["USER"])) {
+        if (!isset($_SESSION["USER"]->Role)) {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'customer' . DIRECTORY_SEPARATOR . 'customernav.php';
+        } elseif ($_SESSION["USER"]->Role == "admin") {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'adminnav.php';
+        } elseif ($_SESSION["USER"]->Role == "billingclerk") {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'billingclerk' . DIRECTORY_SEPARATOR . 'bcnavbar.php';
+        } elseif ($_SESSION["USER"]->Role == "productionmanager") {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'productionmanager' . DIRECTORY_SEPARATOR . 'pmnavbar.php';
+        } elseif ($_SESSION["USER"]->Role == "receptionist") {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'receptionist' . DIRECTORY_SEPARATOR . 'recnavbar.php';
+        } elseif ($_SESSION["USER"]->Role == "outletmanager") {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'outletmanager' . DIRECTORY_SEPARATOR . 'omnavbar2.php';
+        } elseif ($_SESSION["USER"]->Role == "productionmanager") {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'customer' . DIRECTORY_SEPARATOR . 'customernav.php';
+        } else {
+            echo "no navbar";
+        }
+    } else {
+        echo "no navbar";
+    }
+?>
+
 
     <button id="cartbutton" type="button" onclick="veiwcart()"></button> 
 

@@ -187,11 +187,24 @@
         function checkout($paymenttype=null,$payedamount=null){
 
             if(!Auth::loggedIn()){
-                $this->redirect(BASE_URL."OrderControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!isset($_SESSION['unique_id'])){
-                $this->redirect(BASE_URL."OrderControls/placeorder");
+                if(!isset($_SESSION['USER']->Role)){
+                    $this->redirect(BASE_URL."OrderControls/placeorder");
+                }else if($_SESSION['USER']->Role == "outletmanager"){
+                    $this->redirect(BASE_URL."OutletControls/index");
+                }else if($_SESSION['USER']->Role == "receptionist"){
+                    $this->redirect(BASE_URL."RecieptionControls/index");
+                }else{
+                    $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                }
+                
+            }
+
+            if(!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0){
+                $this->redirect(BASE_URL."OrderControls/showcategories");
             }
 
             $cartItems = $_SESSION['cart'];
@@ -281,6 +294,8 @@
 
             if($_SESSION['USER']->Role == "outletmanager"){
                 $this->redirect(BASE_URL."OutletControls/index");
+            }else if($_SESSION['USER']->Role == "receptionist"){
+                $this->redirect(BASE_URL."RecieptionControls/index");
             }else{
                 $this->redirect(BASE_URL."OrderControls/placeorder");
             }
