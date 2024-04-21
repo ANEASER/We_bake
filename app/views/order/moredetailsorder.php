@@ -10,30 +10,30 @@
     <title>More order Details</title>
 </head>
 <body>
-    <?php
-        if (isset($_SESSION["USER"])) {
-            if (!isset($_SESSION["USER"]->Role)) {
-                include '..\app\views\customer\customernav.php';
+<?php
+    if (isset($_SESSION["USER"])) {
+        if (!isset($_SESSION["USER"]->Role)) {
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'customer' . DIRECTORY_SEPARATOR . 'customernav.php';
             } elseif ($_SESSION["USER"]->Role == "admin") {
-                include '..\app\views\admin\adminnav.php';
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'adminnav.php';
             } elseif ($_SESSION["USER"]->Role == "billingclerk") {
-                include '..\app\views\billingclerk\bcnavbar.php';
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'billingclerk' . DIRECTORY_SEPARATOR . 'bcnavbar.php';
             } elseif ($_SESSION["USER"]->Role == "productionmanager") {
-                include '..\app\views\productionmanager\pmnavbar.php';
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'productionmanager' . DIRECTORY_SEPARATOR . 'pmnavbar.php';
             } elseif ($_SESSION["USER"]->Role == "receptionist") {
-                include '..\app\views\receiptionist\recnavbar.php';
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'receptionist' . DIRECTORY_SEPARATOR . 'recnavbar.php';
             } elseif ($_SESSION["USER"]->Role == "outletmanager") {
-                include '..\app\views\outletmanager\omnavbar2.php';
-            }elseif ($_SESSION["USER"]->Role == "productionmanager") {
-                include '..\app\views\customer\customernav.php';
-            }
-            else {
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'outletmanager' . DIRECTORY_SEPARATOR . 'omnavbar2.php';
+            } elseif ($_SESSION["USER"]->Role == "productionmanager") {
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'customer' . DIRECTORY_SEPARATOR . 'customernav.php';
+            } else {
                 echo "no navbar";
             }
         } else {
             echo "no navbar";
         }
     ?>
+
 
     <section class="content">
         <section class="cart" style="padding : 2%;font-size: 1em;">

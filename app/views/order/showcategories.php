@@ -13,23 +13,30 @@
 
 
 <body>
-    <?php
-    if (isset($_SESSION["USER"]) && !isset($_SESSION["USER"]->Role)) {
-        include '..\app\views\customer\customernav.php';
-    } else if (isset($_SESSION["USER"]) && $_SESSION["USER"]->Role == "receptionist") {
-        include '..\app\views\receiptionist\recnavbar.php';
-    } else if (isset($_SESSION["USER"]) && $_SESSION["USER"]->Role == "admin") {
-        include '..\app\views\admin\adminnav.php';
-    } else if (isset($_SESSION["USER"]) && $_SESSION["USER"]->Role == "billingclerk") {
-        include '..\app\views\billingclerk\bcnavbar.php';
-    } else if (isset($_SESSION["USER"]) && $_SESSION["USER"]->Role == "productionmanager") {
-        include '..\app\views\productionmanager\pmnavbar.php';
-    } else if (isset($_SESSION["USER"]) && $_SESSION["USER"]->Role == "outletmanager") {
-        include '..\app\views\outletmanager\omnavbar2.php';
+<?php
+    if (isset($_SESSION["USER"])) {
+        if (!isset($_SESSION["USER"]->Role)) {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'customer' . DIRECTORY_SEPARATOR . 'customernav.php';
+        } elseif ($_SESSION["USER"]->Role == "admin") {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'adminnav.php';
+        } elseif ($_SESSION["USER"]->Role == "billingclerk") {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'billingclerk' . DIRECTORY_SEPARATOR . 'bcnavbar.php';
+        } elseif ($_SESSION["USER"]->Role == "productionmanager") {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'productionmanager' . DIRECTORY_SEPARATOR . 'pmnavbar.php';
+        } elseif ($_SESSION["USER"]->Role == "receptionist") {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'receptionist' . DIRECTORY_SEPARATOR . 'recnavbar.php';
+        } elseif ($_SESSION["USER"]->Role == "outletmanager") {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'outletmanager' . DIRECTORY_SEPARATOR . 'omnavbar2.php';
+        } elseif ($_SESSION["USER"]->Role == "productionmanager") {
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'customer' . DIRECTORY_SEPARATOR . 'customernav.php';
+        } else {
+            echo "no navbar";
+        }
     } else {
-        include '..\app\views\navbar.php';
-    } 
-    ?>
+        echo "no navbar";
+    }
+?>
+
 
     <button id="cartbutton" type="button" onclick="veiwcart()"></button> 
 
