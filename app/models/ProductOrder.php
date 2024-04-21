@@ -23,6 +23,5 @@ class ProductOrder extends Model {
         return $this->query($query, []);
     }
     
-    
 }
 ?>

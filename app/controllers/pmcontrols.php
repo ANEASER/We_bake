@@ -154,6 +154,20 @@ class PmControls extends Controller
         echo $this->view("productionmanager/assignvehicle", ["orderid"=>$orderid, "vehicles"=>$vehicles]);
     }
 
+    //Edit Vehicle View
+    function editVehicleView($vehicleid){
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        if ($_SESSION["USER"]->Role != "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        $vehicle = new Vehicle;
+        $data =$vehicle->where("vehicle",$vehicleid);
+
+        echo $this->view("productionmanager/editvehicle", ["data"=>$data]);
+    }
+
     // functions
     // Create Vehicle
     function createVehicle()
@@ -202,7 +216,7 @@ class PmControls extends Controller
     }
 
     // Edit Vehicle
-    function editVehicle($vehicleno)
+    function editVehicle()
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -212,7 +226,7 @@ class PmControls extends Controller
         }
 
         $vehicle = new vehicle;
-        $vehicleid = $_POST['vehicleno'];
+        $vehicleid = $_POST['id'];
         $data = [];
 
         if(!empty($_POST['registrationnumber'])){

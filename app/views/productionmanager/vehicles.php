@@ -126,11 +126,11 @@ echo '</tr>';
     function viewall(){
         window.location.href = BASE_URL + "pmcontrols/loadVehiclesView";
     }
-    function edit(vehicleno){
-        window.location.href = BASE_URL + "pmcontrols/editVehicle/"+ vehicleno;
+    function edit(vehicleid){
+        window.location.href = BASE_URL + "pmcontrols/editVehicleView/"+ vehicleid;
     }
-    function del(vehicleno) {
-            window.location.href = BASE_URL +  "pmControls/deleteVehicle/"+ vehicleno;
+    function del(vehicleid) {
+            window.location.href = BASE_URL +  "pmControls/deleteVehicle/"+ vehicleid;
     }
 
 </script>
