@@ -46,6 +46,10 @@
         <label for="delivery/Pickup">Delivery/Pickup:</label>
         <input type="text" id="delivery/Pickup" name="delivery/Pickup" required>
 
+        
+        <label for="picker">picker</label>
+        <input type="text" id="picker" name="picker" required>
+
 
     </div>
     <button class="greenbutton">Submit</button>

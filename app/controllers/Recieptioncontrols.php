@@ -109,12 +109,13 @@ class RecieptionControls extends Controller {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
-        $_SESSION["name"] = $_POST['customername'];
+        $_SESSION["customername"] = $_POST['customername'];
         $_SESSION["email"] = $_POST['customeremail'];
         $_SESSION["phone"] = $_POST['customerphonenumber'];
         $_SESSION["date"] = $_POST['orderdate'];
         $_SESSION["adress"] = $_POST['deliveryaddress'];
-        $_SESSION["delivery/Pickup"] = $_POST['delivery/Pickup'];
+        $_SESSION["deliverstatus"] = $_POST['delivery/Pickup'];
+        $_SESSION["picker"] = $_POST['picker'];
 
         $unique_id = uniqid();
         $_SESSION["unique_id"] = $unique_id;
