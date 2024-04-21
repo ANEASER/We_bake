@@ -18,7 +18,6 @@
             justify-content: center;
             align-items: right;
             font-size: 16px;
-            margin-left: 30px;
             border-radius: 9px;
         }
         .red{
@@ -28,6 +27,7 @@
             background-color: #2ecc71;
         }
         .blue{
+            margin-left:10px;
             background-color: #3498db;
         }
         .yellow{
@@ -41,10 +41,9 @@
     require('pmnavbar.php');
     ?>
 
-<h1 style="margin-left:40%; margin-top:20px;">Vehicle Availability</h1>
 
     <div class="searchpanel">
-        <form method="get" action="<?php echo BASE_URL;?> pmcontrols/searchVehicle" style="display:flex; flex-direction:row;">
+        <form method="get" action="<?php echo BASE_URL;?>pmcontrols/searchVehicle" style="display:flex; flex-direction:row;">
         <?php    
 
         if (isset($_GET['search'])){
@@ -55,11 +54,13 @@
             echo '<input class="searchbox" type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" >';
         }
         ?>
+        <section class="buttongroup">
         <input class="button green" type="submit" value="Search">
         </form>
         <button class="button blue" onclick="addVehicle()" role="button">Add New Vehicle</button>
-        
+    </section>
     </div>
+
 
     <?php
         $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
@@ -125,11 +126,11 @@ echo '</tr>';
     function viewall(){
         window.location.href = BASE_URL + "pmcontrols/loadVehiclesView";
     }
-    function edit(vehicleid){
-        window.location.href = BASE_URL + "pmcontrols/editVehicle"+vehicleid;
+    function edit(vehicleno){
+        window.location.href = BASE_URL + "pmcontrols/editVehicle/"+ vehicleno;
     }
-    function del(vehicleid) {
-            window.location.href = BASE_URL +  "pmControls/deleteVehicle/"+vehicleid;
+    function del(vehicleno) {
+            window.location.href = BASE_URL +  "pmControls/deleteVehicle/"+ vehicleno;
     }
 
 </script>
