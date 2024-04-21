@@ -44,6 +44,9 @@
                     echo "<h1>Order Delivery Address : ".$order[0]->deliver_address."</h1>";
                     echo "<h1>Order Delivery Status : ".$order[0]->deliverystatus."</h1>";
                     echo "<h1>Order Payment Status : ".$order[0]->paymentstatus."</h1>";
+
+                    echo "<h1>Cart Value : ".$order[0]->total - $order[0]->deliver_charges."</h1>";
+                    echo "<h1>Delivery Charges : ".$order[0]->deliver_charges."</h1>";
                     echo "<h1>Order Total : ".$order[0]->total."</h1>";
                     echo "<h1>Order Paid Amount : ".$order[0]->paid_amount."</h1>";
 
