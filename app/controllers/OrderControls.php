@@ -69,6 +69,7 @@
                 $deliver_charges = new DeliveryCharges();
                 $charges = $deliver_charges->where("city", $deliver_city);
                 $_SESSION['charges'] = $charges[0];
+                $_SESSION['deliver_city'] = $deliver_city;
             }
 
             $_SESSION['unique_id'] = $unique_id;
@@ -183,7 +184,7 @@
             
         }
 
-        function checkout(){
+        function checkout($paymenttype=null,$payedamount=null){
 
             if(!Auth::loggedIn()){
                 $this->redirect(BASE_URL."OrderControls/loadLoginView");
@@ -235,14 +236,6 @@
             $arr2["deliverystatus"] = $_SESSION["deliverstatus"];
             $arr2["unique_id"] = $unique_id;
 
-            if(isset($_SESSION['USER']->Role)){
-                $arr2["placeby"] = $_SESSION["USER"]->EmployeeNo;
-                $arr2["paymentstatus"] = "paid";
-            }else{
-                $arr2["placeby"] = $_SESSION["USER"]->UserName;
-                $arr2["paymentstatus"] = "pending";
-            }  
-
             $arr2["orderstatus"] = "pending";
             $arr2["pickername"] = $_SESSION["picker"];
             $arr2["total"] = $total + $deliveryChargeInt;
@@ -257,13 +250,27 @@
             if(isset($_SESSION['USER']->Role)){
                 if($_SESSION['USER']->Role == "outletmanager"){
                     $orderref = "O".$orderref;
+                    $arr2["placeby"] = $_SESSION["USER"]->EmployeeNo;
+                    $arr2["paymentstatus"] = "paid";
                 }
                 else if($_SESSION['USER']->Role == "receptionist"){
+                    $arr2["placeby"] = $_SESSION["customername"];
+                    $arr2["paymentstatus"] = "paid";
                     $orderref = "R".$orderref;
                 }
             }
             else{
                 $orderref = "C".$orderref;
+                $arr2["placeby"] = $_SESSION["USER"]->UserName;
+                $arr2["paymentstatus"] = $paymenttype;
+                $arr2["deliver_city"] = $_SESSION["deliver_city"];
+                $arr2["deliver_charges"] =  $_SESSION["delivery_charge"];
+            }
+
+            if($payedamount != null){
+                $arr2["paid_amount"] = $payedamount;
+            }else{
+                $arr2["paid_amount"] = 0;
             }
         
             $arr2["orderref"] = $orderref;

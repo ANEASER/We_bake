@@ -24,6 +24,8 @@
                 include '..\app\views\receiptionist\recnavbar.php';
             } elseif ($_SESSION["USER"]->Role == "outletmanager") {
                 include '..\app\views\outletmanager\omnavbar2.php';
+            }elseif ($_SESSION["USER"]->Role == "productionmanager") {
+                include '..\app\views\customer\customernav.php';
             }
             else {
                 echo "no navbar";
@@ -42,6 +44,9 @@
                     echo "<h1>Order Delivery Address : ".$order[0]->deliver_address."</h1>";
                     echo "<h1>Order Delivery Status : ".$order[0]->deliverystatus."</h1>";
                     echo "<h1>Order Payment Status : ".$order[0]->paymentstatus."</h1>";
+
+                    echo "<h1>Cart Value : ".$order[0]->total - $order[0]->deliver_charges."</h1>";
+                    echo "<h1>Delivery Charges : ".$order[0]->deliver_charges."</h1>";
                     echo "<h1>Order Total : ".$order[0]->total."</h1>";
                     echo "<h1>Order Paid Amount : ".$order[0]->paid_amount."</h1>";
 
@@ -104,12 +109,10 @@
             window.location.href = BASE_URL + "pmcontrols/pendingOrdersView";
         } else if (user.Role === "receptionist") {
             window.location.href = BASE_URL + "RecieptionControls/viewhistory";
-        } else if (user.Role === "admin") {
-            window.location.href = BASE_URL + "outletcontrols";
         } else if (user.Role === "outletmanager") {
-            window.location.href = BASE_URL + "CustomerControls/purchasehistory";
+            window.location.href = BASE_URL + "outletcontrols";
         } else {
-            window.location.href = BASE_URL + "CustomerControls/purchasehistory";
+            window.location.href = BASE_URL + "CommonControls/logout";
         }
     }
 

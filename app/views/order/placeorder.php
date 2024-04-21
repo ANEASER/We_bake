@@ -24,7 +24,7 @@
                     
                 <div class="form-group">
                     <label for="pickername">RECIEVER NAME:</label>
-                    <input type="text" id="pickername" name="pickername" required><br>
+                    <input type="text" id="pickername" name="pickername" value="<?php echo $_SESSION['USER']->Name ; ?>" required><br>
                 </div>
 
                 <div class="form-group">
@@ -37,7 +37,7 @@
 
                 <div class="form-group"  id="deliverAddressGroup">
                     <label for="deliver_address">DELIVER ADDRESS</label>
-                    <input type="text" id="deliver_address" name="deliver_address" required><br>
+                    <input type="text" id="deliver_address" name="deliver_address" value="<?php echo $_SESSION['USER']->Address ; ?>" required><br>
                 </div>
 
                 <div class="form-group" id="deliverCityGroup">

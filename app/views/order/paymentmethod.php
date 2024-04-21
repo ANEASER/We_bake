@@ -58,7 +58,7 @@
                                 showConfirmButton: false, 
                                 timer: 1000, 
                             }).then((result) => {
-                                window.location.href = BASE_URL +"OrderControls/checkout";
+                                window.location.href = BASE_URL +"OrderControls/checkout/pending";
                             });
                         } catch (error) {
                             SwalwithButton.showValidationMessage(`Request failed: ${error}`);

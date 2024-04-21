@@ -17,6 +17,12 @@ class ProductOrder extends Model {
         $query = "SELECT * FROM $this->table WHERE orderstatus = 'finished' OR orderstatus = 'canceled' ORDER BY orderid $orderDirection";
         return $this->query($query, []);
     }
+
+    public function findalldescwithplaceby($placeby) {
+        $query = "SELECT * FROM $this->table WHERE placeby = '$placeby' ORDER BY orderid DESC";
+        return $this->query($query, []);
+    }
+    
     
 }
 ?>

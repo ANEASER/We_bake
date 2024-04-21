@@ -71,7 +71,7 @@
             </form>
             <br>
             <div style="display: flex; flex-direction:row;justify-content:center">
-                <button class="bluebutton" onclick="pay()">PAY</button>
+                <button class="bluebutton" onclick="pay(<?php echo $total ?>)">PAY</button>
                 <button class="yellowbutton" onclick="cancel()">Cancel</button>
             </div>
             
@@ -81,7 +81,7 @@
 
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
-        function pay(){
+        function pay(amount){
             Swal.fire({
                 title: "Payment Successed!",
                 text: "Your order has been placed successfully.",
@@ -89,7 +89,7 @@
                 showConfirmButton: false, 
                 timer: 1000, 
             }).then((result) => {
-                window.location.href = BASE_URL +"OrderControls/checkout";
+                window.location.href = BASE_URL +"OrderControls/checkout/paid/"+ amount ;
             });
         }
 
