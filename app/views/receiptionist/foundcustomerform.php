@@ -21,7 +21,7 @@
 <section>
  <div class="form-container">
 
-<form class="form" method="POST" action="<?php echo BASE_URL; ?>RecieptionControls/customernumbersearch" class="formisland">//base url submit order
+<form class="form" method="POST" action="<?php echo BASE_URL; ?>RecieptionControls/submitorder" class="formisland">
     <div class="form-group">
     <h1> <b><span style="color:green;">Customer Found</span></b> </h1> <br>
 
@@ -45,6 +45,10 @@
 
         <label for="delivery/Pickup">Delivery/Pickup:</label>
         <input type="text" id="delivery/Pickup" name="delivery/Pickup" required>
+
+        
+        <label for="picker">picker</label>
+        <input type="text" id="picker" name="picker" required>
 
 
     </div>
