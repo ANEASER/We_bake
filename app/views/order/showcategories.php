@@ -14,9 +14,21 @@
 
 <body>
     <?php
-    if (isset($_SESSION["USER"]) && !isset($_SESSION["USER"]->role)) {
+    if (isset($_SESSION["USER"]) && !isset($_SESSION["USER"]->Role)) {
         include '..\app\views\customer\customernav.php';
-    }    
+    } else if (isset($_SESSION["USER"]) && $_SESSION["USER"]->Role == "receptionist") {
+        include '..\app\views\receiptionist\recnavbar.php';
+    } else if (isset($_SESSION["USER"]) && $_SESSION["USER"]->Role == "admin") {
+        include '..\app\views\admin\adminnav.php';
+    } else if (isset($_SESSION["USER"]) && $_SESSION["USER"]->Role == "billingclerk") {
+        include '..\app\views\billingclerk\bcnavbar.php';
+    } else if (isset($_SESSION["USER"]) && $_SESSION["USER"]->Role == "productionmanager") {
+        include '..\app\views\productionmanager\pmnavbar.php';
+    } else if (isset($_SESSION["USER"]) && $_SESSION["USER"]->Role == "outletmanager") {
+        include '..\app\views\outletmanager\omnavbar2.php';
+    } else {
+        include '..\app\views\navbar.php';
+    } 
     ?>
 
     <button id="cartbutton" type="button" onclick="veiwcart()"></button> 

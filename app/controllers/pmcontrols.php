@@ -12,7 +12,7 @@ class PmControls extends Controller
         }
     $ProductOrder = new ProductOrder;
     $productorder = $ProductOrder->findall();
-    $completeorder = $ProductOrder->complete('DESC');
+    $completeorder = $ProductOrder->findallbydirection('orderdate','DESC');
     echo $this->view("productionmanager/pmorders", ["productorder" => $productorder, "completeorder" => $completeorder]);
 
     }
@@ -34,7 +34,7 @@ class PmControls extends Controller
 
     $ProductOrder = new ProductOrder;
     $productorder = $ProductOrder->findall();
-    $completeorder = $ProductOrder->complete('DESC');
+    $completeorder = $ProductOrder->findallbydirection('orderdate','DESC');
     echo $this->view("productionmanager/pmorders", ["productorder" => $productorder, "completeorder" => $completeorder]);
 }
 
