@@ -139,12 +139,52 @@ class StoreControls extends Controller {
         $data['DeliveredQuantity'] = $_POST['DeliveredQuantity'];
 
         $supplies->insert($data);
+        echo $this->redirect(BASE_URL."StoreControls/loadSuppliesView");
     }
 
     function deleteSupplies($id){
         $supplies = new Supplies();
         $supplies = $supplies->delete($id,"SupplyID");
         $this->redirect(BASE_URL."StoreControls/viewSupplies");
+    }
+
+    function updateSuppliesView($id){
+        $supplies = new Supplies();
+        $supplies = $supplies->where("SupplyID",$id);
+        echo $this->view("storemanager/updatesupplies",  ["supplies" => $supplies]);
+    }
+
+    function updateSupplies(){
+        $supplies = new Supplies();
+
+        $id = $_POST['id'];
+        $data = [];
+
+        if (!empty($_POST['StockItemID'])){
+            $data['StockItemID'] = $_POST['StockItemID'];
+        }
+
+        if (!empty($_POST['DeliveredDate'])){
+            $data['DeliveredDate'] = $_POST['DeliveredDate'];
+        }
+
+        if (!empty($_POST['InvoiceNo'])){
+            $data['InvoiceNo'] = $_POST['InvoiceNo'];
+        }
+
+        if (!empty($_POST['ExpiryDate'])){
+            $data['ExpiryDate'] = $_POST['ExpiryDate'];
+        }
+
+        if (!empty($_POST['DeliveredQuantity'])){
+            $data['DeliveredQuantity'] = $_POST['DeliveredQuantity'];
+        }
+
+        echo $supplies->update($id, "SupplyID", $data);
+        $this->redirect(BASE_URL."StoreControls/viewSupplies");
+
+
+
     }
 
 

@@ -43,7 +43,7 @@
                     echo '<td>' . $supplies->InvoiceNo . '</td>';
                     echo '<td>' . $supplies->ExpiryDate . '</td>';
                     echo '<td>' . $supplies->DeliveredQuantity . '</td>';
-                    // echo '<td> <button class="yellowbutton" onclick="updateSupply(' . $stocks->ItemID . ')">Update</button></td>';
+                    echo '<td> <button class="yellowbutton" onclick="updateSupply(' . $supplies->SupplyID . ')">Update</button></td>';
                     echo '<td class="hideonmobile"><button class="redbutton" onclick="deleteSupply(' . $supplies->SupplyID . ')">Delete</button></td>';
                     echo '</tr>';
 
@@ -62,8 +62,8 @@
 
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
-        function updateStocks(id) {
-            window.location.href = BASE_URL +  "StoreControls/updateStocks/"+id;
+        function updateSupply(id) {
+            window.location.href = BASE_URL +  "StoreControls/updateSuppliesView/"+id;
         }
 
         function deleteSupply(id) {
@@ -98,7 +98,6 @@
                         }
                     },
                 });
-            // window.location.href = BASE_URL +  "StoreControls/deleteStocks";
         }
 
     </script>
