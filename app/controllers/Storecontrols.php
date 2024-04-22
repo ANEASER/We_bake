@@ -141,6 +141,12 @@ class StoreControls extends Controller {
         $supplies->insert($data);
     }
 
+    function deleteSupplies($id){
+        $supplies = new Supplies();
+        $supplies = $supplies->delete($id,"SupplyID");
+        $this->redirect(BASE_URL."StoreControls/viewSupplies");
+    }
+
 
     //Functions for handling production requests
 
