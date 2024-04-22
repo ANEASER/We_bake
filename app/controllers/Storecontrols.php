@@ -114,9 +114,9 @@ class StoreControls extends Controller {
     }
 
     function loadSuppliesView(){
-        // $stockItem = new StockItem();
-        // $stocks = $stockItem->findall(); , [ "stocks" => $stocks]
-        echo $this->view("storemanager/supplies",  ["stocks" => $stocks]);        
+        $supplies = new Supplies();
+        $supplies = $supplies->findall();
+        echo $this->view("storemanager/supplies",  ["supplies" => $supplies]);        
     }
 
     function insertSupplyView($id){
