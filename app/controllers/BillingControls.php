@@ -31,11 +31,11 @@ class BillingControls extends Controller {
     }
 
 
-    function uploadproof() {
+    function uploadProof() {
   
             $orderid = $_POST["orderid"];
             $amount = $_POST["amount"];
-            $initialorfinal = $_POST["initialorfinal"];
+            $AdvancedOrFinal = $_POST["AdvancedOrFinal"];
 
             $productorder = new ProductOrder();
             $paymentproofs = new PaymentProof();
@@ -46,12 +46,10 @@ class BillingControls extends Controller {
                 $base64Image = base64_encode($imageData);
 
                
-                $paymentproofs->insertImage($initialorfinal, $orderid, $base64Image);
-                $productorder->update($orderid,"orderid",["paymentstatus" => $initialorfinal, "paid_amount" => $amount]);
+                $paymentproofs->insertImage($AdvancedOrFinal, $orderid, $base64Image);
+                $productorder->update($orderid,"orderid",["paymentstatus" => $AdvancedOrFinal, "paid_amount" => $amount]);
 
                 $this->redirect(BASE_URL."BillingControls/index");
-
-                
     
             } else {
                 echo "Error uploading image.";
