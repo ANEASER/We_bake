@@ -22,7 +22,7 @@
 
             <div class="form-group">
                 <label for="stockItemID">Item ID:</label>
-                <input type="text" id="StockItemID" name="StockItemID" required>
+                <input type="text" id="StockItemID" name="StockItemID" value="<?php echo $stocks[0]->ItemID; ?>" >
             </div>
 
 
@@ -30,15 +30,30 @@
                 <label for="stockItemName">Item Name:</label>
                 <input type="text" id="stockItemName" name="Name" value="<?php echo $stocks[0]->Name; ?>" required>
             </div>
-           
 
-
-           
-            
-
-            <div class="button-container">
-                <button class="brownbutton" type="submit">Save</button>
+            <div class="form-group">
+                <label for="DeliveredDate">Delivered Date:</label>
+                <input type="date" id="DeliveredDate" name="DeliveredDate"required>
             </div>
+
+            <div class="form-group">
+                <label for="InvoiceNo">Invoice No.:</label>
+                <input type="text" id="InvoiceNo" name="InvoiceNo"required>
+            </div>
+
+            <div class="form-group">
+                <label for="ExpiryDate">Batch Expiry Date:</label>
+                <input type="date" id="ExpiryDate" name="ExpiryDate"required>
+            </div>
+
+            <div class="form-group">
+                <label for="DeliveredQuantity">Delivered Quantity:</label>
+                <input type="text" id="DeliveredQuantity" name="DeliveredQuantity"required>
+            </div>
+
+            
+            <button class="yellowbutton" type="submit">Save</button>
+          
         </form>
         </div>
     </div>
