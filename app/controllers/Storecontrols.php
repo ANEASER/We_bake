@@ -116,32 +116,31 @@ class StoreControls extends Controller {
     function loadSuppliesView(){
         // $stockItem = new StockItem();
         // $stocks = $stockItem->findall(); , [ "stocks" => $stocks]
-        echo $this->view("storemanager/supplies");        
+        echo $this->view("storemanager/supplies",  ["stocks" => $stocks]);        
     }
 
-    function addSupply(){
-        
-        echo $this->view("storemanager/addsupply");
+    function insertSupplyView($id){
+        $stockItem = new StockItem();
+        $stocks = $stockItem->where("ItemID",$id);
+        echo $this->view("storemanager/addsupply",  ["stocks" => $stocks]);
     }
 
     function insertSupply(){
-        if (isset($_GET['id'])) {
-            // Retrieve the ItemID from the URL parameter
-            $id = $_GET['id'];
-            
-            // Pass the $itemID to the view when rendering the supply form
-            echo $this->view("storemanager/addsupply", ["stocks" => $stocks]);
-            
-        } else {
-            // Handle the case when the ItemID parameter is not set (optional)
-            echo "ItemID parameter is missing.";
-        }
-        // $stockItem = new StockItem();
-        // $stocks = $stockItem->where("ItemID",$id);
-        // echo $this->view("storemanager/addsupply",  ["stocks" => $stocks]);
+        $stockItem = new StockItem();
+        $supplies = new Supplies();
 
-        // echo $this->view("storemanager/addsupply");
+        $id = $_POST['id'];
+        $data = [];
+
+        $data['StockItemID'] = $_POST['StockItemID'];
+        $data['DeliveredDate'] = $_POST['DeliveredDate'];
+        $data['InvoiceNo'] = $_POST['InvoiceNo'];
+        $data['ExpiryDate'] = $_POST['ExpiryDate'];
+        $data['DeliveredQuantity'] = $_POST['DeliveredQuantity'];
+
+        $supplies->insert($data);
     }
+
 
     //Functions for handling production requests
 
