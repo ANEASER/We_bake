@@ -18,36 +18,33 @@
         
     </div>
 
-    <!-- <section style="display:flex;justify-content:space-around; width:100%">
+    <section style="display:flex;justify-content:space-around; width:100%">
     <?php //The table structure 
-        if (count($stocks) > 0){
+        if (count($supplies) > 0){
             echo '<table style="width:90%">';
             echo '<tr>
-                    <th> Item ID </th>
-                    <th> Name </th>
-                    <th> Item Type </th>
-                    <th> Unit of Measurement</th>
-                    <th> Available Stock</th>
-                    <th> New Supply</th>
-                    <th> Minimum Stock</th>
-                    <th> Critical Stock</th>
+                    <th> Supply ID </th>
+                    <th> Stock Item ID </th>
+                    <th> Delivered Date</th>
+                    <th> Invoice Number</th>
+                    <th> Expiry date</th>
+                    <th> Delivered Quantity</th>
+                    
 
                     <th> Update</th>
                     <th> Delete</th>
                 </tr>';
 
-                foreach($stocks as $stocks){
+                foreach($supplies as $supplies){
                     echo '<tr>';
-                    echo '<td>' . $stocks->ItemID . '</td>';
-                    echo '<td>' . $stocks->Name . '</td>';
-                    echo '<td>' . $stocks->Type . '</td>';
-                    echo '<td>' . $stocks->UnitOfMeasurement . '</td>';
-                    echo '<td>' . $stocks->AvailableStock . '</td>';
-                    echo '<td>' . $stocks->MinimumStock . '</td>';
-                    echo '<td>' . $stocks->CriticalStock . '</td>';
-                    echo '<td> <button class="orangebutton" onclick="insertSupply(' . $stocks->ItemID . ')">Insert</button></td>';
-                    echo '<td> <button class="yellowbutton" onclick="updateStocks(' . $stocks->ItemID . ')">Update</button></td>';
-                    echo '<td class="hideonmobile"><button class="redbutton" onclick="deleteStocks(' . $stocks->ItemID . ')">Delete</button></td>';
+                    echo '<td>' . $supplies->SupplyID . '</td>';
+                    echo '<td>' . $supplies->StockItemID . '</td>';
+                    echo '<td>' . $supplies->DeliveredDate . '</td>';
+                    echo '<td>' . $supplies->InvoiceNo . '</td>';
+                    echo '<td>' . $supplies->ExpiryDate . '</td>';
+                    echo '<td>' . $supplies->DeliveredQuantity . '</td>';
+                    // echo '<td> <button class="yellowbutton" onclick="updateStocks(' . $stocks->ItemID . ')">Update</button></td>';
+                    // echo '<td class="hideonmobile"><button class="redbutton" onclick="deleteStocks(' . $stocks->ItemID . ')">Delete</button></td>';
                     echo '</tr>';
 
                 }
@@ -56,11 +53,11 @@
         }
 
         else{
-            echo '<h3> No stocks available </h3>';
+            echo '<h3> No supply records available </h3>';
         }
         
     ?>
-    </section> -->
+    </section>
     <!-- <script>
 
         var BASE_URL = "<?php echo BASE_URL; ?>";
