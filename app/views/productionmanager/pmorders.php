@@ -47,12 +47,12 @@
         <?php
         if(isset($_GET['search'])){
             echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="'.$_GET['search'].'" class="searchbox">';
-            echo '<input type="submit" value="Search" class="greenbutton">';
+            echo '<input type="submit" value="Search" class="button green">';
             echo '<button class="button green" onclick="clearSearch(); return false;">Clear Search</button>';
         }
         else{
             echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="" class="searchbox">';
-            echo '<input type="submit" value="Search" class="greenbutton">';
+            echo '<input type="submit" value="Search" class="button green">';
         }
         ?>
         </form>
