@@ -8,13 +8,13 @@ class BillingControls extends Controller {
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
         
-        $productorder = new ProductOrder();
-        $productorders = $productorder->findall();
-        $this->view("billingclerk/billingdash",["productorders" => $productorders]);
-    }
+    $ProductOrder = new ProductOrder;
+    $productorder = $ProductOrder->findall();
+    echo $this->view("billingclerk/billingdash", ["productorder" => $productorder]);
+}
 
     // order handle
-    function processOrder($orderid,$paymentstatus) {
+    function updateOrder($orderid,$paymentstatus) {
 
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -24,8 +24,8 @@ class BillingControls extends Controller {
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
         
-        $productorder = new ProductOrder();
-        $order = $productorder->where("orderid",$orderid);
+        $ProductOrder = new ProductOrder();
+        $order = $ProductOrder->where("orderid",$orderid);
         $total = $order[0]->total;
         echo $this->view("billingclerk/uploadproof", ["orderid" => $orderid, "paymentstatus" => $paymentstatus, "total" => $total]);
     }
@@ -61,18 +61,5 @@ class BillingControls extends Controller {
 
     }
 
-    function viewProfile(){
-
-        if(!Auth::loggedIn()){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-
-        if (!Auth::isBillingClerk()) {
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-        
-        echo $this->view("billingclerk/profile");
-    }
-    
 }
 ?>
