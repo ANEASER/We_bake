@@ -43,8 +43,8 @@
                     echo '<td>' . $supplies->InvoiceNo . '</td>';
                     echo '<td>' . $supplies->ExpiryDate . '</td>';
                     echo '<td>' . $supplies->DeliveredQuantity . '</td>';
-                    // echo '<td> <button class="yellowbutton" onclick="updateStocks(' . $stocks->ItemID . ')">Update</button></td>';
-                    // echo '<td class="hideonmobile"><button class="redbutton" onclick="deleteStocks(' . $stocks->ItemID . ')">Delete</button></td>';
+                    // echo '<td> <button class="yellowbutton" onclick="updateSupply(' . $stocks->ItemID . ')">Update</button></td>';
+                    echo '<td class="hideonmobile"><button class="redbutton" onclick="deleteSupply(' . $supplies->SupplyID . ')">Delete</button></td>';
                     echo '</tr>';
 
                 }
@@ -58,23 +58,15 @@
         
     ?>
     </section>
-    <!-- <script>
+    <script>
 
         var BASE_URL = "<?php echo BASE_URL; ?>";
-
-        function addStockItem() {
-            window.location.href = BASE_URL +  "StoreControls/addStock";
-        }
-
-        function insertSupply() {
-            window.location.href = BASE_URL +  "StoreControls/insertSupply";
-        }
 
         function updateStocks(id) {
             window.location.href = BASE_URL +  "StoreControls/updateStocks/"+id;
         }
 
-        function deleteStocks(id) {
+        function deleteSupply(id) {
             const SwalwithButton = Swal.mixin({
                     customClass: {
                         confirmButton: "redbutton",
@@ -100,7 +92,7 @@
                                 confirmButtonText: "OK",
                                 confirmButtonClass: "greenbutton"
                             });
-                            window.location.href = BASE_URL + "StoreControls/deleteStocks/"+id;
+                            window.location.href = BASE_URL + "StoreControls/deleteSupplies/"+id;
                         } catch (error) {
                             SwalwithButton.showValidationMessage(`Request failed: ${error}`);
                         }
@@ -109,6 +101,6 @@
             // window.location.href = BASE_URL +  "StoreControls/deleteStocks";
         }
 
-    </script> -->
+    </script>
 </body>
 </html>
