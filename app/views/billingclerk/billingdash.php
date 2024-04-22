@@ -92,7 +92,7 @@ echo "<tr>
         <th>More Details</th>
     </tr>";
     
-    foreach ($productorder as $ProductOrder){
+    foreach($productorder as $ProductOrder){
         if ($ProductOrder->orderstatus == "pending" && $ProductOrder->paymentstatus=="pending"){
             echo "<tr>";
             echo "<td>".$ProductOrder->orderref."</td>";
