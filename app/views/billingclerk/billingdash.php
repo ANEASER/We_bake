@@ -44,28 +44,30 @@
     <?php
         require_once('bcnavbar.php');
     ?>
-    <div style="display:flex; flex-direction:row; justify-content:space-between; padding:2%">
-    
-    <form class="search" style="display:flex; flex-direction:row;"method="GET" action="<?php echo BASE_URL;?>OrderControls/searchOrders">
-    
-    <?php
-   if(isset($_GET['search'])){
-    echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="'.$_GET['search'].'" class="searchbox">';
-    echo '<input type="submit" value="Search" class="button green">';
-    echo '<button class="button green" style="margin-lect:10px;"onclick="clearSearch(); return false;">Clear Search</button>';
-}
-else{
-    echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="" class="searchbox">';
-    echo '<input type="submit" value="Search" class="greenbutton">';
-}
-    ?>
-</form>
+    <div class="searchpanel">
+        <form method="GET" action="<?php echo BASE_URL;?>OrderControls/searchOrders" class="search" style="display:flex; flex-direction:row;">
+        <?php
+        if(isset($_GET['search'])){
+            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="'.$_GET['search'].'" class="searchbox">';
+            echo '<input type="submit" value="Search" class="button green">';
+            echo '<button class="button green" onclick="clearSearch(); return false;">Clear Search</button>';
+        }
+        else{
+            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="" class="searchbox">';
+            echo '<input type="submit" value="Search" class="button green">';
+        }
+        ?>
+        </form>
+
+
+<ul style="display: flex;margin-left: 40%;">
 <ul style="display: flex; padding: 0; list-style: none; margin: 0;">
-<li style="margin-right:10px;"><a class="hover" onclick="showPendingOrders(this)">Pending Orders</a></li>
-<li style="margin-right:10px;"><a class="hover" onclick="showAdvancedOrders(this)">Advanced Orders</a></li>
-<li style="margin-right:10px;"><a class="hover" onclick="showPaidOrders(this)">Paid Orders</a></li>
-<li style="margin-right:10px;"><a class="hover" onclick="showCompletedOrders(this)">Completed Orders</a></li>
-<li style="margin-right:10px;"><a class="hover" onclick="showCancledOrders(this)">Cancled Orders</a></li>
+<li style="margin-right:10px;"><a class="hover" id="home" onclick="showPendingOrders(this)">PendingOrders</a></li>
+<li style="margin-right:10px;"><a class="hover" onclick="showAdvancedOrders(this)">AdvancedOrders</a></li>
+<li style="margin-right:10px;"><a class="hover" onclick="showPaidOrders(this)">PaidOrders</a></li>
+<li style="margin-right:10px;"><a class="hover" onclick="showCompletedOrders(this)">CompletedOrders</a></li>
+<li style="margin-right:10px;"><a class="hover" onclick="showCancledOrders(this)">CancledOrders</a></li>
+</ul>
 </ul>
 </div>
 
