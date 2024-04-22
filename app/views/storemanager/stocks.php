@@ -71,12 +71,12 @@
             window.location.href = BASE_URL +  "StoreControls/addStock";
         }
 
-        function insertSupply() {
-            window.location.href = BASE_URL +  "StoreControls/insertSupply";
+        function insertSupply(id) {
+            window.location.href = BASE_URL +  "StoreControls/insertSupply/"+id;
         }
 
         function updateStocks(id) {
-            window.location.href = BASE_URL +  "StoreControls/updateStocks/"+id;
+            window.location.href = BASE_URL +  "StoreControls/updateStocksView/"+id;
         }
 
         function deleteStocks(id) {

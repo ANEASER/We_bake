@@ -30,6 +30,8 @@ class StoreControls extends Controller {
         echo $this->redirect(BASE_URL."StoreControls/loadProductionView");
     }
 
+    
+
 
 
     //Stock Items CRUDs
@@ -37,10 +39,6 @@ class StoreControls extends Controller {
 
     function viewStocks(){
         echo $this->redirect(BASE_URL."StoreControls/loadStocksView");
-    }
-
-    function viewSupplies(){
-        echo $this->redirect(BASE_URL."StoreControls/loadSuppliesView");
     }
 
     function addStock(){
@@ -65,11 +63,41 @@ class StoreControls extends Controller {
         echo $this->view("storemanager/stocks", [ "stocks" => $stocks]);        
     }
 
-    function updateStocks($id){
+    function updateStocksView($id){
         $stockItem = new StockItem();
         $stocks = $stockItem->where("ItemID",$id);
-        echo $this->view("storemanager/updatestock",  ["stocks" => $stocks]);
-       
+        echo $this->view("storemanager/updatestock",  ["stocks" => $stocks]);   
+    }
+
+    function updateStocks(){
+        $stockItem = new StockItem();
+
+        $id = $_POST['id'];
+        $data = []; // Initialize an empty array to store validated data
+
+        if (!empty($_POST['Name'])){
+            $data['Name'] = $_POST['Name'];
+        } 
+
+        if (!empty($_POST['Type'])){
+            $data['Type'] = $_POST['Type'];
+        } 
+
+        if (!empty($_POST['UnitOfMeasurement'])){
+            $data['UnitOfMeasurement'] = $_POST['UnitOfMeasurement'];
+        }
+        
+        if (!empty($_POST['MinimumStock'])){
+            $data['MinimumStock'] = $_POST['MinimumStock'];
+        }
+
+        if (!empty($_POST['CriticalStock'])){
+            $data['CriticalStock'] = $_POST['CriticalStock'];
+        }
+
+        echo $stockItem->update($id, "ItemID", $data);
+        $this->redirect(BASE_URL."StoreControls/viewStocks");
+
     }
 
     function deleteStocks($id){
@@ -81,14 +109,38 @@ class StoreControls extends Controller {
 
     ///CRUD for Supplies
 
+    function viewSupplies(){
+        echo $this->redirect(BASE_URL."StoreControls/loadSuppliesView");
+    }
+
     function loadSuppliesView(){
         // $stockItem = new StockItem();
         // $stocks = $stockItem->findall(); , [ "stocks" => $stocks]
         echo $this->view("storemanager/supplies");        
     }
 
-    function insertSupply(){
+    function addSupply(){
+        
         echo $this->view("storemanager/addsupply");
+    }
+
+    function insertSupply(){
+        if (isset($_GET['id'])) {
+            // Retrieve the ItemID from the URL parameter
+            $id = $_GET['id'];
+            
+            // Pass the $itemID to the view when rendering the supply form
+            echo $this->view("storemanager/addsupply", ["stocks" => $stocks]);
+            
+        } else {
+            // Handle the case when the ItemID parameter is not set (optional)
+            echo "ItemID parameter is missing.";
+        }
+        // $stockItem = new StockItem();
+        // $stocks = $stockItem->where("ItemID",$id);
+        // echo $this->view("storemanager/addsupply",  ["stocks" => $stocks]);
+
+        // echo $this->view("storemanager/addsupply");
     }
 
     //Functions for handling production requests
