@@ -54,5 +54,43 @@
 </div>
 </section>
 
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var today = new Date();
+            today.setDate(today.getDate() + 1); // Set to the tomorrow
+
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
+            var yyyy = today.getFullYear();
+
+            var dayAfterTomorrow = yyyy + '-' + mm + '-' + dd;
+            document.getElementById('orderdate').setAttribute('min', dayAfterTomorrow);
+        });
+
+        var deliverystatus = document.getElementById('deliverystatus');
+        var deliverAddressGroup = document.getElementById('deliverAddressGroup');
+        var deliverCityGroup = document.getElementById('deliverCityGroup');
+        var deliverAddress = document.getElementById('deliver_address');
+        var deliverCity = document.getElementById('deliver_city');
+
+       
+        deliverystatus.addEventListener('change', function () {
+            if (deliverystatus.value === 'delivery') {
+                deliverAddressGroup.style.display = 'block';
+                deliverAddress.setAttribute('required', 'true');
+
+                deliverCityGroup.style.display = 'block';
+                deliverCity.setAttribute('required', 'true');
+            } else {
+                deliverAddressGroup.style.display = 'none';
+                deliverAddress.removeAttribute('required');
+
+                deliverCityGroup.style.display = 'none';
+                deliverCity.removeAttribute('required');
+            }
+        });
+    </script>
+    
+
 </body>
 </html>
