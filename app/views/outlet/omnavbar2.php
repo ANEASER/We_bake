@@ -25,7 +25,6 @@
             <li><a onclick="home(this)">Home</a></li>
             <li><a onclick="placeorder(this)">Place Order</a></li>
             <li><a onclick="purchasehistory(this)">Purchase History</a></li>
-            <li><a onclick="constantorder(this)">Constant Orders</a></li>
             <li><a onclick="logout()">logout</a></li>
         </ul>
     </nav>
@@ -40,9 +39,6 @@ function home(){
         }
         function purchasehistory(){
                 window.location.href = BASE_URL + "outletControls/purchasehistory";
-        }
-        function constantorder(){
-                window.location.href = BASE_URL + "outletControls/constantorder";
         }
         function logout(){
                 window.location.href = BASE_URL + "commonControls/logout";
