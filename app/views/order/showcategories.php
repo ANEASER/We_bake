@@ -26,7 +26,7 @@
         } elseif ($_SESSION["USER"]->Role == "receptionist") {
             include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'receiptionist' . DIRECTORY_SEPARATOR . 'recnavbar.php';
         } elseif ($_SESSION["USER"]->Role == "outletmanager") {
-            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'outletmanager' . DIRECTORY_SEPARATOR . 'omnavbar2.php';
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'outlet' . DIRECTORY_SEPARATOR . 'omnavbar2.php';
         } elseif ($_SESSION["USER"]->Role == "productionmanager") {
             include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'customer' . DIRECTORY_SEPARATOR . 'customernav.php';
         } else {
