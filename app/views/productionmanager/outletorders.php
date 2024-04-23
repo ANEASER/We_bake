@@ -138,7 +138,7 @@
             </tr>";
             
             foreach ($productorder as $ProductOrder){
-                if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && $ProductOrder->deliverystatus == "outletpickup") {
+                if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && $ProductOrder->deliverystatus == "outletpickup" ) { //&& $ProductOrder->orderdate == date('Y-m-d')
 
                     echo "<tr>";
                     echo "<td>".$ProductOrder->orderref."</td>";
@@ -181,7 +181,7 @@
 
             foreach($productorder as $ProductOrder){ 
 
-                if($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && ($ProductOrder->deliverystatus == "outletdelivery")) {
+                if($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && ($ProductOrder->deliverystatus == "outletdelivery")) { //&& $ProductOrder->orderdate == date('Y-m-d')
 
                     echo "<tr>";
                     echo "<td>".$ProductOrder->orderref."</td>";
@@ -193,7 +193,7 @@
                     echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->unique_id."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
-                    echo "<td><button class='button green' onclick='assignvehicle(".$ProductOrder->orderid.")'>Assign</button></td>";
+                    echo "<td><button class='button green' onclick='assignvehicle(".$ProductOrder->orderid.", \"".$ProductOrder->order_cap."\" )'>Assign</button></td>";
                     echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
@@ -224,7 +224,7 @@
 
             foreach($productorder as $ProductOrder){ 
 
-                if($ProductOrder->orderstatus == "ondelivery" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced")) {
+                if($ProductOrder->orderstatus == "ondelivery" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && $ProductOrder->orderdate == date('Y-m-d')) {
 
                 echo "<tr>";
                 echo "<td>".$ProductOrder->orderref."</td>";
@@ -368,12 +368,12 @@
         else if(deliverystatus=="delivery"){
             sessionStorage.setItem('activeLink', 'showDeliveryOrderTable(this)');
         }
-        var url =  BASE_URL + "pmcontrols/processOrder/" + orderid + "/" + deliverystatus;
+        var url =  BASE_URL + "pmcontrols/processOrderOutlet/" + orderid + "/" + deliverystatus;
         window.location.href = url;
     }
 
     function cancel(orderid) {
-        var url = BASE_URL + "pmcontrols/cancelOrder/" + orderid;
+        var url = BASE_URL + "pmcontrols/cancelOrderOutlet/" + orderid;
         window.location.href = url;
     }
 
@@ -381,16 +381,16 @@
         var url = BASE_URL + "OrderControls/moreDetails/" + unique_id;
         window.location.href = url;
     }
-
-    function assignvehicle(orderid){
+ 
+    function assignvehicle(orderid){ //, capacity
         sessionStorage.setItem('activeLink', 'showDeliveryOrderTable(this)');
-        var url = BASE_URL + "pmcontrols/assignVehicleView/" + orderid;
+        var url = BASE_URL + "pmcontrols/assignVehicleViewOutlet/" + orderid; // + "/" + capacity
         window.location.href = url;
     }
 
     function completed(orderid){
         sessionStorage.setItem('activeLink', 'showCompletedOrderTable(this)')
-        var url = BASE_URL + "pmcontrols/completeOrder/" + orderid;
+        var url = BASE_URL + "pmcontrols/completeOrderOutlet/" + orderid;
         window.location.href = url;
     }
 
@@ -455,7 +455,7 @@
     }
 
     function clearSearch(){
-        window.location.href = BASE_URL + "pmcontrols/pendingOrdersView";
+        window.location.href = BASE_URL + "pmcontrols/outletOrdersView";
     }
 
     </script>
