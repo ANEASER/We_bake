@@ -20,6 +20,12 @@
             <section class="cart" style="padding : 2%;font-size: 1em;">
                 <h1 style="text-align:center">TODAY AVAILABILITIES</h1>
                 <?php
+
+                if(isset($placefirstorder)){
+                    echo "<br>";
+                    echo "<h2 style='text-align:center'>You have not placed any orders yet</h2>";
+                    echo "<br>";
+                }else{
                     echo "<br>";
                     echo "<table>";
                     echo "<tr>
@@ -43,7 +49,7 @@
                     }
 
                     echo "</table>";
-
+                }
                     ?>
         </section>
     </section>
