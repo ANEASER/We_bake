@@ -416,7 +416,8 @@ use function PHPSTORM_META\type;
             }
 
             $systemuser = new Systemuser();
-            $systemuser->delete($id,"UserID");
+            $systemuser->update($id, "UserID", ["ActiveState" => "Inactive"]);
+            
             $this->redirect(BASE_URL."AdminControls/loadUsersView");
         }
 

@@ -81,7 +81,7 @@
                             echo '<td class="hideonmobile">' . $user->DOB . '</td>';
                             echo '<td class="hideonmobile">' . $user->contactNo . '</td>';
 
-                            if($user->ActiveState == 1) {
+                            if($user->ActiveState == 'Active') {
                                 $ActiveState = 'Active';
                             } else {
                                 $ActiveState = 'Inactive';

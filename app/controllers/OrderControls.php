@@ -34,15 +34,13 @@
             }
 
             if($_SESSION["USER"]->Role == "billingclerk"){
-                echo $this->view("billingclerk/billingdash",["productorders" => $productorders]);
+                echo $this->view("billingclerk/billingdash",["productorder" => $productorders]);
             } elseif ($_SESSION["USER"]->Role == "productionmanager") {
-                echo $this->view("productionmanager/pmdash",["productorders" => $productorders]);
+                echo $this->view("productionmanager/pmorders",["productorder" => $productorders]);
             } else {
                 echo $this->view("admin/admindash",["productorders" => $productorders]);
             }
 
-
-            
         }
 
         function submitorder(){

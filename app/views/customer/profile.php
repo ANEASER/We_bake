@@ -221,13 +221,6 @@
     
     var BASE_URL = "<?php echo BASE_URL; ?>";
     
-    function editprofiledetails(){
-                window.location.href = BASE_URL + "CustomerControls/editprofiledetailsview";
-    }
-    
-    function changepassword(){
-                window.location.href = BASE_URL + "CustomerControls/changepasswordview";
-    }
 
     function logout() {
 

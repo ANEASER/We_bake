@@ -158,8 +158,11 @@ class CommonControls extends Controller {
                 $this->view("common/register",["error"=>$error]); 
             } else {
 
-                $row = $systemuser->where("UserName", $arr["UserName"]);
-                $user = $row[0];
+                $userbysuername = $systemuser->where("UserName", $arr["UserName"]);
+
+                $userbyemail = $systemuser->where("Email", $arr["Email"]);
+
+                $userbycontactno = $systemuser->where("contactNo", $arr["contactNo"]);;
 
                 $emailRegex = '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/';
                 $contactNoRegex = '/^[0-9]{10,14}$/';
@@ -178,13 +181,18 @@ class CommonControls extends Controller {
                     session_start();
                 }
 
-                if ($user->UserName == $arr["UserName"]) {
+                if ($userbysuername != null &&  $userbysuername[0]->UserName == $arr["UserName"]) {
                     $error = "Username already exists";
-                    $this->view("common/register",["error"=>$error]);}
+                    $this->view("common/register",["error"=>$error, "values"=>$arr ]);}
 
-                if ($user->Email == $arr["Email"]) {
+                if ($userbyemail != null && $userbyemail[0]->Email == $arr["Email"]) {
                     $error = "Email already exists";
-                    $this->view("common/register",["error"=>$error]);
+                    $this->view("common/register",["error"=>$error, "values"=>$arr]);
+                }
+
+                if ($userbycontactno != null && $userbycontactno[0]->contactNo == $arr["contactNo"]) {
+                    $error = "Contact number already exists";
+                    $this->view("common/register",["error"=>$error , "values"=>$arr]);
                 }
 
                 $_SESSION['arr'] = $arr;

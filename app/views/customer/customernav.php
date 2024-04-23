@@ -160,6 +160,9 @@
                 changeActive(link);
                 window.location.href = BASE_URL + "OrderControls/placeorder";
         }
+        function editprofiledetails(){
+                window.location.href = BASE_URL + "CustomerControls/editprofiledetailsview";
+        }
 
         function logout() {
 

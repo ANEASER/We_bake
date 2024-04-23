@@ -108,7 +108,13 @@
         </div>
     </section>
     <script>
+        function changepassword(){
+                window.location.href = BASE_URL + "CustomerControls/changepasswordview";
+        }
 
+        function uploadprofilepic(){
+            window.location.href = BASE_URL + "CustomerControls/uploadprofilepicview";
+        }
     </script>
 </body>
 </html>
