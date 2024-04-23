@@ -13,54 +13,61 @@ class OutletControls extends Controller {
 
         
         $productorder = new ProductOrder();
-        $todayorder = $productorder->findOnTodaybyUserConstant($_SESSION["USER"]->EmployeeNo);
-
-        if($todayorder == null){
-            $todayorder = $productorder->findLastOrderbyUser($_SESSION["USER"]->EmployeeNo);
-        }
-
-        $tommoroworder = $productorder->findOnTommorowbyUser($_SESSION["USER"]->EmployeeNo);
-
-        if($tommoroworder == null){
-
-            $first_order = $todayorder[0];
-            $tomorrow_date = date("Y-m-d", strtotime("+1 day"));
-
-            $max_orderid = $productorder->getMinMax("orderid","max");
-            $max_orderid = $max_orderid[0]->{"max(orderid)"};
-            $max_orderid += 1;
-            $max_orderid = str_pad($max_orderid, 7, '0', STR_PAD_LEFT);
-
-            $new_order = array(
-                "orderdate" => $tomorrow_date,
-                "placeby" => $_SESSION["USER"]->EmployeeNo,
-                "paymentstatus" => "paid", 
-                "deliverystatus" => "outletpickup",
-                "orderstatus" => "pending",
-                "total" => $first_order->total,
-                "pickername" => $_SESSION["USER"]->EmployeeNo,
-                "unique_id" => $first_order->unique_id,
-                "deliverby" => "OP".$max_orderid,
-                "deliver_address" => $first_order->deliver_address,
-                "orderref" => $first_order->orderref,
-                "paid_amount" => $first_order->paid_amount,
-                "order_type" => "constant"
-            );
-        
-            $productorder->insert($new_order);
-            header("Refresh:0");
-        }
 
         $orders = $productorder->findOnTodaybyUser($_SESSION["USER"]->EmployeeNo);
 
-        foreach ($orders as $order) {
-            $uniqueIds[] = $order->unique_id;
-        }
-        
-        $productorderline = new ProductOrderLine();
-        $productorderlines = $productorderline->productOrderLinesbyUniqueIds($uniqueIds);
+        if($orders == null){
+            $this->view("outlet/outletdash",["placefirstorder"=>"Place your first Order"]);
+            
+        }else{
 
-        $this->view("outlet/outletdash",["productorderlines"=>$productorderlines]);
+            $todayorder = $productorder->findOnTodaybyUserConstant($_SESSION["USER"]->EmployeeNo);
+
+            if($todayorder == null){
+                $todayorder = $productorder->findLastOrderbyUser($_SESSION["USER"]->EmployeeNo);
+            }
+
+            $tommoroworder = $productorder->findOnTommorowbyUser($_SESSION["USER"]->EmployeeNo);
+
+            if($tommoroworder == null){
+
+                $first_order = $todayorder[0];
+                $tomorrow_date = date("Y-m-d", strtotime("+1 day"));
+
+                $max_orderid = $productorder->getMinMax("orderid","max");
+                $max_orderid = $max_orderid[0]->{"max(orderid)"};
+                $max_orderid += 1;
+                $max_orderid = str_pad($max_orderid, 7, '0', STR_PAD_LEFT);
+
+                $new_order = array(
+                    "orderdate" => $tomorrow_date,
+                    "placeby" => $_SESSION["USER"]->EmployeeNo,
+                    "paymentstatus" => "paid", 
+                    "deliverystatus" => "outletpickup",
+                    "orderstatus" => "pending",
+                    "total" => $first_order->total,
+                    "pickername" => $_SESSION["USER"]->EmployeeNo,
+                    "unique_id" => $first_order->unique_id,
+                    "deliverby" => "OP".$max_orderid,
+                    "deliver_address" => $first_order->deliver_address,
+                    "orderref" => $first_order->orderref,
+                    "paid_amount" => $first_order->paid_amount,
+                    "order_type" => "constant"
+                );
+            
+                $productorder->insert($new_order);
+                header("Refresh:0");
+            }
+
+            foreach ($orders as $order) {
+                $uniqueIds[] = $order->unique_id;
+            }
+            
+            $productorderline = new ProductOrderLine();
+            $productorderlines = $productorderline->productOrderLinesbyUniqueIds($uniqueIds);
+
+            $this->view("outlet/outletdash",["productorderlines"=>$productorderlines]);
+        }
     }
 
     function submitorder(){

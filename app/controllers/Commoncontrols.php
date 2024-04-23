@@ -32,8 +32,8 @@ class CommonControls extends Controller {
                     
                     if (isset($user->Role)) {
                         $role = $user->Role;
-
-                        if ($_POST["password"] == $user->Password) {
+                        $verifiedpassword = password_verify($_POST["password"], $user->Password);
+                        if ($verifiedpassword) {
                             
                             if($user->ActiveState == 'Active'){
                                 Auth::authenticate($user);
@@ -346,7 +346,8 @@ class CommonControls extends Controller {
             $error = "Passwords do not match";
             $this->view("common/chanegfirsttimepasswordview",["error"=>$error]);
         }else{
-            $systemuser->update($_POST["UserName"],"UserName",[ "Password" => $newpassword , "ActiveState" => "Active"]);
+            $hashednewpassword = password_hash($newpassword, PASSWORD_DEFAULT);
+            $systemuser->update($_POST["UserName"],"UserName",[ "Password" => $hashednewpassword , "ActiveState" => "Active"]);
             $message = "Password changed successfully";
             $this->view("common/login",["message"=>$message]);
         }

@@ -302,7 +302,8 @@ use function PHPSTORM_META\type;
             $arr["Address"] = $_POST["Address"];
             $arr["Role"] = $_POST["Role"];
             $arr["UserName"] = $_POST["UserName"];
-            $arr["Password"] = $_POST["Password1"];
+            $password = $_POST["Password1"];
+            $arr["Password"] = password_hash($password, PASSWORD_DEFAULT);
         
             // Validate NIC
             $patternNIC = '/^\d{9}[vV]$|^\d{12}$/';
@@ -318,10 +319,8 @@ use function PHPSTORM_META\type;
                 return;
             }
         
-            // Validate Email
             $patternEmail = '/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/';
             if (!preg_match($patternEmail, $arr["Email"])) {
-            // Check if email already in use
             $existingUser = $systemuser->where("Email", $arr["Email"]);
             if ($existingUser) {
                 echo $this->view("admin/AddUserView", ["error" => "Email already in use"]);
@@ -331,10 +330,8 @@ use function PHPSTORM_META\type;
                 return;
             }
         
-            // Validate Contact Number
             $patternContactNo = '/^\d{10}$/';
             if (!preg_match($patternContactNo, $arr["contactNo"])) {
-            // Check if contact number already in use
             $existingUser = $systemuser->where("contactNo", $arr["contactNo"]);
             if ($existingUser) {
                 echo $this->view("admin/AddUserView", ["error" => "Contact number already in use"]);
@@ -344,15 +341,20 @@ use function PHPSTORM_META\type;
                 echo $this->view("admin/AddUserView", ["error" => "Invalid contact number"]);
                 return;
             }
+
+            $existingUserName = $systemuser->where("UserName", $arr["UserName"]);
+            if ($existingUserName) {
+                echo $this->view("admin/AddUserView", ["error" => "Username already in use"]);
+                return;
+            }
         
-            // Validate Role
             $validRoles = ["admin", "billingclerk", "outletmanager", "productionmanager", "receptionist", "storemanager"];
             if (!in_array($arr["Role"], $validRoles)) {
                 echo $this->view("admin/AddUserView", ["error" => "Invalid Role"]);
                 return;
             }
         
-            // Generate EmployeeNo based on Role
+            
             switch ($arr["Role"]) {
                 case "admin":
                     $C = "AD";
@@ -373,7 +375,7 @@ use function PHPSTORM_META\type;
                     $C = "SM";
                     break;
                 default:
-                    echo $this->view("admin/AddUserView", ["error" => "Invalid Role"]);
+                    echo $this->view("admin/AddUser", ["error" => "Invalid Role"]);
                     return;
             }
         
@@ -386,8 +388,10 @@ use function PHPSTORM_META\type;
             $arr["EmployeeNo"] = $C.$max_user_id;
         
             $systemuser->insert($arr);
-        
+            $mail = new Mail();
+            $mail->sendMail($arr["Email"], "User Account Created", "Your account has been created you should change your password on 1st login.<br> username :  <b>".$arr["UserName"]."</b> <br> password : <b>".$password." </b>.");
             $this->redirect(BASE_URL."AdminControls/loadUsersView");
+        
         }
         
         function loadUsersView(){
@@ -589,6 +593,17 @@ use function PHPSTORM_META\type;
             }
             echo $this->view("admin/systemusers", [ "users" => $users]);
         }
+
+        public function ResetPassword($username){
+            $generatedpassword = uniqid();
+            $passwordhashed = password_hash($generatedpassword, PASSWORD_DEFAULT);
+            $systemuser = new Systemuser();
+            $founduser = $systemuser->where("UserName", $username);
+            $systemuser->update($username, "UserName", ["Password" => $passwordhashed, "ActiveState" => "FirstLogin"]);
+            $mail = new Mail();
+            $mail->sendMail($founduser[0]->Email, "Password Reset", "Your password has been reset. Your new password is : ".$generatedpassword);
+            $this->redirect(BASE_URL."AdminControls/loadUsersView");
+        }
         
         //view add user page
         function AddUser(){
@@ -612,8 +627,8 @@ use function PHPSTORM_META\type;
             if($data[0]->Role == "outletmanager"){
                 $outlets = new Outlet();
                 $outlet = $outlets->where("Manager", $data[0]->EmployeeNo);
-                $data[0]->Outlet = $outlet[0]->OutletCode;
-                if($data[0]->Outlet == null){
+                
+                if($outlet == null){
                     echo $this->view("admin/editsystemuser", ["data" => $data]);
                 }
                 else{
