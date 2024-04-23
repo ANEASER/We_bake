@@ -9,13 +9,18 @@ class ProductOrder extends Model {
     }
 
     // venuri
-    public function findall() {
-        $query = "SELECT * FROM $this->table ORDER BY orderid ASC";
+    public function findCustomerOrders() {
+        $query = "SELECT * FROM $this->table 
+        WHERE orderref LIKE 'C%' OR orderref LIKE 'R%' 
+        ORDER BY orderid DESC";
         return $this->query($query, []);
     }
 
-    public function findallbydirection($directioncolumn,$orderdirection) {
-        $query = "SELECT * FROM $this->table ORDER BY $directioncolumn $orderdirection";
+    
+    public function findOutletOrders(){
+        $query = "SELECT * FROM $this->table 
+        WHERE orderref LIKE 'OP%'
+        ORDER BY orderid DESC";
         return $this->query($query, []);
     }
 

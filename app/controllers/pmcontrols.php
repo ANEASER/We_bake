@@ -11,15 +11,14 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
     $ProductOrder = new ProductOrder;
-    $productorder = $ProductOrder->findall();
-    $completeorder = $ProductOrder->findallbydirection('orderdate','DESC');
-    echo $this->view("productionmanager/pmorders", ["productorder" => $productorder, "completeorder" => $completeorder]);
+    $productorder = $ProductOrder->findCustomerOrders();
+    echo $this->view("productionmanager/pmorders", ["productorder" => $productorder]);
 
     }
     
                                     // PRODUCTION ORDERS
     // views
-    // Pending Orders View(All)
+    // Pending Orders View - customer
     function pendingOrdersView()
 {
     if (!Auth::loggedIn()) {
@@ -33,11 +32,27 @@ class PmControls extends Controller
     }
 
     $ProductOrder = new ProductOrder;
-    $productorder = $ProductOrder->findall();
-    $completeorder = $ProductOrder->findallbydirection('orderdate','DESC');
-    echo $this->view("productionmanager/pmorders", ["productorder" => $productorder, "completeorder" => $completeorder]);
+    $productorder = $ProductOrder->findCustomerOrders();
+    echo $this->view("productionmanager/pmorders", ["productorder" => $productorder]);
 }
 
+//Outlet Orders View
+
+function outletOrdersView(){
+    if (!Auth::loggedIn()) {
+        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        return;
+    }
+
+    if ($_SESSION["USER"]->Role !== "productionmanager") {
+        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        return;
+    }
+
+    $ProductOrder = new ProductOrder;
+    $productorder = $ProductOrder->findOutletOrders();
+    echo $this->view("productionmanager/pmorders", ["productorder"=>$productorder]);
+}
 
     // functions
     // Process Order

@@ -37,7 +37,7 @@
             background-color: #3498db;
         }
     </style>
-    <title>Customer Orders</title>
+    <title>Outlet Orders</title>
 </head>
 <body>
     <?php include 'pmnavbar.php'; ?>
@@ -138,7 +138,7 @@
             </tr>";
             
             foreach ($productorder as $ProductOrder){
-                if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && $ProductOrder->deliverystatus == "pickup") {
+                if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && $ProductOrder->deliverystatus == "outletpickup") {
 
                     echo "<tr>";
                     echo "<td>".$ProductOrder->orderref."</td>";
@@ -181,7 +181,7 @@
 
             foreach($productorder as $ProductOrder){ 
 
-                if($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && ($ProductOrder->deliverystatus == "delivery")) {
+                if($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && ($ProductOrder->deliverystatus == "outletdelivery")) {
 
                     echo "<tr>";
                     echo "<td>".$ProductOrder->orderref."</td>";
