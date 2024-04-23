@@ -30,10 +30,9 @@
                     <th> Item Type </th>
                     <th> Unit of Measurement</th>
                     <th> Available Stock</th>
-                    <th> New Supply</th>
                     <th> Minimum Stock</th>
                     <th> Critical Stock</th>
-
+                    <th> New Supply</th>
                     <th> Update</th>
                     <th> Delete</th>
                 </tr>';
@@ -71,12 +70,12 @@
             window.location.href = BASE_URL +  "StoreControls/addStock";
         }
 
-        function insertSupply() {
-            window.location.href = BASE_URL +  "StoreControls/insertSupply";
+        function insertSupply(id) {
+            window.location.href = BASE_URL +  "StoreControls/insertSupplyView/"+id;
         }
 
         function updateStocks(id) {
-            window.location.href = BASE_URL +  "StoreControls/updateStocks/"+id;
+            window.location.href = BASE_URL +  "StoreControls/updateStocksView/"+id;
         }
 
         function deleteStocks(id) {

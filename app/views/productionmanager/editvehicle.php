@@ -54,7 +54,7 @@
                         }
                     };
         
-                    // Call the async function to show the alert
+                    
                     showAlert();
                 </script>";
             }
@@ -63,7 +63,7 @@
         <section>
             <div class="form-container">
                 <form class="form" method="POST" action="<?php echo BASE_URL;?>pmcontols/editVehicle" onsubmit="return validateForm()">
-                <input type="hidden" name="vehicleno" value="<?php echo $data[0]->vehicleno;?>">
+                <input type="hidden" name="id" value="<?php echo $data[0]->vehicleno;?>">
 
                 <div class="form-group">
                     <label for="registrationnumber">Registration Number</label>
@@ -117,7 +117,7 @@
 
                 var regexPattern = /^([A-Za-z]{3}-\d{4})|([A-Za-z]{2}-\d{4})|(\d{2}-\d{4})$/;
 
-                if(regexPattern.test("registrationNumber")){
+                if(registrationNumber && regexPattern.test("registrationNumber")){
                     Swal.fire({
                         icon:'error',
                         title:'Invalid Registration Number',
@@ -127,7 +127,7 @@
                     return false;
                 }
 
-                if(engineNumber.length < 10 || engineNumber.length > 18){
+                if(registrationNumber && (engineNumber.length < 10 || engineNumber.length > 18)){
                     wal.fire({
                         icon: 'error',
                         title: 'Invalid Engine Number',
@@ -137,7 +137,7 @@
                     return false;
                 }
 
-                if(chassiNumber.length != 17){
+                if(registrationNumber && chassiNumber.length !== 17){
                     Swal.fire({
                         icon: 'error',
                         title: 'Invalid Chassis Number',

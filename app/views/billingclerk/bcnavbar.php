@@ -20,14 +20,45 @@
             echo '<img class="logo" src="' . BASE_URL . 'media/uploads/Content/logo.png" width="200px">';
         ?>
         <ul>
-            <li><a onclick="logout(this)">logout</a></li>
+        <li><a class="navbutton" onclick="home(this)">Production Orders</a></li>
+        <li><a class="navbutton" onclick="logout()">Log Out</a></li>
         </ul>
     </nav>
     <script>
 
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
-        function logout(link) {
+        var activeLink = sessionStorage.getItem('activeLink');
+        if (activeLink) {
+            var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
+            if (linkElement) {
+                linkElement.classList.add('active');
+            } 
+        } else {
+            var homeLink = document.querySelector('a[onclick="home(this)"]');
+            if (homeLink) {
+                homeLink.classList.add('active');
+
+            sessionStorage.setItem('activeLink', homeLink.getAttribute('onclick'));
+        }}
+
+        function changeActiveLink(link) {
+            var links = document.querySelectorAll('body nav ul li a');
+            links.forEach(function (el) {
+                el.classList.remove('active');
+            });
+
+            link.classList.add('active');
+
+            sessionStorage.setItem('activeLink', link.getAttribute('onclick'));
+        }
+
+        function home(link){
+            changeActiveLink(link);
+            window.location.href = BASE_URL + "BillingControls/index";
+        }
+
+        function logout() {
             window.location.href = BASE_URL + "CommonControls/logout";
         }
 
