@@ -16,9 +16,9 @@ class PmControls extends Controller
 
     }
     
-                                    // PRODUCTION ORDERS
-    // views
-    // Pending Orders View - customer
+                                    // CUSTOMER ORDERS
+    // Views
+   /* // Pending Orders View - customer
     function pendingOrdersView()
 {
     if (!Auth::loggedIn()) {
@@ -34,28 +34,10 @@ class PmControls extends Controller
     $ProductOrder = new ProductOrder;
     $productorder = $ProductOrder->findCustomerOrders();
     echo $this->view("productionmanager/pmorders", ["productorder" => $productorder]);
-}
+} */
 
-//Outlet Orders View
-
-function outletOrdersView(){
-    if (!Auth::loggedIn()) {
-        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        return;
-    }
-
-    if ($_SESSION["USER"]->Role !== "productionmanager") {
-        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        return;
-    }
-
-    $ProductOrder = new ProductOrder;
-    $productorder = $ProductOrder->findOutletOrders();
-    echo $this->view("productionmanager/pmorders", ["productorder"=>$productorder]);
-}
-
-    // functions
-    // Process Order
+// functions
+    // Process Order - customer
     function processOrder($orderid)
     {
         if (!Auth::loggedIn()) {
@@ -67,10 +49,10 @@ function outletOrdersView(){
 
         $productorder = new ProductOrder;
         $productorder->update($orderid, "orderid", ["orderstatus" => "processing"]);
-        $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
+        $this->redirect(BASE_URL . "pmcontrols/index");
     }
 
-    // Cancel Order View
+    // Cancel Order View - customer
     function cancelOrder($orderid)
     {
         if (!Auth::loggedIn()) {
@@ -82,11 +64,10 @@ function outletOrdersView(){
 
         $productorder = new ProductOrder;
         $productorder->update($orderid, "orderid", ["orderstatus" => "cancled"]);
-        $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
+        $this->redirect(BASE_URL . "pmcontrols/index");
     }
 
-    
-    // Complete Order
+    // Complete Order - Customer
     function completeOrder($orderid)
     {
         if (!Auth::loggedIn()) {
@@ -105,7 +86,81 @@ function outletOrdersView(){
         $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
         $vehicle->update($vehicleno,"registrationnumber",["availability"=>1]);
 
-        $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
+        $this->redirect(BASE_URL . "pmcontrols/index");
+    }
+
+                                    //OUTLET ORDERS
+//VIEWS
+//Outlet Orders View
+function outletOrdersView(){
+    if (!Auth::loggedIn()) {
+        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        return;
+    }
+
+    if ($_SESSION["USER"]->Role !== "productionmanager") {
+        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        return;
+    }
+
+    $ProductOrder = new ProductOrder;
+    $productorder = $ProductOrder->findOutletOrders();
+    echo $this->view("productionmanager/outletorders", ["productorder"=>$productorder]);
+}
+
+    //FUNCTIONS
+    // Process Order - outlet
+    function processOrderOutlet($orderid)
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        if ($_SESSION["USER"]->Role != "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+
+        $productorder = new ProductOrder;
+        $productorder->update($orderid, "orderid", ["orderstatus" => "processing"]);
+        $this->redirect(BASE_URL . "pmcontrols/outletOrdersView");
+    }
+
+
+    // Cancel Order View - outlet
+    function cancelOrderOutlet($orderid)
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        if ($_SESSION["USER"]->Role != "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+
+        $productorder = new ProductOrder;
+        $productorder->update($orderid, "orderid", ["orderstatus" => "cancled"]);
+        $this->redirect(BASE_URL . "pmcontrols/outletOrdersView");
+    }
+
+    
+    // Complete Order
+    function completeOrderOutlet($orderid)
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        if ($_SESSION["USER"]->Role != "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+
+        $productorder = new ProductOrder;
+        $vehicle = new Vehicle;
+        
+        $order = $productorder->where("orderid", $orderid);
+        $vehicleno = $order[0]->deliverby;
+        
+        $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
+        $vehicle->update($vehicleno,"registrationnumber",["availability"=>1]);
+
+        $this->redirect(BASE_URL . "pmcontrols/outletOrdersView");
     }
 /*
     // More Details View
@@ -124,8 +179,8 @@ function outletOrdersView(){
     }*/
     
 
-    // VEHICLE
-    // views
+                                                            // VEHICLE
+    // VIEWS
     // Load Vehicle View
     function loadVehiclesView()
     {
@@ -153,8 +208,8 @@ function outletOrdersView(){
         echo $this->view("productionmanager/addvehicle");
     }
     
-    // Assign Vehicle View
-    function assignVehicleView($orderid)
+    // Assign Vehicle View - customer
+    function assignVehicleView($orderid) //, $capacity
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -164,9 +219,27 @@ function outletOrdersView(){
         }
 
         $vehicle = new vehicle;
-        $vehicles = $vehicle->where("availability",1);
+        //$capacity = $vehicle->where("capacity", $capacity);
+        $vehicles = $vehicle->assignVehicle(); //$capacity
 
         echo $this->view("productionmanager/assignvehicle", ["orderid"=>$orderid, "vehicles"=>$vehicles]);
+    }
+
+    // Assign Vehicle View - outlet
+    function assignVehicleViewOutlet($orderid) //, $capacity
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        if ($_SESSION["USER"]->Role != "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+
+        $vehicle = new vehicle;
+        //$capacity = $vehicle->where("capacity", $capacity);
+        $vehicles = $vehicle->assignVehicle(); //$capacity)
+
+        echo $this->view("productionmanager/assignvehicleOutlet", ["orderid"=>$orderid, "vehicles"=>$vehicles]);
     }
 
     //Edit Vehicle View
@@ -183,7 +256,7 @@ function outletOrdersView(){
         echo $this->view("productionmanager/editvehicle", ["data"=>$data]);
     }
 
-    // functions
+    // FUNCTIONS
     // Create Vehicle
     function createVehicle()
     {
@@ -291,7 +364,7 @@ function outletOrdersView(){
         $this->redirect(BASE_URL . "pmControls/loadVehiclesView");
     }
 
-    // Assign Vehicle
+    // Assign Vehicle - cutomer order
     function assignVehicle($vehicleno, $orderid)
     {
         if (!Auth::loggedIn()) {
@@ -327,9 +400,51 @@ function outletOrdersView(){
             $message = "Your Order RefID : ".$order[0]->orderref." is on the way";
             echo $message;
             $sms->sendSMS($custoemrcontactno,$message);
-            $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
+            $this->redirect(BASE_URL . "pmcontrols/index");
         }else{
-            $this->redirect(BASE_URL . "pmcontrols/pendingOrdersView");
+            $this->redirect(BASE_URL . "pmcontrols/index");
+        }
+    }
+
+    // Assign Vehicle - outlet order
+    function assignVehicleOutlet($vehicleno, $orderid)
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        if ($_SESSION["USER"]->Role != "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        
+        $sms = new SMS();
+
+        $productorder = new ProductOrder;
+        $vehicle = new vehicle;
+        $customer = new Customer;
+
+        $vehicleassign = $vehicle->where("vehicleno",$vehicleno);
+        $registrationnumber = $vehicleassign[0]->registrationnumber;
+
+        $order = $productorder->where("orderid",$orderid);
+        $placedby = $order[0]->placeby;
+        $placedcustomer = $customer->where("UserName",$placedby);
+
+        if($placedcustomer){
+            $custoemrcontactno = $placedcustomer[0]->contactNo;
+        }
+
+        $vehicle->update($vehicleno,"vehicleno",["availability"=>0]);
+        $productorder->update($orderid,"orderid",["deliverby"=>$registrationnumber]);
+        $productorder->update($orderid,"orderid",["orderstatus"=>"ondelivery"]);
+
+
+        if($custoemrcontactno){
+            $message = "Your Order RefID : ".$order[0]->orderref." is on the way";
+            echo $message;
+            $sms->sendSMS($custoemrcontactno,$message);
+            $this->redirect(BASE_URL . "pmcontrols/outletOrdersView");
+        }else{
+            $this->redirect(BASE_URL . "pmcontrols/outletOrdersView");
         }
     }
 
