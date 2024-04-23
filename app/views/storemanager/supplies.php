@@ -25,6 +25,7 @@
             echo '<tr>
                     <th> Supply ID </th>
                     <th> Stock Item ID </th>
+                    <th> Stock Item Name </th>
                     <th> Delivered Date</th>
                     <th> Invoice Number</th>
                     <th> Expiry date</th>
@@ -39,6 +40,7 @@
                     echo '<tr>';
                     echo '<td>' . $supplies->SupplyID . '</td>';
                     echo '<td>' . $supplies->StockItemID . '</td>';
+                    echo '<td>' . $supplies->StockItemName . '</td>';
                     echo '<td>' . $supplies->DeliveredDate . '</td>';
                     echo '<td>' . $supplies->InvoiceNo . '</td>';
                     echo '<td>' . $supplies->ExpiryDate . '</td>';

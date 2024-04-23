@@ -133,13 +133,29 @@ class StoreControls extends Controller {
         $data = [];
 
         $data['StockItemID'] = $_POST['StockItemID'];
+        $data['stockItemName'] = $_POST['stockItemName'];
         $data['DeliveredDate'] = $_POST['DeliveredDate'];
         $data['InvoiceNo'] = $_POST['InvoiceNo'];
         $data['ExpiryDate'] = $_POST['ExpiryDate'];
         $data['DeliveredQuantity'] = $_POST['DeliveredQuantity'];
 
         $supplies->insert($data);
-        echo $this->redirect(BASE_URL."StoreControls/loadSuppliesView");
+        echo $this->redirect(BASE_URL . "StoreControls/loadSuppliesView"); // Comment this when the function work
+
+        // Update the available quantity in the StockItem table
+        // $itemID = $_POST['StockItemID']; // Assuming the StockItemID corresponds to ItemID
+        // $DeliveredQuantity = $_POST['DeliveredQuantity'];
+
+        // $stockItem = new StockItem();
+        // $updated = $stockItem->updateAvailableStock($itemID, $DeliveredQuantity);
+
+        // if ($updated) {
+        //     // Supply and available quantity updated successfully
+        //     echo $this->redirect(BASE_URL . "StoreControls/loadSuppliesView");
+        // } else {
+        //     // Failed to update available quantity
+        //     echo "Failed to update available quantity.";
+        //}
     }
 
     function deleteSupplies($id){
@@ -182,8 +198,6 @@ class StoreControls extends Controller {
 
         echo $supplies->update($id, "SupplyID", $data);
         $this->redirect(BASE_URL."StoreControls/viewSupplies");
-
-
 
     }
 
