@@ -23,7 +23,8 @@
 
 <ul>
             
-        <li><a class="navbutton" onclick="home(this)">Production Orders</a></li>
+        <li><a class="navbutton" onclick="home(this)">Customer Orders</a></li>
+        <li><a class="navbutton" onclick="outlet(this)">Outlet Orders</a></li>
         <li><a class="navbutton" onclick="rm(this)">Raw Materials Requests</a></li>
         <li><a class="navbutton" onclick="loadVehicles(this)">Vehicles</a></li>
         <li><a class="navbutton" onclick="logout()">Log Out</a></li>
@@ -65,6 +66,10 @@ function home(link) {
     window.location.href = BASE_URL + "pmcontrols/index";
 }
 
+function outlet(link){
+    changeActive(link);
+    window.location.href = BASE_URL +"pmcontrols/outletOrdersView";
+}
 
     function rm(link) {
         changeActive(link);
