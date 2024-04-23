@@ -8,19 +8,45 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
-    <title>place order</title>
+    <title>Home</title>
 </head>
   
     <body>
     <?php
         include "omnavbar2.php";
     ?>
- 
- 
 
+    <section class="content">
+            <section class="cart" style="padding : 2%;font-size: 1em;">
+                <h1 style="text-align:center">TODAY AVAILABILITIES</h1>
+                <?php
+                    echo "<br>";
+                    echo "<table>";
+                    echo "<tr>
+                            <th>Item Code </th>
+                            <th>Item Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                        </tr>";
 
+                    foreach ($productorderlines as $productorderline) {
+                        
+                        $productitem = new ProductItem();
+                        $item = $productitem->where('Itemcode', $productorderline->Itemcode);
+                        
+                        echo "<tr>";
+                        echo "<td>" . $productorderline->Itemcode . "</td>";
+                        echo "<td>" . $item[0]->itemname. "</td>";
+                        echo "<td>" . $productorderline->quantity . "</td>";
+                        echo "<td>" . $productorderline->price . "</td>";
+                        echo "</tr>";
+                    }
 
-    <h1> </h1>
+                    echo "</table>";
+
+                    ?>
+        </section>
+    </section>
 
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
@@ -36,3 +62,4 @@
     
 </body>
 </html>   
+
