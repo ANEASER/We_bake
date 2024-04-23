@@ -24,7 +24,7 @@
         } elseif ($_SESSION["USER"]->Role == "productionmanager") {
             include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'productionmanager' . DIRECTORY_SEPARATOR . 'pmnavbar.php';
         } elseif ($_SESSION["USER"]->Role == "receptionist") {
-            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'receptionist' . DIRECTORY_SEPARATOR . 'recnavbar.php';
+            include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'receiptionist' . DIRECTORY_SEPARATOR . 'recnavbar.php';
         } elseif ($_SESSION["USER"]->Role == "outletmanager") {
             include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'outletmanager' . DIRECTORY_SEPARATOR . 'omnavbar2.php';
         } elseif ($_SESSION["USER"]->Role == "productionmanager") {
@@ -33,7 +33,7 @@
             echo "no navbar";
         }
     } else {
-        echo "no navbar";
+        include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'commonnav.php';
     }
 ?>
 

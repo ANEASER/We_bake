@@ -267,14 +267,38 @@
                     $arr2["paymentstatus"] = "paid";
                 }
                 else if($_SESSION['USER']->Role == "receptionist"){
-                    $arr2["placeby"] = $_SESSION["customername"];
-                    $arr2["paymentstatus"] = "paid";
+
+                    $customer = new Customer();
+
+                    $found_customer = $customer->where("UserName",$_SESSION["customername"]);
+
+                    if($found_customer == null){
+                        $max_customerid = $customer->getMinMax("customer_id","max");
+                        $max_customerid = $max_customerid[0]->{"max(customer_id)"};
+                        $max_customerid += 1;
+                        $customer_ref = str_pad($max_customerid, 5, '0', STR_PAD_LEFT);
+                        $customer_ref = "GC".$customer_ref;
+                        $arr2["placeby"] = $customer_ref;
+
+                        $arr3["UserName"] = $customer_ref;
+                        $arr3["Name"] = $_SESSION["customername"];
+                        $arr3["Email"] = $_SESSION["email"];
+                        $arr3["contactNo"] = $_SESSION["phone"];
+                        $arr3["address"] = $_SESSION["adress"];
+                        $arr3["ActiveState"] = "Guest";
+
+                        $customer->insert($arr3);
+                    }else{
+                        $arr2["placeby"] = $found_customer[0]->UserName;
+                    }
+
+                    $arr2["paymentstatus"] = "pending";
                     $orderref = "R".$orderref;
                 }
             }
             else{
                 $orderref = "C".$orderref;
-                $arr2["placeby"] = $_SESSION["USER"]->UserName;
+                $arr2["placeby"] = $_SESSION["USER"]->customer_id;
                 $arr2["paymentstatus"] = $paymenttype;
                 $arr2["deliver_city"] = $_SESSION["deliver_city"];
                 $arr2["deliver_charges"] =  $_SESSION["delivery_charge"];

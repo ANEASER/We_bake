@@ -119,6 +119,7 @@ class RecieptionControls extends Controller {
 
         $unique_id = uniqid();
         $_SESSION["unique_id"] = $unique_id;
+        
         $this->redirect(BASE_URL."OrderControls/showcategories");
 }
 
