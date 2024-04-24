@@ -106,6 +106,31 @@ class StoreControls extends Controller {
         $this->redirect(BASE_URL."StoreControls/viewStocks");
     }
 
+    function SearchItem(){
+
+        $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+
+            $stockItem = new StockItem();
+            $itemByID = $stockItem->where("ItemID", $searchQuery);
+            $itemByName = $stockItem->where("Name", $searchQuery);
+            $itemByType = $stockItem->where("Type", $searchQuery);
+
+
+            if (count($itemByID) > 0) {
+                $stocks = $itemByID;
+            } else if (count($itemByName) > 0) {
+                $stocks = $itemByName;
+            }else if (count($itemByType) > 0) {
+                $stocks = $itemByType;
+            }
+            else {
+                $stocks = [];
+            }
+
+            echo $this->view("storemanager/stocks",[ "stocks" => $stocks]);
+
+    }
+
 
     ///CRUD for Supplies
 
@@ -198,6 +223,31 @@ class StoreControls extends Controller {
 
         echo $supplies->update($id, "SupplyID", $data);
         $this->redirect(BASE_URL."StoreControls/viewSupplies");
+
+    }
+
+    function SearchSupply(){
+
+        $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+
+            $supplies = new Supplies();
+            $supplyByID = $supplies->where("SupplyID", $searchQuery);
+            $supplyByItemID = $supplies->where("StockItemID", $searchQuery);
+            $supplyByInvoiceNo = $supplies->where("InvoiceNo", $searchQuery);
+
+
+            if (count($supplyByID) > 0) {
+                $supplies = $supplyByID;
+            } else if (count($supplyByItemID) > 0) {
+                $supplies = $supplyByItemID;
+            }else if (count($supplyByInvoiceNo) > 0) {
+                $supplies = $supplyByInvoiceNo;
+            }
+            else {
+                $supplies = [];
+            }
+
+            echo $this->view("storemanager/supplies",[ "supplies" => $supplies]);
 
     }
 

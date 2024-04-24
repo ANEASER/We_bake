@@ -18,6 +18,22 @@
         
     </div>
 
+    <section style="width: 100%; padding:1%">
+        <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
+            <form method="GET" action="<?php echo BASE_URL; ?>StoreControls/SearchSupply" style="display: flex; flex-direction:row;">
+                <?php
+                    if(isset($_GET['search'])) {
+                        echo '<input type="text" id="search" name="search" placeholder="Supply ID,Item ID or Invoice No" value="' . $_GET['search'] . '" class="searchbox">';
+                        echo '<input class="searchbutton" style="margin-right:1%" type="submit" value="Search">';
+                        echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
+                    } else {
+                        echo '<input type="text" id="search" name="search" placeholder="Supply ID,Item ID or Invoice No" class="searchbox">';
+                        echo '<input class="searchbutton" type="submit" value="Search">';
+                }?>
+            </form>
+        </div>
+    </section>
+
     <section style="display:flex;justify-content:space-around; width:100%">
     <?php //The table structure 
         if (count($supplies) > 0){
@@ -63,6 +79,15 @@
     <script>
 
         var BASE_URL = "<?php echo BASE_URL; ?>";
+
+        function search() {
+            var query = document.getElementById('search').value;
+            window.location.href = BASE_URL + "StoreControls/SearchSupply?search=" + encodeURIComponent(query);
+        }
+
+        function clearSearch() {
+            window.location.href = BASE_URL + "StoreControls/loadStocksView";
+        }
 
         function updateSupply(id) {
             window.location.href = BASE_URL +  "StoreControls/updateSuppliesView/"+id;
