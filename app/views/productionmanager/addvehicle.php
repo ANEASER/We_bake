@@ -106,9 +106,9 @@
             var chassiNumber = document.getElementById("chassinumber").value;
             var engineNumber = document.getElementById("enginenumber").value;
 
-            var regxPattern = /^([A-Za-z]{3}-\d{4})|([A-Za-z]{2}-\d{4})|(\d{2}-\d{4})$/;
+            var regxPattern = /^([A-Za-z]{2,3}\s\d{4})|(\d{2}\s\d{4})$/;
 
-            if (!regxPattern.test(registrationNumber)) {
+            if (registrationNumber && !regxPattern.test(registrationNumber)) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Invalid Registration Number',
