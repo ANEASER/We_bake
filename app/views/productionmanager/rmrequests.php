@@ -15,7 +15,30 @@
     
     <style>
 
-        input[type=number],
+    .hover{
+                display:flex;
+                padding :8px;
+    }
+            .button {
+                border: none;
+                color: white;
+                padding: 10px;
+                text-align: center;
+                text-decoration: none; 
+                justify-content: center;
+                align-items: right;
+                font-size: 16px;
+                border-radius: 9px;
+            }
+            .red {
+                background-color: #e74c3c;
+            }
+            .green {
+                background-color: #2ecc71;
+            }
+            .blue {
+                background-color: #3498db;
+            }    input[type=number],
         select 
         {
             width: 20%;
@@ -45,9 +68,10 @@
     <?php
     require('pmnavbar.php');
     ?>
-    <section class="content" style="display: flex; flex-direction:row">
-            <section class="cart" style="padding : 2%;font-size: 1em;">
-                <h1 style="text-align:center;">Tomorrow Production</h1>
+    <div style="display: flex; flex-direction:column;">
+    <section class="content" style="display: flex; flex-direction:row ;">
+            <section class="cart" style="padding : 20%;font-size: 1em;">
+                <h1 style="text-align:center;">Tomorrow Production Requirement</h1>
                 <?php
                     echo "<br>";
                     echo "<table>";
@@ -73,7 +97,7 @@
                     ?>
         </section>
         
-        <section class="cart" style="padding : 2%;font-size: 1em; margin-left : 10px;">
+        <section class="cart" style="padding : 20%;font-size: 1em; margin-left : 10%;">
             <?php 
                 if($placedstockorder != null){
                     echo "<h1 style='text-align:center;'>Stock Order</h1>";
@@ -118,6 +142,7 @@
                
             </div>
         </section>
+                                        </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <script>
             $(document).ready(function(){

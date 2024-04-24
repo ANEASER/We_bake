@@ -106,23 +106,23 @@ class PmControls extends Controller
     }
 
                                     //OUTLET ORDERS
-//VIEWS
-//Outlet Orders View
-function outletOrdersView(){
-    if (!Auth::loggedIn()) {
-        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        return;
-    }
+    //VIEWS
+    //Outlet Orders View
+    function outletOrdersView(){
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+            return;
+        }
 
-    if ($_SESSION["USER"]->Role !== "productionmanager") {
-        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        return;
-    }
+        if ($_SESSION["USER"]->Role !== "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+            return;
+        }
 
-    $ProductOrder = new ProductOrder;
-    $productorder = $ProductOrder->findOutletOrders();
-    echo $this->view("productionmanager/outletorders", ["productorder"=>$productorder]);
-}
+        $ProductOrder = new ProductOrder;
+        $productorder = $ProductOrder->findOutletOrders();
+        echo $this->view("productionmanager/outletorders", ["productorder"=>$productorder]);
+    }
 
     //FUNCTIONS
     // Process Order - outlet
@@ -192,24 +192,6 @@ function outletOrdersView(){
         $this->redirect(BASE_URL . "pmcontrols/outletOrdersView");
     }
 
-    
-    
-/*
-    // More Details View
-    function moreDetails($orderid)
-    {
-        if (!Auth::loggedIn()) {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-        if ($_SESSION["USER"]->Role != "productionmanager") {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-
-        $ProductOrderLine = new ProductOrderLine;
-        $productorderline = $ProductOrderLine->where("unique_id",$unique_id);
-        echo $this->view("productionmanager/moredetails", ["productorderline",$productorderline]);
-    }*/
-    
 
                                                             // VEHICLE
     // VIEWS
@@ -240,7 +222,7 @@ function outletOrdersView(){
         echo $this->view("productionmanager/addvehicle");
     }
     
-    // Assign Vehicle View - customer
+    // Assign Vehicle View 
     function assignVehicleView($orderid) //, $capacity
     {
         if (!Auth::loggedIn()) {
@@ -257,23 +239,6 @@ function outletOrdersView(){
         echo $this->view("productionmanager/assignvehicle", ["orderid"=>$orderid, "vehicles"=>$vehicles]);
     }
 
- /*   // Assign Vehicle View - outlet
-    function assignVehicleViewOutlet($orderid) //, $capacity
-    {
-        if (!Auth::loggedIn()) {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-        if ($_SESSION["USER"]->Role != "productionmanager") {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-
-        $vehicle = new vehicle;
-        //$capacity = $vehicle->where("capacity", $capacity);
-        $vehicles = $vehicle->assignVehicle(); //$capacity)
-
-        echo $this->view("productionmanager/assignvehicle", ["orderid"=>$orderid, "vehicles"=>$vehicles]);
-    } */
-
     //Edit Vehicle View
     function editVehicleView($vehicleno){
         if (!Auth::loggedIn()) {
@@ -283,7 +248,7 @@ function outletOrdersView(){
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
         $vehicle = new Vehicle;
-        $data = $vehicle->where("vehicleid",$vehicleno);
+        $data = $vehicle->where("vehicleno",$vehicleno);
 
         echo $this->view("productionmanager/editvehicle", ["data"=>$data]);
     }
