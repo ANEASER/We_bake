@@ -10,6 +10,10 @@
 </head>
 <body>
 
+    <?php
+        include "ownernavbar.php";
+    ?>
+
     <style>
         .linechart {
             width: 700px;

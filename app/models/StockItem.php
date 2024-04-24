@@ -8,6 +8,5 @@
             $query = "SELECT DISTINCT $column FROM $this->table";
             return $this->query($query, []);
         }
-
     }
 ?>

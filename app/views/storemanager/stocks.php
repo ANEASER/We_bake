@@ -61,7 +61,7 @@
 
                 foreach($stocks as $stocks){
                     echo '<tr>';
-                    echo '<td>' . $stocks->ItemID . '</td>';
+                    echo '<td>' . $stocks->CustomItemID . '</td>';
                     echo '<td>' . $stocks->Name . '</td>';
                     echo '<td>' . $stocks->Type . '</td>';
                     echo '<td>' . $stocks->UnitOfMeasurement . '</td>';
