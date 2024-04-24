@@ -64,12 +64,14 @@
                 }
             }
 
+            $fulltotal = $total + $_SESSION["delivery_charge"]; 
+            $_SESSION["total"] = $fulltotal;
+            $_SESSION["order_cap"] = $containercount;
             echo "</table>";
             echo "<br>";
             echo "<p style='padding-left:2%; text-align:center'>CART PRICE: Rs. " . $total."</p>";
             echo "<p style='padding-left:2%; text-align:center'>DELIVERY CHARGE: Rs. " . $_SESSION["delivery_charge"]."</p>";
-            echo "<p style='padding-left:2%; text-align:center'>Quantity : " . $quantity."</p>";
-            echo "<p style='padding-left:2%; text-align:center'>No. Container : " . $containercount."</p>";
+            echo "<p style='padding-left:2%; text-align:center'>TOTAL PRICE: Rs. " . ($fulltotal)."</p>";
             echo "<br>";
         ?>
 

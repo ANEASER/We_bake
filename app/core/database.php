@@ -36,8 +36,9 @@ class Database {
             
                 }
             } catch (PDOException $e) {
-                $redirect = BASE_URL."CommonControls/loadInternalServerError";
-                header("Location: $redirect");
+                echo $e->getMessage();
+                //$redirect = BASE_URL."CommonControls/loadInternalServerError";
+                //header("Location: $redirect");
                 exit();
             }
         }

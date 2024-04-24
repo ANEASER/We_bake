@@ -1,38 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
-    <title>place order</title>
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
+    <title>Place Order</title>
 </head>
-  
-    <body>
-    <?php
+<body>
+      
+       <?php
         include "omnavbar2.php";
     ?>
- 
- 
-
-
-
-    <h1> </h1>
-
-    <script>
-        var BASE_URL = "<?php echo BASE_URL; ?>";
-        
-        function loadSuppliers() {
-            window.location.href = BASE_URL +  "StoreControls/viewSupplier";
-        }
-
-        function loadStocks() {
-            window.location.href = BASE_URL +  "StoreControls/viewStocks";
-        }
-    </script>
+        <section>
     
+            <div class = "form-container">
+                    <form class="form" action="<?php echo BASE_URL; ?>OutletControls/submitorder" method="post">
+                        <div class="form-group">
+                            <label for="orderdate"><br>Order Date:</label>
+                            <input type="date" id="orderdate"  min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" name="orderdate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="ordertype"><br>Order Type</label>
+                            <select id="ordertype" name="ordertype" required>
+                                <option value="dynamic">Dynamic</option>
+                                <option value="constant">Constant</option>
+                            </select>
+                        </div>
+                        <br>
+                        <input  class="bluebutton" type="submit" value="Submit">
+                    </form>
+            </div>
+
+        </section>
+
+
+     <script>
+
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
+        function dashboard(){
+            window.location.href = BASE_URL + "outletControls/index";
+        }
+
+        function more(unique_id){
+            window.location.href = BASE_URL + "outletControls/moredetails/" + unique_id;
+        }
+     </script>
 </body>
-</html>   
+</html>

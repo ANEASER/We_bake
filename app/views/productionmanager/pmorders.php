@@ -12,8 +12,11 @@
     <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
     <style>
-        .button{
-            
+        .hover{
+            display:flex;
+            padding :8px;
+        }
+        .button {
             border: none;
             color: white;
             padding: 10px;
@@ -22,53 +25,55 @@
             justify-content: center;
             align-items: right;
             font-size: 16px;
-            margin-left: 30px;
             border-radius: 9px;
-        
         }
-        .red{
+        .red {
             background-color: #e74c3c;
         }
-        .green{
+        .green {
             background-color: #2ecc71;
         }
-        .blue{
+        .blue {
             background-color: #3498db;
         }
     </style>
-    <title>Production Orders</title>
+    <title>Customer Orders</title>
 </head>
 <body>
     <?php include 'pmnavbar.php'; ?>
+
     <div class="searchpanel">
         <form method="GET" action="<?php echo BASE_URL;?>OrderControls/searchOrders" class="search" style="display:flex; flex-direction:row;">
         <?php
         if(isset($_GET['search'])){
             echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="'.$_GET['search'].'" class="searchbox">';
-            echo '<input type="submit" value="Search" class="greenbutton">';
+            echo '<input type="submit" value="Search" class="button green">';
             echo '<button class="button green" onclick="clearSearch(); return false;">Clear Search</button>';
         }
         else{
-            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="'.$_GET['search'].'" class="searchbox">';
-            echo '<input type="submit" value="Search" class="greenbutton">';
+            echo '<input type="text" id="search" name="search" placeholder="Enter Order ID or Place BY" value="" class="searchbox">';
+            echo '<input type="submit" value="Search" class="button green">';
         }
-            ?>
+        ?>
         </form>
         
-        <ul style="display: flex;margin-left: 70%;">
+        <ul style="display: flex;margin-left: 40%;">
             <ul style="display: flex; padding: 0; list-style: none; margin: 0;">
-                <li style="margin-right: 10px;"><a id="home" onclick="showPendingOrderTable(this)">PendingOrders</a></li>
-                <li style="margin-right: 10px;"><a onclick="showPickupOrderTable(this)" >PickupOrders</a></li>
-                <li style="margin-right: 10px;"><a onclick="showDeliveryOrderTable(this)" >ToDeliverOrders</a></li>
-                <li style="margin-right: 10px;"><a onclick="showOnDeliveryOrderTable(this)" >OnDeliveryOrders</a></li>
-                <li style="margin-right: 10px;"><a onclick="showCompletedOrderTable(this)" >CompletedOrders</a></li>
+                <li style="margin-right: 10px;"><a class="hover"id="home" onclick="showPendingOrderTable(this)">PendingOrders</a></li>
+                <li style="margin-right: 10px;"><a class="hover" onclick="showPickupOrderTable(this)">PickupOrders</a></li>
+                <li style="margin-right: 10px;"><a class="hover" onclick="showDeliveryOrderTable(this)">ToDeliverOrders</a></li>
+                <li style="margin-right: 10px;"><a class="hover" onclick="showOnDeliveryOrderTable(this)">OnDeliveryOrders</a></li>
+                <li style="margin-right: 10px;"><a class="hover" onclick="showCompletedOrderTable(this)">CompletedOrders</a></li>
+                <li style="margin-right: 10px;"><a class="hover" onclick="showCancledOrderTable(this)">CancledOrders</a></li>
             </ul>
         </ul>
     </div>
 
     <section style="display:flex;justify-content:space-around; width:100%">
+        
+        <!-- Pending Orders -->
         <?php
-        echo "<div id='PendingOrdersTable'>";
+        echo "<div id='PendingOrdersTable' style='display:none'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<tr>
                 <th>Order REF</th>
@@ -97,8 +102,13 @@
                     echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->unique_id."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
-                    echo "<td><button class='button green' onclick='process(".$ProductOrder->orderref.", \"".$ProductOrder->deliverystatus."\")'>Process</button></td>";
-                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
+                    if($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced"){
+                        echo "<td><button class='button green' onclick='process(".$ProductOrder->orderid.", \"".$ProductOrder->deliverystatus."\")'>Process</button></td>";
+                    }
+                    else{
+                        echo "<td>Incomplete Payment</td>";
+                    }
+                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }
@@ -107,8 +117,10 @@
         echo "</div>";
         ?>
 
+        <!-- Pickup Orders -->
+
         <?php
-        echo "<div id='PickupOrderTable'>";
+        echo "<div id='PickupOrderTable' style='display:none'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<tr>
                 <th>Order REF</th>
@@ -120,13 +132,13 @@
                 <th>Deliver By</th>
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
-                <th>Update Order</th>
+                <th>Complete Order</th>
                 <th>Cancel Order</th>
                 <th>More Details</th>
             </tr>";
             
             foreach ($productorder as $ProductOrder){
-                if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "completed" || $ProductOrder->paymentstatus == "advanced")) {
+                if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && $ProductOrder->deliverystatus == "pickup" ) { //&& $ProductOrder->orderdate == date('Y-m-d')
 
                     echo "<tr>";
                     echo "<td>".$ProductOrder->orderref."</td>";
@@ -138,8 +150,8 @@
                     echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->unique_id."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
-                    echo "<td><button class='button green' onclick='process(".$ProductOrder->orderref.")'>Process</button></td>";
-                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
+                    echo "<td><button class='button green' onclick='completed(".$ProductOrder->orderid.")'>Complete</button></td>";
+                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }
@@ -148,8 +160,10 @@
         echo "</div>";
         ?>
 
+        <!-- Delivery Orders -->
+
         <?php
-        echo "<div id='DeliveryOrderTable'>";
+        echo "<div id='DeliveryOrderTable' style='display:none'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<th>Order REF</th>
                 <th>Placed By</th>
@@ -160,14 +174,14 @@
                 <th>Deliver By</th>
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
-                <th>Update Order</th>
+                <th>Assign Vehicle</th>
                 <th>Cancel Order</th>
                 <th>More Details</th>
             </tr>";
 
             foreach($productorder as $ProductOrder){ 
 
-                if($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "completed" || $ProductOrder->paymentstatus == "advanced")) {
+                if($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && ($ProductOrder->deliverystatus == "delivery")) { // && $ProductOrder->orderdate == date('Y-m-d')
 
                     echo "<tr>";
                     echo "<td>".$ProductOrder->orderref."</td>";
@@ -179,8 +193,8 @@
                     echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->unique_id."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
-                    echo "<td><button class='button green' onclick='assignvehicle(".$ProductOrder->orderref.")'>Assign Vehicle</button></td>";
-                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
+                    echo "<td><button class='button green' onclick='assignvehicle(".$ProductOrder->orderid.", \"".$ProductOrder->order_cap."\")'>Assign</button></td>";
+                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                     echo "</tr>";
                 }    
@@ -189,8 +203,10 @@
             echo "</div>";
         ?>
 
+        <!-- On Delivery Orders -->
+
         <?php
-        echo "<div id='OnDeliveryOrderTable'>";
+        echo "<div id='OnDeliveryOrderTable' style='display:none'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<th>Order REF</th>
                 <th>Placed By</th>
@@ -201,14 +217,14 @@
                 <th>Deliver By</th>
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
-                <th>Update Order</th>
+                <th>Complete Order</th>
                 <th>Cancel Order</th>
                 <th>More Details</th>
             </tr>";
 
             foreach($productorder as $ProductOrder){ 
 
-                if($ProductOrder->orderstatus == "ondelivery" && ($ProductOrder->paymentstatus == "completed" || $ProductOrder->paymentstatus == "advanced")) {
+                if($ProductOrder->orderstatus == "ondelivery" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && $ProductOrder->orderdate == date('Y-m-d')) {
 
                 echo "<tr>";
                 echo "<td>".$ProductOrder->orderref."</td>";
@@ -220,8 +236,8 @@
                 echo "<td>".$ProductOrder->deliverby."</td>";
                 echo "<td>".$ProductOrder->unique_id."</td>";
                 echo "<td>".$ProductOrder->deliver_address."</td>";
-                echo "<td><button class='button green' onclick='completed(".$ProductOrder->orderref.")'>Complete</button></td>";
-                echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
+                echo "<td><button class='button green' onclick='completed(".$ProductOrder->orderid.")'>Complete</button></td>";
+                echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderref.")'>Cancel</button></td>";
                 echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                 echo "</tr>";
             }    
@@ -230,8 +246,10 @@
         echo "</div>";
         ?>
 
+        <!-- Completed Orders -->
+
         <?php
-        echo "<div id='CompletedOrderTable'>";
+        echo "<div id='CompletedOrderTable' style='display:none'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<th>Order REF</th>
                 <th>Placed By</th>
@@ -246,7 +264,45 @@
             </tr>";
 
             foreach($productorder as $ProductOrder) {
-            if ($ProductOrder->orderstatus == "finished" && $ProductOrder->paymentstatus == "completed" ){
+            if ($ProductOrder->orderstatus == "finished" && $ProductOrder->paymentstatus == "paid" ){
+
+                echo "<tr>";
+                echo "<td>".$ProductOrder->orderref."</td>";
+                echo "<td>".$ProductOrder->placeby."</td>";
+                echo "<td>".$ProductOrder->orderdate."</td>";
+                echo "<td>".$ProductOrder->paymentstatus."</td>";
+                echo "<td>".$ProductOrder->orderstatus."</td>";
+                echo "<td>".$ProductOrder->total."</td>";
+                echo "<td>".$ProductOrder->deliverby."</td>";
+                echo "<td>".$ProductOrder->unique_id."</td>";
+                echo "<td>".$ProductOrder->deliver_address."</td>";
+                echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
+                echo "</tr>";
+            }
+        }
+        echo "</table>";
+        echo "</div>";
+        ?>
+
+        <!-- Cancled Orders -->
+
+        <?php
+        echo "<div id='CancledOrderTable' style='display:none'>";
+        echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
+        echo "<th>Order REF</th>
+                <th>Placed By</th>
+                <th>Order Date</th>
+                <th>Payment Status</th>
+                <th>Order Status</th>
+                <th>Total</th>
+                <th>Deliver By</th>
+                <th>Unique ID</th>
+                <th>Deliver Address</th>
+                <th>More Details</th>
+            </tr>";
+
+            foreach($productorder as $ProductOrder) {
+            if ($ProductOrder->orderstatus == "cancled"){
 
                 echo "<tr>";
                 echo "<td>".$ProductOrder->orderref."</td>";
@@ -270,6 +326,30 @@
     <script>
     var BASE_URL = "<?php echo BASE_URL; ?>";
 
+    document.addEventListener('DOMContentLoaded', function () {
+
+            console.log('DOMContentLoaded');
+            var activeLink = sessionStorage.getItem('activeLink');
+            console.log(activeLink);
+            if (activeLink != "showpendingOrdersTable(this)" || activeLink != "showCompletedOrderTable(this)" || activeLink != "showDeliverOrderTable(this)" || activeLink != "showOnDeliverOrderTable" || activeLink != "showPickupOrderTable" || activeLink != "showCancledOrdersTable(this)" || activeLink == null){
+                var homeLink = document.getElementById('home');
+                if (homeLink) {
+                    homeLink.click();
+                }
+            } else {
+                var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
+                if (linkElement) {
+                    linkElement.classList.add('active');
+
+                    var functionName = activeLink.match(/([a-zA-Z]+)\(/)[1];
+
+                    if (typeof window[functionName] === 'function') {
+                        window[functionName](linkElement);
+                    }
+                }
+            }
+        });
+
     function changeActiveLink(link){
         var links = document.querySelectorAll("body div ul li a");
         links.forEach(function (el){
@@ -281,44 +361,12 @@
         sessionStorage.setItem('activeLink', link.getAttribute('onclick'));
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        console.log('DOMContentLoaded');
-        var activeLink = sessionStorage.getItem('activeLink');
-        console.log(activeLink);
-
-        if (
-            activeLink != "showPendingOrdersTable(this)" &&
-            activeLink != "showCompletedOrderTable(this)" &&
-            activeLink != "showDeliverOrderTable(this)" &&
-            activeLink != "showOnDeliverOrderTable" &&
-            activeLink != "showPickupOrderTable" &&
-            activeLink != null
-        ) {
-            var homeLink = document.getElementById('home');
-            if (homeLink) {
-                homeLink.click();
-            }
-        } else {
-            var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
-
-            if (linkElement) {
-                linkElement.classList.add('active');
-
-                var functionName = activeLink.match(/([a-zA-Z]+)\(/)[1];
-
-                if (typeof window[functionName] == 'function') {
-                    window[functionName](linkElement);
-                }
-            }
-        }
-    });
-
     function process(orderid, deliverystatus) {
         if(deliverystatus=="pickup"){
-            sessionStorage.setItem('activeLink', 'showPendingOrdersTable(this)');
+            sessionStorage.setItem('activeLink', 'showPickupOrderTable(this)');
         }
-        else{
-            sessionStorage.setItem('activeLink', 'showPendingOrderTable(this)');
+        else if(deliverystatus=="delivery"){
+            sessionStorage.setItem('activeLink', 'showDeliveryOrderTable(this)');
         }
         var url =  BASE_URL + "pmcontrols/processOrder/" + orderid + "/" + deliverystatus;
         window.location.href = url;
@@ -334,9 +382,9 @@
         window.location.href = url;
     }
 
-    function assignvehicle(orderref){
+    function assignvehicle(orderid){ //, capacity
         sessionStorage.setItem('activeLink', 'showDeliveryOrderTable(this)');
-        var url = BASE_URL + "pmcontrols/assignVehicle/" + orderref;
+        var url = BASE_URL + "pmcontrols/assignVehicleView/" + orderid ; //+  "/" + capacity
         window.location.href = url;
     }
 
@@ -353,6 +401,7 @@
         document.getElementById("DeliveryOrderTable").style.display = "none";
         document.getElementById("OnDeliveryOrderTable").style.display = "none";
         document.getElementById("CompletedOrderTable").style.display = "none";
+        document.getElementById("CancledOrderTable").style.display = "none";
     }
 
     function showPickupOrderTable(link){
@@ -362,6 +411,7 @@
         document.getElementById("DeliveryOrderTable").style.display = "none";
         document.getElementById("OnDeliveryOrderTable").style.display = "none";
         document.getElementById("CompletedOrderTable").style.display = "none";
+        document.getElementById("CancledOrderTable").style.display = "none";
     }
 
     function showDeliveryOrderTable(link){
@@ -371,6 +421,7 @@
         document.getElementById("DeliveryOrderTable").style.display = "block";
         document.getElementById("OnDeliveryOrderTable").style.display = "none";
         document.getElementById("CompletedOrderTable").style.display = "none";
+        document.getElementById("CancledOrderTable").style.display = "none";
     }
 
     function showOnDeliveryOrderTable(link){
@@ -380,6 +431,7 @@
         document.getElementById("DeliveryOrderTable").style.display = "none";
         document.getElementById("OnDeliveryOrderTable").style.display = "block";
         document.getElementById("CompletedOrderTable").style.display = "none";
+        document.getElementById("CancledOrderTable").style.display = "none";
     }
 
     function showCompletedOrderTable(link){
@@ -389,10 +441,21 @@
         document.getElementById("DeliveryOrderTable").style.display = "none";
         document.getElementById("OnDeliveryOrderTable").style.display = "none";
         document.getElementById("CompletedOrderTable").style.display = "block";
+        document.getElementById("CancledOrderTable").style.display = "none";
+    }
+
+    function showCancledOrderTable(link){
+        changeActiveLink(link);
+        document.getElementById("PendingOrdersTable").style.display = "none";
+        document.getElementById("PickupOrderTable").style.display = "none";
+        document.getElementById("DeliveryOrderTable").style.display = "none";
+        document.getElementById("OnDeliveryOrderTable").style.display = "none";
+        document.getElementById("CompletedOrderTable").style.display = "none";
+        document.getElementById("CancledOrderTable").style.display = "block";
     }
 
     function clearSearch(){
-        window.location.href = BASE_URL + "pmcontrols/pendingOrdersView";
+        window.location.href = BASE_URL + "pmcontrols/index";
     }
 
     </script>

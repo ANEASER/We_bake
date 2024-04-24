@@ -32,30 +32,37 @@ class CommonControls extends Controller {
                     
                     if (isset($user->Role)) {
                         $role = $user->Role;
-
-                        
-                        
-                        if ($_POST["password"] == $user->Password) {
-                            Auth::authenticate($user);
+                        $verifiedpassword = password_verify($_POST["password"], $user->Password);
+                        if ($verifiedpassword) {
                             
-                            if ($role == 'admin') {
-                                $this->redirect(BASE_URL."AdminControls");
-                            } elseif ($role == 'storemanager') {
-                                $this->redirect(BASE_URL."StoreControls");
-                            } elseif ($role == 'receptionist') {
-                                $this->redirect(BASE_URL."RecieptionControls");
-                            }elseif ($role == 'billingclerk') {
-                                $this->redirect(BASE_URL."BillingControls");
-                            } elseif($role=="outletmanager"){
-                                $this->redirect(BASE_URL."OutletControls");
-                            }elseif($role=="storemanager"){
-                                $this->redirect(BASE_URL."StoreControls");
-                            }elseif($role=="owner"){
-                                $this->redirect(BASE_URL."OwnerControls");
+                            if($user->ActiveState == 'Active'){
+                                Auth::authenticate($user);
+                                if ($role == 'admin') {
+                                    $this->redirect(BASE_URL."AdminControls");
+                                } elseif ($role == 'storemanager') {
+                                    $this->redirect(BASE_URL."StoreControls");
+                                } elseif ($role == 'receptionist') {
+                                    $this->redirect(BASE_URL."RecieptionControls");
+                                }elseif ($role == 'billingclerk') {
+                                    $this->redirect(BASE_URL."BillingControls");
+                                } elseif($role=="outletmanager"){
+                                    $this->redirect(BASE_URL."OutletControls");
+                                }elseif($role=="storemanager"){
+                                    $this->redirect(BASE_URL."StoreControls");
+                                }elseif($role=="owner"){
+                                    $this->redirect(BASE_URL."OwnerControls");
+                                }
+                                else {
+                                    $this->redirect(BASE_URL."Pmcontrols");
+                                }
                             }
-                            else {
-                                $this->redirect(BASE_URL."Pmcontrols");
+                            elseif ($user->ActiveState == 'FirstLogin'){
+                                $this->redirect(BASE_URL."CommonControls/changeFirsttimePasswordView/".$user->UserName);
+                            }else {
+                                $error = "User account has restricted access";
+                                $this->view("common/login",["error"=>$error]);
                             }
+                
                         } else {
                             $error = "Invalid password username or password";
                             $this->view("common/login",["error"=>$error]);
@@ -158,8 +165,11 @@ class CommonControls extends Controller {
                 $this->view("common/register",["error"=>$error]); 
             } else {
 
-                $row = $systemuser->where("UserName", $arr["UserName"]);
-                $user = $row[0];
+                $userbysuername = $systemuser->where("UserName", $arr["UserName"]);
+
+                $userbyemail = $systemuser->where("Email", $arr["Email"]);
+
+                $userbycontactno = $systemuser->where("contactNo", $arr["contactNo"]);;
 
                 $emailRegex = '/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/';
                 $contactNoRegex = '/^[0-9]{10,14}$/';
@@ -178,13 +188,18 @@ class CommonControls extends Controller {
                     session_start();
                 }
 
-                if ($user->UserName == $arr["UserName"]) {
+                if ($userbysuername != null &&  $userbysuername[0]->UserName == $arr["UserName"]) {
                     $error = "Username already exists";
-                    $this->view("common/register",["error"=>$error]);}
+                    $this->view("common/register",["error"=>$error, "values"=>$arr ]);}
 
-                if ($user->Email == $arr["Email"]) {
+                if ($userbyemail != null && $userbyemail[0]->Email == $arr["Email"]) {
                     $error = "Email already exists";
-                    $this->view("common/register",["error"=>$error]);
+                    $this->view("common/register",["error"=>$error, "values"=>$arr]);
+                }
+
+                if ($userbycontactno != null && $userbycontactno[0]->contactNo == $arr["contactNo"]) {
+                    $error = "Contact number already exists";
+                    $this->view("common/register",["error"=>$error , "values"=>$arr]);
                 }
 
                 $_SESSION['arr'] = $arr;
@@ -255,7 +270,7 @@ class CommonControls extends Controller {
             }
         else{
             $error = "User not found";
-            $this->view("common/resetpassword",["error"=>$error]);    
+            $this->view("common/findprofileview",["error"=>$error]);    
         
         }
     }
@@ -315,6 +330,28 @@ class CommonControls extends Controller {
             $error = "Passwords do not match";
             $this->view("common/resetpasswordview",["error"=>$error]);
         }
+    }
+
+    public function changeFirsttimePasswordView($username){
+        $this->view("common/chanegfirsttimepasswordview",["username"=>$username]);
+    }
+
+    public function changeFirsttimePassword(){
+        $newpassword = $_POST["newpassword"];
+        $confirmpassword = $_POST["confirmpassword"];
+
+        $systemuser = new Systemuser();
+        
+         if($newpassword != $confirmpassword){
+            $error = "Passwords do not match";
+            $this->view("common/chanegfirsttimepasswordview",["error"=>$error]);
+        }else{
+            $hashednewpassword = password_hash($newpassword, PASSWORD_DEFAULT);
+            $systemuser->update($_POST["UserName"],"UserName",[ "Password" => $hashednewpassword , "ActiveState" => "Active"]);
+            $message = "Password changed successfully";
+            $this->view("common/login",["message"=>$message]);
+        }
+            
     }
 }
     

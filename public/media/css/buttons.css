@@ -31,7 +31,6 @@ button, input[type="submit"] {
             justify-content: center;
             align-items: right;
             font-size: 16px;
-            margin-left:30px;
             border-radius:9px;
 
     background-color: #2ecc71;
@@ -90,7 +89,7 @@ button, input[type="submit"] {
 .brownbutton {
     margin: 1% 5%;
     background-color: #41201f;
-    color: #41201f;
+    color: #ffffff;
 }
 
 .brownbutton:hover {
@@ -173,4 +172,11 @@ button, input[type="submit"] {
 
 .formbutton:hover {
     background-color: #56312c; 
+}
+
+.swal2-actions {
+    width: 100% !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

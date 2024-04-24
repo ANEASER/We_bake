@@ -18,7 +18,6 @@
             justify-content: center;
             align-items: right;
             font-size: 16px;
-            margin-left: 30px;
             border-radius: 9px;
         }
         .red{
@@ -28,6 +27,7 @@
             background-color: #2ecc71;
         }
         .blue{
+            margin-left:2%;
             background-color: #3498db;
         }
         .yellow{
@@ -41,10 +41,9 @@
     require('pmnavbar.php');
     ?>
 
-<h1 style="margin-left:40%; margin-top:20px;">Vehicle Availability</h1>
 
     <div class="searchpanel">
-        <form method="get" action="<?php echo BASE_URL;?> pmcontrols/searchVehicle" style="display:flex; flex-direction:row;">
+        <form method="get" action="<?php echo BASE_URL;?>pmcontrols/searchVehicle" style="display:flex; flex-direction:row;">
         <?php    
 
         if (isset($_GET['search'])){
@@ -55,16 +54,22 @@
             echo '<input class="searchbox" type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" >';
         }
         ?>
+        
         <input class="button green" type="submit" value="Search">
         </form>
     
-        
-        <button class="button blue" onclick="addVehicle()" role="button">Add New Vehicle</button>
-        
     </div>
-    <div>
-        <table style="margin:auto; margin-top: 10px;">
-            <tr>
+    <button class="button blue" onclick="addVehicle()" role="button">Add New Vehicle</button>
+       
+
+
+    <?php
+        $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+    ?>
+    <section style="display:flex;justify-content:space-around; width:100%">
+    <?php
+        echo '<table style="margin:auto; margin-top: 10px;">';
+            echo '<tr>
                 <th>Registration Number</th>
                 <th>Vehicle Type</th>
                 <th>Model Name</th>
@@ -75,40 +80,58 @@
                 <th>Availability</th>
                 <th>Update</th>
                 <th>Delete</th>
-            </tr>
-            <?php foreach ($vehicles as $vehicle) : ?>
-                <?php if ($vehicle->availability == 1): ?>
-                    <tr>
-                <?php else: ?>
-                    <tr style="background-color: red;">
-                <?php endif; ?>
-                    <td><?php echo $vehicle->registrationnumber; ?></td>
-                    <td><?php echo $vehicle->type; ?></td>
-                    <td><?php echo $vehicle->modelname; ?></td>
-                    <td><?php echo $vehicle->vehicleno; ?></td>
-                    <td><?php echo $vehicle->chassinumber; ?></td>
-                    <td><?php echo $vehicle->enginenumber; ?></td>
-                    <td><?php echo $vehicle->capacity; ?></td>
-                    <td><?php echo $vehicle->availability; ?></td>
-                    <td><button class="button yellow" onclick="edit(<?php echo $vehicle->vehicleno; ?>)">Update</button></td>
-                    <td><button class="button red" onclick="del(<?php echo $vehicle->vehicleno; ?>)">Delete</button></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    </div>
+            </tr>';
+            foreach ($vehicles as $vehicle){ 
+                if ($vehicle->ActiveState == 1){
+                    if ($vehicle->availability == 1){ 
+                    echo '<tr>';
+                    echo '<td>'.$vehicle->registrationnumber.'</td>';
+                    echo '<td>'.$vehicle->type.'</td>';
+                    echo '<td>'.$vehicle->modelname.'</td>';
+                    echo '<td>'.$vehicle->vehicleno.'</td>';
+                    echo '<td>'.$vehicle->chassinumber.'</td>';
+                    echo '<td>'.$vehicle->enginenumber.'</td>';
+                    echo '<td>'.$vehicle->capacity.'</td>';
+                    echo '<td>'.$vehicle->availability.'</td>';
+                    echo '<td><button class="button yellow" onclick="edit(\''.$vehicle->vehicleno.'\')">Update</button></td>';
+echo '<td><button class="button red" onclick="del(\''.$vehicle->vehicleno.'\')">Delete</button></td>';
+echo '</tr>';
+                }
+                else{ 
+                    echo '<tr style="background-color: red;">';
+                    echo '<td>'.$vehicle->registrationnumber.'</td>';
+                    echo '<td>'.$vehicle->type.'</td>';
+                    echo '<td>'.$vehicle->modelname.'</td>';
+                    echo '<td>'.$vehicle->vehicleno.'</td>';
+                    echo '<td>'.$vehicle->chassinumber.'</td>';
+                    echo '<td>'.$vehicle->enginenumber.'</td>';
+                    echo '<td>'.$vehicle->capacity.'</td>';
+                    echo '<td>'.$vehicle->availability.'</td>';
+                    echo '<td><button class="button yellow" onclick="edit('.$vehicle->vehicleno.')">Update</button></td>';
+                    echo '<td><button class="button red" onclick="del('.$vehicle->vehicleno.')">Delete</button></td>';
+                echo '</tr>';
+                }
+                    
+                }
+            }
+        echo '</table>';
+    ?>
+    </section>
 
 <script>
+    var BASE_URL = "<?php echo BASE_URL; ?>";
+
     function addVehicle() {
         window.location.href = BASE_URL + "pmcontrols/addVehicleView";
     }
     function viewall(){
         window.location.href = BASE_URL + "pmcontrols/loadVehiclesView";
     }
-    function edit(){
-        window.location.href = BASE_URL + "pmcontrols/editVehicle";
+    function edit(vehicleid){
+        window.location.href = BASE_URL + "pmcontrols/editVehicleView/"+ vehicleid;
     }
     function del(vehicleid) {
-            window.location.href = BASE_URL +  "pmControls/deleteVehicle/"+vehicleid;
+            window.location.href = BASE_URL +  "pmControls/deleteVehicle/"+ vehicleid;
     }
 
 </script>

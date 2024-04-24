@@ -26,7 +26,7 @@
             $data = $customer->where("UserName", $_SESSION["USER"]->UserName);
 
             $productorder = new ProductOrder();
-            $orders = $productorder->where("placeby", $_SESSION["USER"]->UserName);
+            $orders = $productorder->findalldescwithplaceby($_SESSION["USER"]->UserName);
 
             $unique_ids = array();
             foreach($orders as $order){
@@ -98,7 +98,7 @@
             }
 
             $productorder = new ProductOrder();
-            $orders = $productorder->where("placeby", $_SESSION["USER"]->UserName);
+            $orders = $productorder->findalldescwithplaceby($_SESSION["USER"]->UserName);
             echo $this->view("customer/purchasehistory",[ "orders" => $orders]);
         }
 

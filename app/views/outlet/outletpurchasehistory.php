@@ -1,7 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="en">
-    
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
@@ -9,14 +9,16 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <title>Purchase History</title>
+
 </head>
-  
-    <body>
-    <?php
+<body>
+
+    
+       <?php
         include "omnavbar2.php";
     ?>
 
-<style>
+    <style>
             .pagination-container {
                 text-align: center;
                 margin-top: 10px; /* Adjust as needed */
@@ -35,8 +37,8 @@
     
     <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
         <?php
-                $itemsPerPage = 9;//thani page ekata ena ite gana
-                $totalOrders = count($purchasedetails);
+                $itemsPerPage = 9;
+                $totalOrders = count($orders);
                 $totalPages = ceil($totalOrders / $itemsPerPage);
 
                 // Assuming you have a page parameter in your URL, e.g., ?page=2
@@ -59,7 +61,7 @@
                 </tr>';
 
                 for ($i = $startIndex; $i < $endIndex; $i++) {
-                    $order = $purchasedetails[$i];
+                    $order = $orders[$i];
                     echo '<tr>';
                     echo '<td>' . $order->orderref. '</td>';
                     echo '<td>' . $order->orderdate . '</td>';
@@ -86,20 +88,20 @@
 
     </section>
 
+     <script>
 
-    <h1> </h1>
-
-    <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
-        
-        function loadSuppliers() {
-            window.location.href = BASE_URL +  "StoreControls/viewSupplier";
+
+        function dashboard(){
+            window.location.href = BASE_URL + "outletControls/index";
         }
 
-        function loadStocks() {
-            window.location.href = BASE_URL +  "StoreControls/viewStocks";
+        function more(unique_id){
+            window.location.href = BASE_URL + "OrderControls/moredetails/" + unique_id;
         }
-    </script>
-    
+     </script>
 </body>
-</html>  
+</html>
+
+
+
