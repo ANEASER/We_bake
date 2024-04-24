@@ -524,7 +524,64 @@ function outletOrdersView(){
         if ($_SESSION["USER"]->Role != "productionmanager") {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
-        echo $this->view("productionmanager/rmrequests");
+
+        $productorder = new ProductOrder;
+        $orders = $productorder->tomarrowOrders();
+
+        foreach ($orders as $order) {
+            $uniqueIds[] = $order->unique_id;
+        }
+        
+        $productorderline = new ProductOrderLine();
+        $productorderlines = $productorderline->productOrderLinesbyUniqueIds($uniqueIds);
+
+        $unique_id = uniqid();
+
+        $stockitem = new StockItem();
+        $stockitems = $stockitem->getDistinct("Name");
+
+        $tomorrow = date("Y-m-d", strtotime('+1 day'));
+        $stockorder = new StockOrder();
+        $placedstockorder = $stockorder->where("ondate", $tomorrow);
+
+        $stocorderlines = new StockOrderLine();
+        if($placedstockorder != null){
+            foreach ($placedstockorder as $stockorder) {
+                $StockuniqueIds[] = $stockorder->unique_id;
+            }
+            $stockorderlines = $stocorderlines->StockOrderLinesbyUniqueIds($StockuniqueIds);
+        
+        }
+
+        if($productorderlines != null && $placedstockorder != null){
+            echo $this->view("productionmanager/rmrequests", ["productorderlines" => $productorderlines, "unique_id" => $unique_id, "stockitems" => $stockitems, "placedstockorder" => $placedstockorder, "stockorderlines" => $stockorderlines]);
+        }else{
+            echo $this->view("productionmanager/rmrequests", ["productorderlines" => $productorderlines, "unique_id" => $unique_id, "stockitems" => $stockitems, "placedstockorder" => $placedstockorder]);
+        }
+    
+        }
+
+    function InstertRawMaterialRequest(){
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        if ($_SESSION["USER"]->Role != "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+
+        $stockorderlines = $_POST;
+        
+        for ($i = 0; $i < count($stockorderlines['itemcode']); $i++) {
+            $stockorderline = new StockOrderLine();
+            $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][$i], "RawName" => $stockorderlines['itemcode'][$i], "quantity" => $stockorderlines['quantity'][$i]]);
+        }
+
+        $tomorrow = date("Y-m-d", strtotime('+1 day'));
+
+        $stockorder = new StockOrder();
+        $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow]);
+        
+        $this->redirect(BASE_URL . "pmcontrols/rmView");
     }
 }
 ?>

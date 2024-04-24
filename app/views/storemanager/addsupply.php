@@ -28,7 +28,7 @@
 
             <div class="form-group">
                 <label for="stockItemName">Item Name:</label>
-                <input type="text" id="stockItemName" name="Name" value="<?php echo $stocks[0]->Name; ?>" required>
+                <input type="text" id="stockItemName" name="stockItemName" value="<?php echo $stocks[0]->Name; ?>" required>
             </div>
 
             <div class="form-group">
