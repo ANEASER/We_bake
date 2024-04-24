@@ -179,7 +179,7 @@
             </tr>";
             
             foreach ($productorder as $ProductOrder){
-                if ($ProductOrder->orderstatus == "finishedproduction" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && $ProductOrder->deliverystatus == "outletpickup" && $ProductOrder->orderdate== date('Y-m-d', strtotime('+1 day'))) {
+                if ($ProductOrder->orderstatus == "finishedproduction" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && $ProductOrder->deliverystatus == "outletpickup") {
 
                     echo "<tr>";
                     echo "<td>".$ProductOrder->orderref."</td>";
