@@ -195,40 +195,33 @@ class StoreControls extends Controller {
 
     }
 
-    function deleteSupplies($id){
-        $supplies = new Supplies();
-        $supplies = $supplies->delete($id,"SupplyID");
-        $this->redirect(BASE_URL."StoreControls/viewSupplies");
-    }
-
-    // function deleteSupplies($id) {
-    //     // Create instances of Supplies and StockItem models
+    // function deleteSupplies($id){
     //     $supplies = new Supplies();
-    //     $stockItem = new StockItem();
-    
-    //     // Retrieve the supply record to get the DeliveredQuantity and StockItemID
-    //     $supply = $supplies->find($id);
-    //     $deliveredQuantity = $supply->DeliveredQuantity;
-    //     $stockItemID = $supply->StockItemID;
-    
-    //     // Delete the supply record from the supplies table
-    //     $supplies->delete($id, "SupplyID");
-    
-    //     // Retrieve the stock item from the stockItem table
-    //     $stockItem = $stockItem->where("ItemID", $stockItemID);
-    //     die(print_r($stockItem));
-    //     $currentStock = $stockItem->AvailableStock;
-    
-    //     // Calculate updated available stock
-    //     $updatedStock = max(0, $currentStock - $deliveredQuantity);
-    
-    //     // Update stockItem table with the new available stock
-    //     $updateData = ['AvailableStock' => $updatedStock];
-    //     $stockItem->update($stockItemID, "ItemID", $updateData);
-    
-    //     // Redirect to the supplies view page
-    //     $this->redirect(BASE_URL . "StoreControls/viewSupplies");
+    //     $supplies = $supplies->delete($id,"SupplyID");
+    //     $this->redirect(BASE_URL."StoreControls/viewSupplies");
     // }
+
+    function deleteSupplies($id){
+        // Create instances of StockItem and Supplies models
+        $stockItem = new StockItem();
+        $supplies = new Supplies();
+    
+        $supply = $supplies->where("SupplyID",$id);
+        $itemID = $supply[0]->StockItemID;
+        $deliveredQuantity = $supply[0]->DeliveredQuantity;
+             
+        $stocks = $stockItem->where("ItemID", $itemID); // Retrieve the current available stock for the supplied item
+        $currentStock = $stocks[0]->AvailableStock;
+              
+        $newStock = $currentStock - $deliveredQuantity; // Update the available stock by subtracting the deleted delivered quantity
+        
+        $item = ['AvailableStock' => $newStock]; // Update the stockItem table with the new available stock
+        $stockItem->update($itemID, "ItemID", $item);
+ 
+        $supplies->delete($id, "SupplyID"); // Delete the supply record
+
+        $this->redirect(BASE_URL . "StoreControls/viewSupplies");
+    }
     
 
 
