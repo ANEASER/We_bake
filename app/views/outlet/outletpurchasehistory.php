@@ -56,7 +56,7 @@
                     <th class="hideonmobile">DELIVERY STATUS</th>
                     <th class="hideonmobile">ORDER STATUS</th>
                     <th class="hideonmobile">PAYMENT STATUS</th>
-                    <th>TOTAL</th>
+                    <th>TOTAL(Rs)</th>
                     <th>MORE</th>
                 </tr>';
 
@@ -68,7 +68,7 @@
                     echo '<td class="hideonmobile">' . $order->deliver_address . '</td>';
                     echo '<td class="hideonmobile">' . $order->deliverystatus . '</td>';
                     echo '<td class="hideonmobile">' . $order->orderstatus . '</td>';
-                    echo '<td class="hideonmobile">' . $order->paymentstatus . '</td>';
+                    echo '<td class="hideonmobile">' . $order->paymentstatus . '.00</td>';
                     echo '<td>' . $order->total . '</td>';
                     echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
                     echo '</tr>';

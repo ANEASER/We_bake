@@ -27,7 +27,14 @@
     
     <div class="menu-category">
                             <?php
-
+                                if(isset($_SESSION["USER"]) && ($_SESSION["USER"]->Role == 'admin')){
+                                    echo '<div class="menu-item" style="height: 330px;" onclick="add()">
+                                                <img src="' . BASE_URL .'media/uploads/Content/add.png" alt="ADD" style="height: 250px; width: 250px;">
+                                                <div class="item-details" style="">
+                                                    <h3>ADD ITEM</h3>
+                                                </div>
+                                        </div>';}
+                                        
                                 foreach ($items as $item) {
                                     if(isset($_SESSION["USER"]->Role) && $_SESSION["USER"]->Role == 'admin'){
                                         echo '<div class="menu-item" style="height: 330px;">';
@@ -55,13 +62,7 @@
                                     echo '</div>';
                                 }
 
-                                if(isset($_SESSION["USER"]) && ($_SESSION["USER"]->Role == 'admin')){
-                                echo '<div class="menu-item" style="height: 330px;" onclick="add()">
-                                            <img src="' . BASE_URL .'media/uploads/Content/add.png" alt="ADD" style="height: 250px; width: 250px;">
-                                            <div class="item-details" style="">
-                                                <h3>ADD ITEM</h3>
-                                            </div>
-                                    </div>';}
+                                
                             ?>
     </div>
 
