@@ -70,6 +70,35 @@ class OutletControls extends Controller {
         }
     }
 
+
+    function outletdash(){
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "outletmanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        echo $this->view("outlet/outletdash");
+    }
+
+
+    function placeorder(){
+
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "outletmanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+
+        echo $this->view("outlet/outletplaceorder");
+    }
+
+
     function submitorder(){
         
         session_start();
@@ -96,6 +125,7 @@ class OutletControls extends Controller {
         $this->redirect(BASE_URL."OrderControls/showcategories");
 
     }
+    
      
     function purchasehistory(){
         
@@ -117,33 +147,6 @@ class OutletControls extends Controller {
 
      
     }
-    
-    function outletdash(){
-        if(!Auth::loggedIn()){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
 
-        if($_SESSION["USER"]->Role != "outletmanager"){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-
-        echo $this->view("outlet/outletdash");
-    }
-
-    function placeorder(){
-
-        if(!Auth::loggedIn()){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-
-        if($_SESSION["USER"]->Role != "outletmanager"){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-
-
-        echo $this->view("outlet/outletplaceorder");
-    }
-
-   
 }
 ?>
