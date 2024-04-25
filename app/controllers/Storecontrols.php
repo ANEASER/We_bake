@@ -16,22 +16,12 @@ class StoreControls extends Controller {
         
         $stocks = $stockItem->findall();
 
-
-
         $this->view("storemanager/smdash");
-    }
-
-
-    function viewProfile(){
-        echo $this->view("storemanager/profile");
     }
 
     function viewProduction(){
         echo $this->redirect(BASE_URL."StoreControls/loadProductionView");
     }
-
-    
-
 
 
     //Stock Items CRUDs
@@ -223,45 +213,87 @@ class StoreControls extends Controller {
         $this->redirect(BASE_URL . "StoreControls/viewSupplies");
     }
     
-
-
-
     function updateSuppliesView($id){
         $supplies = new Supplies();
         $supplies = $supplies->where("SupplyID",$id);
         echo $this->view("storemanager/updatesupplies",  ["supplies" => $supplies]);
     }
 
-    function updateSupplies(){
-        $supplies = new Supplies();
+    // function updateSupplies(){
+    //     $stockItem = new StockItem();
+    //     $supplies = new Supplies();
 
+    //     $id = $_POST['id'];
+    //     $data = [];
+
+    //     if (!empty($_POST['StockItemID'])){
+    //         $data['StockItemID'] = $_POST['StockItemID'];
+    //     }
+
+    //     if (!empty($_POST['DeliveredDate'])){
+    //         $data['DeliveredDate'] = $_POST['DeliveredDate'];
+    //     }
+
+    //     if (!empty($_POST['InvoiceNo'])){
+    //         $data['InvoiceNo'] = $_POST['InvoiceNo'];
+    //     }
+
+    //     if (!empty($_POST['ExpiryDate'])){
+    //         $data['ExpiryDate'] = $_POST['ExpiryDate'];
+    //     }
+
+    //     if (!empty($_POST['DeliveredQuantity'])){
+    //         $data['DeliveredQuantity'] = $_POST['DeliveredQuantity'];
+    //     }
+
+    //     echo $supplies->update($id, "SupplyID", $data);
+    //     $this->redirect(BASE_URL."StoreControls/viewSupplies");
+
+    // }
+
+
+    function updateSupplies(){
+        $stockItem = new StockItem();
+        $supplies = new Supplies();
+    
         $id = $_POST['id'];
         $data = [];
-
+    
+        $oldSupply = $supplies->where("SupplyID",$id); // Retrieve the old delivered quantity
+        $oldDeliveredQuantity = $oldSupply[0]->DeliveredQuantity;
+    
         if (!empty($_POST['StockItemID'])){
             $data['StockItemID'] = $_POST['StockItemID'];
         }
-
+    
         if (!empty($_POST['DeliveredDate'])){
             $data['DeliveredDate'] = $_POST['DeliveredDate'];
         }
-
+    
         if (!empty($_POST['InvoiceNo'])){
             $data['InvoiceNo'] = $_POST['InvoiceNo'];
         }
-
+    
         if (!empty($_POST['ExpiryDate'])){
             $data['ExpiryDate'] = $_POST['ExpiryDate'];
         }
-
-        if (!empty($_POST['DeliveredQuantity'])){
-            $data['DeliveredQuantity'] = $_POST['DeliveredQuantity'];
+    
+        if (!empty($_POST['DeliveredQuantity'])){  
+            $newDeliveredQuantity = $_POST['DeliveredQuantity']; // Calculate the difference between the old and new delivered quantities
+            $quantityDifference = $newDeliveredQuantity - $oldDeliveredQuantity;
+            $data['DeliveredQuantity'] = $newDeliveredQuantity; // Update the delivered quantity
+            $itemID = $oldSupply[0]->StockItemID; // Retrieve the current available stock for the supplied item
+            $stocks = $stockItem->where("ItemID", $itemID);
+            $currentStock = $stocks[0]->AvailableStock;          
+            $newStock = $currentStock + $quantityDifference; // Update the available stock by adding the quantity difference
+            $item = ['AvailableStock' => $newStock]; // Update the stockItem table with the new available stock
+            $stockItem->update($itemID, "ItemID", $item);
         }
-
+    
         echo $supplies->update($id, "SupplyID", $data);
         $this->redirect(BASE_URL."StoreControls/viewSupplies");
-
     }
+    
 
     function SearchSupply(){
 
@@ -287,6 +319,9 @@ class StoreControls extends Controller {
             echo $this->view("storemanager/supplies",[ "supplies" => $supplies]);
 
     }
+
+    //poddak case
+    //godak case
 
 
     //Functions for handling production requests

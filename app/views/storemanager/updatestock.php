@@ -100,7 +100,7 @@
 
 
             //Validate Minimum Stock
-            if (minimumStock === "" || parseFloat(minimumStock) <= 0) {
+            if (parseFloat(minimumStock) <= 0) {
                 Swal.fire({
                     icon: 'error',
                     title: 'Error',
@@ -110,7 +110,7 @@
             }
 
             // Validate Critical Stock
-                if (criticalStock === "" || parseFloat(criticalStock) <= 0) {
+                if (parseFloat(criticalStock) <= 0) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Error',

@@ -9,3 +9,4 @@
     define("BASE_URL","http://localhost/We_bake/public/");
     define("ASSETS_URL","http://localhost/We_bake/public/assets/")
 ?>
+
