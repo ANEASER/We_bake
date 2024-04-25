@@ -246,6 +246,7 @@
             $arr2["deliver_address"] = $_SESSION["adress"];
             $arr2["deliverystatus"] = $_SESSION["deliverstatus"];
             $arr2["unique_id"] = $unique_id;
+            $arr2['order_cap'] = $_SESSION["order_cap"];
 
             $arr2["orderstatus"] = "pending";
             $arr2["pickername"] = $_SESSION["picker"];

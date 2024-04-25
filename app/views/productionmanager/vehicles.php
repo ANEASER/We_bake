@@ -27,7 +27,7 @@
             background-color: #2ecc71;
         }
         .blue{
-            margin-left:10px;
+            margin-left:2%;
             background-color: #3498db;
         }
         .yellow{
@@ -54,12 +54,13 @@
             echo '<input class="searchbox" type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" >';
         }
         ?>
-        <section class="buttongroup">
+        
         <input class="button green" type="submit" value="Search">
         </form>
-        <button class="button blue" onclick="addVehicle()" role="button">Add New Vehicle</button>
-    </section>
+    
     </div>
+    <button class="button blue" onclick="addVehicle()" role="button">Add New Vehicle</button>
+       
 
 
     <?php

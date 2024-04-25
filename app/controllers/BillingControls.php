@@ -9,7 +9,7 @@ class BillingControls extends Controller {
         }
         
     $ProductOrder = new ProductOrder;
-    $productorder = $ProductOrder->findall();
+    $productorder = $ProductOrder->findCustomerOrders();
     echo $this->view("billingclerk/billingdash", ["productorder" => $productorder]);
 }
 

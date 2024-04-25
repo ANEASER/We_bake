@@ -60,7 +60,7 @@ button, input[type="submit"] {
 }
 
 .yellowbutton:hover {
-    background-color: #d9bb32;
+    background-color: #f39c12;
 }
 
 .orangebutton {
@@ -70,7 +70,7 @@ button, input[type="submit"] {
 }
 
 .orangebutton:hover {
-    background-color: #f38212;
+    background-color: #f39c12;
 }
 
 #cartbutton {
@@ -120,9 +120,9 @@ button, input[type="submit"] {
 /* Store Manager Button CSS*/
 
 .add-stocks-button {
-    position: absolute;
-    top: 90px; /* Adjust this value as needed */
-    right: 20px; /* Adjust this value as needed */
+    position: absolute; 
+    top: 200px; 
+    right: 20px; 
     padding: 10px 20px;
     background-color: #351a07;
     color: antiquewhite;

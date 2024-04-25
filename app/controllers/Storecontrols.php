@@ -106,6 +106,31 @@ class StoreControls extends Controller {
         $this->redirect(BASE_URL."StoreControls/viewStocks");
     }
 
+    function SearchItem(){
+
+        $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+
+            $stockItem = new StockItem();
+            $itemByID = $stockItem->where("CustomItemID", $searchQuery);
+            $itemByName = $stockItem->where("Name", $searchQuery);
+            $itemByType = $stockItem->where("Type", $searchQuery);
+
+
+            if (count($itemByID) > 0) {
+                $stocks = $itemByID;
+            } else if (count($itemByName) > 0) {
+                $stocks = $itemByName;
+            }else if (count($itemByType) > 0) {
+                $stocks = $itemByType;
+            }
+            else {
+                $stocks = [];
+            }
+
+            echo $this->view("storemanager/stocks",[ "stocks" => $stocks]);
+
+    }
+
 
     ///CRUD for Supplies
 
@@ -133,18 +158,92 @@ class StoreControls extends Controller {
         $data = [];
 
         $data['StockItemID'] = $_POST['StockItemID'];
+        $data['CustomStockItemID'] = $_POST['CustomStockItemID'];
+        $data['stockItemName'] = $_POST['stockItemName'];
         $data['DeliveredDate'] = $_POST['DeliveredDate'];
         $data['InvoiceNo'] = $_POST['InvoiceNo'];
         $data['ExpiryDate'] = $_POST['ExpiryDate'];
         $data['DeliveredQuantity'] = $_POST['DeliveredQuantity'];
 
         $supplies->insert($data);
+        $stocks = $stockItem->where("ItemID", $data['StockItemID']);
+
+        $item = [];
+        $item['AvailableStock'] = $stocks[0]->AvailableStock + $_POST['DeliveredQuantity'];
+
+        $stockItem->update($data['StockItemID'], "ItemID", $item);
+
+
+        echo $this->redirect(BASE_URL . "StoreControls/viewStocks"); 
+
     }
 
     function deleteSupplies($id){
         $supplies = new Supplies();
         $supplies = $supplies->delete($id,"SupplyID");
         $this->redirect(BASE_URL."StoreControls/viewSupplies");
+    }
+
+    function updateSuppliesView($id){
+        $supplies = new Supplies();
+        $supplies = $supplies->where("SupplyID",$id);
+        echo $this->view("storemanager/updatesupplies",  ["supplies" => $supplies]);
+    }
+
+    function updateSupplies(){
+        $supplies = new Supplies();
+
+        $id = $_POST['id'];
+        $data = [];
+
+        if (!empty($_POST['StockItemID'])){
+            $data['StockItemID'] = $_POST['StockItemID'];
+        }
+
+        if (!empty($_POST['DeliveredDate'])){
+            $data['DeliveredDate'] = $_POST['DeliveredDate'];
+        }
+
+        if (!empty($_POST['InvoiceNo'])){
+            $data['InvoiceNo'] = $_POST['InvoiceNo'];
+        }
+
+        if (!empty($_POST['ExpiryDate'])){
+            $data['ExpiryDate'] = $_POST['ExpiryDate'];
+        }
+
+        if (!empty($_POST['DeliveredQuantity'])){
+            $data['DeliveredQuantity'] = $_POST['DeliveredQuantity'];
+        }
+
+        echo $supplies->update($id, "SupplyID", $data);
+        $this->redirect(BASE_URL."StoreControls/viewSupplies");
+
+    }
+
+    function SearchSupply(){
+
+        $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+
+            $supplies = new Supplies();
+            $supplyByID = $supplies->where("SupplyID", $searchQuery);
+            $supplyByItemID = $supplies->where("StockItemID", $searchQuery);
+            $supplyByInvoiceNo = $supplies->where("InvoiceNo", $searchQuery);
+
+
+            if (count($supplyByID) > 0) {
+                $supplies = $supplyByID;
+            } else if (count($supplyByItemID) > 0) {
+                $supplies = $supplyByItemID;
+            }else if (count($supplyByInvoiceNo) > 0) {
+                $supplies = $supplyByInvoiceNo;
+            }
+            else {
+                $supplies = [];
+            }
+
+            echo $this->view("storemanager/supplies",[ "supplies" => $supplies]);
+
     }
 
 

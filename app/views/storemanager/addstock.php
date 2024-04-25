@@ -6,6 +6,15 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/button.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
+
+
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <title>Store Manager_ Stocks</title>
 </head>
 <body>
@@ -15,7 +24,7 @@
     <div class="content">
         <h1>Add Stock Items</h1>
 
-        <form method="post" action="<?php echo BASE_URL; ?>StoreControls/addStockItem" >
+        <form method="post" action="<?php echo BASE_URL; ?>StoreControls/addStockItem" onsubmit="return validateForm()" >
         <div class="form-container">
             <div class="form-group">
                 <label for="stockItemName">Item Name:</label>
@@ -81,7 +90,126 @@
         </div>
     </div>
     <script>
+
+        function validateForm() {
+
+            // Validate item name
+            var itemName = document.getElementById("stockItemName").value.trim();
+            if (itemName === "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please enter item name.'
+                });
+                return false;
+            }
+
+            // Validate item type
+            var itemType = document.getElementById("stockItemType").value;
+            if (itemType === "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please select item type.'
+                });
+                return false;
+            }
+
+            // Validate unit of measurement
+            var unitOfMeasurement = document.getElementById("stockItemUnit").value;
+            if (unitOfMeasurement === "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please select unit of measurement.'
+                });
+                return false;
+            }
+
+            // Validate minimum amount
+            var minimumAmount = document.getElementById("stockItemMin").value.trim();
+            if (minimumAmount === "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please enter minimum amount.'
+                });
+                return false;
+            }
+            if (isNaN(minimumAmount) || parseFloat(minimumAmount) <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Minimum amount must be a positive number.'
+                });
+                return false;
+            }
+
+            // Validate critical amount
+            var criticalAmount = document.getElementById("stockItemCritical").value.trim();
+            if (criticalAmount === "") {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Please enter critical amount.'
+                });
+                return false;
+            }
+            if (isNaN(criticalAmount) || parseFloat(criticalAmount) <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Validation Error',
+                    text: 'Critical amount must be a positive number.'
+                });
+                return false;
+            }
+
+            return true; // Form is valid
+        }
         
+                    // // Validate item name
+            // var itemName = document.getElementById("stockItemName").value.trim();
+            // if (itemName === "") {
+            //     alert("Please enter item name.");
+            //     return false;
+            // }
+
+            // // Validate item type
+            // var itemType = document.getElementById("stockItemType").value;
+            // if (itemType === "") {
+            //     alert("Please select item type.");
+            //     return false;
+            // }
+
+            // // Validate unit of measurement
+            // var unitOfMeasurement = document.getElementById("stockItemUnit").value;
+            // if (unitOfMeasurement === "") {
+            //     alert("Please select unit of measurement.");
+            //     return false;
+            // }
+
+            // // Validate minimum amount
+            // var minimumAmount = document.getElementById("stockItemMin").value.trim();
+            // if (minimumAmount === "") {
+            //     alert("Please enter minimum amount.");
+            //     return false;
+            // }
+            // if (isNaN(minimumAmount) || parseFloat(minimumAmount) <= 0) {
+            //     alert("Minimum amount must be a positive number.");
+            //     return false;
+            // }
+
+            // // Validate critical amount
+            // var criticalAmount = document.getElementById("stockItemCritical").value.trim();
+            // if (criticalAmount === "") {
+            //     alert("Please enter critical amount.");
+            //     return false;
+            // }
+            // if (isNaN(criticalAmount) || parseFloat(criticalAmount) <= 0) {
+            //     alert("Critical amount must be a positive number.");
+            //     return false;
+            // }
+
     </script>
 </body>
 </html>

@@ -51,6 +51,11 @@ class ProductOrder extends Model {
         return $this->query($query, []);
     } 
 
+    public function tomarrowOrders() {
+        $query = "SELECT * FROM $this->table WHERE orderdate = CURDATE() + INTERVAL 1 DAY";
+        return $this->query($query, []);
+    }
+
 
 }
 ?>

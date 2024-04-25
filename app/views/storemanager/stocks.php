@@ -13,12 +13,34 @@
         include "smnavbar.php";
     ?>
 
-    <a onclick="addStockItem(this)" class="add-stocks-button">Add New Stocks</a>
+    <section style="width: 100%; padding:1%">
+        <div class="content">
+            <h1>Stocks</h1>
+            
+        </div>
+    </section>
 
-    <div class="content">
-        <h1>Stocks</h1>
-        
-    </div>
+    <section style="width: 100%; padding:1%">
+        <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
+            <form method="GET" action="<?php echo BASE_URL; ?>StoreControls/SearchItem" style="display: flex; flex-direction:row;">
+                <?php
+                    if(isset($_GET['search'])) {
+                        echo '<input type="text" id="search" name="search" placeholder="Item ID,Type or Name" value="' . $_GET['search'] . '" class="searchbox">';
+                        echo '<input class="searchbutton" style="margin-right:1%" type="submit" value="Search">';
+                        echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
+                    } else {
+                        echo '<input type="text" id="search" name="search" placeholder="Item ID,Type or Name" class="searchbox">';
+                        echo '<input class="searchbutton" type="submit" value="Search">';
+                }?>
+            </form>
+
+            <section class="buttongroup">
+                <button style="width: 200px;" type="submit"  class="bluebutton" onclick="addStockItem(this)">Add New Stocks</button>
+            </section>
+
+        </div>
+    </section>
+
 
     <section style="display:flex;justify-content:space-around; width:100%">
     <?php //The table structure 
@@ -39,7 +61,7 @@
 
                 foreach($stocks as $stocks){
                     echo '<tr>';
-                    echo '<td>' . $stocks->ItemID . '</td>';
+                    echo '<td>' . $stocks->CustomItemID . '</td>';
                     echo '<td>' . $stocks->Name . '</td>';
                     echo '<td>' . $stocks->Type . '</td>';
                     echo '<td>' . $stocks->UnitOfMeasurement . '</td>';
@@ -65,6 +87,15 @@
     <script>
 
         var BASE_URL = "<?php echo BASE_URL; ?>";
+
+        function search() {
+            var query = document.getElementById('search').value;
+            window.location.href = BASE_URL + "StoreControls/SearchItem?search=" + encodeURIComponent(query);
+        }
+
+        function clearSearch() {
+            window.location.href = BASE_URL + "StoreControls/loadStocksView";
+        }
 
         function addStockItem() {
             window.location.href = BASE_URL +  "StoreControls/addStock";
