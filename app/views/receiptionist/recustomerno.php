@@ -23,7 +23,8 @@
 
 <form class="form" method="POST" action="<?php echo BASE_URL; ?>RecieptionControls/customernumbersearch" class="formisland">
     <div class="form-group">
-        <label for="telephoneno">Telephoneno:</label>
+        <h1> Place Order </h1>
+        <label for="telephoneno">Telephone No:</label>
         <input type="numbers" id="telephoneno" name="telephoneno" required>
     </div>
     <button class="greenbutton">Submit</button>

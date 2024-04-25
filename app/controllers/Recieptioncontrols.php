@@ -11,7 +11,7 @@ class RecieptionControls extends Controller {
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
 
-        $this->view("receiptionist/recepdash");
+        $this->view("receiptionist/recustomerno");
     
     }
 
