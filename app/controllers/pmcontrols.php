@@ -490,8 +490,9 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
-        $productorder = new ProductOrder;
-        $orders = $productorder->tomarrowOrders();
+        $ProductOrder = new ProductOrder;
+        $orders = $ProductOrder->tomarrowOrders();
+        $productorder = $ProductOrder->findall();
 
         foreach ($orders as $order) {
             $uniqueIds[] = $order->unique_id;
@@ -548,6 +549,23 @@ class PmControls extends Controller
         
         $this->redirect(BASE_URL . "pmcontrols/rmView");
     }
+
+    //Raw Materials History
+    function rmHistoryView()
+    {
+        if (!Auth::loggedIn()) {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+        if ($_SESSION["USER"]->Role != "productionmanager") {
+            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+        }
+
+        $ProductOrder = new ProductOrder;
+        $productorder = $ProductOrder->findall();
+
+echo $this->view("productionmanager/rmrequesthistory", ["productorder" => $productorder]);
+}
+
+
 }
 ?>
-
