@@ -48,11 +48,20 @@ class StoreControls extends Controller {
     //Adding a new stock item to the system
     function addStockItem(){
         $stockItem = new StockItem();
+
+        $max_stockid = $stockItem->getMinMax("ItemID","max");
+        $max_stockid = $max_stockid[0]->{"max(ItemID)"};
+        $max_stockid += 1;
+        $max_stockid = str_pad($max_stockid, 4, '0', STR_PAD_LEFT);
+
+        $stockref = "SI".$max_stockid;
+
         $arr["Name"] = $_POST["Name"];
         $arr["Type"] = $_POST["Type"];
         $arr["UnitOfMeasurement"] = $_POST["UnitOfMeasurement"];
         $arr["MinimumStock"] = $_POST["MinimumStock"];
         $arr["CriticalStock"] = $_POST["CriticalStock"];
+        $arr["CustomItemID"] = $stockref;
         $stockItem->insert($arr);
         $this->redirect(BASE_URL."StoreControls/viewStocks");
     }
@@ -157,6 +166,13 @@ class StoreControls extends Controller {
         $id = $_POST['id'];
         $data = [];
 
+        $max_supplyid = $supplies->getMinMax("SupplyID","max");
+        $max_supplyid = $max_supplyid[0]->{"max(SupplyID)"};
+        $max_supplyid += 1;
+        $max_supplyid = str_pad($max_supplyid, 4, '0', STR_PAD_LEFT);
+
+        $supplyref = "SP".$max_supplyid;
+
         $data['StockItemID'] = $_POST['StockItemID'];
         $data['CustomStockItemID'] = $_POST['CustomStockItemID'];
         $data['stockItemName'] = $_POST['stockItemName'];
@@ -164,6 +180,7 @@ class StoreControls extends Controller {
         $data['InvoiceNo'] = $_POST['InvoiceNo'];
         $data['ExpiryDate'] = $_POST['ExpiryDate'];
         $data['DeliveredQuantity'] = $_POST['DeliveredQuantity'];
+        $data["CustomSupplyID"] = $supplyref;
 
         $supplies->insert($data);
         $stocks = $stockItem->where("ItemID", $data['StockItemID']);
@@ -183,6 +200,38 @@ class StoreControls extends Controller {
         $supplies = $supplies->delete($id,"SupplyID");
         $this->redirect(BASE_URL."StoreControls/viewSupplies");
     }
+
+    // function deleteSupplies($id) {
+    //     // Create instances of Supplies and StockItem models
+    //     $supplies = new Supplies();
+    //     $stockItem = new StockItem();
+    
+    //     // Retrieve the supply record to get the DeliveredQuantity and StockItemID
+    //     $supply = $supplies->find($id);
+    //     $deliveredQuantity = $supply->DeliveredQuantity;
+    //     $stockItemID = $supply->StockItemID;
+    
+    //     // Delete the supply record from the supplies table
+    //     $supplies->delete($id, "SupplyID");
+    
+    //     // Retrieve the stock item from the stockItem table
+    //     $stockItem = $stockItem->where("ItemID", $stockItemID);
+    //     die(print_r($stockItem));
+    //     $currentStock = $stockItem->AvailableStock;
+    
+    //     // Calculate updated available stock
+    //     $updatedStock = max(0, $currentStock - $deliveredQuantity);
+    
+    //     // Update stockItem table with the new available stock
+    //     $updateData = ['AvailableStock' => $updatedStock];
+    //     $stockItem->update($stockItemID, "ItemID", $updateData);
+    
+    //     // Redirect to the supplies view page
+    //     $this->redirect(BASE_URL . "StoreControls/viewSupplies");
+    // }
+    
+
+
 
     function updateSuppliesView($id){
         $supplies = new Supplies();

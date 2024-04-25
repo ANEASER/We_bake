@@ -24,6 +24,13 @@ class OwnerControls extends Controller{
         
         $this->view("owner/ownerdash",[ "data" => $data, "producorderdata" => $producorderdata, "productorderlinedata" => $productorderlinedata, "productitemdata" => $productitemdata]);
     }
+
+    function viewEnquiries(){
+        $inquiry = new Inquiry();
+        $inquiry = $inquiry ->findall();
+        echo $this->view("owner/inquiry",  ["inquiry" => $inquiry]);
+
+    }
 }
 
 ?>
