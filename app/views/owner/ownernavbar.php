@@ -22,6 +22,7 @@
         ?>
         <ul>
             <li><a class="navbutton" onclick="home(this)">Home</a></li>
+            <li><a class="navbutton" onclick="enquiries(this)">Enquiries</a></li>
             <li><a class="navbutton" onclick="logout()">Log Out</a></li>
         </ul>
     </nav>
@@ -57,6 +58,11 @@
         function home(link) {
             changeActive(link);
             window.location.href = BASE_URL + "StoreControls/index";
+        }
+
+        function enquiries(link) {
+            changeActive(link);
+            window.location.href = BASE_URL + "OwnerControls/viewEnquiries";
         }
 
         function logout() {
