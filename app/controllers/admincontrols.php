@@ -1126,7 +1126,7 @@ use function PHPSTORM_META\type;
             }
         }
 
-        function addRawsview(){
+        function addRawsview($itemid=null){
             $productitem = new Productitem();
             $stockitem = new StockItem();
 
@@ -1136,8 +1136,11 @@ use function PHPSTORM_META\type;
             $maxitemid = $maxitemid[0]->{"max(itemid)"};
             $maxitemid = $maxitemid + 1 ;
 
-            echo $maxitemid;
-            echo $this->view("admin/addraws", ["maxitemid" => $maxitemid, "stockitems" => $stockitems]);
+            if($itemid != null){
+                echo $this->view("admin/addraws", ["maxitemid" => $itemid, "stockitems" => $stockitems]);
+            }else{
+                echo $this->view("admin/addraws", ["maxitemid" => $maxitemid, "stockitems" => $stockitems]);
+            }
         }
 
         function addRaws(){
@@ -1158,6 +1161,45 @@ use function PHPSTORM_META\type;
 
         }
         
+        function loadDeliveryChargesView(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $deliverycharges = new DeliveryCharges();
+            $deliverycharges = $deliverycharges->findall();
+
+            echo $this->view("admin/updatedeliverycharges", ["deliverycharges" => $deliverycharges]);
+        }
+
+        function updateDeliveryCharges(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
+            $deliverycharges = new DeliveryCharges();
+            $deliverychargesrow = $deliverycharges->where("city", $_POST["city"]);
+            $deliverychargesid = $deliverychargesrow[0]->charge_id ;
+            foreach ($_POST as $key => $value) {
+                if ($value !== "") {
+                    $result[$key] = $value;
+                }
+            }
+
+            $deliverycharges->update(1, "charge_id", $result);
+            $this->redirect(BASE_URL."AdminControls/loadDeliveryChargesView");
+        }
 
     }
 ?>

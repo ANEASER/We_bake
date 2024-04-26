@@ -56,6 +56,7 @@
                                         if($_SESSION["USER"]->Role == 'admin'){
                                             echo '<div style="display:flex;flex-direction:row;justify-content:center">';
                                                 echo '<button style="width: 80px;" onclick="edit(' . $item->itemid . ')">Update</button>';
+                                                echo '<button style="width: 80px;" onclick="addrows(' . $item->itemid . ')">addrow</button>';
                                             echo '</div>';
                                         }
                                         
@@ -76,6 +77,10 @@
 
         function edit(itemid) {
             window.location.href = BASE_URL + "AdminControls/EditItem/"+itemid;
+        }
+
+        function addrows(itemid) { 
+            window.location.href = BASE_URL + "AdminControls/addRawsview/"+itemid;
         }
         
     </script>

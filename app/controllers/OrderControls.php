@@ -297,7 +297,7 @@
             }
             else{
                 $orderref = "C".$orderref;
-                $arr2["placeby"] = $_SESSION["USER"]->customer_id;
+                $arr2["placeby"] = $_SESSION["USER"]->UserName;
                 $arr2["paymentstatus"] = $paymenttype;
                 $arr2["deliver_city"] = $_SESSION["deliver_city"];
                 $arr2["deliver_charges"] =  $_SESSION["delivery_charge"];
