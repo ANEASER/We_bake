@@ -34,7 +34,7 @@
 <section>
     <div class="form-container">
 
-    <form class="form" method="POST" acttion="<?php echo BASE_URL;?>BillingControls/uploadProof" enctype="multipart/form-data">
+    <form class="form" method="POST" action="<?php echo BASE_URL;?>BillingControls/uploadProof" enctype="multipart/form-data">
     <div class="form-group">
         <label for="AdvancedOrFinal">Advance or Final Order Payment</label><br>
 
