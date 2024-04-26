@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2024 at 09:42 AM
+-- Generation Time: Apr 24, 2024 at 07:02 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -260,38 +260,40 @@ CREATE TABLE `productorder` (
   `pickername` varchar(45) NOT NULL,
   `orderref` varchar(20) NOT NULL,
   `paid_amount` int(20) NOT NULL,
-  `order_type` varchar(15) NOT NULL
+  `order_type` varchar(15) NOT NULL,
+  `order_cap` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `productorder`
 --
 
-INSERT INTO `productorder` (`orderid`, `placeby`, `orderdate`, `paymentstatus`, `deliverystatus`, `orderstatus`, `total`, `deliver_charges`, `deliverby`, `deliver_address`, `deliver_city`, `unique_id`, `pickername`, `orderref`, `paid_amount`, `order_type`) VALUES
-(41, 'RC00125', '2024-02-24', 'advanced', 'delivery', 'finished', 35270, 0, 'LC-6464', 'Jaffna', '', '65da0e99ec2eb', 'picker1', 'CD0000001', 2000, ''),
-(46, 'RC00125', '2024-04-05', 'paid', 'outletdelivery', 'finished', 1880, 0, 'CAR-33434', 'DH00005', '', '65e5f7814b790', 'OM00122', 'OP0000042', 0, ''),
-(47, 'OM00122', '2024-04-05', 'paid', 'outletdelivery', 'pending', 5000, 0, '', 'DH00005', '', '65e5fa1643f13', 'OM00122', 'OP0000047', 0, ''),
-(48, 'RC00125', '2024-04-06', 'pending', 'pickup', 'pending', 3170, 0, '', '', '', '65f5a6cf3644a', 'picker1', 'CP0000048', 0, ''),
-(49, 'RC00125', '2024-04-07', 'pending', 'delivery', 'cancelled', 13450, 0, '', 'Jaffna', '', '6610a6462c905', 'amalpicker', 'CD0000049', 0, ''),
-(50, 'Kasun', '2024-04-18', 'paid', 'delivery', 'pending', 5650, 0, '', 'Jaffna', '', '6613a0a60eea9', 'picker1', 'CD0000050', 0, ''),
-(51, 'Kasun', '2024-04-11', 'pending', 'pickup', 'pending', 5300, 0, '', '', '', '66163949c2b1a', 'picker1', 'CP0000051', 0, ''),
-(57, 'OM00122', '2024-04-16', 'paid', 'outletdelivery', 'pending', 26000, 0, '', 'DH00005', '', '661e3d89c160b', 'OM00122', 'OP0000057', 0, 'constant'),
-(60, 'OM00122', '2024-04-17', 'paid', 'outletdelivery', 'pending', 26000, 0, '', 'DH00005', '', '661e3d89c160b', 'OM00122', 'OP0000057', 0, 'constant'),
-(61, 'Kasun', '2024-04-18', 'paid', 'delivery', 'pending', 1730, 0, '', 'wdfwdfwf', '', '661e3f8e35288', 'picker1', 'CD0000061', 0, ''),
-(63, 'Kasun', '2024-04-17', 'paid', 'delivery', 'pending', 6500, 0, '', 'ehiwala 2', '', '661eae1dc44e6', 'picker1', 'CD0000062', 0, ''),
-(66, 'Kasun', '2024-04-21', 'pending', 'delivery', 'pending', 1180, 0, '', 'colombo', '', '6623989e4c7c8', 'picker1', 'CD0000066', 0, ''),
-(70, 'Kasun', '2024-04-21', 'paid', 'pickup', 'pending', 1820, 0, '', '', '', '6623e2f65376c', 'picker2', 'CP0000067', 1820, ''),
-(71, 'Kasun', '2024-04-21', 'pending', 'delivery', 'processing', 1550, 0, '', 'colombo', '', '6623e3c465e73', 'ruwanpicker', 'CD0000071', 0, ''),
-(72, 'Kasun', '2024-04-22', 'paid', 'delivery', 'finished', 900, 0, '', 'Gampaha', 'Dehiwala', '66246e0b91728', 'Kasun', 'CD0000072', 900, ''),
-(73, 'Kasun', '2024-04-22', 'paid', 'delivery', 'pending', 1420, 100, '', 'Gampaha', 'Dehiwala', '66246f2b6fbf9', 'Kasun', 'CD0000073', 1420, ''),
-(77, 'OM00122', '2024-04-21', 'paid', 'outletpickup', 'pending', 26000, 0, '', 'DH00005', '', '661e3d89c160b', 'OM00122', 'OP0000057', 0, 'constant'),
-(78, 'OM00122', '2024-04-21', 'paid', 'outletpickup', 'pending', 6970, 0, '', 'DH00005', '', '66248adf858e6', 'OM00122', 'OP0000078', 6970, 'dynamic'),
-(82, 'Kasun', '2024-04-21', 'paid', 'pickup', 'pending', 1750, 0, '', 'colombo', '', '662500a2e52ca', 'picker 1', 'RP0000080', 1750, ''),
-(83, 'Kasun', '2024-04-21', 'paid', 'pickup', 'pending', 750, 0, '', 'colombo', '', '662500e8cbcb1', 'picker 1', 'RP0000083', 750, ''),
-(84, 'Kasun', '2024-04-23', 'pending', 'pickup', 'pending', 750, 0, '', 'colombo', '', '6627102eed6f2', 'picker 1', 'RP0000084', 750, ''),
-(85, 'GC00002', '2024-04-23', 'pending', 'pickup', 'pending', 600, 0, '', 'F 109', '', '6627170fdde05', 'picker 1', 'RP0000085', 600, ''),
-(86, 'OM00122', '2024-04-23', 'paid', 'outletpickup', 'pending', 26000, 0, 'OP0000086', 'DH00005', '', '661e3d89c160b', 'OM00122', 'OP0000057', 0, 'constant'),
-(87, 'OM00122', '2024-04-24', 'paid', 'outletpickup', 'pending', 26000, 0, 'OP0000087', 'DH00005', '', '661e3d89c160b', 'OM00122', 'OP0000057', 0, 'constant');
+INSERT INTO `productorder` (`orderid`, `placeby`, `orderdate`, `paymentstatus`, `deliverystatus`, `orderstatus`, `total`, `deliver_charges`, `deliverby`, `deliver_address`, `deliver_city`, `unique_id`, `pickername`, `orderref`, `paid_amount`, `order_type`, `order_cap`) VALUES
+(41, 'RC00125', '2024-02-24', 'advanced', 'delivery', 'finished', 35270, 0, 'LC-6464', 'Jaffna', '', '65da0e99ec2eb', 'picker1', 'CD0000001', 2000, '', 0),
+(46, 'RC00125', '2024-04-05', 'paid', 'outletdelivery', 'finished', 1880, 0, 'CAR-33434', 'DH00005', '', '65e5f7814b790', 'OM00122', 'OP0000042', 0, '', 0),
+(47, 'OM00122', '2024-04-05', 'paid', 'outletdelivery', 'pending', 5000, 0, '', 'DH00005', '', '65e5fa1643f13', 'OM00122', 'OP0000047', 0, '', 0),
+(48, 'RC00125', '2024-04-06', 'pending', 'pickup', 'pending', 3170, 0, '', '', '', '65f5a6cf3644a', 'picker1', 'CP0000048', 0, '', 0),
+(49, 'RC00125', '2024-04-07', 'pending', 'delivery', 'cancelled', 13450, 0, '', 'Jaffna', '', '6610a6462c905', 'amalpicker', 'CD0000049', 0, '', 0),
+(50, 'Kasun', '2024-04-18', 'paid', 'delivery', 'pending', 5650, 0, '', 'Jaffna', '', '6613a0a60eea9', 'picker1', 'CD0000050', 0, '', 0),
+(51, 'Kasun', '2024-04-11', 'pending', 'pickup', 'pending', 5300, 0, '', '', '', '66163949c2b1a', 'picker1', 'CP0000051', 0, '', 0),
+(57, 'OM00122', '2024-04-16', 'paid', 'outletdelivery', 'pending', 26000, 0, '', 'DH00005', '', '661e3d89c160b', 'OM00122', 'OP0000057', 0, 'constant', 0),
+(60, 'OM00122', '2024-04-17', 'paid', 'outletdelivery', 'pending', 26000, 0, '', 'DH00005', '', '661e3d89c160b', 'OM00122', 'OP0000057', 0, 'constant', 0),
+(61, 'Kasun', '2024-04-18', 'paid', 'delivery', 'pending', 1730, 0, '', 'wdfwdfwf', '', '661e3f8e35288', 'picker1', 'CD0000061', 0, '', 0),
+(63, 'Kasun', '2024-04-17', 'paid', 'delivery', 'pending', 6500, 0, '', 'ehiwala 2', '', '661eae1dc44e6', 'picker1', 'CD0000062', 0, '', 0),
+(66, 'Kasun', '2024-04-21', 'pending', 'delivery', 'pending', 1180, 0, '', 'colombo', '', '6623989e4c7c8', 'picker1', 'CD0000066', 0, '', 0),
+(70, 'Kasun', '2024-04-21', 'paid', 'pickup', 'pending', 1820, 0, '', '', '', '6623e2f65376c', 'picker2', 'CP0000067', 1820, '', 0),
+(71, 'Kasun', '2024-04-21', 'pending', 'delivery', 'processing', 1550, 0, '', 'colombo', '', '6623e3c465e73', 'ruwanpicker', 'CD0000071', 0, '', 0),
+(72, 'Kasun', '2024-04-22', 'paid', 'delivery', 'finished', 900, 0, '', 'Gampaha', 'Dehiwala', '66246e0b91728', 'Kasun', 'CD0000072', 900, '', 0),
+(73, 'Kasun', '2024-04-22', 'paid', 'delivery', 'pending', 1420, 100, '', 'Gampaha', 'Dehiwala', '66246f2b6fbf9', 'Kasun', 'CD0000073', 1420, '', 0),
+(77, 'OM00122', '2024-04-21', 'paid', 'outletpickup', 'pending', 26000, 0, '', 'DH00005', '', '661e3d89c160b', 'OM00122', 'OP0000057', 0, 'constant', 0),
+(78, 'OM00122', '2024-04-21', 'paid', 'outletpickup', 'pending', 6970, 0, '', 'DH00005', '', '66248adf858e6', 'OM00122', 'OP0000078', 6970, 'dynamic', 0),
+(82, 'Kasun', '2024-04-21', 'paid', 'pickup', 'pending', 1750, 0, '', 'colombo', '', '662500a2e52ca', 'picker 1', 'RP0000080', 1750, '', 0),
+(83, 'Kasun', '2024-04-21', 'paid', 'pickup', 'pending', 750, 0, '', 'colombo', '', '662500e8cbcb1', 'picker 1', 'RP0000083', 750, '', 0),
+(84, 'Kasun', '2024-04-23', 'pending', 'pickup', 'pending', 750, 0, '', 'colombo', '', '6627102eed6f2', 'picker 1', 'RP0000084', 750, '', 0),
+(85, 'GC00002', '2024-04-23', 'pending', 'pickup', 'pending', 600, 0, '', 'F 109', '', '6627170fdde05', 'picker 1', 'RP0000085', 600, '', 0),
+(86, 'OM00122', '2024-04-23', 'paid', 'outletpickup', 'pending', 26000, 0, 'OP0000086', 'DH00005', '', '661e3d89c160b', 'OM00122', 'OP0000057', 0, 'constant', 0),
+(87, 'OM00122', '2024-04-25', 'paid', 'outletpickup', 'pending', 26000, 0, 'OP0000087', 'DH00005', '', '661e3d89c160b', 'OM00122', 'OP0000057', 0, 'constant', 0),
+(88, '1', '2024-04-25', 'paid', 'pickup', 'pending', 1300, 100, '', 'Gampaha', 'Dehiwala', '6627cff8766b1', 'Kasun', 'CP0000088', 1300, '', 2);
 
 -- --------------------------------------------------------
 
@@ -392,7 +394,9 @@ INSERT INTO `productorderline` (`shoppingid`, `quantity`, `unit`, `itemid`, `tot
 (152, 5, '', 68, 1000, '662500a2e52ca', 200, 'MU00068'),
 (153, 5, '', 65, 750, '662500e8cbcb1', 150, 'DN00065'),
 (154, 5, '', 57, 750, '6627102eed6f2', 150, 'PA00057'),
-(155, 5, '', 56, 600, '6627170fdde05', 120, 'PA00056');
+(155, 5, '', 56, 600, '6627170fdde05', 120, 'PA00056'),
+(156, 4, '', 65, 600, '6627cff8766b1', 150, 'DN00065'),
+(157, 4, '', 53, 600, '6627cff8766b1', 150, 'BR00001');
 
 -- --------------------------------------------------------
 
@@ -434,10 +438,18 @@ INSERT INTO `stockitem` (`ItemID`, `Name`, `Type`, `UnitOfMeasurement`, `Minimum
 --
 
 CREATE TABLE `stockorder` (
-  `ID` int(11) NOT NULL,
-  `from` varchar(20) NOT NULL,
-  `ondate` date NOT NULL
+  `unique_id` varchar(20) NOT NULL,
+  `ondate` date NOT NULL,
+  `id` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `stockorder`
+--
+
+INSERT INTO `stockorder` (`unique_id`, `ondate`, `id`) VALUES
+('66289084aab1e', '2024-04-25', 6),
+('66289157c022f', '2024-04-25', 7);
 
 -- --------------------------------------------------------
 
@@ -447,27 +459,19 @@ CREATE TABLE `stockorder` (
 
 CREATE TABLE `stockorderline` (
   `id` int(11) NOT NULL,
-  `stockorderid` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL
+  `quantity` int(11) NOT NULL,
+  `unique_id` varchar(45) NOT NULL,
+  `RawName` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `stocks`
+-- Dumping data for table `stockorderline`
 --
 
-CREATE TABLE `stocks` (
-  `id` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `minimum` int(10) NOT NULL,
-  `critical` int(10) NOT NULL,
-  `available` int(10) NOT NULL,
-  `unit` varchar(10) NOT NULL,
-  `expierydate` date NOT NULL,
-  `supplier` int(20) NOT NULL,
-  `itemcode` varchar(20) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `stockorderline` (`id`, `quantity`, `unique_id`, `RawName`) VALUES
+(17, 3, '66289084aab1e', 'Rice Flour'),
+(18, 4, '66289084aab1e', 'Rice Flour'),
+(19, 2, '66289157c022f', 'Rice Flour');
 
 -- --------------------------------------------------------
 
@@ -527,7 +531,7 @@ INSERT INTO `systemuser` (`Name`, `NIC`, `Password`, `DOB`, `contactNo`, `Active
 ('production', '123123123', '$2y$10$GMgYDrZS8z95fxigE2olGOTG8PvL8ZjbQ0IwIl.9W0y0DUUAI1koe', '2024-01-09', 2147483647, 'Active', 'Colombo', 123, 'productionmanager', 'production', 'product@gmail.com', 'PM00125'),
 ('owner', '20023231', '$2y$10$GMgYDrZS8z95fxigE2olGOTG8PvL8ZjbQ0IwIl.9W0y0DUUAI1koe', '2024-02-20', 782567545, 'Active', 'Colombo', 124, 'owner', 'owner', 'anudaattanayake@gmail.com', ''),
 ('Nadun', '981123435V', '$2y$10$dO93gk/HHiqkE/OOpntpvejEn70AdnWm1hqlqQyWKgoXPHe8Y2qEO', '2004-01-18', 2147483647, 'Active', 'Colombo', 125, 'outletmanager', 'nadun', 'nadun@gmail.com', 'OM00125'),
-('Outlet2', '981811667V', '$2y$10$DcON.8gfMAK02gTsgtSUvON0tMCS96MnpN4a.VdzYdm4ijR.N4.Yu', '2003-02-23', 782695545, 'FirstLogin', 'F 109', 138, 'outletmanager', 'Outlet2', 'anudaattanayake@gmail.com', 'OM00126');
+('Outlet2', '981811667V', '$2y$10$tx57aVmaGGTmtyGrlflMK.sUHFiR9KswHi28yWOT82Hw83rjks5h.', '2003-02-23', 782695545, 'Active', 'F 109', 138, 'outletmanager', 'Outlet2', 'anudaattanayake@gmail.com', 'OM00126');
 
 --
 -- Triggers `systemuser`
@@ -616,18 +620,12 @@ ALTER TABLE `stockitem`
 -- Indexes for table `stockorder`
 --
 ALTER TABLE `stockorder`
-  ADD PRIMARY KEY (`ID`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `stockorderline`
 --
 ALTER TABLE `stockorderline`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `stocks`
---
-ALTER TABLE `stocks`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -687,13 +685,13 @@ ALTER TABLE `productitem`
 -- AUTO_INCREMENT for table `productorder`
 --
 ALTER TABLE `productorder`
-  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=88;
+  MODIFY `orderid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `productorderline`
 --
 ALTER TABLE `productorderline`
-  MODIFY `shoppingid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=156;
+  MODIFY `shoppingid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=158;
 
 --
 -- AUTO_INCREMENT for table `stockitem`
@@ -702,16 +700,16 @@ ALTER TABLE `stockitem`
   MODIFY `ItemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT for table `stockorder`
+--
+ALTER TABLE `stockorder`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `stockorderline`
 --
 ALTER TABLE `stockorderline`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `stocks`
---
-ALTER TABLE `stocks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `systemuser`

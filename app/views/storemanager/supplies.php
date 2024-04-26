@@ -54,8 +54,8 @@
 
                 foreach($supplies as $supplies){
                     echo '<tr>';
-                    echo '<td>' . $supplies->SupplyID . '</td>';
-                    echo '<td>' . $supplies->StockItemID . '</td>';
+                    echo '<td>' . $supplies->CustomSupplyID . '</td>';
+                    echo '<td>' . $supplies->CustomStockItemID . '</td>';
                     echo '<td>' . $supplies->StockItemName . '</td>';
                     echo '<td>' . $supplies->DeliveredDate . '</td>';
                     echo '<td>' . $supplies->InvoiceNo . '</td>';

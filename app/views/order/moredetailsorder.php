@@ -45,10 +45,10 @@
                     echo "<h1>Order Delivery Status : ".$order[0]->deliverystatus."</h1>";
                     echo "<h1>Order Payment Status : ".$order[0]->paymentstatus."</h1>";
 
-                    echo "<h1>Cart Value : ".$order[0]->total - $order[0]->deliver_charges."</h1>";
-                    echo "<h1>Delivery Charges : ".$order[0]->deliver_charges."</h1>";
-                    echo "<h1>Order Total : ".$order[0]->total."</h1>";
-                    echo "<h1>Order Paid Amount : ".$order[0]->paid_amount."</h1>";
+                    echo "<h1>Cart Value : Rs.".$order[0]->total - $order[0]->deliver_charges.".00</h1>";
+                    echo "<h1>Delivery Charges : Rs.".$order[0]->deliver_charges.".00</h1>";
+                    echo "<h1>Order Total : Rs.".$order[0]->total."</h1>";
+                    echo "<h1>Order Paid Amount : Rs. ".$order[0]->paid_amount.".00</h1>";
 
                     echo "<br>";
                     echo "<table>";
@@ -56,8 +56,8 @@
                             <th>Item Code </th>
                             <th>Item Name</th>
                             <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Subtotal</th>
+                            <th>Price(Rs)</th>
+                            <th>Subtotal(Rs)</th>
                         </tr>";
 
                     foreach ($productorderlines as $productorderline) {
@@ -69,8 +69,8 @@
                         echo "<td>" . $productorderline->Itemcode . "</td>";
                         echo "<td>" . $item[0]->itemname. "</td>";
                         echo "<td>" . $productorderline->quantity . "</td>";
-                        echo "<td>" . $productorderline->price . "</td>";
-                        echo "<td>" . $productorderline->totalprice . "</td>";
+                        echo "<td>" . $productorderline->price . ".00</td>";
+                        echo "<td>" . $productorderline->totalprice . ".00</td>";
                         echo "</tr>";
                     }
 

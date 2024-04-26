@@ -50,7 +50,7 @@
             <form class="form" method="POST" action="<?php echo BASE_URL; ?>AdminControls/AddOutlet">
                 <div class="form-group">
                     <label for="DOS">Date of Establishment:</label>
-                    <input type="date" id="DOS" name="DOS" required>
+                    <input type="date" id="DOS" name="DOS" min="<?php echo date('Y-m-d'); ?>" required>
                     
                 <div class="form-group">
                     <label for="contactNo">Contact No:</label>
@@ -88,7 +88,8 @@
                         <option value="Kolonnawa">Kolonnawa</option>
                         <option value="Ethul Kotte">Ethul Kotte</option>
                         <option value="Maharagama">Maharagama</option>
-                    </select><br>
+                    </select>
+                    <br>
                 </div>
                     
                 <div class="form-group">

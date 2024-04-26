@@ -10,6 +10,11 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
 
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+
     <title>Store Manager_ Stocks</title>
 </head>
 <body>
@@ -93,7 +98,40 @@
             var minimumStock = document.getElementById("MinimumStock").value;
             var criticalStock = document.getElementById("CriticalStock").value;
 
-            return true; // Allow form submission
+
+            //Validate Minimum Stock
+            if (parseFloat(minimumStock) <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Minimum stock must be a positive number greater than 0.'
+                });
+                return false;
+            }
+
+            // Validate Critical Stock
+                if (parseFloat(criticalStock) <= 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'Critical stock must be a positive number greater than 0.'
+                    });
+                    return false;
+                }
+
+            // // Validate Minimum Stock
+            // if (minimumStock === "" || parseFloat(minimumStock) <= 0) {
+            //     alert("Minimum stock must be a positive number greater than 0.");
+            //     return false;
+            // }
+
+            // // Validate Critical Stock
+            // if (criticalStock === "" || parseFloat(criticalStock) <= 0) {
+            //     alert("Critical stock must be a positive number greater than 0.");
+            //     return false;
+            // }
+
+            return true; 
         }
 
     </script>

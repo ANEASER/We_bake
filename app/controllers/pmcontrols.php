@@ -457,10 +457,12 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
+        // find tomorrow product order lines 
         $ProductOrder = new ProductOrder;
         $orders = $ProductOrder->tomarrowOrders();
         $productorder = $ProductOrder->findall();
 
+        // get all unique ids of orders tomorrow
         foreach ($orders as $order) {
             $uniqueIds[] = $order->unique_id;
         }
@@ -468,11 +470,69 @@ class PmControls extends Controller
         $productorderline = new ProductOrderLine();
         $productorderlines = $productorderline->productOrderLinesbyUniqueIds($uniqueIds);
 
-        $unique_id = uniqid();
+        // find all items ids in product order lines and calculate raws
+        $rawsforitems = new RawsForItem();
+
+
+        $aggregateArray = [];
+
+        foreach ($productorderlines as $productorderline) {
+
+            $itemid = $productorderline->itemid;
+            $itemquantity = floatval($productorderline->quantity);
+            $rawforitemtomorrow = $rawsforitems->RawsForItemsbyItemIDs($itemid, $itemquantity);
+            
+            // Iterate through each result obtained from RawsForItemsbyItemIDs and append it to the aggregate array
+            foreach ($rawforitemtomorrow as $raw) {
+                $rawName = $raw->RawName; 
+                $subtotalquantity = (float)$raw->subtotalquantity; // without fliat some items get as string
+                $unitofmeasurement = $raw->UnitOfMeasurement;
+                // If the RawName already exists in the aggregate array, accumulate the subtotalquantity
+                if (isset($aggregateArray[$rawName])) {
+                    $aggregateArray[$rawName]['subtotalquantity'] += $subtotalquantity;
+                } else { 
+                    $aggregateArray[$rawName] = [
+                        "rawName" => $rawName,
+                        'subtotalquantity' => $subtotalquantity,
+                        'UnitOfMeasurement' => $unitofmeasurement
+                    ];
+                }
+            }
+         }
+
+        // Round up the quantities
+        $roundedArray = [];
+        $keys = array_keys($aggregateArray);
+
+        $lastKey = end($keys);
+        
+        foreach ($aggregateArray as $rawName => $data) {
+            $quantity = $data['subtotalquantity'];
+            if ($rawName !== $lastKey) {
+                $roundedQuantity = ceil($quantity);
+            } else {
+                $roundedQuantity = $quantity; // Keep the last subtotal as it is
+            }
+            $roundedArray[$rawName] = [
+                'rawName' => $rawName,
+                'subtotalquantity' => $roundedQuantity,
+                'UnitOfMeasurement' => $data['UnitOfMeasurement']
+            ];
+        }
+
+        
+        // get all raws for tomorrow
+        $autocalucalatedraws = $roundedArray;
+        $_SESSION['autocalucalatedraws'] = $autocalucalatedraws;
+        
+        
+        //var_dump($rawsfortomorrow);
 
         $stockitem = new StockItem();
         $stockitems = $stockitem->getDistinct("Name");
 
+
+        // stock order lines
         $tomorrow = date("Y-m-d", strtotime('+1 day'));
         $stockorder = new StockOrder();
         $placedstockorder = $stockorder->where("ondate", $tomorrow);
@@ -483,15 +543,18 @@ class PmControls extends Controller
                 $StockuniqueIds[] = $stockorder->unique_id;
             }
             $stockorderlines = $stocorderlines->StockOrderLinesbyUniqueIds($StockuniqueIds);
-        
+            $unique_id = $StockuniqueIds[0];
+        }else{
+              // new unique id for raw form
+              $unique_id = uniqid();
         }
 
         if($productorderlines != null && $placedstockorder != null){
-            echo $this->view("productionmanager/rmrequests", ["productorderlines" => $productorderlines, "unique_id" => $unique_id, "stockitems" => $stockitems, "placedstockorder" => $placedstockorder, "stockorderlines" => $stockorderlines]);
+            echo $this->view("productionmanager/rmrequests", ["productorderlines" => $productorderlines, "unique_id" => $unique_id, "stockitems" => $stockitems, "placedstockorder" => $placedstockorder, "stockorderlines" => $stockorderlines, "autocalucalatedraws" => $autocalucalatedraws]);
         }else{
-            echo $this->view("productionmanager/rmrequests", ["productorderlines" => $productorderlines, "unique_id" => $unique_id, "stockitems" => $stockitems, "placedstockorder" => $placedstockorder]);
+            echo $this->view("productionmanager/rmrequests", ["productorderlines" => $productorderlines, "unique_id" => $unique_id, "stockitems" => $stockitems, "placedstockorder" => $placedstockorder, "autocalucalatedraws" => $autocalucalatedraws]);
         }
-    
+        
         }
 
     function InstertRawMaterialRequest(){
@@ -503,16 +566,27 @@ class PmControls extends Controller
         }
 
         $stockorderlines = $_POST;
+        var_dump($stockorderlines);
         
         for ($i = 0; $i < count($stockorderlines['itemcode']); $i++) {
             $stockorderline = new StockOrderLine();
-            $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][$i], "RawName" => $stockorderlines['itemcode'][$i], "quantity" => $stockorderlines['quantity'][$i]]);
+            if($stockorderlines['quantity'][$i] == 0){
+                continue;
+            }else{
+                $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][$i], "RawName" => $stockorderlines['itemcode'][$i], "quantity" => $stockorderlines['quantity'][$i], "UnitOfMeasurement" => $stockorderlines['unitofmeasure'][$i]]);
+            }
+        }
+
+        $autocalculatedraws = $_SESSION['autocalucalatedraws'];
+        foreach ($autocalculatedraws as $raw) {
+            $stockorderline = new StockOrderLine();
+            $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][0], "RawName" => $raw['rawName'], "quantity" => $raw['subtotalquantity'], "UnitOfMeasurement" => $raw['UnitOfMeasurement']]);
         }
 
         $tomorrow = date("Y-m-d", strtotime('+1 day'));
 
         $stockorder = new StockOrder();
-        $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow]);
+        $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow ,'comment' => $stockorderlines['comment']]);
         
         $this->redirect(BASE_URL . "pmcontrols/rmView");
     }

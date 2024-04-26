@@ -31,7 +31,7 @@
                 <th>Payment Status</th>
                 <th>Delivery Status</th>
                 <th>Order Status</th>
-                <th>Total</th>
+                <th>Total(Rs)</th>
                 <th>Deliver By</th>
                 <th>Unique ID</th>
                 <th>Deliver Address</th>
@@ -50,7 +50,7 @@
                     echo "<td>".$order->paymentstatus."</td>";
                     echo "<td>".$order->deliverystatus."</td>";
                     echo "<td>".$order->orderstatus."</td>";
-                    echo "<td>".$order->total."</td>";
+                    echo "<td>".$order->total.".00</td>";
                     echo "<td>".$order->deliverby."</td>";
                     echo "<td>".$order->unique_id."</td>";
                     echo "<td>".$order->deliver_address."</td>";
