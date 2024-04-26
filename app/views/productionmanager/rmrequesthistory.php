@@ -29,14 +29,7 @@
             border-radius: 9px;
         }
 
-        .red {
-            background-color: #e74c3c;
-        }
-
-        .green {
-            background-color: #2ecc71;
-        }
-
+        
         .blue {
             background-color: #3498db;
         }
@@ -68,10 +61,13 @@
     </style>
 </head>
 <body>
+
     <?php
     
-    require('pmnavbar.php');
-   
+    require('pmnavbar.php'); ?>
+
+    <?php
+
     echo "<div id='RMRequestHistory' style='display:none'>";
     echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
     echo "<tr>

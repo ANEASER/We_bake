@@ -148,10 +148,10 @@
                                     </select>
                                     <label for="quantity">Quantity</label>
                                     <input type="number" id="quantity" name="quantity[]" required>
-                                    <button class="bluebutton" id="add">add row</button>
+                                    <button class="button blue" id="add">Add Item</button>
                                 </div>
                             </div>
-                        <button class="greenbutton" type="submit" class="btn" style="width: 100%; margin-top:20px">Request</button>
+                        <button class="button green" type="submit" class="btn" style="width: 100%; margin-top:20px">Request</button>
                     </form>
                
             </div>
