@@ -109,12 +109,30 @@
 
                     echo "</table>";
                     ?>
+                    <br>
+                    <h1 style="text-align:center;">Tomorrow Auto Calculated Raw Requirment</h1>
+                    <br>
+                    <table>
+                        <tr>
+                            <th>Raw Name</th>
+                            <th>Unit of Measurement</th>
+                            <th>Quantity</th>
+                        </tr>
+                        <?php foreach ($autocalucalatedraws as $raw): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($raw["rawName"]); ?></td>
+                                <td><?php echo htmlspecialchars($raw["subtotalquantity"]); ?></td>
+                                <td><?php echo htmlspecialchars($raw["UnitOfMeasurement"]); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </table>
+
         </section>
         
         <section class="cart" style="padding : 20px; font-size: 1em; margin-left : 20px;">
             <?php 
                 if($placedstockorder != null){
-                    echo "<h1 style='text-align:center;'>Stock Order</h1>";
+                    echo "<h1 style='text-align:center;'>Placed Stock Order</h1>";
                     echo "<table>";
                     echo "<tr>
                             <th>Item Code </th>
@@ -146,11 +164,14 @@
                                                 echo "<option value='" . $stockitem->Name . "'>" . $stockitem->Name . "</option>";
                                             }?>
                                     </select>
+                                    <?php print_r($stockitem->UnitOfMeasurement); ?>
+                                    <input type="hidden" name="unitofmeasure[]" value="<?php echo $stockitem->UnitOfMeasurement ; ?>">
                                     <label for="quantity">Quantity</label>
-                                    <input type="number" id="quantity" name="quantity[]" required>
+                                    <input type="number" id="quantity" name="quantity[]" min=0>
                                     <button class="bluebutton" id="add">add row</button>
                                 </div>
                             </div>
+                        <textarea name="comment" id="comment" cols="30" rows="10" placeholder="Comment"></textarea>
                         <button class="greenbutton" type="submit" class="btn" style="width: 100%; margin-top:20px">Request</button>
                     </form>
                
@@ -174,8 +195,10 @@
                                                             echo "<option value='" . $stockitem->Name . "'>" . $stockitem->Name . "</option>";
                                                         }?>
                                                 </select>
+                                                <input type="hidden" name="unitofmeasure[]" value="<?php echo $stockitem->UnitOfMeasurement ; ?>">
+                                                <?php print_r($stockitem->UnitOfMeasurement); ?>
                                                 <label for="quantity">Quantity</label>
-                                                <input type="number" id="quantity" name="quantity[]" required>
+                                                <input type="number" id="quantity"  min=0 name="quantity[]">
                                                 <button class="redbutton"  id="remove">remove</button>
                                             </div>`);
                 });

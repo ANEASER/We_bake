@@ -1126,6 +1126,37 @@ use function PHPSTORM_META\type;
             }
         }
 
+        function addRawsview(){
+            $productitem = new Productitem();
+            $stockitem = new StockItem();
+
+            $stockitems = $stockitem->getDistinct("Name");
+
+            $maxitemid = $productitem->getMinMax("itemid", "max");
+            $maxitemid = $maxitemid[0]->{"max(itemid)"};
+            $maxitemid = $maxitemid + 1 ;
+
+            echo $maxitemid;
+            echo $this->view("admin/addraws", ["maxitemid" => $maxitemid, "stockitems" => $stockitems]);
+        }
+
+        function addRaws(){
+            
+            $rawsforitem = new RawsForItem();
+
+            $raworderline = $_POST;
+
+            for ($i = 0; $i < count($raworderline["itemcode"]); $i++) {
+                $rawsforitem->insert([
+                    "itemid" => $raworderline["itemid"][$i],
+                    "RawName" => $raworderline["itemcode"][$i],
+                    "quantity" => floatval($raworderline["quantity"][$i]),
+                    "UnitOfMeasurement" => $raworderline["unitofmeasure"][$i]
+                ]);
+            }
+
+
+        }
         
 
     }
