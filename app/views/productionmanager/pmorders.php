@@ -36,11 +36,46 @@
         .blue {
             background-color: #3498db;
         }
+        .yellow{
+            background-color: #f1c40f;
+            margin-left: 10px;
+        }
     </style>
     <title>Customer Orders</title>
 </head>
 <body>
-    <?php include 'pmnavbar.php'; ?>
+    <?php include 'pmnavbar.php'; 
+    
+    if (isset($error)) {
+        echo '<script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const showAlert = async () => {
+                    const SwalwithButton = Swal.mixin({
+                        customClass: {
+                            confirmButton: "greenbutton",
+                        },
+                        buttonsStyling: false
+                    });
+    
+                    if (typeof Swal !== "undefined") {
+                        await SwalwithButton.fire({
+                            icon: "error",
+                            title: "Oops...",
+                            text: "' . $error . '",
+                            confirmButtonText: "OK",
+                        });
+                        window.location.href = "' . BASE_URL . 'pmcontrols/index";
+                    } else {
+                        alert("' . $error . '");
+                    }
+                };
+    
+                // Call the async function to show the alert
+                showAlert();
+            });
+        </script>';
+    }
+    ?>
 
     <div class="searchpanel">
         <form method="GET" action="<?php echo BASE_URL;?>OrderControls/searchOrders" class="search" style="display:flex; flex-direction:row;">
@@ -92,7 +127,7 @@
             </tr>";
             
             foreach ($productorder as $ProductOrder){
-                if ($ProductOrder->orderstatus == "pending"){
+                if ($ProductOrder->orderstatus == "pending" && $ProductOrder->orderdate >= date('Y-m-d')){
                     echo "<tr>";
                     echo "<td>".$ProductOrder->orderref."</td>";
                     echo "<td>".$ProductOrder->placeby."</td>";
@@ -103,11 +138,12 @@
                     echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->unique_id."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
-                    if($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced"){
+                    if($ProductOrder->paymentstatus === "paid" || $ProductOrder->paymentstatus === "advanced"){
                         echo "<td><button class='button green' onclick='process(".$ProductOrder->orderid.")'>Process</button></td>";
                     }
                     else{
-                        echo "<td>Incomplete Payment</td>";
+                        echo "<td><button class='button green' onclick='validateProcess()'>Process</button></td>";
+                    
                     }
                     echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
                     echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
@@ -139,7 +175,7 @@
                 </tr>";
                 
                 foreach ($productorder as $ProductOrder){
-                    if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced")  && $ProductOrder->orderdate == date('Y-m-d', strtotime('+1 day'))){
+                    if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && $ProductOrder->orderdate == date('Y-m-d', strtotime('+1 day')) ){ 
                         echo "<tr>";
                         echo "<td>".$ProductOrder->orderref."</td>";
                         echo "<td>".$ProductOrder->placeby."</td>";
@@ -150,7 +186,7 @@
                         echo "<td>".$ProductOrder->deliverby."</td>";
                         echo "<td>".$ProductOrder->unique_id."</td>";
                         echo "<td>".$ProductOrder->deliver_address."</td>";
-                        echo "<td><button class='button green' onclick='completeProduction(".$ProductOrder->orderid.", \"".$ProductOrder->deliverystatus."\")'>Process</button></td>";
+                        echo "<td><button class='button green' onclick='completeProduction(".$ProductOrder->orderid.", \"".$ProductOrder->deliverystatus."\")'>Production Complete</button></td>";
                         echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
                         echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                         echo "</tr>";
@@ -222,7 +258,7 @@
 
             foreach($productorder as $ProductOrder){ 
 
-                if($ProductOrder->orderstatus == "finishedproduction" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && ($ProductOrder->deliverystatus == "delivery") && $ProductOrder->orderdate== date('Y-m-d', strtotime('+1 day'))) { 
+                if($ProductOrder->orderstatus == "finishedproduction" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && ($ProductOrder->deliverystatus == "delivery") && $ProductOrder->orderdate == date('Y-m-d', strtotime('+1 day'))) {
 
                     echo "<tr>";
                     echo "<td>".$ProductOrder->orderref."</td>";
@@ -403,9 +439,34 @@
     }
 
     function process(orderid){
-        var url = BASE_URL + "pmcontrols/processOrder/" + orderid;
-        window.location.href = url;
-    }
+        const SwalwithButton = Swal.mixin({
+            customClass: {
+                confirmButton: "button yellow",
+                cancelButton: "button yellow"
+            },
+            buttonsStyling: false
+            });
+
+            SwalwithButton.fire({
+                text: "Are you sure you want to process this order?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Processed Successfully',
+                        text: 'The order has been successfully processed.',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                    var url = BASE_URL + "pmcontrols/processOrder/" + orderid;
+                    window.location.href = url;
+                    });
+                }
+            });
+    } 
 
     function completeProduction(orderid, deliverystatus) {
         if(deliverystatus=="pickup"){
@@ -419,9 +480,35 @@
     }
 
     function cancel(orderid) {
-        var url = BASE_URL + "pmcontrols/cancelOrder/" + orderid;
-        window.location.href = url;
+        const SwalwithButton = Swal.mixin({
+            customClass: {
+                confirmButton: "button yellow",
+                cancelButton: "button yellow"
+            },
+            buttonsStyling: false
+            });
+
+            SwalwithButton.fire({
+                text: "Are you sure you want to cancel this order?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Canceled Successfully',
+                        text: 'The order has been successfully canceled.',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        var url = BASE_URL + "pmcontrols/cancelOrder/" + orderid;
+                        window.location.href = url;
+                    });
+                }
+            });
     }
+
 
     function more(unique_id) {
         var url = BASE_URL + "OrderControls/moreDetails/" + unique_id;
@@ -435,9 +522,34 @@
     }
 
     function completed(orderid){
-        sessionStorage.setItem('activeLink', 'showCompletedOrderTable(this)')
-        var url = BASE_URL + "pmcontrols/completeOrder/" + orderid;
-        window.location.href = url;
+        const SwalwithButton = Swal.mixin({
+            customClass: {
+                confirmButton: "button yellow",
+                cancelButton: "button yellow"
+            },
+            buttonsStyling: false
+            });
+
+            SwalwithButton.fire({
+                text: "Are you sure you want to complete this order?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Completed Successfully',
+                        text: 'The order has been successfully Completed.',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                    sessionStorage.setItem('activeLink', 'showCompletedOrderTable(this)')
+                    var url = BASE_URL + "pmcontrols/completeOrder/" + orderid;
+                    window.location.href = url;
+                    });
+                }
+            });  
     }
 
     function showPendingOrderTable(link){
@@ -521,6 +633,14 @@
         window.location.href = BASE_URL + "pmcontrols/index";
     }
 
+    function validateProcess(){
+            Swal.fire({
+                icon: 'error',
+                title: 'Order Cannot Be Processed',
+                text: 'No advance or full payment received',
+                confirmButtonText: 'OK'
+            });
+        }
     </script>
 </body>
 </html>

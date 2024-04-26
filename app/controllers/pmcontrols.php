@@ -17,25 +17,6 @@ class PmControls extends Controller
     }
     
                                     // CUSTOMER ORDERS
-    // Views
-   /* // Pending Orders View - customer
-    function pendingOrdersView()
-{
-    if (!Auth::loggedIn()) {
-        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        return;
-    }
-
-    if ($_SESSION["USER"]->Role !== "productionmanager") {
-        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        return;
-    }
-
-    $ProductOrder = new ProductOrder;
-    $productorder = $ProductOrder->findCustomerOrders();
-    echo $this->view("productionmanager/pmorders", ["productorder" => $productorder]);
-} */
-
 // functions
     // Process Order - customer
     function processOrder($orderid)
@@ -91,7 +72,7 @@ class PmControls extends Controller
     }
 
     // Cancel Order - customer
-    function cancelOrder($orderid)
+   function cancelOrder($orderid)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -103,10 +84,12 @@ class PmControls extends Controller
         $productorder = new ProductOrder;
         $productorder->update($orderid, "orderid", ["orderstatus" => "cancled"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
-    }
+    } 
+
 
                                     //OUTLET ORDERS
-    //VIEWS
+
+//VIEWS
     //Outlet Orders View
     function outletOrdersView(){
         if (!Auth::loggedIn()) {
@@ -124,7 +107,7 @@ class PmControls extends Controller
         echo $this->view("productionmanager/outletorders", ["productorder"=>$productorder]);
     }
 
-    //FUNCTIONS
+//FUNCTIONS
     // Process Order - outlet
     function processOrderOutlet($orderid)
     {
@@ -140,23 +123,9 @@ class PmControls extends Controller
         $this->redirect(BASE_URL . "pmcontrols/outletOrdersView");
     }
 
-    // Complete Production Order - outlet
-    function completeProductionOrderOutlet($orderid)
-    {
-        if (!Auth::loggedIn()) {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-        if ($_SESSION["USER"]->Role != "productionmanager") {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-
-        $productorder = new ProductOrder;
-        $productorder->update($orderid, "orderid", ["orderstatus" => "finishedproduction"]);
-        $this->redirect(BASE_URL . "pmcontrols/index");
-    }
 
     // Complete Order - outlet
-    function completeOrderOutlet($orderid)
+    function completeProductionOrderOutlet($orderid)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -193,8 +162,9 @@ class PmControls extends Controller
     }
 
 
-                                                            // VEHICLE
-    // VIEWS
+                                                                // VEHICLE
+
+// VIEWS
     // Load Vehicle View
     function loadVehiclesView()
     {
@@ -253,7 +223,7 @@ class PmControls extends Controller
         echo $this->view("productionmanager/editvehicle", ["data"=>$data]);
     }
 
-    // FUNCTIONS
+// FUNCTIONS
     // Create Vehicle
     function createVehicle()
     {
@@ -361,7 +331,7 @@ class PmControls extends Controller
         $this->redirect(BASE_URL . "pmControls/loadVehiclesView");
     }
 
-    // Assign Vehicle - cutomer order
+    // Assign Vehicle - customer order
     function assignVehicle($vehicleno, $orderid)
     {
         if (!Auth::loggedIn()) {
@@ -401,6 +371,7 @@ class PmControls extends Controller
         }else{
             $this->redirect(BASE_URL . "pmcontrols/index");
         } */
+        $this->redirect(BASE_URL . "pmcontrols/index");
     }
 
     // Assign Vehicle - outlet order
@@ -443,6 +414,7 @@ class PmControls extends Controller
         }else{
             $this->redirect(BASE_URL . "pmcontrols/outletOrdersView");
         } */
+        $this->redirect(BASE_URL . "pmcontrols/outletOrdersView");
     }
 
     //Search Vehicle
@@ -478,8 +450,8 @@ class PmControls extends Controller
     
 
 
-    // RAW MATERIALS
-    // views
+                                                            // RAW MATERIALS
+// VIEWS
     // Raw Materials Request View
     function rmView()
     {
@@ -634,11 +606,11 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
-        $ProductOrder = new ProductOrder;
-        $productorder = $ProductOrder->findall();
+        $StockOrder = new StockOrder;
+        $stockorder = $StockOrder->findAllRM();
 
-echo $this->view("productionmanager/rmrequesthistory", ["productorder" => $productorder]);
-}
+        echo $this->view("productionmanager/rmrequesthistory", ["stockorder" => $stockorder]);
+    }
 
 
 }

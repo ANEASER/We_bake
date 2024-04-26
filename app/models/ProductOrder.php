@@ -12,7 +12,7 @@ class ProductOrder extends Model {
     public function findCustomerOrders() {
         $query = "SELECT * FROM $this->table 
         WHERE orderref LIKE 'C%' OR orderref LIKE 'R%' 
-        ORDER BY orderid DESC";
+        ORDER BY orderdate ASC";
         return $this->query($query, []);
     }
 
@@ -20,9 +20,11 @@ class ProductOrder extends Model {
     public function findOutletOrders(){
         $query = "SELECT * FROM $this->table 
         WHERE orderref LIKE 'OP%'
-        ORDER BY orderid DESC";
+        ORDER BY orderdate ASC";
         return $this->query($query, []);
     }
+
+   
 
     // anuda
     public function findalldescwithplaceby($placeby) {

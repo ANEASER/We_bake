@@ -29,14 +29,7 @@
             border-radius: 9px;
         }
 
-        .red {
-            background-color: #e74c3c;
-        }
-
-        .green {
-            background-color: #2ecc71;
-        }
-
+        
         .blue {
             background-color: #3498db;
         }
@@ -68,10 +61,13 @@
     </style>
 </head>
 <body>
+
     <?php
     
-    require('pmnavbar.php');
-   
+    require('pmnavbar.php'); ?>
+
+    <?php
+
     echo "<div id='RMRequestHistory' style='display:none'>";
     echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
     echo "<tr>
@@ -81,12 +77,13 @@
            <th>More Details</th>
        </tr>";
 
-    foreach ($productorder as $ProductOrder) {
+       
+    foreach ($stockorder as $StockOrder) {
         echo "<tr>";
-        echo "<td>".$ProductOrder->ondate."</td>";
-        echo "<td>".$ProductOrder->id."</td>";
-        echo "<td>".$ProductOrder->unique_id."</td>";
-        echo '<td><button class="button blue" onclick="more(\'' . $ProductOrder->unique_id . '\')">More</button></td>';
+        echo "<td>".$StockOrder->ondate."</td>";
+        echo "<td>".$StockOrder->id."</td>";
+        echo "<td>".$StockOrder->unique_id."</td>";
+        echo '<td><button class="button blue" onclick="more(\'' . $StockOrder->unique_id . '\')">More</button></td>';
         echo "</tr>";
     }
 
