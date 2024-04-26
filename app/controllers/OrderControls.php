@@ -469,6 +469,20 @@
             $this->redirect(BASE_URL."OrderControls/showcategories");
         }
 
+        function moreStockDetails($unique_id){
+                
+                if(!Auth::loggedIn()){
+                    $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                }
+    
+                $stockorder = new StockOrder();
+                $stockorderline = new StockOrderLine();
+                
+                $stockorderlines = $stockorderline->where("unique_id",$unique_id);
+                $this->view("order/morestockdetailsorder",["stockorderlines"=>$stockorderlines]);
+                
+
+        }
 
         
 

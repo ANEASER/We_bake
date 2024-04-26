@@ -65,10 +65,9 @@
     <?php
     
     require('pmnavbar.php'); ?>
-
+    
     <?php
-
-    echo "<div id='RMRequestHistory' style='display:none'>";
+    echo "<div id='RMRequestHistory'>";
     echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
     echo "<tr>
            <th>Request Date</th>
@@ -95,7 +94,7 @@
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
         function more(unique_id) {
-            window.location.href = BASE_URL + "OrderControls/moreDetails/" + unique_id;
+            window.location.href = BASE_URL + "OrderControls/moreStockDetails/" + unique_id;
         }
     </script>
 </body>
