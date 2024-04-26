@@ -85,6 +85,13 @@ class Model extends Database {
         $query = "SELECT $minmax($column) FROM $this->table";
         return $this->query($query, []);
     }
+
+    // partial serach matches
+    public function whereLike($column, $searchQuery) {
+        $query = "SELECT * FROM {$this->table} WHERE $column LIKE ?";
+        $params = ["%$searchQuery%"];
+        return $this->query($query, $params);
+    }
     
 }
 ?>
