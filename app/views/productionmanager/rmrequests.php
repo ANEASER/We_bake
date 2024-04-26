@@ -36,7 +36,12 @@
             font-size: 16px;
             border-radius: 9px;
         }
-        
+        .red {
+            color: white;
+            font-size: 16px;
+            margin-bottom: auto;
+            background-color: #e74c3c;
+        }
         .green {
             background-color: #2ecc71;
         }
@@ -49,13 +54,16 @@
         }
         
         
-    input[type=number],
-    select 
-    {
-        width: 20%;
-        padding: 5px;
-        margin: 5px;
-    }
+        input[type=text],
+        input[type=number],
+        select {
+            width: 20%;
+            padding: 5px;
+            margin: 5px;
+            background-color: #ffff;
+            color: rgb(95, 37, 37);
+        }
+
     label
     {
         margin-top: 5px;
@@ -66,7 +74,6 @@
     @media screen and (max-width: 600px) {
         .content {
             flex-direction: column;
-        
         }
     }
 </style>
@@ -145,7 +152,7 @@
         echo "<div style='display: flex; flex-direction: row; justify-content: center;'>";
         echo "<input type='hidden' name='uniqueid[]' value='" . $unique_id . "'>";
         
-        echo "<label for='itemcode'>Raw Item</label>";
+        echo "<label for='itemcode'>Raw Material</label>";
         echo "<select name='itemcode[]' id='itemcode'>";
         echo "<option value=''>Select Item</option>";
         foreach ($stockitems as $stockitem) {
@@ -243,7 +250,7 @@
         
         echo "<input type='hidden' name='uniqueid[]' value='".$unique_id."'>";
         
-        echo "<label for='itemcode'>Raw Item</label>";
+        echo "<label for='itemcode'>Raw Material</label>";
         echo "<select name='itemcode[]' id='itemcode'>";
         echo "<option value=''>Select Item</option>";
         foreach ($stockitems as $stockitem) {
@@ -254,7 +261,7 @@
         echo "<input type='hidden' name='unitofmeasure[]' value='".$stockitem->UnitOfMeasurement."'>";
         
         echo "<label for='quantity'>Quantity</label>";
-        echo "<input type='number' id='quantity' name='quantity[]'>";
+        echo "<input type='number' id='quantity<?= $unique_id ?>' name='quantity[]'>";
         
         echo "<button class='button blue' id='add'>Add Item</button>";
         
@@ -282,27 +289,62 @@
 $(document).ready(function(){
     $("#add").click(function(e){
         e.preventDefault();
-        $("#showitem").prepend(`<div style="display: flex;flex-direction:row">
-                                    <input type="hidden" name="uniqueid[]" value="<?php echo $unique_id ; ?>">
-                                    <label for="itemcode">Raw Item</label>
-                                    <select name="itemcode[]" id="itemcode">
-                                        <option value="">Select Item</option>
-                                        <?php
-                                            foreach ($stockitems as $stockitem) {
-                                                echo "<option value='" . $stockitem->Name . "'>" . $stockitem->Name . "</option>";
-                                            }?>
-                                    </select>
-                                    <input type="hidden" name="unitofmeasure[]" value="<?php echo $stockitem->UnitOfMeasurement ; ?>">
-                                    <?php print_r($stockitem->UnitOfMeasurement); ?>
+        var selectedItem = $("#itemcode").val();
+        if(selectedItem === "") {
+            Swal.fire({
+                        icon: 'error',
+                        title: 'Item not Selected',
+                        text: 'Please select a raw material item.',
+                        confirmButtonText: 'OK'
+            });
+        }
+        else{
+            var selectedItemName = $("#itemcode option:selected").text();
+            var quantity = $("#quantity").val();
+            
+            $("#showitem").prepend(`<div style="display: flex; flex-direction: row;">
+                                    <input type="hidden" name="uniqueid[]" value="<?php echo $unique_id; ?>">
+                                    
+                                    <label for="itemcode">Raw Material</label>
+                                    <input type="text" value="${selectedItemName}" disabled>
+                                    <input type="hidden" name="itemcode[]" value="${selectedItem}">
+                                    
                                     <label for="quantity">Quantity</label>
-                                    <input type="number" id="quantity"  min=0 name="quantity[]">
-                                    <button class="redbutton"  id="remove">remove</button>
-                                </div>`);
+                                    <input type="number" value="${quantity}" min="0" name="quantity[]">
+                                    <button class="red" id="remove">Remove</button>
+                                </div>`);}
+
     });
 
     $(document).on('click', '#remove', function(e){
         e.preventDefault();
-        $(this).parent('div').remove();
+        const SwalwithButton = Swal.mixin({
+            customClass: {
+                confirmButton: "button yellow",
+                cancelButton: "button yellow"
+            },
+            buttonsStyling: false
+            });
+
+            SwalwithButton.fire({
+                text: "Are you sure you want to remove the item?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Item Removed Successfully',
+                        text: 'The item has been successfully removed.',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+       
+                        $(this).parent('div').remove();
+                    });
+                }
+            });
     });
 
     $("#requestform").submit(function(e){
