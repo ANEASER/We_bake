@@ -12,7 +12,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <title>Raw Materials Request</title>
     <style>
-
+.cart1{
+    width: 60vw; margin: auto ; display:flex;
+    margin-top: 20px;
+    flex-direction:column; 
+    justify-content:space-around;
+    background-color: rgba(245, 242, 242, 0.658);
+    border-radius: 8px;
+    padding: 5%;
+}
 .hover{
             display:flex;
             padding :8px;
@@ -36,7 +44,14 @@
         }
         .blue {
             background-color: #3498db;
-        }    input[type=number],
+        }
+        .yellow{
+            background-color: #f1c40f;
+            margin-left: 10px;
+        }
+        
+        
+    input[type=number],
     select 
     {
         width: 20%;
@@ -50,11 +65,7 @@
         width: 15%;
     }
 
-    .bluebutton , .redbutton
-    {
-        margin-top: 5px;
-        height: 40px;
-    }
+    
 
     @media screen and (max-width: 600px) {
         .content {
@@ -74,102 +85,215 @@
     <ul style="display: flex;margin-left:75%; margin-top:30px;">
     <ul style="display: flex; padding: 0; list-style: none; margin: 0;">
     <li style="margin-right: 10px;"><a class="hover"id="home" onclick="showrmRequestTable(this)">RawMaterialRequest</a></li>
-    <li style="margin-right: 10px;"><a class="hover" onclick="showrmRequestHistoryTable(this)">RequestHistory    </a></li>
+    <li style="margin-right: 10px;"><a class="hover" onclick="showrmRequestHistoryTable(this)">RequestHistory</a></li>
     </ul>
     </ul>
 
-    
-    <section style="display:flex;justify-content:space-around; width:100%">
 
-    
-   
-            <section class="cart" style="padding : 20px;font-size: 1em; margin-left:10px;">
-                <h1 style="text-align:center;">Tomorrow Production Requirement</h1>
-                <?php
-                 
-                    echo "<br>";
-                    echo "<table>";
-                    echo "<tr>
-                            <th>Item Code </th>
-                            <th>Item Name</th>
-                            <th>Quantity</th>
-                        </tr>";
+  
+<div style="display: flex; flex-direction: column;">
 
-                    foreach ($productorderlines as $productorderline) {
-                        
-                        $productitem = new ProductItem();
-                        $item = $productitem->where('Itemcode', $productorderline->Itemcode);
-                        
-                        echo "<tr>";
-                        echo "<td>" . $productorderline->Itemcode . "</td>";
-                        echo "<td>" . $item[0]->itemname. "</td>";
-                        echo "<td>" . $productorderline->quantity . "</td>";
-                        echo "</tr>";
-                    }
+<!-- Raw Materials Requirements Request for tomorrow Before placed -->
 
-                    echo "</table>";
-                    ?>
-                    <br>
-                    <h1 style="text-align:center;">Tomorrow Auto Calculated Raw Requirment</h1>
-                    <br>
-                        <?php 
-                        if($placedstockorder == null){
-                            echo "<table>
-                            <tr>
-                                <th>Raw Name</th>
-                                <th>Quantity</th>
-                                <th>Unit of Measurement</th>
-                                
-                            </tr>";
-                            foreach ($autocalucalatedraws as $raw){
-                                
-                                    echo "<tr>";
-                                    echo "<td>" . htmlspecialchars($raw["rawName"]) . "</td>";
-                                    echo "<td>" . htmlspecialchars($raw["subtotalquantity"]) . "</td>";
-                                    echo "<td>" . htmlspecialchars($raw["UnitOfMeasurement"]) . "</td>";
-                                    echo "</tr>";
-                                }
-                            echo "<table>";
-                                
-                            }else{
-                                echo "<h1 style='text-align:center;color:green'>Placed Stock Order</h1>";
-                            }
-                        ?>
-                        
-                    </table>
+<?php 
+if ($placedstockorder == null) {
+    echo '<section style="display:flex;justify-content:space-around;width:100%;">';
+    //Production List
+    echo  ' <section class="cart1" style="padding: 20px;">
+    <h1 style="text-align:center;background-color: #41201f; color: #ffffff;">Tomorrow\'s Production List</h1>';
+    echo "<br>";
+    echo "<table>";
+    echo "<tr>
+            <th>Item Code </th>
+            <th>Item Name</th>
+            <th>Quantity</th>
+        </tr>";
 
-        </section>
+    foreach ($productorderlines as $productorderline) {
         
-        <section class="cart" style="padding : 20px; font-size: 1em; margin-left : 20px;">
-            <?php 
-                if($placedstockorder != null){
-                    echo "<h1 style='text-align:center;'>Placed Stock Order</h1>";
-                    echo "<table>";
-                    echo "<tr>
-                            <th>Raw Name </th>
-                            <th>Quantity</th>
-                            <th>Unit of Measurement</th>
-                        </tr>";
+        $productitem = new ProductItem();
+        $item = $productitem->where('Itemcode', $productorderline->Itemcode);
+        
+        echo "<tr>";
+        echo "<td>" . $productorderline->Itemcode . "</td>";
+        echo "<td>" . $item[0]->itemname. "</td>";
+        echo "<td>" . $productorderline->quantity . "</td>";
+        echo "</tr>";
+    }
 
-                    foreach ($stockorderlines as $stockorderline) {
-                        
-                        echo "<tr>";
-                        echo "<td>" . $stockorderline->RawName	 . "</td>";
-                        echo "<td>" . $stockorderline->quantity . "</td>";
-                        echo "<td>" . $stockorderline->UnitOfMeasurement . "</td>";
-                        echo "</tr>";
-                    }
+    echo "</table>";
+    echo "</section>";
 
-                    echo "</table>";
-                    echo "<br>";
-                }
-            ?>
-            <div>
-                
-                    <form id="reqestform" style="width: 90%;">
-                        <h1 style="text-align:center;margin-bottom:15px; margin-top:15px">Raw Materials Request</h1>
-                            <div id="showitem">
-                                <div style="display: flex;flex-direction:row; justify-content:center">
+
+    //Raw Materials Requirement
+    echo '<section class="cart1" style="padding: 20px; margin-top: 20px;margin-left:10px;">';
+    echo "<h1 style='text-align: center; background-color: #41201f; color: #ffffff;'>Raw Material Requirement Request</h1>";
+    echo "<br>";
+            echo "<table>
+                <tr>
+                    <th>Raw Name</th>
+                    <th>Quantity</th>
+                    <th>Unit of Measurement</th>
+                </tr>";
+            foreach ($autocalucalatedraws as $raw) {
+                echo "<tr>";
+                echo "<td>" . htmlspecialchars($raw["rawName"]) . "</td>";
+                echo "<td>" . htmlspecialchars($raw["subtotalquantity"]) . "</td>";
+                echo "<td>" . htmlspecialchars($raw["UnitOfMeasurement"]) . "</td>";
+                echo "</tr>";
+            }
+            echo "</table>"; 
+    echo "<br>";
+
+    // Additional Raw Materials Request form
+    echo "<form id='requestform' style='width: 100%;'>";
+    echo "<h1 style='text-align: center; margin-bottom: 25px; margin-top: 15px;'>Additional Raw Materials Requirement</h1>";
+   
+    echo "<div id='showitem'>";
+    echo "<div style='display: flex; flex-direction: row; justify-content: center;'>";
+    echo "<input type='hidden' name='uniqueid[]' value='" . $unique_id . "'>";
+    
+    echo "<label for='itemcode'>Raw Item</label>";
+    echo "<select name='itemcode[]' id='itemcode'>";
+    echo "<option value=''>Select Item</option>";
+    foreach ($stockitems as $stockitem) {
+        echo "<option value='" . $stockitem->Name . "'>" . $stockitem->Name . "</option>";
+    }
+    echo "</select>";
+    
+    echo "<input type='hidden' name='unitofmeasure[]' value='<?php echo $stockitem->UnitOfMeasurement; ?>'>";
+    
+    echo "<label for='quantity'>Quantity</label>";
+    echo "<input type='number' id='quantity' name='quantity[]'>";
+    
+    echo "<button class='button blue' id='add'>Add Item</button>";
+   
+    echo "</div>";
+    echo "</div>";
+   
+    echo "<br>";
+    
+    echo "<textarea style='margin-left: 5%; width: 90%; color: #999;' name='comment' id='comment'>Additional comments to be placed</textarea>";
+    
+    echo "<button class='button green' type='submit' class='btn' style='width: 100%; margin-left: 3%; margin-top: 20px;'>Request</button>";
+    
+    echo "</form>";
+
+    echo "</section>";
+}
+
+?>
+
+
+
+
+<!-- Raw Materials Requirements Request for tomorrow after placed -->
+
+<?php 
+if ($placedstockorder != null) {
+    echo ' <section style="display:flex;justify-content:space-around; width:100%;">';
+    // Production List
+    echo  ' <section class="cart1" style="padding: 20px;">
+        <h1 style="text-align:center;background-color: #41201f; color: #ffffff;">Tomorrow\'s Production List</h1>';
+    echo "<br>";
+    echo "<table>";
+    echo "<tr>
+            <th>Item Code </th>
+            <th>Item Name</th>
+            <th>Quantity</th>
+        </tr>";
+
+    foreach ($productorderlines as $productorderline) {
+        
+        $productitem = new ProductItem();
+        $item = $productitem->where('Itemcode', $productorderline->Itemcode);
+        
+        echo "<tr>";
+        echo "<td>" . $productorderline->Itemcode . "</td>";
+        echo "<td>" . $item[0]->itemname. "</td>";
+        echo "<td>" . $productorderline->quantity . "</td>";
+        echo "</tr>";
+    }
+
+    echo "</table>";
+    
+    // Raw Material Requirement Request
+       echo "<h1 style='text-align: center; margin-top: 30px; background-color: #41201f; color: #ffffff;'>Raw Material Requirement Request</h1>";
+        echo "<br>";
+            echo "<h1 style='text-align:center;color:green;'>Raw Materials Requirements Request Placed</h1>";
+        echo "<br>";
+        
+    echo "</section>";
+
+    // Raw Materials Requirement
+    echo '<section class="cart1" style="padding: 20px; margin-left: 10px;">';
+    echo "<h1 style='text-align: center; margin-bottom: 20px; background-color: #41201f; color: #ffffff;'>Tomorrow's Raw Materials Requirements</h1>";
+    echo "<table>";
+    echo "<tr>
+            <th>Raw Name</th>
+            <th>Quantity</th>
+            <th>Unit of Measurement</th>
+        </tr>";
+
+    foreach ($stockorderlines as $stockorderline) {
+        echo "<tr>";
+        echo "<td>" . $stockorderline->RawName . "</td>";
+        echo "<td>" . $stockorderline->quantity . "</td>";
+        echo "<td>" . $stockorderline->UnitOfMeasurement . "</td>";
+        echo "</tr>";
+    }
+
+    echo "</table>";
+    echo "<br>";
+
+    // Additional Raw Materials Request
+    echo "<form id='requestform' style='width: 100%;'>";
+    echo "<h1 style='text-align:center;margin-bottom:25px; margin-top:15px;background-color: #41201f; color: #ffffff;'>Additional Raw Materials Requirement</h1>";
+    echo "<div id='showitem'>";
+    echo "<div style='display: flex;flex-direction:row; justify-content:center'>";
+    
+    echo "<input type='hidden' name='uniqueid[]' value='".$unique_id."'>";
+    
+    echo "<label for='itemcode'>Raw Item</label>";
+    echo "<select name='itemcode[]' id='itemcode'>";
+    echo "<option value=''>Select Item</option>";
+    foreach ($stockitems as $stockitem) {
+        echo "<option value='".$stockitem->Name."'>".$stockitem->Name."</option>";
+    }
+    echo "</select>";
+    
+    echo "<input type='hidden' name='unitofmeasure[]' value='".$stockitem->UnitOfMeasurement."'>";
+    
+    echo "<label for='quantity'>Quantity</label>";
+    echo "<input type='number' id='quantity' name='quantity[]'>";
+    
+    echo "<button class='button blue' id='add'>Add Item</button>";
+    
+    echo "</div>";
+    echo "</div>";
+    echo "<br>";
+    
+    echo "<textarea style='margin-left:5%; width: 90%; color: #999;' name='comment' id='comment'>Additional comments to be placed</textarea>";
+
+    echo "<button class='button green' type='submit' class='btn' style='width: 100%; margin-left:3%; margin-top:20px'>Request</button>";
+    
+    echo "</form>";
+
+    echo "</section>";
+}
+?>
+      
+</div>
+      
+                    
+    <script>
+
+        var BASE_URL = "<?php echo BASE_URL; ?>";
+
+$(document).ready(function(){
+    $("#add").click(function(e){
+        e.preventDefault();
+        $("#showitem").prepend(`<div style="display: flex;flex-direction:row">
                                     <input type="hidden" name="uniqueid[]" value="<?php echo $unique_id ; ?>">
                                     <label for="itemcode">Raw Item</label>
                                     <select name="itemcode[]" id="itemcode">
@@ -179,66 +303,58 @@
                                                 echo "<option value='" . $stockitem->Name . "'>" . $stockitem->Name . "</option>";
                                             }?>
                                     </select>
-                                    <?php print_r($stockitem->UnitOfMeasurement); ?>
                                     <input type="hidden" name="unitofmeasure[]" value="<?php echo $stockitem->UnitOfMeasurement ; ?>">
+                                    <?php print_r($stockitem->UnitOfMeasurement); ?>
                                     <label for="quantity">Quantity</label>
-                                    <input type="number" id="quantity" name="quantity[]">
-                                    <button class="button blue" id="add">Add Item</button>
-                                </div>
-                            </div>
-                            <br>
-                            <textarea style="margin-left:5%" name="comment" id="comment"></textarea>
-                        <button class="button green" type="submit" class="btn" style="width: 100%; margin-top:20px">Request</button>
-                    </form>
-               
-            </div>
-        </section>
+                                    <input type="number" id="quantity"  min=0 name="quantity[]">
+                                    <button class="redbutton"  id="remove">remove</button>
+                                </div>`);
+    });
 
+    $(document).on('click', '#remove', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove();
+    });
 
-    </section>
-                                     
-    <script>
-
-            $(document).ready(function(){
-                $("#add").click(function(e){
-                   e.preventDefault();
-                   $("#showitem").prepend(`<div style="display: flex;flex-direction:row">
-                                                <input type="hidden" name="uniqueid[]" value="<?php echo $unique_id ; ?>">
-                                                <label for="itemcode">Raw Item</label>
-                                                <select name="itemcode[]" id="itemcode">
-                                                    <option value="">Select Item</option>
-                                                    <?php
-                                                        foreach ($stockitems as $stockitem) {
-                                                            echo "<option value='" . $stockitem->Name . "'>" . $stockitem->Name . "</option>";
-                                                        }?>
-                                                </select>
-                                                <input type="hidden" name="unitofmeasure[]" value="<?php echo $stockitem->UnitOfMeasurement ; ?>">
-                                                <?php print_r($stockitem->UnitOfMeasurement); ?>
-                                                <label for="quantity">Quantity</label>
-                                                <input type="number" id="quantity"  min=0 name="quantity[]">
-                                                <button class="redbutton"  id="remove">remove</button>
-                                            </div>`);
-                });
+    $("#requestform").submit(function(e){
+        e.preventDefault();
+        var formdata = $("#requestform").serialize(); 
+        const SwalwithButton = Swal.mixin({
+            customClass: {
+                confirmButton: "button yellow",
+                cancelButton: "button yellow"
+            },
+            buttonsStyling: false
             });
 
-            $(document).on('click', '#remove', function(e){
-                e.preventDefault();
-                $(this).parent('div').remove();
+            SwalwithButton.fire({
+                text: "Are you sure you want to place the request?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Request Placed Successfully',
+                        text: 'The raw materials request has been successfully placed.',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        $.ajax({
+                            type: "POST",
+                            url: "<?php echo BASE_URL; ?>pmcontrols/InstertRawMaterialRequest",
+                            data: formdata,
+                            success: function(data){
+                                location.reload();
+                            },
+                        });
+                    });
+                }
             });
+    });
+});
 
-            $("#reqestform").submit(function(e){
-                e.preventDefault();
-                var formdata = $("#reqestform").serialize();
-
-                $.ajax({
-                    type: "POST",
-                    url: "<?php echo BASE_URL; ?>PmControls/InstertRawMaterialRequest",
-                    data: formdata,
-                    success: function(data){
-                        location.reload();
-                    }
-                });
-            });
 
     function more(unique_id){
         window.location.href = BASE_URL + "OrderControls/moreDetails/" + unique_id;

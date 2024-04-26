@@ -570,51 +570,50 @@ class PmControls extends Controller
 
 
         
-    function InstertRawMaterialRequest(){
-        if (!Auth::loggedIn()) {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-        if ($_SESSION["USER"]->Role != "productionmanager") {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-
-        $stockorderlines = $_POST;
-        
-        for ($i = 0; $i < count($stockorderlines['itemcode']); $i++) {
-            $stockorderline = new StockOrderLine();
-            if($stockorderlines['itemcode'][$i] == "Select Item" || $stockorderlines['quantity'][$i] == null || $stockorderlines['unitofmeasure'][$i] == null){
-                continue;
-            }else{
-                $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][$i], "RawName" => $stockorderlines['itemcode'][$i], "quantity" => $stockorderlines['quantity'][$i], "UnitOfMeasurement" => $stockorderlines['unitofmeasure'][$i],'req_type'=>'custom']);
+        function InstertRawMaterialRequest(){
+            if (!Auth::loggedIn()) {
+                $this->redirect(BASE_URL . "CommonControls/loadLoginView");
             }
-        }
-
-
-        $autocalculatedraws = $_SESSION['autocalucalatedraws'];
-        if($autocalculatedraws != null){
-            foreach ($autocalculatedraws as $raw) {
+            if ($_SESSION["USER"]->Role != "productionmanager") {
+                $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+            }
+        
+            $stockorderlines = $_POST;
+            
+            for ($i = 0; $i < count($stockorderlines['itemcode']); $i++) {
                 $stockorderline = new StockOrderLine();
-                $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][0], "RawName" => $raw['rawName'], "quantity" => $raw['subtotalquantity'], "UnitOfMeasurement" => $raw['UnitOfMeasurement'],'req_type'=>'auto']);
+                if($stockorderlines['itemcode'][$i] == "Select Item" || $stockorderlines['quantity'][$i] == null || $stockorderlines['unitofmeasure'][$i] == null){
+                    continue;
+                }else{
+                    $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][$i], "RawName" => $stockorderlines['itemcode'][$i], "quantity" => $stockorderlines['quantity'][$i], "UnitOfMeasurement" => $stockorderlines['unitofmeasure'][$i],'req_type'=>'custom']);
+                }
             }
-        }
-
-        $tomorrow = date("Y-m-d", strtotime('+1 day'));
-
-        $stockorder = new StockOrder();
-
-        if($stockorderlines['comment'] == null){
-            if($stockorderlines['$stockorderlines'] != null){
-                $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow, "comment" => "custome added"]);
+        
+            $autocalculatedraws = $_SESSION['autocalucalatedraws'];
+            if($autocalculatedraws != null){
+                foreach ($autocalculatedraws as $raw) {
+                    $stockorderline = new StockOrderLine();
+                    $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][0], "RawName" => $raw['rawName'], "quantity" => $raw['subtotalquantity'], "UnitOfMeasurement" => $raw['UnitOfMeasurement'],'req_type'=>'auto']);
+                }
+            }
+        
+            $tomorrow = date("Y-m-d", strtotime('+1 day'));
+        
+            $stockorder = new StockOrder();
+        
+            if($stockorderlines['comment'] == null){
+                if($stockorderlines['$stockorderlines'] != null){
+                    $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow, "comment" => "customer added"]);
+                }else{
+                    $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow]);
+                }
             }else{
-                $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow]);
+                $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow ,'comment' => $stockorderlines['comment']]);
             }
-        }else{
-            $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow ,'comment' => $stockorderlines['comment']]);
+            
+            $this->redirect(BASE_URL . "pmcontrols/rmView");
         }
         
-        $this->redirect(BASE_URL . "pmcontrols/rmView");
-    }
-
     //Raw Materials History
     function rmHistoryView()
     {
