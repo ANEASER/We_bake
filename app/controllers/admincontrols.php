@@ -1161,7 +1161,7 @@ use function PHPSTORM_META\type;
 
         }
         
-        function loadDeliveryChargesView(){
+        function loadDeliveryChargesView($message = null){
 
             if(!Auth::loggedIn()){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -1173,8 +1173,11 @@ use function PHPSTORM_META\type;
 
             $deliverycharges = new DeliveryCharges();
             $deliverycharges = $deliverycharges->findall();
-
-            echo $this->view("admin/updatedeliverycharges", ["deliverycharges" => $deliverycharges]);
+            if($message == "successed"){
+                echo $this->view("admin/updatedeliverycharges", ["deliverycharges" => $deliverycharges, "message" => "successfully updated"]);
+            }else{
+                echo $this->view("admin/updatedeliverycharges", ["deliverycharges" => $deliverycharges]);
+            }
         }
 
         function updateDeliveryCharges(){
@@ -1197,8 +1200,10 @@ use function PHPSTORM_META\type;
                 }
             }
 
-            $deliverycharges->update(1, "charge_id", $result);
-            $this->redirect(BASE_URL."AdminControls/loadDeliveryChargesView");
+            $deliverycharges->update($deliverychargesid, "charge_id", $result);
+
+            $this->redirect(BASE_URL."AdminControls/loadDeliveryChargesView/successed");
+            
         }
 
     }

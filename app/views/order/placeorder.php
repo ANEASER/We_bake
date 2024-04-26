@@ -60,14 +60,14 @@
                         <option value="Maharagama">Maharagama</option>
                     </select>
                 </div>
-                <input class="bluebutton"  type="submit" value="SUBMIT">
+                <input class="bluebutton"  type="submit" value="Submit">
             </form>
         </div>
     </section>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var today = new Date();
-            today.setDate(today.getDate() + 1); // Set to the tomorrow
+            today.setDate(today.getDate() + 2); // Set to the tomorrow
 
             var dd = String(today.getDate()).padStart(2, '0');
             var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!

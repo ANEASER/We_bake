@@ -13,7 +13,7 @@
             echo $this->view("customer/customerdash",[ "data" => $data]);
         }
 
-        function profile(){
+        function profile($message=null){
             if(!Auth::loggedIn()){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
@@ -82,7 +82,7 @@
             } else {
                 $mostPurchasedItems = "No data available.";
             }
-
+            
             echo $this->view("customer/profile",[ "data" => $data, "orders" => $orders, "productorderlines" => $productorderlines, "mostPurchasedItems" => $mostPurchasedItems,"itemQuantities"=>$itemQuantities]);
         }
 
@@ -174,7 +174,7 @@
                         } else {
                             $_SESSION["USER"] = $customer->where("UserName", $_SESSION["USER"]->UserName)[0];
                         }
-                        $this->redirect(BASE_URL."CustomerControls/profile");
+                        $this->redirect(BASE_URL."CustomerControls/profile/success");
                     }
 
                     else{
@@ -336,7 +336,6 @@
 
            $arr["placeby"] = $_SESSION["USER"]->UserName;
            $arr["address"] = $_SESSION["USER"]->Address;
-           $arr["inquirysubject"] = $_POST["inquirytype"];
            $arr["inquirytext"] = $_POST["inquirytext"];
         
 

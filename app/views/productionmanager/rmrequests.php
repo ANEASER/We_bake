@@ -115,16 +115,22 @@
                     <table>
                         <tr>
                             <th>Raw Name</th>
-                            <th>Unit of Measurement</th>
                             <th>Quantity</th>
+                            <th>Unit of Measurement</th>
+                            
                         </tr>
-                        <?php foreach ($autocalucalatedraws as $raw): ?>
-                            <tr>
-                                <td><?php echo htmlspecialchars($raw["rawName"]); ?></td>
-                                <td><?php echo htmlspecialchars($raw["subtotalquantity"]); ?></td>
-                                <td><?php echo htmlspecialchars($raw["UnitOfMeasurement"]); ?></td>
-                            </tr>
-                        <?php endforeach; ?>
+                        <?php 
+                            foreach ($autocalucalatedraws as $raw): 
+                                if($placedstockorder == null){
+                                    echo "<tr>";
+                                    echo "<td>" . htmlspecialchars($raw["rawName"]) . "</td>";
+                                    echo "<td>" . htmlspecialchars($raw["subtotalquantity"]) . "</td>";
+                                    echo "<td>" . htmlspecialchars($raw["UnitOfMeasurement"]) . "</td>";
+                                    echo "</tr>";
+                                }
+                            endforeach;
+                        ?>
+                        
                     </table>
 
         </section>
@@ -135,8 +141,9 @@
                     echo "<h1 style='text-align:center;'>Placed Stock Order</h1>";
                     echo "<table>";
                     echo "<tr>
-                            <th>Item Code </th>
+                            <th>Raw Name </th>
                             <th>Quantity</th>
+                            <th>Unit of Measurement</th>
                         </tr>";
 
                     foreach ($stockorderlines as $stockorderline) {
@@ -144,10 +151,12 @@
                         echo "<tr>";
                         echo "<td>" . $stockorderline->RawName	 . "</td>";
                         echo "<td>" . $stockorderline->quantity . "</td>";
+                        echo "<td>" . $stockorderline->UnitOfMeasurement . "</td>";
                         echo "</tr>";
                     }
 
                     echo "</table>";
+                    echo "<br>";
                 }
             ?>
             <div>
@@ -159,6 +168,7 @@
                                     <input type="hidden" name="uniqueid[]" value="<?php echo $unique_id ; ?>">
                                     <label for="itemcode">Raw Item</label>
                                     <select name="itemcode[]" id="itemcode">
+                                        <option value="">Select Item</option>
                                         <?php
                                             foreach ($stockitems as $stockitem) {
                                                 echo "<option value='" . $stockitem->Name . "'>" . $stockitem->Name . "</option>";
@@ -167,10 +177,12 @@
                                     <?php print_r($stockitem->UnitOfMeasurement); ?>
                                     <input type="hidden" name="unitofmeasure[]" value="<?php echo $stockitem->UnitOfMeasurement ; ?>">
                                     <label for="quantity">Quantity</label>
-                                    <input type="number" id="quantity" name="quantity[]" required>
+                                    <input type="number" id="quantity" name="quantity[]">
                                     <button class="button blue" id="add">Add Item</button>
                                 </div>
                             </div>
+                            <br>
+                            <textarea style="margin-left:5%" name="comment" id="comment"></textarea>
                         <button class="button green" type="submit" class="btn" style="width: 100%; margin-top:20px">Request</button>
                     </form>
                
@@ -189,6 +201,7 @@
                                                 <input type="hidden" name="uniqueid[]" value="<?php echo $unique_id ; ?>">
                                                 <label for="itemcode">Raw Item</label>
                                                 <select name="itemcode[]" id="itemcode">
+                                                    <option value="">Select Item</option>
                                                     <?php
                                                         foreach ($stockitems as $stockitem) {
                                                             echo "<option value='" . $stockitem->Name . "'>" . $stockitem->Name . "</option>";

@@ -87,7 +87,7 @@
             <li><a onclick="home(this)">Home</a></li>
             <li><a onclick="placeorder(this)">Place order</a></li>
             <li><a onclick="purchasehistory(this)">Purchase History</a></li>
-            <li><a onclick="makeinquiry(this)">Make Inquiry</a></li>
+            <li><a onclick="makeinquiry(this)">Feedback</a></li>
             <li style="font-weight: bolder;" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown">
                         <?php 
