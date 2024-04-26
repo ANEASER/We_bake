@@ -16,7 +16,16 @@ class StoreControls extends Controller {
         
         $stocks = $stockItem->findall();
 
-        $this->view("storemanager/smdash");
+        // $this->view("storemanager/smdash");
+        $this->redirect(BASE_URL."StoreControls/loadSortedSupplies");
+    }
+
+    //Home Page functions
+
+    function loadSortedSupplies(){
+        $supplies = new Supplies();
+        $supplies = $supplies->getSorted('ExpiryDate');
+        echo $this->view("storemanager/smdash",  ["supplies" => $supplies]);        
     }
 
     function viewProduction(){

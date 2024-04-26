@@ -39,6 +39,8 @@
                     <option value="Eggs">Eggs</option>
                     <option value="Dairy">Dairy</option>
                     <option value="Fats and Oils">Fats and Oils</option>
+                    <option value="Vegetables">Vegetables</option>
+                    <option value="Meat">Meat</option>
                     <option value="Leavening Agents">Leavening Agents</option>
                     <option value="Flavorings">Flavorings</option>
                     <option value="Nuts and Seeds">Nuts and Seeds</option>

@@ -34,7 +34,7 @@
                     <th> Comment</th>
                 </tr>';
 
-                foreach($stocks as $stocks){
+                foreach($inquiry as $inquiry){
                     echo '<tr>';
                     echo '<td>' . $inquiry->inquiryid . '</td>';
                     echo '<td>' . $inquiry->placeby . '</td>';

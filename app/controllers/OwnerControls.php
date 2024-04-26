@@ -26,6 +26,11 @@ class OwnerControls extends Controller{
     }
 
     function viewEnquiries(){
+        echo $this->redirect (BASE_URL."OwnerControls/loadviewEnquiries");
+
+    }
+
+    function loadviewEnquiries(){
         $inquiry = new Inquiry();
         $inquiry = $inquiry ->findall();
         echo $this->view("owner/inquiry",  ["inquiry" => $inquiry]);
