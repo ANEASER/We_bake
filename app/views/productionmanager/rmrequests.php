@@ -180,7 +180,7 @@
 
     </section>
                                      
-        <script>
+    <script>
 
             $(document).ready(function(){
                 $("#add").click(function(e){
@@ -221,30 +221,34 @@
                     }
                 });
             });
-            
-document.addEventListener('DOMContentLoaded', function () {
 
-            console.log('DOMContentLoaded');
-            var activeLink = sessionStorage.getItem('activeLink');
-            console.log(activeLink);
-            if (activeLink != "showrmRequestTable(this)" || activeLink != "showrmRequestHistoryTable(this)" || activeLink == null){
-                var homeLink = document.getElementById('home');
-                if (homeLink) {
-                    homeLink.click();
-                }
-            } else {
-                var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
-                if (linkElement) {
-                    linkElement.classList.add('active');
+    function more(unique_id){
+        window.location.href = BASE_URL + "OrderControls/moreDetails/" + unique_id;
+    }
+    //Active Link Functions           
+    document.addEventListener('DOMContentLoaded', function () {
 
-                    var functionName = activeLink.match(/([a-zA-Z]+)\(/)[1];
+                console.log('DOMContentLoaded');
+                var activeLink = sessionStorage.getItem('activeLink');
+                console.log(activeLink);
+                if (activeLink != "showrmRequestTable(this)" || activeLink != "showrmRequestHistoryTable(this)" || activeLink == null){
+                    var homeLink = document.getElementById('home');
+                    if (homeLink) {
+                        homeLink.click();
+                    }
+                } else {
+                    var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
+                    if (linkElement) {
+                        linkElement.classList.add('active');
 
-                    if (typeof window[functionName] === 'function') {
-                        window[functionName](linkElement);
+                        var functionName = activeLink.match(/([a-zA-Z]+)\(/)[1];
+
+                        if (typeof window[functionName] === 'function') {
+                            window[functionName](linkElement);
+                        }
                     }
                 }
-            }
-        });
+            });
 
     function changeActiveLink(link){
         var links = document.querySelectorAll("body div ul li a");
@@ -263,15 +267,12 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById("RMRequestHistory").style.display = "none";
     }
     function showrmRequestHistoryTable(link){
-        
         window.location.href = BASE_URL + "pmcontrols/rmHistoryView";
     }
 
-            function more(unique_id){
-                window.location.href = BASE_URL + "OrderControls/moreDetails/" + unique_id;
-            }
+    
             
-        </script>
+     </script>
     
 </body>
 </html>
