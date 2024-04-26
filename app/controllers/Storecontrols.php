@@ -114,30 +114,23 @@ class StoreControls extends Controller {
         $this->redirect(BASE_URL."StoreControls/viewStocks");
     }
 
-    function SearchItem(){
-
+    function searchItem() {
         $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
-
-            $stockItem = new StockItem();
-            $itemByID = $stockItem->where("CustomItemID", $searchQuery);
-            $itemByName = $stockItem->where("Name", $searchQuery);
-            $itemByType = $stockItem->where("Type", $searchQuery);
-
-
-            if (count($itemByID) > 0) {
-                $stocks = $itemByID;
-            } else if (count($itemByName) > 0) {
-                $stocks = $itemByName;
-            }else if (count($itemByType) > 0) {
-                $stocks = $itemByType;
-            }
-            else {
-                $stocks = [];
-            }
-
-            echo $this->view("storemanager/stocks",[ "stocks" => $stocks]);
-
+    
+        $stockItem = new StockItem();
+    
+        // Search by Name starting with the search query
+        $itemByName = $stockItem->whereLike("Name", $searchQuery . '%');
+    
+        // Search by Type starting with the search query
+        $itemByType = $stockItem->whereLike("Type", $searchQuery . '%');
+    
+        // Combine results from both searches
+        $stocks = array_merge($itemByName, $itemByType);
+    
+        echo $this->view("storemanager/stocks", ["stocks" => $stocks]);
     }
+    
 
 
     ///CRUD for Supplies
@@ -304,33 +297,52 @@ class StoreControls extends Controller {
     }
     
 
-    function SearchSupply(){
+    // function SearchSupply(){
 
+    //     $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+
+    //         $supplies = new Supplies();
+    //         $supplyByID = $supplies->where("SupplyID", $searchQuery);
+    //         $supplyByItemID = $supplies->where("StockItemID", $searchQuery);
+    //         $supplyByInvoiceNo = $supplies->where("InvoiceNo", $searchQuery);
+
+
+    //         if (count($supplyByID) > 0) {
+    //             $supplies = $supplyByID;
+    //         } else if (count($supplyByItemID) > 0) {
+    //             $supplies = $supplyByItemID;
+    //         }else if (count($supplyByInvoiceNo) > 0) {
+    //             $supplies = $supplyByInvoiceNo;
+    //         }
+    //         else {
+    //             $supplies = [];
+    //         }
+
+    //         echo $this->view("storemanager/supplies",[ "supplies" => $supplies]);
+
+    // }
+
+    function SearchSupply() {
         $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
-
-            $supplies = new Supplies();
-            $supplyByID = $supplies->where("SupplyID", $searchQuery);
-            $supplyByItemID = $supplies->where("StockItemID", $searchQuery);
-            $supplyByInvoiceNo = $supplies->where("InvoiceNo", $searchQuery);
-
-
-            if (count($supplyByID) > 0) {
-                $supplies = $supplyByID;
-            } else if (count($supplyByItemID) > 0) {
-                $supplies = $supplyByItemID;
-            }else if (count($supplyByInvoiceNo) > 0) {
-                $supplies = $supplyByInvoiceNo;
-            }
-            else {
-                $supplies = [];
-            }
-
-            echo $this->view("storemanager/supplies",[ "supplies" => $supplies]);
-
+    
+        $supplies = new Supplies();
+        $supplyByID = $supplies->whereLike("SupplyID", $searchQuery);
+        $supplyByItemID = $supplies->whereLike("StockItemID", $searchQuery);
+        $supplyByInvoiceNo = $supplies->whereLike("InvoiceNo", $searchQuery);
+    
+        if (count($supplyByID) > 0) {
+            $supplies = $supplyByID;
+        } else if (count($supplyByItemID) > 0) {
+            $supplies = $supplyByItemID;
+        } else if (count($supplyByInvoiceNo) > 0) {
+            $supplies = $supplyByInvoiceNo;
+        } else {
+            $supplies = [];
+        }
+    
+        echo $this->view("storemanager/supplies", ["supplies" => $supplies]);
     }
-
-    //poddak case
-    //godak case
+    
 
 
     //Functions for handling production requests

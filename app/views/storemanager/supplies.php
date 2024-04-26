@@ -86,7 +86,7 @@
         }
 
         function clearSearch() {
-            window.location.href = BASE_URL + "StoreControls/loadStocksView";
+            window.location.href = BASE_URL + "StoreControls/loadSuppliesView";
         }
 
         function updateSupply(id) {
