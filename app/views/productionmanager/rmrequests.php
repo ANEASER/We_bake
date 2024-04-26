@@ -112,23 +112,28 @@
                     <br>
                     <h1 style="text-align:center;">Tomorrow Auto Calculated Raw Requirment</h1>
                     <br>
-                    <table>
-                        <tr>
-                            <th>Raw Name</th>
-                            <th>Quantity</th>
-                            <th>Unit of Measurement</th>
-                            
-                        </tr>
                         <?php 
-                            foreach ($autocalucalatedraws as $raw): 
-                                if($placedstockorder == null){
+                        if($placedstockorder == null){
+                            echo "<table>
+                            <tr>
+                                <th>Raw Name</th>
+                                <th>Quantity</th>
+                                <th>Unit of Measurement</th>
+                                
+                            </tr>";
+                            foreach ($autocalucalatedraws as $raw){
+                                
                                     echo "<tr>";
                                     echo "<td>" . htmlspecialchars($raw["rawName"]) . "</td>";
                                     echo "<td>" . htmlspecialchars($raw["subtotalquantity"]) . "</td>";
                                     echo "<td>" . htmlspecialchars($raw["UnitOfMeasurement"]) . "</td>";
                                     echo "</tr>";
                                 }
-                            endforeach;
+                            echo "<table>";
+                                
+                            }else{
+                                echo "<h1 style='text-align:center;color:green'>Placed Stock Order</h1>";
+                            }
                         ?>
                         
                     </table>
@@ -289,4 +294,3 @@
     
 </body>
 </html>
-           

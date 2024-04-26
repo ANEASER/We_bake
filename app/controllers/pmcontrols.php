@@ -585,7 +585,7 @@ class PmControls extends Controller
             if($stockorderlines['itemcode'][$i] == "Select Item" || $stockorderlines['quantity'][$i] == null || $stockorderlines['unitofmeasure'][$i] == null){
                 continue;
             }else{
-                $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][$i], "RawName" => $stockorderlines['itemcode'][$i], "quantity" => $stockorderlines['quantity'][$i], "UnitOfMeasurement" => $stockorderlines['unitofmeasure'][$i]]);
+                $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][$i], "RawName" => $stockorderlines['itemcode'][$i], "quantity" => $stockorderlines['quantity'][$i], "UnitOfMeasurement" => $stockorderlines['unitofmeasure'][$i],'req_type'=>'custom']);
             }
         }
 
@@ -594,7 +594,7 @@ class PmControls extends Controller
         if($autocalculatedraws != null){
             foreach ($autocalculatedraws as $raw) {
                 $stockorderline = new StockOrderLine();
-                $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][0], "RawName" => $raw['rawName'], "quantity" => $raw['subtotalquantity'], "UnitOfMeasurement" => $raw['UnitOfMeasurement']]);
+                $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][0], "RawName" => $raw['rawName'], "quantity" => $raw['subtotalquantity'], "UnitOfMeasurement" => $raw['UnitOfMeasurement'],'req_type'=>'auto']);
             }
         }
 
