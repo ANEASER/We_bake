@@ -38,7 +38,7 @@
     <section>
             <div class="form-container">
 
-            <form class="form" method="POST" action="<?php echo BASE_URL; ?>AdminControls/editsystemuser">
+            <form class="form" method="POST" action="<?php echo BASE_URL; ?>AdminControls/editsystemuser" onsubmit="return validateForm()">
 
             <input type="hidden" name="id" value="<?php echo $data[0]->UserID; ?>">
 
@@ -54,7 +54,7 @@
             
             <div class="form-group">
                 <label for="DOB">Date of Birth:</label>
-                <input type="date" id="DOB" name="DOB" placeholder="<?php echo $data[0]->DOB; ?>">
+                <input type="date" id="DOB" name="DOB"  max="<?php echo date('Y-m-d', strtotime('-17 years')); ?>" placeholder="<?php echo $data[0]->DOB; ?>">
             </div>
                     
             <div class="form-group">
@@ -72,32 +72,103 @@
                 <input type="text" id="Address" name="Address" placeholder="<?php echo $data[0]->Address; ?>">
             </div>
                     
-            <div class="form-group">
-                <label for="Role">Role:</label>
-                <select id="Role" name="Role" >
-                        <option value="billingclerk">Billing Clerk</option>
-                        <option value="outletmanager">Outlet Manager</option>
-                        <option value="productionmanager">Production Manager</option>
-                        <option value="receptionist">Receptionist</option>
-                        <option value="storemanager">Store Manager</option>
-                </select>
-            </div>
+            <?php
+                if(isset($hasOutlet)){
+                    echo '<div class="form-group">
+                            <label for="Role">Role:</label>
+                            <input type="hidden" id="Role" name="Role" value="'.$data[0]->Role.'">
+                            <p>assigned to outlet</p>   
+                        </div>';
+                    }else{
+                        echo '<div class="form-group">
+                            <label for="Role">Role:</label>
+                            <select id="Role" name="Role" >
+                                    <option value="billingclerk">Billing Clerk</option>
+                                    <option value="outletmanager">Outlet Manager</option>
+                                    <option value="productionmanager">Production Manager</option>
+                                    <option value="receptionist">Receptionist</option>
+                                    <option value="storemanager">Store Manager</option>
+                            </select>
+                        </div>';
+                    }
+            ?>
                     
             <div class="form-group">
                 <label for="UserName">Username:</label>
                 <input type="text" id="UserName" name="UserName" placeholder="<?php echo $data[0]->UserName; ?>">
             </div>
                     
-            <label for="Password">Enter Password to Submit</label>
+            <label for="Password">Enter Admin Password to Submit</label>
             <div class="form-group">
                 
-                <input type="text" id="Password1" name="Password" required>
+                <input type="password" id="Password1" name="Password" required>
             </div>
                     
             <input class="yellowbutton" type="submit" value="Update">
 
             </form>
+            <br>
+            <div class="buttongroup">
+                <button class="redbutton" onclick="window.location.href='<?php echo BASE_URL; ?>AdminControls/loadUsersView'">Cancel</button>
+                <button class="bluebutton" onclick="window.location.href='<?php echo BASE_URL; ?>AdminControls/ResetPassword/<?php echo $data[0]->UserName; ?>'">Reset Pasword</button>
+            </div>
             </div>
         </section>
+        <script>
+            
+            // Function to validate date of birth (DOB)
+            function validateDOB() {
+                var dob = document.getElementById('DOB').value;
+                // Add your custom validation logic for DOB if needed
+                // For example, you can check if the user is above a certain age
+                return true; // Replace with your validation logic
+            }
+
+            // Function to validate NIC
+            function validateNIC() {
+                var nic = document.getElementById('NIC').value;
+                // Add your custom validation logic for NIC if needed
+                return true; // Replace with your validation logic
+            }
+
+            // Function to perform overall form validation
+            function validateForm() {
+                var isDOBValid = validateDOB();
+                var isNICValid = validateNIC();
+
+                // Perform additional validations if needed
+
+                // Display error messages or prevent form submission based on validation results
+                if (!isEmailValid) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please enter a valid email address.',
+                    });
+                    return false;
+                }
+
+                if (!isDOBValid) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Employee at least 18 years old to register.',
+                    });
+                    return false;
+                }
+
+                if (!isNICValid) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please enter a valid NIC.',
+                    });
+                    return false;
+                }
+
+                // If all validations pass, allow form submission
+                return true;
+            }
+        </script>
 </body>
 </html>

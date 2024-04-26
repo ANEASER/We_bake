@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +12,6 @@
 
 <body>
 
-    
     <nav>
         <input type="checkbox" id="check" name="" value="">
         <label for="check" class="checkbtn container" onclick="changemobilemode(this)">
@@ -23,32 +23,60 @@
             echo '<img class="logo" src="' . BASE_URL . 'media/uploads/Content/logo.png" width="200px">';
         ?>
         <ul>
-            <li><a onclick="loadDash()">Home</a></li>
-            <li><a onclick="loadProfile()">Profile</a></li>
-            <li><a onclick="PlaceOrders()">Place Orders</a></li>
-            <li><a onclick="loadHistory()">Purchase History</a></li>
-            <li><a onclick="logout()">Logout</a></li>
+            <li><a onclick="PlaceOrders(this)">Place Orders</a></li>
+            <li><a onclick="loadHistory(this)">Purchase History</a></li>
+            <li><a onclick="logout(this)">Logout</a></li>
         
         </ul>
     </nav>
 
 <script>
+
 var BASE_URL = "<?php echo BASE_URL; ?>";
 
-function loadDash() {
+var activeLink = sessionStorage.getItem('activeLink');
+        if (activeLink) {
+            var linkElement = document.querySelector('a[onclick="' + activeLink + '"]');
+            if (linkElement) {
+                linkElement.classList.add('active');
+            } 
+        } else {
+            var homeLink = document.querySelector('a[onclick="home(this)"]');
+            if (homeLink) {
+                homeLink.classList.add('active');
+
+            sessionStorage.setItem('activeLink', homeLink.getAttribute('onclick'));
+        }}
+        
+        function changeActive(link) {
+            var links = document.querySelectorAll('body nav ul li a');
+            links.forEach(function (el) {
+                el.classList.remove('active');
+            });
+
+            link.classList.add('active');
+
+            sessionStorage.setItem('activeLink', link.getAttribute('onclick'));
+        }
+
+        
+        function changemobilemode(x) {
+            x.classList.toggle("change");
+        }
+
+function loadDash(link) {
+    changeActive(link);
     window.location.href = BASE_URL +  "Recieptioncontrols";
 }
 
-function loadProfile() {
-    window.location.href = BASE_URL +  "Recieptioncontrols/viewProfile";
-}
-
-function loadHistory() {
+function loadHistory(link) {
+    changeActive(link);
     window.location.href = BASE_URL +  "Recieptioncontrols/viewHistory";
 }
 
-function PlaceOrders() {
-    window.location.href = BASE_URL +  "Recieptioncontrols/customernumber";
+function PlaceOrders(link) {
+    changeActive(link);
+    window.location.href = BASE_URL +  "Recieptioncontrols/customernumberformview";
 }
 
 function logout() {

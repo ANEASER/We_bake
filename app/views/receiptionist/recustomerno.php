@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
+   
+    <title>Customer number search</title>
+
+</head>
+  
+<body>
+    <?php
+        include "recnavbar.php";
+    ?>
+ <section>
+ <div class="form-container">
+
+<form class="form" method="POST" action="<?php echo BASE_URL; ?>RecieptionControls/customernumbersearch" class="formisland">
+    <div class="form-group">
+        <h1> Place Order </h1>
+        <label for="telephoneno">Telephone No:</label>
+        <input type="numbers" id="telephoneno" name="telephoneno" required>
+    </div>
+    <button class="greenbutton">Submit</button>
+</form>
+
+</div>
+</section>
+
+</body>
+</html>
+

@@ -51,13 +51,13 @@
             <th class="hideonmobile">DELIVERY STATUS</th>
             <th class="hideonmobile">ORDER STATUS</th>
             <th class="hideonmobile">PAYMENT STATUS</th>
-            <th>TOTAL</th>
+            <th>TOTAL(Rs)</th>
             <th>MORE</th>
         </tr>';
 
         for ($i = $startIndex; $i < $endIndex; $i++) {
             $order = $orders[$i];
-            if($order->orderstatus == "cancelled" || $order->orderstatus == "finished"){
+            //if($order->orderstatus == "cancelled" || $order->orderstatus == "finished"){
                 echo '<tr>';
                 echo '<td>' . $order->orderref. '</td>';
                 echo '<td>' . $order->orderdate . '</td>';
@@ -65,13 +65,16 @@
                 echo '<td class="hideonmobile">' . $order->deliverystatus . '</td>';
                 echo '<td class="hideonmobile">' . $order->orderstatus . '</td>';
                 echo '<td class="hideonmobile">' . $order->paymentstatus . '</td>';
-                echo '<td>' . $order->total . '</td>';
+                echo '<td>' . $order->total . '.00</td>';
                 echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
                 echo '</tr>';
-            }
+            //}
         }
 
         echo '</table>';
+        echo'<br>';
+        echo '<p> *note order referecne start by "R" placed through recieptionist</p>';
+        echo'<br>';
     ?>
     <?php
         // Pagination links

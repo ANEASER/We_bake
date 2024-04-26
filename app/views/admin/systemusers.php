@@ -38,14 +38,15 @@
             <?php
                 if(isset($_GET['search'])) {
                     echo '<input type="text" id="search" name="search" placeholder="username or NIC" value="' . $_GET['search'] . '" class="searchbox">';
+                    echo '<input class="searchbutton" style="margin-right:1%" type="submit" value="Search">';
+                    echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
                 } else {
                     echo '<input type="text" id="search" name="search" placeholder="username, role or NIC" class="searchbox">';
+                    echo '<input class="searchbutton" type="submit" value="Search">';
                 }?>
-            <input class="searchbutton" type="submit" value="Search">
         </form>
         <section class="buttongroup">
             <button style="width: 200px;"  class="bluebutton" onclick="add()">Add New User</button>
-            <button class="greenbutton" onclick="viewall()">View All</button>
         </section>
     </div>
 
@@ -80,7 +81,7 @@
                             echo '<td class="hideonmobile">' . $user->DOB . '</td>';
                             echo '<td class="hideonmobile">' . $user->contactNo . '</td>';
 
-                            if($user->ActiveState == 1) {
+                            if($user->ActiveState == 'Active') {
                                 $ActiveState = 'Active';
                             } else {
                                 $ActiveState = 'Inactive';
@@ -111,7 +112,7 @@
             window.location.href = BASE_URL + "AdminControls/searchUsers?search=" + encodeURIComponent(query);
         }
 
-        function viewall() {
+        function clearSearch() {
             window.location.href = BASE_URL + "AdminControls/loadUsersView";
         }
         

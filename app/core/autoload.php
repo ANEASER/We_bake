@@ -8,6 +8,7 @@ require("controller.php");
 require("model.php");
 require("app.php");
 require("mailer.php");
+require("sms.php");
 
 
 spl_autoload_register(function($class){

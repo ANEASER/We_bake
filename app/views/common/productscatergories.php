@@ -28,6 +28,14 @@
         <section class="category" style="width: 100%;">
             <div class="menu-category">
                 <?php
+                    if(isset($_SESSION["USER"]) && ($_SESSION["USER"]->Role == 'admin')){
+                        echo '<div class="menu-item" onclick="add()">
+                                    <img src="' . BASE_URL .'media/uploads/Content/add.png" alt="ADD" style="height: 210px; width: 250px;">
+                                    <div class="item-details" style="">
+                                        <h3>ADD ITEM</h3>
+                                    </div>
+                            </div>';}
+                            
                     foreach ($categories as $category) {
                         $categoryName = $category->category;
                         echo '<div class="menu-item" onclick="selectCategory(\'' . $categoryName . '\')">
@@ -37,14 +45,6 @@
                                 </div>
                             </div>';
                     }
-
-                    if(isset($_SESSION["USER"]) && ($_SESSION["USER"]->Role == 'admin')){
-                        echo '<div class="menu-item" onclick="add()">
-                                    <img src="' . BASE_URL .'media/uploads/Content/add.png" alt="ADD" style="height: 210px; width: 250px;">
-                                    <div class="item-details" style="">
-                                        <h3>ADD ITEM</h3>
-                                    </div>
-                            </div>';}
                 ?>
             </div>
         </section>

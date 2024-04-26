@@ -1,5 +1,5 @@
 .form-container {
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 auto;
     background-color: antiquewhite;
     border-radius: 8px;
@@ -26,14 +26,25 @@ label {
 }
 
 input,
-textarea,
-select {
+textarea{
     width: 100%;
     padding: 8px;
     box-sizing: border-box;
     margin-bottom: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+
+select {
+    -webkit-appearance: none; /* Remove default arrow in Chrome/Safari */
+    -moz-appearance: none; /* Remove default arrow in Firefox */
+    appearance: none; /* Remove default arrow in other browsers */
+    background-color: #fff; /* Set background color to white */
+    background-image: linear-gradient(45deg, transparent 50%, #000000 50%), linear-gradient(135deg, #000000 50%, transparent 50%); /* Create custom arrow */
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px); /* Position custom arrow */
+    background-size: 5px 5px, 5px 5px; /* Size of custom arrow */
+    background-repeat: no-repeat; /* Prevent arrow from repeating */
+    cursor: pointer; /* Show pointer cursor on hover */
 }
 
 textarea {
@@ -44,4 +55,44 @@ textarea {
 section {
     padding: 20px;
     text-align: center;
+}
+
+.formbutton{
+    position: absolute;
+    padding: 10px 20px;
+    background-color: #351a07;
+    color: antiquewhite;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+}
+
+.formbutton:hover {
+    background-color: #56312c; 
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff; 
+    color: #56312c; 
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none; 
+}
+
+/* Style for when dropdown is clicked */
+select:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: #56312c; 
+    box-shadow: 0 0 5px rgba(140, 180, 230, 0.5);
 }

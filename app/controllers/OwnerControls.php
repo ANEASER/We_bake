@@ -11,8 +11,25 @@ class OwnerControls extends Controller{
         if($_SESSION['USER']->Role != "owner"){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
+
+        $systemuser = new Systemuser();
+        $producorder = new ProductOrder();
+        $productorderline = new ProductOrderLine();
+        $productitem = new ProductItem();
+
+        $data = $systemuser->where("UserName", $_SESSION["USER"]->UserName);
+        $producorderdata = $producorder->findall();
+        $productorderlinedata = $productorderline->findall();
+        $productitemdata = $productitem->findall();
         
-        $this->view("owner/ownerdash");
+        $this->view("owner/ownerdash",[ "data" => $data, "producorderdata" => $producorderdata, "productorderlinedata" => $productorderlinedata, "productitemdata" => $productitemdata]);
+    }
+
+    function viewEnquiries(){
+        $inquiry = new Inquiry();
+        $inquiry = $inquiry ->findall();
+        echo $this->view("owner/inquiry",  ["inquiry" => $inquiry]);
+
     }
 }
 

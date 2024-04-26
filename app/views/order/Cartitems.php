@@ -30,7 +30,7 @@
             <tr>
                 <th style='text-align: center;'>ITEM NAME</th>
                 <th>AMOUNT</th>
-                <th>SUBTOTAL</th>
+                <th>SUBTOTAL(Rs)</th>
             </tr>";
 
             $total = 0;
@@ -41,7 +41,7 @@
                 echo '<tr>
                         <td style="text-align: center;">' . htmlspecialchars(strtoupper($item['name'])) . '</td>
                         <td>' . htmlspecialchars($item['quantity']) . '</td>
-                        <td>' . htmlspecialchars($item['quantity'] * $item['price']) . '</td>
+                        <td>' . htmlspecialchars($item['quantity'] * $item['price']) . '.00</td>
                     </tr>';
 
                 $quantity += $item['quantity'];
@@ -64,12 +64,14 @@
                 }
             }
 
+            $fulltotal = $total + $_SESSION["delivery_charge"]; 
+            $_SESSION["total"] = $fulltotal;
+            $_SESSION["order_cap"] = $containercount;
             echo "</table>";
             echo "<br>";
-            echo "<p style='padding-left:2%; text-align:center'>CART PRICE: Rs. " . $total."</p>";
-            echo "<p style='padding-left:2%; text-align:center'>DELIVERY CHARGE: Rs. " . $_SESSION["delivery_charge"]."</p>";
-            echo "<p style='padding-left:2%; text-align:center'>Quantity : " . $quantity."</p>";
-            echo "<p style='padding-left:2%; text-align:center'>No. Container : " . $containercount."</p>";
+            echo "<p style='padding-left:2%; text-align:center'>CART PRICE: Rs. " . $total.".00</p>";
+            echo "<p style='padding-left:2%; text-align:center'>DELIVERY CHARGE: Rs. " . $_SESSION["delivery_charge"].".00</p>";
+            echo "<p style='padding-left:2%; text-align:center'>TOTAL PRICE: Rs. " . ($fulltotal).",00</p>";
             echo "<br>";
         ?>
 

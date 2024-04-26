@@ -10,16 +10,22 @@
     <title>More order Details</title>
 </head>
 <body>
-    <?php
-        if (isset($_SESSION["USER"])) {
-            if (!isset($_SESSION["USER"]->Role)) {
-                include '..\app\views\customer\customernav.php';
+<?php
+    if (isset($_SESSION["USER"])) {
+        if (!isset($_SESSION["USER"]->Role)) {
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'customer' . DIRECTORY_SEPARATOR . 'customernav.php';
             } elseif ($_SESSION["USER"]->Role == "admin") {
-                include '..\app\views\admin\adminnav.php';
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'adminnav.php';
             } elseif ($_SESSION["USER"]->Role == "billingclerk") {
-                include '..\app\views\billingclerk\bcnavbar.php';
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'billingclerk' . DIRECTORY_SEPARATOR . 'bcnavbar.php';
             } elseif ($_SESSION["USER"]->Role == "productionmanager") {
-                include '..\app\views\productionmanager\pmnavbar.php';
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'productionmanager' . DIRECTORY_SEPARATOR . 'pmnavbar.php';
+            } elseif ($_SESSION["USER"]->Role == "receptionist") {
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'receiptionist' . DIRECTORY_SEPARATOR . 'recnavbar.php';
+            } elseif ($_SESSION["USER"]->Role == "outletmanager") {
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'outlet' . DIRECTORY_SEPARATOR . 'omnavbar2.php';
+            } elseif ($_SESSION["USER"]->Role == "productionmanager") {
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'customer' . DIRECTORY_SEPARATOR . 'customernav.php';
             } else {
                 echo "no navbar";
             }
@@ -27,6 +33,7 @@
             echo "no navbar";
         }
     ?>
+
 
     <section class="content">
         <section class="cart" style="padding : 2%;font-size: 1em;">
@@ -37,8 +44,11 @@
                     echo "<h1>Order Delivery Address : ".$order[0]->deliver_address."</h1>";
                     echo "<h1>Order Delivery Status : ".$order[0]->deliverystatus."</h1>";
                     echo "<h1>Order Payment Status : ".$order[0]->paymentstatus."</h1>";
-                    echo "<h1>Order Total : ".$order[0]->total."</h1>";
-                    echo "<h1>Order Paid Amount : ".$order[0]->paid_amount."</h1>";
+
+                    echo "<h1>Cart Value : Rs.".$order[0]->total - $order[0]->deliver_charges.".00</h1>";
+                    echo "<h1>Delivery Charges : Rs.".$order[0]->deliver_charges.".00</h1>";
+                    echo "<h1>Order Total : Rs.".$order[0]->total."</h1>";
+                    echo "<h1>Order Paid Amount : Rs. ".$order[0]->paid_amount.".00</h1>";
 
                     echo "<br>";
                     echo "<table>";
@@ -46,8 +56,8 @@
                             <th>Item Code </th>
                             <th>Item Name</th>
                             <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Subtotal</th>
+                            <th>Price(Rs)</th>
+                            <th>Subtotal(Rs)</th>
                         </tr>";
 
                     foreach ($productorderlines as $productorderline) {
@@ -59,8 +69,8 @@
                         echo "<td>" . $productorderline->Itemcode . "</td>";
                         echo "<td>" . $item[0]->itemname. "</td>";
                         echo "<td>" . $productorderline->quantity . "</td>";
-                        echo "<td>" . $productorderline->price . "</td>";
-                        echo "<td>" . $productorderline->totalprice . "</td>";
+                        echo "<td>" . $productorderline->price . ".00</td>";
+                        echo "<td>" . $productorderline->totalprice . ".00</td>";
                         echo "</tr>";
                     }
 
@@ -96,11 +106,13 @@
         } else if (user.Role === "billingclerk") {
             window.location.href = BASE_URL + "BillingControls";
         } else if (user.Role === "productionmanager") {
-            window.location.href = BASE_URL + "PmControls";
-        } else if (user.Role === "admin") {
-            window.location.href = BASE_URL + "AdminControls";
+            window.location.href = BASE_URL + "pmcontrols/pendingOrdersView";
+        } else if (user.Role === "receptionist") {
+            window.location.href = BASE_URL + "RecieptionControls/viewhistory";
+        } else if (user.Role === "outletmanager") {
+            window.location.href = BASE_URL + "outletcontrols";
         } else {
-            window.location.href = BASE_URL + "CustomerControls/purchasehistory";
+            window.location.href = BASE_URL + "CommonControls/logout";
         }
     }
 

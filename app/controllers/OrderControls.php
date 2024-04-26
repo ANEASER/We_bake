@@ -34,15 +34,13 @@
             }
 
             if($_SESSION["USER"]->Role == "billingclerk"){
-                echo $this->view("billingclerk/billingdash",["productorders" => $productorders]);
+                echo $this->view("billingclerk/billingdash",["productorder" => $productorders]);
             } elseif ($_SESSION["USER"]->Role == "productionmanager") {
-                echo $this->view("productionmanager/pmdash",["productorders" => $productorders]);
+                echo $this->view("productionmanager/pmorders",["productorder" => $productorders]);
             } else {
                 echo $this->view("admin/admindash",["productorders" => $productorders]);
             }
 
-
-            
         }
 
         function submitorder(){
@@ -69,6 +67,7 @@
                 $deliver_charges = new DeliveryCharges();
                 $charges = $deliver_charges->where("city", $deliver_city);
                 $_SESSION['charges'] = $charges[0];
+                $_SESSION['deliver_city'] = $deliver_city;
             }
 
             $_SESSION['unique_id'] = $unique_id;
@@ -183,14 +182,27 @@
             
         }
 
-        function checkout(){
+        function checkout($paymenttype=null,$payedamount=null){
 
             if(!Auth::loggedIn()){
-                $this->redirect(BASE_URL."OrderControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!isset($_SESSION['unique_id'])){
-                $this->redirect(BASE_URL."OrderControls/placeorder");
+                if(!isset($_SESSION['USER']->Role)){
+                    $this->redirect(BASE_URL."OrderControls/placeorder");
+                }else if($_SESSION['USER']->Role == "outletmanager"){
+                    $this->redirect(BASE_URL."OutletControls/index");
+                }else if($_SESSION['USER']->Role == "receptionist"){
+                    $this->redirect(BASE_URL."RecieptionControls/index");
+                }else{
+                    $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                }
+                
+            }
+
+            if(!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0){
+                $this->redirect(BASE_URL."OrderControls/showcategories");
             }
 
             $cartItems = $_SESSION['cart'];
@@ -234,14 +246,7 @@
             $arr2["deliver_address"] = $_SESSION["adress"];
             $arr2["deliverystatus"] = $_SESSION["deliverstatus"];
             $arr2["unique_id"] = $unique_id;
-
-            if(isset($_SESSION['USER']->Role)){
-                $arr2["placeby"] = $_SESSION["USER"]->EmployeeNo;
-                $arr2["paymentstatus"] = "paid";
-            }else{
-                $arr2["placeby"] = $_SESSION["USER"]->UserName;
-                $arr2["paymentstatus"] = "pending";
-            }  
+            $arr2['order_cap'] = $_SESSION["order_cap"];
 
             $arr2["orderstatus"] = "pending";
             $arr2["pickername"] = $_SESSION["picker"];
@@ -257,13 +262,51 @@
             if(isset($_SESSION['USER']->Role)){
                 if($_SESSION['USER']->Role == "outletmanager"){
                     $orderref = "O".$orderref;
+                    $arr2["placeby"] = $_SESSION["USER"]->EmployeeNo;
+                    $arr2["paymentstatus"] = "paid";
                 }
                 else if($_SESSION['USER']->Role == "receptionist"){
+
+                    $customer = new Customer();
+
+                    $found_customer = $customer->where("UserName",$_SESSION["customername"]);
+
+                    if($found_customer == null){
+                        $max_customerid = $customer->getMinMax("customer_id","max");
+                        $max_customerid = $max_customerid[0]->{"max(customer_id)"};
+                        $max_customerid += 1;
+                        $customer_ref = str_pad($max_customerid, 5, '0', STR_PAD_LEFT);
+                        $customer_ref = "GC".$customer_ref;
+                        $arr2["placeby"] = $customer_ref;
+
+                        $arr3["UserName"] = $customer_ref;
+                        $arr3["Name"] = $_SESSION["customername"];
+                        $arr3["Email"] = $_SESSION["email"];
+                        $arr3["contactNo"] = $_SESSION["phone"];
+                        $arr3["address"] = $_SESSION["adress"];
+                        $arr3["ActiveState"] = "Guest";
+
+                        $customer->insert($arr3);
+                    }else{
+                        $arr2["placeby"] = $found_customer[0]->UserName;
+                    }
+
+                    $arr2["paymentstatus"] = "pending";
                     $orderref = "R".$orderref;
                 }
             }
             else{
                 $orderref = "C".$orderref;
+                $arr2["placeby"] = $_SESSION["USER"]->customer_id;
+                $arr2["paymentstatus"] = $paymenttype;
+                $arr2["deliver_city"] = $_SESSION["deliver_city"];
+                $arr2["deliver_charges"] =  $_SESSION["delivery_charge"];
+            }
+
+            if($payedamount != null){
+                $arr2["paid_amount"] = $payedamount;
+            }else{
+                $arr2["paid_amount"] = 0;
             }
         
             $arr2["orderref"] = $orderref;
@@ -274,10 +317,47 @@
 
             if($_SESSION['USER']->Role == "outletmanager"){
                 $this->redirect(BASE_URL."OutletControls/index");
+            }else if($_SESSION['USER']->Role == "receptionist"){
+                $this->redirect(BASE_URL."RecieptionControls/index");
             }else{
                 $this->redirect(BASE_URL."OrderControls/placeorder");
             }
                 
+        }
+
+        function paymentgateway(){
+                
+                if(!Auth::loggedIn()){
+                    $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                }
+    
+                if(!isset($_SESSION['unique_id'])){
+                    $this->redirect(BASE_URL."OrderControls/placeorder");
+                }
+
+                $cartItems = $_SESSION['cart'];
+                $unique_id = $_SESSION['unique_id'];
+
+                if(!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0){
+                    $this->redirect(BASE_URL."OrderControls/showcategories");
+                }
+    
+                echo $this->view("order/paymentmethod",[ "cartItems" => $cartItems, "unique_id" => $unique_id]);
+        }
+
+        function onlinepayment(){
+            
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!isset($_SESSION['unique_id'])){
+                $this->redirect(BASE_URL."OrderControls/placeorder");
+            }
+
+            $total = $_SESSION['total'];
+
+            echo $this->view("order/onlinepayment",[ "total" => $total]);
         }
 
 

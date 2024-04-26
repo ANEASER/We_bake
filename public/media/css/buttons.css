@@ -23,10 +23,17 @@ button, input[type="submit"] {
 
 .greenbutton {
 
-    margin: 0% 5%;
+    border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none; 
+            justify-content: center;
+            align-items: right;
+            font-size: 16px;
+            border-radius:9px;
 
     background-color: #2ecc71;
-    color: white;
 }
 
 .greenbutton:hover {
@@ -56,6 +63,16 @@ button, input[type="submit"] {
     background-color: #f39c12;
 }
 
+.orangebutton {
+    margin: 0% 5%;
+    background-color: #e8953c;
+    color: white;
+}
+
+.orangebutton:hover {
+    background-color: #f39c12;
+}
+
 #cartbutton {
     margin: 5%;
     background-image: url("../uploads/Content/Cart.png");
@@ -72,7 +89,7 @@ button, input[type="submit"] {
 .brownbutton {
     margin: 1% 5%;
     background-color: #41201f;
-    color: white;
+    color: #ffffff;
 }
 
 .brownbutton:hover {
@@ -100,10 +117,12 @@ button, input[type="submit"] {
 
 }
 
+/* Store Manager Button CSS*/
+
 .add-stocks-button {
-    position: absolute;
-    top: 90px; /* Adjust this value as needed */
-    right: 20px; /* Adjust this value as needed */
+    position: absolute; 
+    top: 200px; 
+    right: 20px; 
     padding: 10px 20px;
     background-color: #351a07;
     color: antiquewhite;
@@ -117,4 +136,47 @@ button, input[type="submit"] {
     background-color: antiquewhite;
     color: #351a07;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+.add-supplier-button {
+    position: absolute;
+    top: 90px; /* Adjust this value as needed */
+    right: 20px; /* Adjust this value as needed */
+    padding: 10px 20px;
+    background-color: #351a07;
+    color: antiquewhite;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
+}
+
+.add-supplier-button:hover {
+    background-color: antiquewhite;
+    color: #351a07;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); 
+}
+
+.formbutton{
+    position: absolute;
+    padding: 10px 20px;
+    background-color: #351a07;
+    color: antiquewhite;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+}
+
+.formbutton:hover {
+    background-color: #56312c; 
+}
+
+.swal2-actions {
+    width: 100% !important;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }

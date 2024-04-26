@@ -28,7 +28,7 @@ class Mailer {
         $mail->Body = "$body";
     
         if (!$mail->send()) {
-            echo "Mailer Error: " . $mail->ErrorInfo;
+            return false;
         } else {
            return true;
         }

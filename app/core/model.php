@@ -29,6 +29,7 @@ class Model extends Database {
         $columns = implode(", ", array_keys($data));
         $values = ":" . implode(", :", array_keys($data));
         $query = "INSERT INTO $this->table ($columns) VALUES ($values)";
+
         return $this->query($query, $data);
     }
 

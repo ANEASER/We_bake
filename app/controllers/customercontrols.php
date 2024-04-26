@@ -26,7 +26,7 @@
             $data = $customer->where("UserName", $_SESSION["USER"]->UserName);
 
             $productorder = new ProductOrder();
-            $orders = $productorder->where("placeby", $_SESSION["USER"]->UserName);
+            $orders = $productorder->findalldescwithplaceby($_SESSION["USER"]->UserName);
 
             $unique_ids = array();
             foreach($orders as $order){
@@ -98,7 +98,7 @@
             }
 
             $productorder = new ProductOrder();
-            $orders = $productorder->where("placeby", $_SESSION["USER"]->UserName);
+            $orders = $productorder->findalldescwithplaceby($_SESSION["USER"]->UserName);
             echo $this->view("customer/purchasehistory",[ "orders" => $orders]);
         }
 
@@ -131,9 +131,13 @@
 
         function editprofile(){
                 
-                if(!Auth::loggedIn()){
-                    $this->redirect(BASE_URL."CommonControls/loadLoginView");
-                }
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(isset($_SESSION["USER"]->Role)){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
     
                 if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $customer = new Customer();
@@ -237,10 +241,14 @@
         }
 
         function changepassword(){
-                
-                if(!Auth::loggedIn()){
-                    $this->redirect(BASE_URL."CommonControls/loadLoginView");
-                }
+            
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(isset($_SESSION["USER"]->Role)){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
     
                 if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $currentpassword = $_POST['currentpassword'];
@@ -264,20 +272,24 @@
                             $this->redirect(BASE_URL."CommonControls/otpvalidation");
                         }
                         else{
-                            echo "New password and confirm password does not match";
+                            echo $this->view("customer/changepassword",["error"=>"New password and confirm password does not match"]); 
                         }
                     }
                     else{
-                        echo "Current password is incorrect";
+                        echo $this->view("customer/changepassword",["error"=>"Current password is incorrect"]);
                     }
                 }
                 else{
-                    echo "Form not submitted!";
+                    echo $this->view("customer/changepassword",["error"=>"Form not submitted!"]);
                 }
         }
 
         function updatepassword(){
             if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(isset($_SESSION["USER"]->Role)){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
@@ -313,6 +325,10 @@
 
         function makeinquiry(){
             if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(isset($_SESSION["USER"]->Role)){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
            
