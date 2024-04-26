@@ -40,10 +40,12 @@
             background-color: #f1c40f;
             margin-left: 10px;
         }
+        
     </style>
     <title>Customer Orders</title>
 </head>
 <body>
+
     <?php include 'pmnavbar.php'; 
     
     if (isset($error)) {
