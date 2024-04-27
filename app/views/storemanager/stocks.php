@@ -13,6 +13,25 @@
         include "smnavbar.php";
     ?>
 
+    <style>
+
+        .pagination-container {
+            text-align: center;
+            margin-top: 10px; /* Adjust as needed */
+            max-width: 620px;
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 4px;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+
+    </style>
+
     <section style="width: 100%; padding:1%">
         <div class="content">
             <h1>Stocks</h1>
@@ -43,9 +62,18 @@
 
 
     <section style="display:flex;justify-content:space-around; width:100%">
-    <?php //The table structure 
-        if (count($stocks) > 0){
-            echo '<table style="width:90%">';
+    <?php //The table structure
+        $itemsPerPage = 12;
+        $totalStocks = count($stocks);
+        $totalPages = ceil($totalStocks / $itemsPerPage);
+        $currentPage = isset($_GET['page']) ? max(1, min((int)$_GET['page'], $totalPages)) : 1;
+
+        $startIndex = ($currentPage - 1) * $itemsPerPage;
+        $endIndex = min($startIndex + $itemsPerPage, $totalStocks);
+
+
+            echo '<div class="table-container">'; //The table structure
+            echo '<table style="width:105%">';
             echo '<tr>
                     <th> Item ID </th>
                     <th> Name </th>
@@ -60,7 +88,11 @@
                 </tr>';
 
 
-                foreach($stocks as $stocks){
+                foreach(array_slice($stocks, $startIndex, $itemsPerPage) as $stocks)
+                {
+                    $stockitem = new StockItem();
+                    $stockitem = $stockitem->where('ItemID', $stocks->ItemID);
+                    
                     echo '<tr>';
                     echo '<td>' . $stocks->CustomItemID . '</td>';
                     echo '<td>' . $stocks->Name . '</td>';
@@ -77,11 +109,28 @@
                 }
             echo '</table>';
 
-        }
+            echo '<br>';
+            echo '<br>';
 
-        else{
-            echo '<h3> No stocks available </h3>';
-        }
+            echo '<div class="pagination-container">';
+            echo '<div class="pagination">';
+
+            if($currentPage > 1) {
+                echo '<a href="' . BASE_URL . 'StoreControls/loadStocksView?page=' . ($currentPage - 1) . '">Previous</a>';
+            }
+
+            echo '<span> Page ' . $currentPage . ' of ' . $totalPages . '</span>';
+
+            if($currentPage < $totalPages) {
+                echo '<a href="' . BASE_URL . 'StoreControls/loadStocksView?page=' . ($currentPage + 1) . '">Next</a>';
+            }
+            
+            echo '</div>';
+            echo '</div>';
+
+        
+
+        
         
     ?>
     </section>
