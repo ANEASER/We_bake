@@ -2,7 +2,7 @@
 
 class RecieptionControls extends Controller {
     
-    //order hancdle
+    //HOME
     function index($id = null) {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -15,34 +15,7 @@ class RecieptionControls extends Controller {
     
     }
 
-    function viewhistory($id = null) {
-        if(!Auth::loggedIn()){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-        if($_SESSION["USER"]->Role != "receptionist"){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-
-        $productorder = new ProductOrder();//load model
-        $orders = $productorder->where("placeby",$_SESSION["USER"]->EmployeeNo);
-        //$omplaceorder = $placeorder->where("placeby","OM00122");
-
-        $this->view("receiptionist/repurchasehistory" ,[ "orders" =>$orders]);//sent to the view
-    
-    }
-
-    function viewProfile ($id = null) {
-        if(!Auth::loggedIn()){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-        if($_SESSION["USER"]->Role != "receptionist"){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-        $this->view("receiptionist/reprofile");
-    
-    }
-
-
+    //PLACE ORDER NUMBER SEARCH
     function customernumbersearch ($id = null) {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -58,13 +31,11 @@ class RecieptionControls extends Controller {
     if($customer){
         $this->view("receiptionist/customerfoundview", ["customer"=> $customer]);
     }else{
-        $this->view("receiptionist/customernotfoundview", ["customer" => null]);
-
-    }
-    //$this->view("receiptionist/recustomerno");
+        $this->view("receiptionist/customernotfoundview", ["customer" => null]);}
     }
 
-    function customernumberformview ($id = null) {
+      //IS THIS YOU (CUSTOMER FOUND FORM)
+      function customernumberformview ($id = null) {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
@@ -75,18 +46,7 @@ class RecieptionControls extends Controller {
         $this->view("receiptionist/recustomerno");   
     }
 
-    function customernotfoundview ($id = null) {
-        if(!Auth::loggedIn()){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-        if($_SESSION["USER"]->Role != "receptionist"){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-
-        $this->view("receiptionist/customernotfoundview");
-    
-    }
-
+    //FOUND CUSTOMER FORM
     function foundcustomerform ($username= null) {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -104,7 +64,38 @@ class RecieptionControls extends Controller {
          else{
         $this->view("receiptionist/customernotfoundview");}
     }
+    
+    //CUSTOMER NOT FOUND FORM
+    function customernotfoundview ($id = null) {
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        if($_SESSION["USER"]->Role != "receptionist"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
 
+        $this->view("receiptionist/customernotfoundview");
+    
+    }
+
+    //PURCHASE HISTORY
+    function viewhistory($id = null) {
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+        if($_SESSION["USER"]->Role != "receptionist"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        $productorder = new ProductOrder();//load model
+        $orders = $productorder->where("placeby",$_SESSION["USER"]->EmployeeNo);
+        //$omplaceorder = $placeorder->where("placeby","OM00122");
+
+        $this->view("receiptionist/repurchasehistory" ,[ "orders" =>$orders]);//sent to the view
+    
+    }
+
+// SUBMIT ORDER
     function submitorder () {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
