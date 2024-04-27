@@ -41,7 +41,6 @@
                     echo "<tr>
                             <th>RawName</th>
                             <th>Quantity</th>
-                            <th>UnitOfMeasurement</th>
                             <th>Type of Request</th>
                         </tr>";
 
@@ -49,7 +48,6 @@
                         echo "<tr>";
                         echo "<td>" . $orderline->RawName . "</td>";
                         echo "<td>" . $orderline->quantity . "</td>";
-                        echo "<td>" . $orderline->UnitOfMeasurement . "</td>";
                         echo "<td>" . $orderline->req_type . "</td>";
                         echo "</tr>";
                     }

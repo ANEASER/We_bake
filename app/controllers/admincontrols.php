@@ -1158,7 +1158,6 @@ use function PHPSTORM_META\type;
                     "itemid" => $raworderline["itemid"][$i],
                     "RawName" => $raworderline["itemcode"][$i],
                     "quantity" => floatval($raworderline["quantity"][$i]),
-                    "UnitOfMeasurement" => $raworderline["unitofmeasure"][$i]
                 ]);
             }
 
