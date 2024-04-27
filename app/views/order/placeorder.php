@@ -16,6 +16,8 @@
     
     <section>
         <div class="form-container">
+        <h1>Place Order</h1>
+        <br>
             <form class="form" action="<?php echo BASE_URL; ?>OrderControls/submitorder" method="post">
                 <div class="form-group">
                     <label for="orderdate">DELIVER DATE:</label>

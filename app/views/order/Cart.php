@@ -24,10 +24,10 @@
                 ?>
             </section>
             <section class="buttongroup" style="margin: 0%;padding:0%">
-                <button class="yellowbutton" onclick="edit()">edit</button>
-                <button class="greenbutton" onclick="paymentgateway()">proceed</button>
-                <button class="redbutton" onclick="cancel()">cancel</button>
-                <button class="bluebutton" onclick="addmore()">addmore</button>
+                <button class="yellowbutton" onclick="edit()">Edit</button>
+                <button class="greenbutton" onclick="paymentgateway()">Proceed</button>
+                <button class="redbutton" onclick="cancel()">Cancel</button>
+                <button class="bluebutton" onclick="addmore()">Addmore</button>
             </section>
         </section>
 
