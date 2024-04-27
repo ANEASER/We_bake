@@ -8,6 +8,14 @@
             return $this->query($query, []);
         }
 
+        public function find($condition = "") {
+            $query = "SELECT * FROM $this->table";
+            if (!empty($condition)) {
+                $query .= " WHERE $condition";
+            }
+            return $this->query($query, []);
+        }
+
 
     }
 ?>
