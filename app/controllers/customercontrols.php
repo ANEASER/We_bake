@@ -9,9 +9,22 @@
             }
 
             $customer = new Customer();
+            $productorder = new ProductOrder();
+
+            $productorders = $productorder->where("placeby",$_SESSION["USER"]->UserName);
+
+            if($productorders != null){
+                foreach($productorders as $order){
+                    if($order->paymentstatus == "pending" && $order->orderdate < date(("Y-m-d"),strtotime("-1 days"))){
+                        $productorder->update($order->orderid,"orderid",["orderstatus"=>"cancelled"]);
+                    }
+            }
+
             $data = $customer->where("UserName", $_SESSION["USER"]->UserName);
+            
             echo $this->view("customer/customerdash",[ "data" => $data]);
         }
+    }
 
         function profile($message=null){
             if(!Auth::loggedIn()){
