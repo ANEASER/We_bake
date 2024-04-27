@@ -306,7 +306,7 @@ echo "</div>"
         document.getElementById('PaidOrdersTable').style.display = 'none';
         document.getElementById('CompletedOrdersTable').style.display = 'none';
         document.getElementById('CancledOrdersTable').style.display = 'none';
-        document.getElementById('searchedOrdersTable').style.display = 'none';
+        //document.getElementById('searchedOrdersTable').style.display = 'none';
     }
 
     function showAdvancedOrders(link){
@@ -316,7 +316,7 @@ echo "</div>"
         document.getElementById('PaidOrdersTable').style.display = 'none';
         document.getElementById('CompletedOrdersTable').style.display = 'none';
         document.getElementById('CancledOrdersTable').style.display = 'none';
-        document.getElementById('searchedOrdersTable').style.display = 'none';
+        //document.getElementById('searchedOrdersTable').style.display = 'none';
     }
 
     function showPaidOrders(link){
@@ -326,7 +326,7 @@ echo "</div>"
         document.getElementById('PaidOrdersTable').style.display = 'block';
         document.getElementById('CompletedOrdersTable').style.display = 'none';
         document.getElementById('CancledOrdersTable').style.display = 'none';
-        document.getElementById('searchedOrdersTable').style.display = 'none';
+        //document.getElementById('searchedOrdersTable').style.display = 'none';
     }
 
     function showCompletedOrders(link){
@@ -336,7 +336,7 @@ echo "</div>"
         document.getElementById('PaidOrdersTable').style.display = 'none';
         document.getElementById('CompletedOrdersTable').style.display = 'block';
         document.getElementById('CancledOrdersTable').style.display = 'none';
-        document.getElementById('searchedOrdersTable').style.display = 'none';
+        //document.getElementById('searchedOrdersTable').style.display = 'none';
     }
 
     function showCancledOrders(link){
@@ -346,7 +346,7 @@ echo "</div>"
         document.getElementById('PaidOrdersTable').style.display = 'none';
         document.getElementById('CompletedOrdersTable').style.display = 'none';
         document.getElementById('CancledOrdersTable').style.display = 'block';
-        document.getElementById('searchedOrdersTable').style.display = 'none';   
+        //document.getElementById('searchedOrdersTable').style.display = 'none';   
     }
 
 </script>
