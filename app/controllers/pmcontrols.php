@@ -491,7 +491,6 @@ class PmControls extends Controller
             foreach ($rawforitemtomorrow as $raw) {
                 $rawName = $raw->RawName; 
                 $subtotalquantity = (float)$raw->subtotalquantity; // without fliat some items get as string
-                $unitofmeasurement = $raw->UnitOfMeasurement;
                 // If the RawName already exists in the aggregate array, accumulate the subtotalquantity
                 if (isset($aggregateArray[$rawName])) {
                     $aggregateArray[$rawName]['subtotalquantity'] += $subtotalquantity;
@@ -499,7 +498,6 @@ class PmControls extends Controller
                     $aggregateArray[$rawName] = [
                         "rawName" => $rawName,
                         'subtotalquantity' => $subtotalquantity,
-                        'UnitOfMeasurement' => $unitofmeasurement
                     ];
                 }
             }
@@ -521,17 +519,14 @@ class PmControls extends Controller
             $roundedArray[$rawName] = [
                 'rawName' => $rawName,
                 'subtotalquantity' => $roundedQuantity,
-                'UnitOfMeasurement' => $data['UnitOfMeasurement']
             ];
         }
-
         
         // get all raws for tomorrow
         $autocalucalatedraws = $roundedArray;
         
         
         //var_dump($rawsfortomorrow);
-
         $stockitem = new StockItem();
         $stockitems = $stockitem->getDistinct("Name");
 
@@ -569,6 +564,7 @@ class PmControls extends Controller
         }
 
 
+        // Raw Materials Request
         
         function InstertRawMaterialRequest(){
             if (!Auth::loggedIn()) {
@@ -582,10 +578,10 @@ class PmControls extends Controller
             
             for ($i = 0; $i < count($stockorderlines['itemcode']); $i++) {
                 $stockorderline = new StockOrderLine();
-                if($stockorderlines['itemcode'][$i] == "Select Item" || $stockorderlines['quantity'][$i] == null || $stockorderlines['unitofmeasure'][$i] == null){
+                if($stockorderlines['itemcode'][$i] == "Select Item" || $stockorderlines['quantity'][$i] == null ){
                     continue;
                 }else{
-                    $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][$i], "RawName" => $stockorderlines['itemcode'][$i], "quantity" => $stockorderlines['quantity'][$i], "UnitOfMeasurement" => $stockorderlines['unitofmeasure'][$i],'req_type'=>'custom']);
+                    $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][$i], "RawName" => $stockorderlines['itemcode'][$i], "quantity" => $stockorderlines['quantity'][$i], 'req_type'=>'custom']);
                 }
             }
         
@@ -593,7 +589,7 @@ class PmControls extends Controller
             if($autocalculatedraws != null){
                 foreach ($autocalculatedraws as $raw) {
                     $stockorderline = new StockOrderLine();
-                    $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][0], "RawName" => $raw['rawName'], "quantity" => $raw['subtotalquantity'], "UnitOfMeasurement" => $raw['UnitOfMeasurement'],'req_type'=>'auto']);
+                    $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][0], "RawName" => $raw['rawName'], "quantity" => $raw['subtotalquantity'], 'req_type'=>'auto']);
                 }
             }
         
