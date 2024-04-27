@@ -53,6 +53,7 @@
             <th class="hideonmobile">PAYMENT STATUS</th>
             <th>TOTAL(Rs)</th>
             <th>MORE</th>
+            <th>CANCEL</th>
         </tr>';
 
         for ($i = $startIndex; $i < $endIndex; $i++) {
@@ -66,6 +67,11 @@
                 echo '<td class="hideonmobile">' . $order->orderstatus . '</td>';
                 echo '<td class="hideonmobile">' . $order->paymentstatus . '</td>';
                 echo '<td>' . $order->total . '.00</td>';
+                if($order->orderstatus != "pending"){
+                    echo "<td><button class='yellowbutton' onclick='cannotcancel()'>Cancel</button></td>";
+                }else{
+                    echo "<td><button class='yellowbutton' onclick='cancel(\"" . $order->unique_id . "\")'>Cancel</button></td>";
+                }
                 echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
                 echo '</tr>';
             //}
@@ -100,6 +106,43 @@
         function more(unique_id){
             window.location.href = BASE_URL + "OrderControls/moredetails/" + unique_id;
         }
+
+        function cancel(unique_id) {
+            const SwalwithButton = Swal.mixin({
+                    customClass: {
+                        confirmButton: "yellowbutton",
+                        cancelButton: "greenbutton"
+                    },
+                    buttonsStyling: false
+                    });
+
+                    SwalwithButton.fire({
+                        text: "Are you sure you want to cancel this order?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonText: "Yes",
+                        cancelButtonText: "No",
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Order Canceled Successfully',
+                                text: 'The order has been successfully canceled.',
+                                confirmButtonText: 'OK'
+                            }).then(() => {
+                                window.location.href = BASE_URL + "CustomerControls/cancelorder/" + unique_id;
+                            });
+                        }
+                    });
+            }
+
+            function cannotcancel() {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Cannot cancel this order',
+                    text: 'You cannot cancel this order at the moment.',
+                });
+            }
      </script>
 </body>
 </html>
