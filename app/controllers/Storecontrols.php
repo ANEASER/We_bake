@@ -532,27 +532,27 @@ class StoreControls extends Controller {
         if($_SESSION["USER"]->Role != "storemanager"){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
-        
+
         $stockorder=new StockOrder();
         $stockorderline=new StockOrderLine();
         $stockItem = new StockItem();
         $supplies = new Supplies();
 
         $orderItem=$stockorderline->where("id",$id);
+        $orderID=$orderItem[0]->unique_id;
         $itemName=$orderItem[0]->RawName;
         $requestedqty=$orderItem[0]->quantity;
 
         $stock=$stockItem->where("Name",$itemName);
         $stockName=$stock[0]->Name;
         $stockQty=$stock[0]->AvailableStock;
-        
 
         $newStock=$stockQty-$requestedqty;
         $item = ['AvailableStock' => $newStock]; 
         $stockItem->update($stockName, "Name", $item);
 
         $stockorderline->update($id,"id",[ "status" => "Accepted" ]);
-        $this->redirect(BASE_URL . "StoreControls/loadViewOrder");
+        $this->redirect(BASE_URL . "StoreControls/loadViewOrder/".$orderID);
 
         
 
