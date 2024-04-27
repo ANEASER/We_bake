@@ -42,27 +42,22 @@
     require('pmnavbar.php');
     ?>
 
-
     <div class="searchpanel">
-        <form method="get" action="<?php echo BASE_URL;?>pmcontrols/searchVehicle" style="display:flex; flex-direction:row;">
-        <?php    
-
-        if (isset($_GET['search'])){
-            echo '<input class="searchbox" type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" value="' . $_GET['search'] . '" >';
-            echo '<button class="button view" onclick="viewall()" role="button">View All Vehicles</button>';
+        <form method="GET" action="<?php echo BASE_URL;?>pmcontrols/searchVehicle" class="search" style="display:flex; flex-direction:row;">
+        <?php
+        if(isset($_GET['search'])){
+            echo '<input type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" value="'.$_GET['search'].'" class="searchbox">';
+            echo '<input type="submit" value="Search" class="button green">';
+            echo '<button class="button green" onclick="clearSearch(); return false;">Clear Search</button>';
         }
         else{
-            echo '<input class="searchbox" type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" >';
+            echo '<input type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" value="" class="searchbox">';
+            echo '<input type="submit" value="Search" class="button green">';
         }
         ?>
-        
-        <input class="button green" type="submit" value="Search">
         </form>
-    
-    </div>
+        </div>
     <button class="button blue" onclick="addVehicle()" role="button">Add New Vehicle</button>
-       
-
 
     <?php
         $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
@@ -82,7 +77,7 @@
                 <th>Update</th>
                 <th>Delete</th>
             </tr>';
-            foreach ($vehicles as $vehicle){ 
+            foreach($vehicles as $vehicle){ 
                 if ($vehicle->ActiveState == 1){
                     if ($vehicle->availability == 1){ 
                     echo '<tr>';
@@ -121,6 +116,10 @@ echo '</tr>';
 
 <script>
     var BASE_URL = "<?php echo BASE_URL; ?>";
+
+    function clearSearch(){
+        window.location.href = BASE_URL + "pmcontrols/loadVehiclesView";
+    }
 
     function addVehicle() {
         window.location.href = BASE_URL + "pmcontrols/addVehicleView";

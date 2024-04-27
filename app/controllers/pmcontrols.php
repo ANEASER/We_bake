@@ -312,7 +312,7 @@ class PmControls extends Controller
 
         var_dump($data);
         $vehicle->update($vehicleid,"vehicleno",$data);
-        echo $this->redirect("pmcontrols/loadVehiclesView");
+        $this->redirect(BASE_URL . "pmcontrols/loadVehiclesView");
     }
 
     // Delete Vehicle
@@ -510,12 +510,7 @@ class PmControls extends Controller
         $lastKey = end($keys);
         
         foreach ($aggregateArray as $rawName => $data) {
-            $quantity = $data['subtotalquantity'];
-            if ($rawName !== $lastKey) {
-                $roundedQuantity = ceil($quantity);
-            } else {
-                $roundedQuantity = $quantity; // Keep the last subtotal as it is
-            }
+            $roundedQuantity = ceil($data['subtotalquantity']);
             $roundedArray[$rawName] = [
                 'rawName' => $rawName,
                 'subtotalquantity' => $roundedQuantity,
