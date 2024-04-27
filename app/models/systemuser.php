@@ -8,5 +8,11 @@
             $result = $this->query($sql);
             return $result[0]->count;
         }
+
+        function getSystemuserCountGroupBy(){
+            $sql = "SELECT role , COUNT(*) as count, role FROM systemuser GROUP BY role";
+            $result = $this->query($sql);
+            return $result;
+        }
     }
 ?>

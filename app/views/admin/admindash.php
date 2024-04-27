@@ -34,8 +34,9 @@
     }
 
     .wide-table {
-        width: 70%;
+        width: 50%;
     }
+
 </style>
 
 <section class="editsection">
@@ -70,18 +71,54 @@
                     
                 </section>
                 <section style="display:flex;justify-content:space-around;">
-                    <table class="wide-table">
-                        <tr>
-                            <th>Category</th>
-                            <th>Count</th>
-                        </tr>
-                        <?php foreach ($productitemcountgroupby as $item): ?>
-                            <tr>
-                                <td><?php echo $item->category; ?></td>
-                                <td><?php echo $item->count; ?></td>
-                            </tr>
-                        <?php endforeach; ?>
-                    </table>
+                        <div style="width: 76%;display:flex;flex-direction:row;justify-content:space-between;">
+                            <table class="wide-table">
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Count</th>
+                                </tr>
+                                <?php 
+                                    if($productitemcountgroupby > 0){
+                                        foreach ($productitemcountgroupby as $item){
+                                            echo'<tr>';
+                                                echo '<td>'.$item->category.'</td>';
+                                                echo '<td>'.$item->count.'</td>';
+                                            echo'</tr>';
+                                        }
+                                    }
+                                    else{
+                                        echo '<tr>';
+                                            echo '<td>No data</td>';
+                                            echo '<td>No data</td>';
+                                        echo '</tr>';
+                                    }
+                                    
+                                    ?>
+                            </table>
+                            <table class="wide-table">
+                                <tr>
+                                    <th>Role</th>
+                                    <th>Count</th>
+                                </tr>
+                                <?php 
+                                    if($systemusergroupbyrole > 0){
+                                        foreach ($systemusergroupbyrole as $user){
+                                            echo'<tr>';
+                                                echo '<td>'.$user->role.'</td>';
+                                                echo '<td>'.$user->count.'</td>';
+                                            echo'</tr>';
+                                        }
+                                    }
+                                    else{
+                                        echo '<tr>';
+                                            echo '<td>No data</td>';
+                                            echo '<td>No data</td>';
+                                        echo '</tr>';
+                                    }
+                                    
+                                    ?>
+                            </table>
+                        </div>
                 </section>
     </section>
 

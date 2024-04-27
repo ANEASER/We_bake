@@ -13,6 +13,20 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
 <body>
+<style>
+
+input[type="text"] {
+    width: 75%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    width: 23%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+</style>
    
 <?php
         include "adminnav.php";

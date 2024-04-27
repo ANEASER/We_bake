@@ -24,8 +24,9 @@ use function PHPSTORM_META\type;
             $vehicles = $vehicle->findall();
             $productitems = $productitem->findall();
             $stockitems = $stockitem->findall();
+            $systemusergroupbyrole = $systemuser->getSystemuserCountGroupBy();
 
-            echo $this->view("admin/admindash", [ "systemusercount" => $systemusercount, "outletcount" => $outletcount, "productitemcountgroupby" => $productitemcountgroupby, "vehiclecount" => count($vehicles),"productitemcount" => count($productitems), "stockitemscount" => count($stockitems)]);
+            echo $this->view("admin/admindash", [ "systemusercount" => $systemusercount, "outletcount" => $outletcount, "productitemcountgroupby" => $productitemcountgroupby, "vehiclecount" => count($vehicles),"productitemcount" => count($productitems), "stockitemscount" => count($stockitems), "systemusergroupbyrole" => $systemusergroupbyrole]);
         }
 
         //Item functions
