@@ -32,7 +32,7 @@ class StoreControls extends Controller {
         }
 
         $supplies = new Supplies();
-        $supplies = $supplies->getSorted('ExpiryDate');
+        $supplies = $supplies->getActiveSortedByExpiryDate();
         echo $this->view("storemanager/smdash",  ["supplies" => $supplies]);        
     }
 

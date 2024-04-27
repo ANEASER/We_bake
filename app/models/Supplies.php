@@ -16,6 +16,12 @@
             return $this->query($query, []);
         }
 
+        public function getActiveSortedByExpiryDate($sortOrder = 'ASC') {
+            $query = "SELECT * FROM $this->table WHERE ActiveState = 'Active' ORDER BY ExpiryDate $sortOrder";
+            return $this->query($query, []);
+        }
+        
+
 
     }
 ?>
