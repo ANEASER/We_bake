@@ -312,7 +312,7 @@ class PmControls extends Controller
 
         var_dump($data);
         $vehicle->update($vehicleid,"vehicleno",$data);
-        echo $this->redirect("productionmanager/loadVehiclesView");
+        echo $this->redirect("pmcontrols/loadVehiclesView");
     }
 
     // Delete Vehicle
@@ -507,11 +507,17 @@ class PmControls extends Controller
 
         // Round up the quantities
         $roundedArray = [];
+        $keys = array_keys($aggregateArray);
 
+        $lastKey = end($keys);
+        
         foreach ($aggregateArray as $rawName => $data) {
-            // Round up to the nearest integer for all items
-            $roundedQuantity = ceil($data['subtotalquantity']);
-            
+            $quantity = $data['subtotalquantity'];
+            if ($rawName !== $lastKey) {
+                $roundedQuantity = ceil($quantity);
+            } else {
+                $roundedQuantity = $quantity; // Keep the last subtotal as it is
+            }
             $roundedArray[$rawName] = [
                 'rawName' => $rawName,
                 'subtotalquantity' => $roundedQuantity,

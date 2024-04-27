@@ -126,7 +126,7 @@
 
         //Raw Materials Requirement
         echo '<section class="cart1" style="padding: 20px; margin-top: 20px;margin-left:10px;">';
-        echo "<h1 style='text-align: center; background-color: #41201f; color: #ffffff;'>Raw Material Requirement Request</h1>";
+        echo "<h1 style='text-align: center; background-color: #41201f; color: #ffffff;'>Raw Material Requirement </h1>";
         echo "<br>";
                 echo "<table>
                     <tr>
@@ -172,7 +172,7 @@
     
         echo "<br>";
         
-        echo "<textarea style='margin-left: 5%; width: 90%; color: #999;' name='comment' id='comment'>Additional comments to be placed</textarea>";
+        echo "<textarea style='margin-left: 5%; width: 90%; color: #999;' name='comment' id='comment'></textarea>";
         
         echo "<button class='button green' type='submit' class='btn' style='width: 100%; margin-left: 3%; margin-top: 20px;'>Request</button>";
         
@@ -269,7 +269,7 @@
         echo "</div>";
         echo "<br>";
         
-        echo "<textarea style='margin-left:5%; width: 90%; color: #999;' name='comment' id='comment'>Additional comments to be placed</textarea>";
+        echo "<textarea style='margin-left:5%; width: 90%; color: #999;' name='comment' id='comment'></textarea>";
 
         echo "<button class='button green' type='submit' class='btn' style='width: 100%; margin-left:3%; margin-top:20px'>Request</button>";
         

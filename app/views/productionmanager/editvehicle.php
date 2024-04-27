@@ -147,7 +147,7 @@
                     return false;
                 }
 
-                return true;
+                window.location.href = BASE_URL + "pmcontrols/editVehicle";
                 
             }
         </script>
