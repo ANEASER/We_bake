@@ -84,8 +84,7 @@
                 <th>Payment Status</th>
                 <th>Order Status</th>
                 <th>Total</th>
-                <th>Deliver By</th>
-                <th>Unique ID</th>
+                <th>Order Capacity(No.of Containers)</th>
                 <th>Deliver Address</th>
                 <th>Update Order</th>
                 <th>Cancel Order</th>
@@ -101,8 +100,7 @@
                     echo "<td>".$ProductOrder->paymentstatus."</td>";
                     echo "<td>".$ProductOrder->orderstatus."</td>";
                     echo "<td>".$ProductOrder->total."</td>";
-                    echo "<td>".$ProductOrder->deliverby."</td>";
-                    echo "<td>".$ProductOrder->unique_id."</td>";
+                    echo "<td>".$ProductOrder->order_cap."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
                     echo "<td><button class='button green' onclick='process(".$ProductOrder->orderid.", \"".$ProductOrder->deliverystatus."\")'>Process</button></td>";
                     echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
@@ -125,8 +123,7 @@
                     <th>Payment Status</th>
                     <th>Order Status</th>
                     <th>Total</th>
-                    <th>Deliver By</th>
-                    <th>Unique ID</th>
+                    <th>Order Capacity(No.of Containers)</th>
                     <th>Deliver Address</th>
                     <th>Update Order</th>
                     <th>Cancel Order</th>
@@ -134,7 +131,7 @@
                 </tr>";
                 
                 foreach ($productorder as $ProductOrder){
-                    if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") && $ProductOrder->orderdate == date('Y-m-d', strtotime('+1 day'))){ 
+                    if ($ProductOrder->orderstatus == "processing" && $ProductOrder->orderdate == date('Y-m-d', strtotime('+1 day'))){ 
                         echo "<tr>";
                         echo "<td>".$ProductOrder->orderref."</td>";
                         echo "<td>".$ProductOrder->placeby."</td>";
@@ -142,8 +139,7 @@
                         echo "<td>".$ProductOrder->paymentstatus."</td>";
                         echo "<td>".$ProductOrder->orderstatus."</td>";
                         echo "<td>".$ProductOrder->total."</td>";
-                        echo "<td>".$ProductOrder->deliverby."</td>";
-                        echo "<td>".$ProductOrder->unique_id."</td>";
+                        echo "<td>".$ProductOrder->order_cap."</td>";
                         echo "<td>".$ProductOrder->deliver_address."</td>";
                         echo "<td><button class='button green' onclick='completeProduction(".$ProductOrder->orderid.", \"".$ProductOrder->deliverystatus."\")'>Production Complete</button></td>";
                         echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
@@ -168,7 +164,7 @@
                 <th>Order Status</th>
                 <th>Total</th>
                 <th>Deliver By</th>
-                <th>Unique ID</th>
+                <th>Order Capacity(No.of Containers)</th>
                 <th>Deliver Address</th>
                 <th>More Details</th>
             </tr>";
@@ -184,7 +180,7 @@
                 echo "<td>".$ProductOrder->orderstatus."</td>";
                 echo "<td>".$ProductOrder->total."</td>";
                 echo "<td>".$ProductOrder->deliverby."</td>";
-                echo "<td>".$ProductOrder->unique_id."</td>";
+                echo "<td>".$ProductOrder->order_cap."</td>";
                 echo "<td>".$ProductOrder->deliver_address."</td>";
                 echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                 echo "</tr>";
@@ -206,7 +202,7 @@
                 <th>Order Status</th>
                 <th>Total</th>
                 <th>Deliver By</th>
-                <th>Unique ID</th>
+                <th>Order Capacity(No.of Containers)</th>
                 <th>Deliver Address</th>
                 <th>More Details</th>
             </tr>";
@@ -222,7 +218,7 @@
                 echo "<td>".$ProductOrder->orderstatus."</td>";
                 echo "<td>".$ProductOrder->total."</td>";
                 echo "<td>".$ProductOrder->deliverby."</td>";
-                echo "<td>".$ProductOrder->unique_id."</td>";
+                echo "<td>".$ProductOrder->order_cap."</td>";
                 echo "<td>".$ProductOrder->deliver_address."</td>";
                 echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                 echo "</tr>";

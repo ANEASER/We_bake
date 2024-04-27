@@ -31,6 +31,7 @@
             background-color: #3498db;
         }
         .yellow{
+            margin-left: 10px;
             background-color: #f1c40f;
         }
     </style>
@@ -131,8 +132,33 @@ echo '</tr>';
         window.location.href = BASE_URL + "pmcontrols/editVehicleView/"+ vehicleid;
     }
     function del(vehicleid) {
-            window.location.href = BASE_URL +  "pmControls/deleteVehicle/"+ vehicleid;
-    }
+        const SwalwithButton = Swal.mixin({
+            customClass: {
+                confirmButton: "button yellow",
+                cancelButton: "button yellow"
+            },
+            buttonsStyling: false
+            });
+
+            SwalwithButton.fire({
+                text: "Are you sure you want to delete this vehicle?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Vehicle Deleted Successfully',
+                        text: 'The vehicle has been successfully deleted.',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = BASE_URL +  "pmControls/deleteVehicle/"+ vehicleid;
+    });
+                }
+            });
+            }
 
 </script>
 
