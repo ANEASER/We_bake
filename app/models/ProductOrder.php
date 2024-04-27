@@ -58,6 +58,11 @@ class ProductOrder extends Model {
         return $this->query($query, []);
     }
 
+    public function findbetweendates($fromdate, $todate) {
+        $query = "SELECT * FROM $this->table WHERE orderdate BETWEEN '$fromdate' AND '$todate'";
+        return $this->query($query, []);
+    }
+
 
 }
 ?>

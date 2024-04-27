@@ -61,8 +61,6 @@ class OwnerControls extends Controller{
         if($_SESSION['USER']->Role != "owner"){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
-
-        $pdf = new PDF();
         
         $producorder = new ProductOrder();
         $productorderline = new ProductOrderLine();
@@ -76,9 +74,120 @@ class OwnerControls extends Controller{
         }
        
         $productorderlines = $productorderline->productOrderLinesbyUniqueIds($unique_ids);
-        //$pdf->generateReport();
         echo $this->view("owner/report", ["orders" => $producorderdata, "productorderlines" => $productorderlines, "productitemdata" => $productitemdata]);
     }
+
+
+    function ProductItemReport(){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if($_SESSION['USER']->Role != "owner"){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $startdate = $_POST['startdate'];
+            $enddate = $_POST['enddate'];
+            $mostleast = $_POST['mostleast'];
+
+            $productitem = new ProductItem();
+            $producorder = new ProductOrder();
+            $productorderline = new ProductOrderLine();
+
+            $productitemdata = $producorder->findbetweendates($startdate, $enddate);
+
+            $uniqe_ids = [];
+            foreach ($productitemdata as $order) {
+                array_push($uniqe_ids, $order->unique_id);
+            }
+
+            $productorderlines = $productorderline->productOrderLinesbyUniqueIds($uniqe_ids);
+
+            // need alert if no data found
+            if(!$productorderlines){
+               $this->redirect(BASE_URL."OwnerControls/viewReports");
+            }
+
+            foreach ($productorderlines as $productorderline) {
+                
+                
+                $item = $productitem->where('Itemcode', $productorderline->Itemcode);
+                
+                if ($item) {
+                    $associativeArray[] = [
+                        'Itemcode' => $productorderline->Itemcode,
+                        'Itemname' => $item[0]->itemname,
+                        'Quantity' => $productorderline->quantity,
+                        'Price' => $productorderline->price,
+                        'Total' => $productorderline->totalprice,
+                    ];
+            }
+            
+        }
+
+        $sorton = $_POST['sorton'];
+
+        if($sorton == "Quantity"){
+            if($mostleast == "most"){
+                usort($associativeArray, function($a, $b) {
+                    return $b['Quantity'] <=> $a['Quantity'];
+                });
+            }else{
+                usort($associativeArray, function($a, $b) {
+                    return $a['Quantity'] <=> $b['Quantity'];
+                });
+            }
+        }else{
+            if($mostleast == "most"){
+                usort($associativeArray, function($a, $b) {
+                    return $b['Total'] <=> $a['Total'];
+                });
+            }else{
+                usort($associativeArray, function($a, $b) {
+                    return $a['Total'] <=> $b['Total'];
+                });
+            }
+        }
+        
+        var_dump($associativeArray);
+        $report = new Report();
+        $report->generateItemReport($associativeArray);
+    }
+
+
+    function ProdcutOrderReport(){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if($_SESSION['USER']->Role != "owner"){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $startdate = $_POST['startdate'];
+            $enddate = $_POST['enddate'];
+            $orderstatus = $_POST['orderstatus'];
+
+            $productorder = new ProductOrder();
+            $productitemdata = $productorder->findbetweendates($startdate, $enddate);
+
+
+            $associativeArray = [];
+            foreach ($productitemdata as $productorder) {
+                if($productorder->orderstatus == $orderstatus){
+                    $associativeArray[] = $productorder;
+                }
+            }
+
+            $report = new Report();
+            $report->generateOrderReport($productitemdata);
+            
+            
+        }
+
 }
 
+
+ 
 ?>

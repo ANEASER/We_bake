@@ -6,6 +6,7 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
     <title>Reports</title>
 </head>
 <body>
@@ -29,11 +30,32 @@
             border-radius: 4px;
         }
 
+        .maindiv {
+            display:flex;justify-content:space-between; 
+        }
+
+        .subdiv {
+            width: 48%;
+        }
+
+        @media (max-width: 1100px){
+   
+            .maindiv {
+                display:flex;
+                justify-content:space-between; 
+                flex-direction: column;
+            }
+
+            .subdiv {
+                width: 90%;
+            }
+        }
+
 
     </style>
-    <section style="display:flex;justify-content:space-between; padding:3%; width:90%;margin-left:7%">
+    <section class="maindiv"  style="padding:3%; width:90%;margin-left:7%">
 
-        <section style="width: 50%; display:flex;flex-direction:column">
+        <section class="subdiv" style="display:flex;flex-direction:column">
         <?php
                 $itemsPerPage = 6;
                 $totalOrders = count($productorderlines);
@@ -46,7 +68,7 @@
                 $endIndex = min($startIndex + $itemsPerPage, $totalOrders);
 
                 echo '<div class="table-container">';
-                echo "<table>";
+                echo '<table style="margin-left:9%;margin-bottom:4%">';
                 echo "<tr>
                         <th>Item Code</th>
                         <th>Item Name</th>
@@ -90,28 +112,40 @@
                 echo '</div>'; // Close pagination
                 echo '</div>'; // Close pagination container
             ?>
-            <?php
-                echo '<br>';   
-                echo "<h2 style='text-align:center'>Filter Orders and Download Report</h2>";
-                echo '<br>';
-                echo '<form method="post" action="backend.php">'; // Change backend.php to your actual backend endpoint
-                echo '<label for="timeslot">Period : </label>';
+            <br>
+            <h2 style='text-align:center'>Filter Orders and Download Report</h2>
+            <br>
+            <form method="post" class="form-container" action="<?php echo BASE_URL; ?>OwnerControls/ProductItemReport" style="text-align:center;"> <!-- Change action attribute to your actual backend endpoint -->
+                <label for="timeslot">Period : </label>
 
-                echo '<input type="date" id="timeslot" name="starttime">';
-                echo ' : ';
-                echo '<input type="date" id="timeslot" name="starttime">';
+                <input type="date" id="timeslot" name="startdate" required>
+                To
+                <input type="date" id="timeslot" name="enddate" required>
+
+                <label for="mostleats" style="margin-left: 20px;"> MOST / LEAST : </label>
+                <select id="mostleats" name="mostleast" required>
+                    <option value="most">Most</option>
+                    <option value="least">Least</option>
+                </select>
+                <label for="sorton" style="margin-left: 20px;"> SORT ON : </label>
+                <select id="sorton" name="sorton" required>
+                    <option value="Total">Total Price</option>
+                    <option value="Quantity">Quantity</option>
+                </select>
                 
-                echo '<label for="mostleats"> MOST / LEAST : </label>';
+                <!-- Submit button wrapped in a div with styling -->
+                <div style="margin-top: 20px;">
+                    <input class="greenbutton" type="submit" value="Submit" style="margin: auto;">
+                </div>
+            </form>
 
-                echo '<input type="submit" value="Submit">';
-                echo '</form>';
-            ?>
+
 
 
 
         </section>
 
-        <section style="width: 50%; display:flex;flex-direction:column">
+        <section class="subdiv" style="display:flex;flex-direction:column">
         <?php
             $itemsPerPage = 5;
             $totalOrders = count($orders);
@@ -139,7 +173,7 @@
                     echo '<tr>';
                     echo '<td>' . $order->orderref. '</td>';
                     echo '<td>' . $order->orderdate . '</td>';
-                    echo '<td class="hideonmobile">' . $order->orderstatus . '</td>';
+                    echo '<td>' . $order->orderstatus . '</td>';
                     echo '<td>' . $order->total . '.00</td>';
                     echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
                     echo '</tr>';
@@ -164,22 +198,32 @@
             echo '</div>'; 
             echo '</div>'; 
         ?>
-        <?php
-            echo '<br>';   
-            echo "<h2 style='text-align:center'>Filter Orders and Download Report</h2>";
-            echo '<br>';
-            echo '<form method="post" action="backend.php">'; // Change backend.php to your actual backend endpoint
-            echo '<label for="timeslot">Period : </label>';
+        <br>
+            <h2 style='text-align:center'>Filter Orders and Download Report</h2>
+            <br>
+            <form method="post" class="form-container" action="<?php echo BASE_URL; ?>OwnerControls/ProdcutOrderReport" style="text-align:center;"> <!-- Change backend.php to your actual backend endpoint -->
+                <label for="timeslot">Period : </label>
 
-            echo '<input type="date" id="timeslot" name="starttime">';
-            echo ' : ';
-            echo '<input type="date" id="timeslot" name="starttime">';
+                <input type="date" id="timeslot" name="startdate" required>
+                To
+                <input type="date" id="timeslot" name="enddate" required>
+                
+                <label for="orderstatus" style="margin-left: 20px;" required> Order Status : </label>
+                <select id="orderstatus" name="orderstatus">
+                    <option value="all">All</option>
+                    <option value="pending">Pending</option>
+                    <option value="processing">Processing</option>
+                    <option value="cancelled">Cancelled</option>
+                    <option value="finished">Finished</option>
+                </select>
+                
+                <!-- Wrap the submit button in a div and apply styling -->
+                <div style="margin-top: 20px;">
+                    <input class="greenbutton" type="submit" value="Submit" style="margin: auto;">
+                </div>
+            </form>
 
-            echo '<label for="orderstatus"> Order Status : </label>';
-            echo '<input type="text" id="orderstatus" name="orderstatus">';
-            echo '<input type="submit" value="Submit">';
-            echo '</form>';
-        ?>
+
     </section>
 
     </section>

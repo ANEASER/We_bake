@@ -10,10 +10,8 @@ class PDFGen{
 
         
         $options = new Options();
-        $options->setChroot(__DIR__);
 
-
-        $dompdf = new Dompdf($options);
+        $dompdf = new Dompdf();
 
         $dompdf->loadHtml($content);
 
