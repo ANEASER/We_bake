@@ -524,7 +524,7 @@ class StoreControls extends Controller {
         echo $this->redirect(BASE_URL."StoreControls/loadViewOrder");
     }
 
-    function acceptOrder($id){
+    function acceptOrder($id){ //to accept a single order item
         if(!Auth::loggedIn()){
             $this->redirect("CommonControls/loadLoginView");
         }
@@ -547,6 +547,11 @@ class StoreControls extends Controller {
         $stockName=$stock[0]->Name;
         $stockQty=$stock[0]->AvailableStock;
 
+        if($stockQty<$requestedqty){
+            echo "<script>alert('Stock is not enough to fulfill the order')</script>";
+            $this->redirect(BASE_URL . "StoreControls/loadViewOrder/".$orderID);
+        }
+
         $newStock=$stockQty-$requestedqty;
         $item = ['AvailableStock' => $newStock]; 
         $stockItem->update($stockName, "Name", $item);
@@ -555,6 +560,49 @@ class StoreControls extends Controller {
         $this->redirect(BASE_URL . "StoreControls/loadViewOrder/".$orderID);
 
         
+
+    }
+
+    function acceptFullOrder($unique_id){ //to accept the whole order
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        $stockorder=new StockOrder();
+        $stockorderline=new StockOrderLine();
+        $stockItem = new StockItem();
+        $supplies = new Supplies();
+
+        $orderItems=$stockorderline->where("unique_id",$unique_id);
+        $orderLineID=$orderItems[0]->unique_id;
+
+        foreach($orderItems as $orderItem){
+            $itemName=$orderItem->RawName;
+            $requestedqty=$orderItem->quantity;
+            
+
+            $stock=$stockItem->where("Name",$itemName);
+            $stockName=$stock[0]->Name;
+            $stockQty=$stock[0]->AvailableStock;
+
+            if($stockQty<$requestedqty){
+                echo "<script>alert('Stock is not enough to fulfill the order')</script>";
+                $this->redirect(BASE_URL . "StoreControls/loadViewOrder/".$unique_id);
+            }
+
+            $newStock=$stockQty-$requestedqty;
+            $item = ['AvailableStock' => $newStock]; 
+            $stockItem->update($stockName, "Name", $item);
+
+            $stockorderline->update($orderItem->id,"id",[ "status" => "Accepted" ]);
+        }
+
+        $stockorder->update($unique_id,"unique_id",[ "status" => "Accepted" ]);
+        $this->redirect(BASE_URL . "StoreControls/loadProductionView");
 
     }
 
