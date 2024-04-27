@@ -15,7 +15,7 @@ class OutletControls extends Controller {
         
         $productorder = new ProductOrder();
 
-        $orders = $productorder->findOnTodaybyUser($_SESSION["USER"]->EmployeeNo);
+        $orders = $productorder->findLastOrderbyUser($_SESSION["USER"]->EmployeeNo);
 
         if($orders == null){
             $this->view("outlet/outletdash",["placefirstorder"=>"Place your first Order"]);
@@ -49,9 +49,9 @@ class OutletControls extends Controller {
                     "total" => $first_order->total,
                     "pickername" => $_SESSION["USER"]->EmployeeNo,
                     "unique_id" => $first_order->unique_id,
-                    "deliverby" => "OP".$max_orderid,
+                    "deliverby" => "outletpickup",
                     "deliver_address" => $first_order->deliver_address,
-                    "orderref" => $first_order->orderref,
+                    "orderref" => "OP".$max_orderid,
                     "paid_amount" => $first_order->paid_amount,
                     "order_type" => "constant"
                 );
@@ -60,7 +60,7 @@ class OutletControls extends Controller {
                 header("Refresh:0");
             }
 
-            foreach ($orders as $order) {
+            foreach ($todayorder as $order) {
                 $uniqueIds[] = $order->unique_id;
             }
             

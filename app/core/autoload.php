@@ -9,6 +9,7 @@ require("model.php");
 require("app.php");
 require("mailer.php");
 require("sms.php");
+require("pdfgen.php");
 
 
 spl_autoload_register(function($class){
