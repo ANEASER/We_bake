@@ -14,10 +14,63 @@
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
 <body>
    
-    <?php
-        include "adminnav.php"
+<?php
+        include "adminnav.php";
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (isset($error)){
+            echo "<script>
+
+            const SwalwithButton = Swal.mixin({
+                customClass: {
+                    confirmButton: 'greenbutton',
+                },
+                buttonsStyling: false
+            });
+
+            
+            if (typeof Swal !== 'undefined') {
+                SwalwithButton.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '$error',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                alert('$error');
+            }
+          </script>";}
+        elseif (isset($_SESSION['message'])){
+            $message = $_SESSION['message'];
+            echo "<script>
+
+            const SwalwithButton = Swal.mixin({
+                customClass: {
+                    confirmButton: 'greenbutton',
+                },
+                buttonsStyling: false
+            });
+
+            
+            if (typeof Swal !== 'undefined') {
+                SwalwithButton.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '$message',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                alert('$message');
+            }
+          </script>";}
+          unset($_SESSION['message']);
     ?>
-    <div class="searchpanel">
+
+    <section style="width: 100%; padding:1%">
+    <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
         <form method="GET" action="<?php echo BASE_URL; ?>AdminControls/searchOutlet" class="search" style="display: flex; flex-direction:row;">
                     <?php
                         if (isset($_GET['search'])) {
@@ -30,7 +83,9 @@
                         }
                     ?>
         </form>
-        <button class="bluebutton" onclick="add()">Add New Outlets</button>
+        <section class="buttongroup">
+            <button style="width: 200px;" class="bluebutton" onclick="add()">Add New Outlets</button>
+        </section>
     </div>
         
         <?php
@@ -91,6 +146,7 @@
                     }
             ?>
         </section>
+    </section>
     
     <script>
 

@@ -213,7 +213,7 @@ use function PHPSTORM_META\type;
             if (!empty($_POST['retailprice'])){
                 $data['retailprice'] = $_POST['retailprice'];
             }
-            if (!empty($_POST['stockprice'])){
+            if (!empty($_POST['cost'])){
                 $data['cost'] = $_POST['cost'];
             }
             if (!empty($_POST['itemdescription'])){
@@ -279,6 +279,7 @@ use function PHPSTORM_META\type;
             }
 
             echo $productitem->update($id,"itemid",$data);
+            $_SESSION["message"] = "Product updated successfully";
             $this->redirect(BASE_URL."CommonControls/loadProductsView");
         }
 
@@ -557,10 +558,14 @@ use function PHPSTORM_META\type;
                 $data['UserName'] = $_POST['UserName'];
             }
         
-            if ($_POST['Password'] == $_SESSION["USER"]->Password){
+            $verifiedpassword = password_verify($_POST["Password"], $_SESSION["USER"]->Password);
+
+            if ($verifiedpassword){
                 // Update data in the tables
                 echo $outlets->update($id, "OutletId", ["Manager" => $data["EmployeeNo"]]);
                 echo $systemuser->update($id, "UserID", $data);
+                $_SESSION["message"] = "User updated successfully";
+                
                 $this->redirect(BASE_URL."AdminControls/loadUsersView");
             } else {
                 $data = $systemuser->where("UserID", $id);
@@ -599,13 +604,24 @@ use function PHPSTORM_META\type;
         }
 
         public function ResetPassword($username){
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+        
             $generatedpassword = uniqid();
             $passwordhashed = password_hash($generatedpassword, PASSWORD_DEFAULT);
             $systemuser = new Systemuser();
             $founduser = $systemuser->where("UserName", $username);
             $systemuser->update($username, "UserName", ["Password" => $passwordhashed, "ActiveState" => "FirstLogin"]);
             $mail = new Mail();
-            $mail->sendMail($founduser[0]->Email, "Password Reset", "Your password has been reset. Your new password is : ".$generatedpassword);
+            $emailed = $mail->sendMail($founduser[0]->Email, "Password Reset", "Your password has been reset. Your new password is : ".$generatedpassword);
+
+            if ($emailed){
+                $_SESSION["message"] = "Password reset email sent successfully";
+            } else {
+                $_SESSION["error"] = "Password reset email failed to send";
+            }
             $this->redirect(BASE_URL."AdminControls/loadUsersView");
         }
         
@@ -642,6 +658,12 @@ use function PHPSTORM_META\type;
             }else{
                 echo $this->view("admin/editsystemuser", ["data" => $data]);
             }
+        }
+
+        function viewUser($id){
+            $systemuser = new Systemuser();
+            $data = $systemuser->where("UserID", $id);
+            echo $this->view("admin/viewmoreuser", ["data" => $data[0]]);
         }
 
         
@@ -955,8 +977,10 @@ use function PHPSTORM_META\type;
                 $data['Manager'] = $_POST['Manager'];
             }
         
-            if ($_POST['Password'] == $_SESSION["USER"]->Password){
+            $verifiedpassword = password_verify($_POST["Password"], $_SESSION["USER"]->Password);
+            if ($verifiedpassword){
                 echo $outlets->update($id,"OutletID",$data);
+                $_SESSION["message"] = "Outlet updated successfully";
                 $this->redirect(BASE_URL."AdminControls/loadOutletsView");
             } else {
                 $outlets = new Outlet();
