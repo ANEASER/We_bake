@@ -435,16 +435,16 @@ class PmControls extends Controller
         $vehicleByCapacity = $vehicle->where("capacity",$searchQuery);
 
         if($vehicleByType){
-            echo $this->view("productionmanager/vehicles",["vehicles",$vehicleByType]);
+            echo $this->view("productionmanager/vehicles",["vehicles"=>$vehicleByType]);
         }
         else if($vehicleByRegNo){
-            echo $this->view("productionmanager/vehicles",["vehicles",$vehicleByRegNo]);
+            echo $this->view("productionmanager/vehicles",["vehicles"=>$vehicleByRegNo]);
         }
         else if($vehicleByCapacity){
-            echo $this->view("productionmanager/vehicles",["vehicles",$vehicleByCapacity]);
+            echo $this->view("productionmanager/vehicles",["vehicles"=>$vehicleByCapacity]);
         }
         else{
-            $this->redirect(BASE_URL."pmcontrols/loadVehiclesView");
+            $this->redirect(BASE_URL . "pmcontrols/loadVehiclesView");
         }
     }
     
