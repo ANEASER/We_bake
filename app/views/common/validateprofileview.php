@@ -13,7 +13,7 @@
 </head>
 <body>
     <?php
-        include '..\app\views\common\commonnav.php';
+         include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'commonnav.php';
         if (isset($error)){
             echo "<script>
 

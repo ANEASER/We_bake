@@ -13,8 +13,9 @@
 
     <?php
         include 'commonnav.php';
-        include '..\app\views\customer\dashboard.php';
+        include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'customer' . DIRECTORY_SEPARATOR . 'dashboard.php';
     ?>
+
 
     <script>
         sessionStorage.removeItem('activeLink');

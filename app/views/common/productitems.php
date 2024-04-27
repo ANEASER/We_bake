@@ -14,7 +14,7 @@
         session_start();
         if(isset($_SESSION["USER"])){
             if($_SESSION["USER"]->Role == 'admin'){
-                include '..\app\views\admin\adminnav.php';
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'adminnav.php';
             }
             else {
                 include 'commonnav.php';
