@@ -25,7 +25,7 @@ class OwnerControls extends Controller{
         $this->view("owner/ownerdash",[ "data" => $data, "producorderdata" => $producorderdata, "productorderlinedata" => $productorderlinedata, "productitemdata" => $productitemdata]);
     }
 
-    function viewEnquiries(){
+    function viewFeedback(){
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
@@ -34,11 +34,11 @@ class OwnerControls extends Controller{
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
 
-        echo $this->redirect (BASE_URL."OwnerControls/loadviewEnquiries");
+        echo $this->redirect (BASE_URL."OwnerControls/loadviewFeedback");
 
     }
 
-    function loadviewEnquiries(){
+    function loadviewFeedback(){
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
