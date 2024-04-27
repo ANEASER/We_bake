@@ -507,17 +507,11 @@ class PmControls extends Controller
 
         // Round up the quantities
         $roundedArray = [];
-        $keys = array_keys($aggregateArray);
 
-        $lastKey = end($keys);
-        
         foreach ($aggregateArray as $rawName => $data) {
-            $quantity = $data['subtotalquantity'];
-            if ($rawName !== $lastKey) {
-                $roundedQuantity = ceil($quantity);
-            } else {
-                $roundedQuantity = $quantity; // Keep the last subtotal as it is
-            }
+            // Round up to the nearest integer for all items
+            $roundedQuantity = ceil($data['subtotalquantity']);
+            
             $roundedArray[$rawName] = [
                 'rawName' => $rawName,
                 'subtotalquantity' => $roundedQuantity,

@@ -40,9 +40,9 @@
                 $totalPages = ceil($totalOrders / $itemsPerPage);
 
                 // Assuming you have a page parameter in your URL, e.g., ?page=2
-                $currentPage = isset($_GET['page']) ? max(1, min((int)$_GET['page'], $totalPages)) : 1;
+                $currentPageA = isset($_GET['pagea']) ? max(1, min((int)$_GET['pagea'], $totalPages)) : 1;
 
-                $startIndex = ($currentPage - 1) * $itemsPerPage;
+                $startIndex = ($currentPageA - 1) * $itemsPerPage;
                 $endIndex = min($startIndex + $itemsPerPage, $totalOrders);
 
                 echo '<div class="table-container">';
@@ -75,16 +75,16 @@
                 echo '<div class="pagination">';
                 
                 // Previous page arrow
-                if ($currentPage > 1) {
-                    echo '<a class="brownbutton" href="?page=' . ($currentPage - 1) . '">&lt;</a>'; // &lt; is the HTML entity for "<"
+                if ($currentPageA > 1) {
+                    echo '<a class="brownbutton" href="?pagea=' . ($currentPageA - 1) . '">&lt;</a>'; // &lt; is the HTML entity for "<"
                 }
 
                 // Display current page number
-                echo '<a class="brownbutton current-page">' . $currentPage . '</a>';
+                echo '<a class="brownbutton current-pagea">' . $currentPageA . '</a>';
 
                 // Next page arrow
-                if ($currentPage < $totalPages) {
-                    echo '<a class="brownbutton" href="?page=' . ($currentPage + 1) . '">&gt;</a>'; // &gt; is the HTML entity for ">"
+                if ($currentPageA < $totalPages) {
+                    echo '<a class="brownbutton" href="?pagea=' . ($currentPageA + 1) . '">&gt;</a>'; // &gt; is the HTML entity for ">"
                 }
 
                 echo '</div>'; // Close pagination
@@ -95,11 +95,13 @@
                 echo "<h2 style='text-align:center'>Filter Orders and Download Report</h2>";
                 echo '<br>';
                 echo '<form method="post" action="backend.php">'; // Change backend.php to your actual backend endpoint
-                echo '<label for="timeslot">Time Slot : </label>';
+                echo '<label for="timeslot">Period : </label>';
 
                 echo '<input type="date" id="timeslot" name="starttime">';
                 echo ' : ';
                 echo '<input type="date" id="timeslot" name="starttime">';
+                
+                echo '<label for="mostleats"> MOST / LEAST : </label>';
 
                 echo '<input type="submit" value="Submit">';
                 echo '</form>';
@@ -167,7 +169,7 @@
             echo "<h2 style='text-align:center'>Filter Orders and Download Report</h2>";
             echo '<br>';
             echo '<form method="post" action="backend.php">'; // Change backend.php to your actual backend endpoint
-            echo '<label for="timeslot">Time Slot : </label>';
+            echo '<label for="timeslot">Period : </label>';
 
             echo '<input type="date" id="timeslot" name="starttime">';
             echo ' : ';
