@@ -59,6 +59,7 @@
                     <th> Delete</th>
                 </tr>';
 
+
                 foreach($stocks as $stocks){
                     echo '<tr>';
                     echo '<td>' . $stocks->CustomItemID . '</td>';
@@ -84,6 +85,8 @@
         
     ?>
     </section>
+
+    
     <script>
 
         var BASE_URL = "<?php echo BASE_URL; ?>";
