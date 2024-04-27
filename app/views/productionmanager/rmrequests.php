@@ -132,13 +132,11 @@
                     <tr>
                         <th>Raw Name</th>
                         <th>Quantity</th>
-                        <th>Unit of Measurement</th>
                     </tr>";
                 foreach ($autocalucalatedraws as $raw) {
                     echo "<tr>";
                     echo "<td>" . htmlspecialchars($raw["rawName"]) . "</td>";
                     echo "<td>" . htmlspecialchars($raw["subtotalquantity"]) . "</td>";
-                    echo "<td>" . htmlspecialchars($raw["UnitOfMeasurement"]) . "</td>";
                     echo "</tr>";
                 }
                 echo "</table>"; 
@@ -159,8 +157,6 @@
             echo "<option value='" . $stockitem->Name . "'>" . $stockitem->Name . "</option>";
         }
         echo "</select>";
-        
-        echo "<input type='hidden' name='unitofmeasure[]' value='<?php echo $stockitem->UnitOfMeasurement; ?>'>";
         
         echo "<label for='quantity'>Quantity</label>";
         echo "<input type='number' id='quantity' name='quantity[]'>";
@@ -228,14 +224,12 @@
         echo "<tr>
                 <th>Raw Name</th>
                 <th>Quantity</th>
-                <th>Unit of Measurement</th>
             </tr>";
 
         foreach ($stockorderlines as $stockorderline) {
             echo "<tr>";
             echo "<td>" . $stockorderline->RawName . "</td>";
             echo "<td>" . $stockorderline->quantity . "</td>";
-            echo "<td>" . $stockorderline->UnitOfMeasurement . "</td>";
             echo "</tr>";
         }
 
@@ -257,8 +251,6 @@
             echo "<option value='".$stockitem->Name."'>".$stockitem->Name."</option>";
         }
         echo "</select>";
-        
-        echo "<input type='hidden' name='unitofmeasure[]' value='".$stockitem->UnitOfMeasurement."'>";
         
         echo "<label for='quantity'>Quantity</label>";
         echo "<input type='number' id='quantity<?= $unique_id ?>' name='quantity[]'>";
@@ -308,7 +300,7 @@ $(document).ready(function(){
                                     <label for="itemcode">Raw Material</label>
                                     <input type="text" value="${selectedItemName}" disabled>
                                     <input type="hidden" name="itemcode[]" value="${selectedItem}">
-                                    <input type="hidden" name="unitofmeasure[]" value="<?php echo $stockitem->UnitOfMeasurement ; ?>">
+                                    
                                     <label for="quantity">Quantity</label>
                                     <input type="number" value="${quantity}" min="0" name="quantity[]">
                                     <button class="red" id="remove">Remove</button>

@@ -5,7 +5,7 @@
 
         public function StockOrderLinesbyUniqueIds($unique_ids) {
             $uniqueIdsString = "'" . implode("','", $unique_ids) . "'";
-            $query = "SELECT RawName,UnitOfMeasurement, SUM(quantity) AS quantity FROM $this->table WHERE unique_id IN ($uniqueIdsString) GROUP BY RawName;";
+            $query = "SELECT RawName, SUM(quantity) AS quantity FROM $this->table WHERE unique_id IN ($uniqueIdsString) GROUP BY RawName;";
             return $this->query($query, []);
         }
     }
