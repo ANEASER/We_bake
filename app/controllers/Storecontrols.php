@@ -23,20 +23,32 @@ class StoreControls extends Controller {
     //Home Page functions
 
     function loadSortedSupplies(){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $supplies = new Supplies();
         $supplies = $supplies->getSorted('ExpiryDate');
         echo $this->view("storemanager/smdash",  ["supplies" => $supplies]);        
     }
 
-    function viewProduction(){
-        echo $this->redirect(BASE_URL."StoreControls/loadProductionView");
-    }
 
-
-    //Stock Items CRUDs
+    //Stock Items CRUDs and functions
 
 
     function viewStocks(){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         echo $this->redirect(BASE_URL."StoreControls/loadStocksView");
     }
 
@@ -46,6 +58,14 @@ class StoreControls extends Controller {
 
     //Adding a new stock item to the system
     function addStockItem(){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $stockItem = new StockItem();
 
         $max_stockid = $stockItem->getMinMax("ItemID","max");
@@ -66,18 +86,42 @@ class StoreControls extends Controller {
     }
 
     function loadStocksView(){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $stockItem = new StockItem();
         $stocks = $stockItem->findall();
         echo $this->view("storemanager/stocks", [ "stocks" => $stocks]);        
     }
 
     function updateStocksView($id){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $stockItem = new StockItem();
         $stocks = $stockItem->where("ItemID",$id);
         echo $this->view("storemanager/updatestock",  ["stocks" => $stocks]);   
     }
 
     function updateStocks(){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $stockItem = new StockItem();
 
         $id = $_POST['id'];
@@ -109,12 +153,28 @@ class StoreControls extends Controller {
     }
 
     function deleteStocks($id){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $stockItem = new StockItem();
         $stocks = $stockItem->delete($id,"ItemID");
         $this->redirect(BASE_URL."StoreControls/viewStocks");
     }
 
     function searchItem() {
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
     
         $stockItem = new StockItem();
@@ -136,22 +196,54 @@ class StoreControls extends Controller {
     ///CRUD for Supplies
 
     function viewSupplies(){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         echo $this->redirect(BASE_URL."StoreControls/loadSuppliesView");
     }
 
     function loadSuppliesView(){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $supplies = new Supplies();
         $supplies = $supplies->findall();
         echo $this->view("storemanager/supplies",  ["supplies" => $supplies]);        
     }
 
     function insertSupplyView($id){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $stockItem = new StockItem();
         $stocks = $stockItem->where("ItemID",$id);
         echo $this->view("storemanager/addsupply",  ["stocks" => $stocks]);
     }
 
     function insertSupply(){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $stockItem = new StockItem();
         $supplies = new Supplies();
 
@@ -194,6 +286,14 @@ class StoreControls extends Controller {
     // }
 
     function deleteSupplies($id){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         // Create instances of StockItem and Supplies models
         $stockItem = new StockItem();
         $supplies = new Supplies();
@@ -216,6 +316,14 @@ class StoreControls extends Controller {
     }
     
     function updateSuppliesView($id){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $supplies = new Supplies();
         $supplies = $supplies->where("SupplyID",$id);
         echo $this->view("storemanager/updatesupplies",  ["supplies" => $supplies]);
@@ -255,6 +363,14 @@ class StoreControls extends Controller {
 
 
     function updateSupplies(){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $stockItem = new StockItem();
         $supplies = new Supplies();
     
@@ -323,6 +439,14 @@ class StoreControls extends Controller {
     // }
 
     function SearchSupply() {
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
         $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
     
         $supplies = new Supplies();
@@ -347,10 +471,91 @@ class StoreControls extends Controller {
 
     //Functions for handling production requests
 
+    function viewProduction(){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        echo $this->redirect(BASE_URL."StoreControls/loadProductionView");
+    }
+
     function loadProductionView(){
-        // $stockItem = new StockItem();
-        // $stocks = $stockItem->findall(); , [ "stocks" => $stocks]
-        echo $this->view("storemanager/production");        
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        $stockorder=new StockOrder();
+        $stockorder = $stockorder->findall(); 
+        echo $this->view("storemanager/production", [ "stockorder" => $stockorder]);        
+    }
+
+    function loadViewOrder($unique_id){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        $stockorder=new StockOrder();
+        $stockorderline=new StockOrderLine();
+        $stockorderline = $stockorderline->where("unique_id",$unique_id);
+        echo $this->view("storemanager/prodorder",  ["stockorderline" => $stockorderline]);
+    }
+
+    function viewOrder(){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        echo $this->redirect(BASE_URL."StoreControls/loadViewOrder");
+    }
+
+    function acceptOrder($id){
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        $stockorder=new StockOrder();
+        $stockorderline=new StockOrderLine();
+        $stockItem = new StockItem();
+        $supplies = new Supplies();
+
+        $orderItem=$stockorderline->where("id",$id);
+        $orderID=$orderItem[0]->unique_id;
+        $itemName=$orderItem[0]->RawName;
+        $requestedqty=$orderItem[0]->quantity;
+
+        $stock=$stockItem->where("Name",$itemName);
+        $stockName=$stock[0]->Name;
+        $stockQty=$stock[0]->AvailableStock;
+
+        $newStock=$stockQty-$requestedqty;
+        $item = ['AvailableStock' => $newStock]; 
+        $stockItem->update($stockName, "Name", $item);
+
+        $stockorderline->update($id,"id",[ "status" => "Accepted" ]);
+        $this->redirect(BASE_URL . "StoreControls/loadViewOrder/".$orderID);
+
+        
+
     }
 
     

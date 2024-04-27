@@ -21,6 +21,4 @@ th, td {
     }
 }
 
-.expiry-soon {
-    background-color: #ffcccc; /* Red color for rows with expiry date 4 days away */
-}
+
