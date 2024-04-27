@@ -10,18 +10,22 @@ use function PHPSTORM_META\type;
                 $this->redirect("CommonControls/loadLoginView");
             }
 
-            $customer = new Customer();
+            
             $systemuser = new Systemuser();
             $outlet = new Outlet();
             $productitem = new ProductItem();
+            $vehicle = new Vehicle();
+            $productitem = new ProductItem();
+            $stockitem = new StockItem();
 
-            $customercount = $customer->getCustomerCount();
             $systemusercount = $systemuser->getSystemuserCount();
             $outletcount = $outlet->getOutletCount();
-            $productitemcount = $productitem->countProductItemsGroupByCategory();
+            $productitemcountgroupby = $productitem->countProductItemsGroupByCategory();
+            $vehicles = $vehicle->findall();
+            $productitems = $productitem->findall();
+            $stockitems = $stockitem->findall();
 
-            
-            echo $this->view("admin/admindash", ["customercount" => $customercount, "systemusercount" => $systemusercount, "outletcount" => $outletcount, "productitemcount" => $productitemcount]);
+            echo $this->view("admin/admindash", [ "systemusercount" => $systemusercount, "outletcount" => $outletcount, "productitemcountgroupby" => $productitemcountgroupby, "vehiclecount" => count($vehicles),"productitemcount" => count($productitems), "stockitemscount" => count($stockitems)]);
         }
 
         //Item functions
