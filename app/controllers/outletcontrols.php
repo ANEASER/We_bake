@@ -1,7 +1,7 @@
 <?php
 class OutletControls extends Controller {
     
-    
+    //HOME 
     function index($id = null) {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -11,6 +11,7 @@ class OutletControls extends Controller {
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
 
+        //(TODAY AVAILABILITIES)
         
         $productorder = new ProductOrder();
 
@@ -70,7 +71,7 @@ class OutletControls extends Controller {
         }
     }
 
-
+//HOME
     function outletdash(){
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -83,7 +84,7 @@ class OutletControls extends Controller {
         echo $this->view("outlet/outletdash");
     }
 
-
+//OUTLET PLACE ORDER
     function placeorder(){
 
         if(!Auth::loggedIn()){
@@ -98,7 +99,29 @@ class OutletControls extends Controller {
         echo $this->view("outlet/outletplaceorder");
     }
 
+    //PURCHASE HISTORY
+    function purchasehistory(){
+        
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
 
+        if($_SESSION["USER"]->Role != "outletmanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        if($_SESSION == null){
+            session_start();
+        }
+
+        $productorder = new ProductOrder();
+        $orders = $productorder->findalldescwithplaceby($_SESSION["USER"]->EmployeeNo);
+        echo $this->view("outlet/outletpurchasehistory",["orders"=>$orders]);
+
+     
+    }
+
+    //ORDER SUBMITTION
     function submitorder(){
         
         session_start();
@@ -125,28 +148,9 @@ class OutletControls extends Controller {
         $this->redirect(BASE_URL."OrderControls/showcategories");
 
     }
+
+
     
-     
-    function purchasehistory(){
-        
-        if(!Auth::loggedIn()){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-
-        if($_SESSION["USER"]->Role != "outletmanager"){
-            $this->redirect(BASE_URL."CommonControls/loadLoginView");
-        }
-
-        if($_SESSION == null){
-            session_start();
-        }
-
-        $productorder = new ProductOrder();
-        $orders = $productorder->findalldescwithplaceby($_SESSION["USER"]->EmployeeNo);
-        echo $this->view("outlet/outletpurchasehistory",["orders"=>$orders]);
-
-     
-    }
 
 }
 ?>

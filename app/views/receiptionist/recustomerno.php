@@ -10,7 +10,7 @@
 
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
    
-    <title>Customer number search</title>
+    <title>Customer Number Search</title>
 
 </head>
   
@@ -18,6 +18,7 @@
     <?php
         include "recnavbar.php";
     ?>
+
  <section>
  <div class="form-container">
 

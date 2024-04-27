@@ -10,15 +10,49 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <title>Purchase History</title>
 
-</head>
-<body>
+    <style> /*search-panel css*/
 
-    
+        /* Style the search panel */
+        .search-panel {
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Style the search input */
+        .search-input {
+            width: 200px;
+            padding: 15px;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+        }
+
+        /* Style the search button */
+        .search-btn {
+            padding: 15px 10px;
+            border: none;
+            border-radius: 3px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+
+</head>
+
+<body>
        <?php
         include "omnavbar2.php";
     ?>
 
+<div class="search-panel">
+    <form method="GET" action="search.php">
+        <input type="text" name="query" class="search-input" placeholder="Enter The Date...">
+        <button type="submit" class="search-btn">Search</button>
+    </form>
+</div>
+
     <style>
+         /* Style the page btn */
             .pagination-container {
                 text-align: center;
                 margin-top: 10px; /* Adjust as needed */
@@ -32,7 +66,6 @@
                 text-decoration: none;
                 border-radius: 4px;
             }
-
     </style>
     
     <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
@@ -68,8 +101,8 @@
                     echo '<td class="hideonmobile">' . $order->deliver_address . '</td>';
                     echo '<td class="hideonmobile">' . $order->deliverystatus . '</td>';
                     echo '<td class="hideonmobile">' . $order->orderstatus . '</td>';
-                    echo '<td class="hideonmobile">' . $order->paymentstatus . '.00</td>';
-                    echo '<td>' . $order->total . '</td>';
+                    echo '<td class="hideonmobile">' . $order->paymentstatus . '</td>';
+                    echo '<td>' . $order->total . '.00</td>';
                     echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
                     echo '</tr>';
                 }
@@ -99,7 +132,10 @@
         function more(unique_id){
             window.location.href = BASE_URL + "OrderControls/moredetails/" + unique_id;
         }
+     
      </script>
+
+
 </body>
 </html>
 
