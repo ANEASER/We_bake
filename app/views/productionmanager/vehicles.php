@@ -64,6 +64,8 @@
     ?>
     <section style="display:flex;justify-content:space-around; width:100%">
     <?php
+  
+    if($vehicles != null){
         echo '<table style="margin:auto; margin-top: 10px;">';
             echo '<tr>
                 <th>Registration Number</th>
@@ -78,6 +80,7 @@
                 <th>Delete</th>
             </tr>';
             foreach($vehicles as $vehicle){ 
+                
                 if ($vehicle->ActiveState == 1){
                     if ($vehicle->availability == 1){ 
                     echo '<tr>';
@@ -111,6 +114,10 @@ echo '</tr>';
                 }
             }
         echo '</table>';
+    }
+    else{
+        echo '<h1 style="margin-left:25%;">No vehicles to show</h1>"';
+    }
     ?>
     </section>
 
