@@ -154,7 +154,7 @@
         
         echo "<label for='itemcode'>Raw Material</label>";
         echo "<select name='itemcode[]' id='itemcode'>";
-        echo "<option value=''>Select Item</option>";
+        echo "<option value='Select Item'>Select Item</option>";
         foreach ($stockitems as $stockitem) {
             echo "<option value='" . $stockitem->Name . "'>" . $stockitem->Name . "</option>";
         }
@@ -308,7 +308,7 @@ $(document).ready(function(){
                                     <label for="itemcode">Raw Material</label>
                                     <input type="text" value="${selectedItemName}" disabled>
                                     <input type="hidden" name="itemcode[]" value="${selectedItem}">
-                                    
+                                    <input type="hidden" name="unitofmeasure[]" value="<?php echo $stockitem->UnitOfMeasurement ; ?>">
                                     <label for="quantity">Quantity</label>
                                     <input type="number" value="${quantity}" min="0" name="quantity[]">
                                     <button class="red" id="remove">Remove</button>
