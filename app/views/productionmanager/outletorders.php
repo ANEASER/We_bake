@@ -131,7 +131,7 @@
                 </tr>";
                 
                 foreach ($productorder as $ProductOrder){
-                    if ($ProductOrder->orderstatus == "processing" && $ProductOrder->orderdate == date('Y-m-d', strtotime('+1 day'))){ 
+                    if ($ProductOrder->orderstatus == "processing" ){ //&& $ProductOrder->orderdate == date('Y-m-d', strtotime('+1 day'))
                         echo "<tr>";
                         echo "<td>".$ProductOrder->orderref."</td>";
                         echo "<td>".$ProductOrder->placeby."</td>";
@@ -344,9 +344,9 @@
         window.location.href = url;
     }
  
-    function assignvehicle(orderid){ //, capacity
+    function assignvehicle(orderid){ 
         sessionStorage.setItem('activeLink', 'showDeliveryOrderTable(this)');
-        var url = BASE_URL + "pmcontrols/assignVehicleView/" + orderid; // + "/" + capacity
+        var url = BASE_URL + "pmcontrols/assignVehicleView/" + orderid; 
         window.location.href = url;
     }
 

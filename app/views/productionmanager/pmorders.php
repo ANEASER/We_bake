@@ -120,7 +120,6 @@
                 <th>Payment Status</th>
                 <th>Order Status</th>
                 <th>Total</th>
-                <th>Deliver By</th>
                 <th>Order Capacity(No.of Containers)</th>
                 <th>Deliver Address</th>
                 <th>Update Order</th>
@@ -137,7 +136,6 @@
                     echo "<td>".$ProductOrder->paymentstatus."</td>";
                     echo "<td>".$ProductOrder->orderstatus."</td>";
                     echo "<td>".$ProductOrder->total."</td>";
-                    echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->order_cap."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
                     if($ProductOrder->paymentstatus === "paid" || $ProductOrder->paymentstatus === "advanced"){
@@ -168,7 +166,6 @@
                     <th>Payment Status</th>
                     <th>Order Status</th>
                     <th>Total</th>
-                    <th>Deliver By</th>
                     <th>Order Capacity
                     (No.of Containers)</th>
                     <th>Deliver Address</th>
@@ -186,7 +183,6 @@
                         echo "<td>".$ProductOrder->paymentstatus."</td>";
                         echo "<td>".$ProductOrder->orderstatus."</td>";
                         echo "<td>".$ProductOrder->total."</td>";
-                        echo "<td>".$ProductOrder->deliverby."</td>";
                         echo "<td>".$ProductOrder->order_cap."</td>";
                         echo "<td>".$ProductOrder->deliver_address."</td>";
                         echo "<td><button class='button green' onclick='completeProduction(".$ProductOrder->orderid.", \"".$ProductOrder->deliverystatus."\")'>Production Complete</button></td>";
@@ -211,7 +207,6 @@
                 <th>Payment Status</th>
                 <th>Order Status</th>
                 <th>Total</th>
-                <th>Deliver By</th>
                 <th>Order Capacity
                     (No.of Containers)</th>
                 <th>Deliver Address</th>
@@ -230,7 +225,6 @@
                     echo "<td>".$ProductOrder->paymentstatus."</td>";
                     echo "<td>".$ProductOrder->orderstatus."</td>";
                     echo "<td>".$ProductOrder->total."</td>";
-                    echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->order_cap."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
                     echo "<td><button class='button green' onclick='completed(".$ProductOrder->orderid.")'>Complete</button></td>";
@@ -254,7 +248,6 @@
                 <th>Payment Status</th>
                 <th>Order Status</th>
                 <th>Total</th>
-                <th>Deliver By</th>
                 <th>Order Capacity(No.of Containers)</th>
                 <th>Deliver Address</th>
                 <th>Assign Vehicle</th>
@@ -273,7 +266,6 @@
                     echo "<td>".$ProductOrder->paymentstatus."</td>";
                     echo "<td>".$ProductOrder->orderstatus."</td>";
                     echo "<td>".$ProductOrder->total."</td>";
-                    echo "<td>".$ProductOrder->deliverby."</td>";
                     echo "<td>".$ProductOrder->order_cap."</td>";
                     echo "<td>".$ProductOrder->deliver_address."</td>";
                     echo "<td><button class='button green' onclick='assignvehicle(".$ProductOrder->orderid.")'>Assign</button></td>"; 
