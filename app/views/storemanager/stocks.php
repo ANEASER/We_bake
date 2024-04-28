@@ -32,12 +32,6 @@
 
     </style>
 
-    <section style="width: 100%; padding:1%">
-        <div class="content">
-            <h1>Stocks</h1>
-            
-        </div>
-    </section>
 
     <section style="width: 100%; padding:1%">
         <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
@@ -61,9 +55,9 @@
     </section>
 
 
-    <section style="display:flex;justify-content:space-around; width:100%">
+    <section style="display:flex;justify-content:space-around; width:95%">
     <?php //The table structure
-        $itemsPerPage = 12;
+        $itemsPerPage = 9;
         $totalStocks = count($stocks);
         $totalPages = ceil($totalStocks / $itemsPerPage);
         $currentPage = isset($_GET['page']) ? max(1, min((int)$_GET['page'], $totalPages)) : 1;
