@@ -42,11 +42,9 @@
         }
     ?>
 
-    <div class="content">
-        <h1>Update Stocks</h1>
-    </div>
+    
 
-    <section>
+    <section style="margin-top:10px;">
         <div class="form-container">
 
         <form class="form" method="POST" action="<?php echo BASE_URL; ?>StoreControls/updateStocks" onsubmit="return validateForm()">
@@ -113,10 +111,13 @@
 
         <input class="yellowbutton" type="submit" value="Update">
 
+        </form>
+         </div>
 
-
-
-        </div>
+         <br>
+                    <div class="buttongroup">
+                        <button class="redbutton" onclick="window.location.href='<?php echo BASE_URL; ?>StoreControls/loadStocksView'">Cancel</button>
+                    </div>
     </section> 
 
     <script>
