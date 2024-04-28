@@ -11,20 +11,24 @@
             $customer = new Customer();
             $productorder = new ProductOrder();
 
-            $productorders = $productorder->where("placeby",$_SESSION["USER"]->UserName);
-
-            if($productorders != null){
-                foreach($productorders as $order){
-                    if($order->paymentstatus == "pending" && $order->orderdate < date(("Y-m-d"),strtotime("-1 days"))){
-                        $productorder->update($order->orderid,"orderid",["orderstatus"=>"cancelled"]);
-                    }
-            }
-
-            $data = $customer->where("UserName", $_SESSION["USER"]->UserName);
             
-            echo $this->view("customer/customerdash",[ "data" => $data]);
+            $productitem = new ProductItem();
+            $productorderline = new ProductOrderLine();
+            $productorderlines = $productorderline->SumProductItemsGroupByIDandCategory();
+            $mostsellingitems = array_slice($productorderlines, 0, 2);
+
+            $latestaddeditems = $productitem->getlatestProductItems();
+
+            $mostPurchasedItems = [];
+
+            foreach ($mostsellingitems as $item) {
+                $product = $productitem->where("itemid", $item->itemid);
+                array_push($mostPurchasedItems, $product);
+            }
+            
+            echo $this->view("customer/customerdash",[ "mostPurchasedItems" => $mostPurchasedItems, "latestaddeditems" => $latestaddeditems]);
         }
-    }
+    
 
         function profile($message=null){
             if(!Auth::loggedIn()){
