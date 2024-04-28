@@ -87,6 +87,7 @@
 
     </div>
     </section>
+
     <script>
         
         var BASE_URL = "<?php echo BASE_URL; ?>";
