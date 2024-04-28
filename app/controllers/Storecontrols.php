@@ -217,7 +217,8 @@ class StoreControls extends Controller {
         }
 
         $supplies = new Supplies();
-        $supplies = $supplies->findall();
+        $supplies = $supplies->find("ActiveState = 'Active'");
+        
         echo $this->view("storemanager/supplies",  ["supplies" => $supplies]);        
     }
 
@@ -310,7 +311,7 @@ class StoreControls extends Controller {
         $item = ['AvailableStock' => $newStock]; // Update the stockItem table with the new available stock
         $stockItem->update($itemID, "ItemID", $item);
  
-        $supplies->delete($id, "SupplyID"); // Delete the supply record
+        $supplies->update($id, "SupplyID",["ActiveState" => "Inactive"]); // Delete the supply record by updating the ActiveState column to "Inactive"
 
         $this->redirect(BASE_URL . "StoreControls/viewSupplies");
     }
@@ -603,6 +604,32 @@ class StoreControls extends Controller {
 
         $stockorder->update($unique_id,"unique_id",[ "status" => "Accepted" ]);
         $this->redirect(BASE_URL . "StoreControls/loadProductionView");
+
+    }
+
+
+    //Store Alert Notifications
+
+    public function stockAlert($itemID){
+
+        if(!Auth::loggedIn()){
+            $this->redirect("CommonControls/loadLoginView");
+        }
+
+        if($_SESSION["USER"]->Role != "storemanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        $systemuser = new SystemUser();
+        $users = $systemuser->where("Role","storemanager");
+
+        $stockItem = new StockItem();
+        $stocks = $stockItem->where("ItemID", $itemID);
+
+        $mail=new Mail();
+        $mail->sendMail($users[0]->Email,"Stock Alert","The item is below critical stock level",$stocks);
+
+       
 
     }
 
