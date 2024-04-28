@@ -8,10 +8,58 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
     <title>Reports</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
 </head>
 <body>
     <?php
         include "ownernavbar.php";
+
+        
+        if (isset($error)){
+            echo "<script>
+
+            const SwalwithButton = Swal.mixin({
+                customClass: {
+                    confirmButton: 'greenbutton',
+                },
+                buttonsStyling: false
+            });
+
+            
+            if (typeof Swal !== 'undefined') {
+                SwalwithButton.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '$error',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                alert('$error');
+            }
+          </script>";}
+        elseif (isset($message)){
+            echo "<script>
+
+            const SwalwithButton = Swal.mixin({
+                customClass: {
+                    confirmButton: 'greenbutton',
+                },
+                buttonsStyling: false
+            });
+
+            
+            if (typeof Swal !== 'undefined') {
+                SwalwithButton.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '$message',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                alert('$message');
+            }
+          </script>";}
     ?>
 
 <style>

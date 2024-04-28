@@ -100,7 +100,6 @@
     <section style="display:flex;justify-content:space-around; width:100%">
         <section class="cart">
         <?php
-            unset($_SESSION['message']);
             // Assuming $data is the array you provided
 
             // Check if count is greater than 0

@@ -1209,6 +1209,7 @@ use function PHPSTORM_META\type;
             }
             if(isset($_SESSION["message"])){
                 $message = $_SESSION["message"];
+                unset($_SESSION['message']);
             }else{
                 $message = null;
             }

@@ -72,9 +72,20 @@ class OwnerControls extends Controller{
         foreach ($producorderdata as $order) {
             array_push($unique_ids, $order->unique_id);
         }
+
+        if(session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+
+        $error = $_SESSION['error'];
        
         $productorderlines = $productorderline->productOrderLinesbyUniqueIds($unique_ids);
-        echo $this->view("owner/report", ["orders" => $producorderdata, "productorderlines" => $productorderlines, "productitemdata" => $productitemdata]);
+        if($error){
+            echo $this->view("owner/report", ["orders" => $producorderdata, "productorderlines" => $productorderlines, "productitemdata" => $productitemdata, "error" => $error]);
+            unset($_SESSION['error']);
+        }else{
+            echo $this->view("owner/report", ["orders" => $producorderdata, "productorderlines" => $productorderlines, "productitemdata" => $productitemdata, "error" => null]);
+        }
     }
 
 
@@ -106,7 +117,11 @@ class OwnerControls extends Controller{
 
             // need alert if no data found
             if(!$productorderlines){
-               $this->redirect(BASE_URL."OwnerControls/viewReports");
+                if(session_status() == PHP_SESSION_NONE){
+                    session_start();
+                }
+                $_SESSION['error'] = "No data found";
+                $this->redirect(BASE_URL."OwnerControls/viewReports");
             }
 
             foreach ($productorderlines as $productorderline) {
@@ -150,7 +165,6 @@ class OwnerControls extends Controller{
             }
         }
         
-        var_dump($associativeArray);
         $report = new Report();
         $report->generateItemReport($associativeArray);
     }
@@ -172,6 +186,13 @@ class OwnerControls extends Controller{
             $productorder = new ProductOrder();
             $productitemdata = $productorder->findbetweendates($startdate, $enddate);
 
+            if(!$productitemdata){
+                if(session_status() == PHP_SESSION_NONE){
+                    session_start();
+                }
+                $_SESSION['error'] = "No data found";
+                $this->redirect(BASE_URL."OwnerControls/viewReports");
+            }
 
             $associativeArray = [];
             foreach ($productitemdata as $productorder) {
