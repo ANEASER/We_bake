@@ -32,7 +32,7 @@ class StoreControls extends Controller {
         }
 
         $supplies = new Supplies();
-        $supplies = $supplies->getSorted('ExpiryDate');
+        $supplies = $supplies->getActiveSortedByExpiryDate();
         echo $this->view("storemanager/smdash",  ["supplies" => $supplies]);        
     }
 
@@ -305,6 +305,7 @@ class StoreControls extends Controller {
              
         $stocks = $stockItem->where("ItemID", $itemID); // Retrieve the current available stock for the supplied item
         $currentStock = $stocks[0]->AvailableStock;
+        $criticalStock = $stocks[0]->CriticalStock;
               
         $newStock = $currentStock - $deliveredQuantity; // Update the available stock by subtracting the deleted delivered quantity
         
@@ -312,6 +313,10 @@ class StoreControls extends Controller {
         $stockItem->update($itemID, "ItemID", $item);
  
         $supplies->update($id, "SupplyID",["ActiveState" => "Inactive"]); // Delete the supply record by updating the ActiveState column to "Inactive"
+
+        if($newStock <= $criticalStock){
+            $this->stockAlert($itemID);
+        }
 
         $this->redirect(BASE_URL . "StoreControls/viewSupplies");
     }
@@ -407,6 +412,11 @@ class StoreControls extends Controller {
             $newStock = $currentStock + $quantityDifference; // Update the available stock by adding the quantity difference
             $item = ['AvailableStock' => $newStock]; // Update the stockItem table with the new available stock
             $stockItem->update($itemID, "ItemID", $item);
+
+            $criticalStock = $stocks[0]->CriticalStock; // Trigger the mail alert if the new stock is below the critical stock level
+            if ($newStock <= $criticalStock) {
+                $this->stockAlert($itemID);
+    }
         }
     
         echo $supplies->update($id, "SupplyID", $data);
@@ -547,6 +557,8 @@ class StoreControls extends Controller {
         $stock=$stockItem->where("Name",$itemName);
         $stockName=$stock[0]->Name;
         $stockQty=$stock[0]->AvailableStock;
+        $criticalStock=$stock[0]->CriticalStock;
+        $ItemID=$stock[0]->ItemID;
 
         if($stockQty<$requestedqty){
             echo "<script>alert('Stock is not enough to fulfill the order')</script>";
@@ -558,6 +570,11 @@ class StoreControls extends Controller {
         $stockItem->update($stockName, "Name", $item);
 
         $stockorderline->update($id,"id",[ "status" => "Accepted" ]);
+
+        if($newStock <= $criticalStock){
+            $this->stockAlert($ItemID);
+        }
+
         $this->redirect(BASE_URL . "StoreControls/loadViewOrder/".$orderID);
 
         
@@ -589,6 +606,8 @@ class StoreControls extends Controller {
             $stock=$stockItem->where("Name",$itemName);
             $stockName=$stock[0]->Name;
             $stockQty=$stock[0]->AvailableStock;
+            $criticalStock=$stock[0]->CriticalStock;
+            $ItemID=$stock[0]->ItemID;
 
             if($stockQty<$requestedqty){
                 echo "<script>alert('Stock is not enough to fulfill the order')</script>";
@@ -603,6 +622,11 @@ class StoreControls extends Controller {
         }
 
         $stockorder->update($unique_id,"unique_id",[ "status" => "Accepted" ]);
+
+        if($newStock <= $criticalStock){
+            $this->stockAlert($ItemID);
+        }
+
         $this->redirect(BASE_URL . "StoreControls/loadProductionView");
 
     }
@@ -627,7 +651,8 @@ class StoreControls extends Controller {
         $stocks = $stockItem->where("ItemID", $itemID);
 
         $mail=new Mail();
-        $mail->sendMail($users[0]->Email,"Stock Alert","The item is below critical stock level",$stocks);
+        $mail->sendMail($users[0]->Email,"Stock Alert","Please check stocks, there are items that are below critical stock level",$stocks);
+        
 
        
 
