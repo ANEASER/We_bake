@@ -76,8 +76,11 @@ class OwnerControls extends Controller{
         if(session_status() == PHP_SESSION_NONE){
             session_start();
         }
-
-        $error = $_SESSION['error'];
+        if(isset($_SESSION['error'])){
+            $error = $_SESSION['error'];
+        }else{
+            $error = null;
+        }
        
         $productorderlines = $productorderline->productOrderLinesbyUniqueIds($unique_ids);
         if($error){
