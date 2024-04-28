@@ -15,8 +15,8 @@
 
     
 
-    <section style="display:flex;justify-content:space-around; width:100%; margin: top 10px;">
-    <?php //The table structure 
+    <section style="display:flex;justify-content:space-around; width:100%; margin-top: 30px;">
+     <?php //The table structure 
         if (count($stockorder) > 0){
             echo '<table style="width:90%">';
             echo '<tr>
