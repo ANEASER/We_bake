@@ -14,7 +14,7 @@
         include "smnavbar.php";
     ?>
 
-    <section style="display:flex;justify-content:space-around; width:100%; margin: top 5px;">
+    <section style="display:flex;justify-content:space-around; width:100%; margin-top:15px;">
     <?php //The table structure 
         if (count($supplies) > 0){
             echo '<table style="width:90%">';

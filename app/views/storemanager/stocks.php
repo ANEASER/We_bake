@@ -34,7 +34,7 @@
 
 
     <section style="width: 100%; padding:1%">
-        <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
+        <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:5px; margin-top:15px;">
             <form method="GET" action="<?php echo BASE_URL; ?>StoreControls/SearchItem" style="display: flex; flex-direction:row;">
                 <?php
                     if(isset($_GET['search'])) {
