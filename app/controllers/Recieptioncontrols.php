@@ -105,7 +105,7 @@ class RecieptionControls extends Controller {
         $_SESSION["phone"] = $_POST['customerphonenumber'];
         $_SESSION["date"] = $_POST['orderdate'];
         $_SESSION["adress"] = $_POST['deliveryaddress'];
-        $_SESSION["deliverstatus"] = $_POST['delivery/Pickup'];
+        $_SESSION["deliverstatus"] = $_POST['deliverystatus'];
         $_SESSION["picker"] = $_POST['picker'];
 
         $unique_id = uniqid();
@@ -113,6 +113,34 @@ class RecieptionControls extends Controller {
         
         $this->redirect(BASE_URL."OrderControls/showcategories");
 }
+
+function searchOrders(){
+
+    if(!Auth::loggedIn()){
+        $this->redirect(BASE_URL."CommonControls/loadLoginView");
+    }
+
+    if($_SESSION["USER"]->Role != "receptionist"){
+        $this->redirect(BASE_URL."CommonControls/loadLoginView");
+    }
+
+    $productorder = new ProductOrder();
+
+    $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+
+    $orderref = $productorder->where("orderref", $searchQuery);
+   
+
+    if($orderref != null){
+       $orders = $orderref;
+       echo $this->view("receiptionist/repurchasehistory",["orders"=>$orders]);
+    
+    }else{
+        echo $this->view("receiptionist/repurchasehistory",["orders"=>"No Oders Found"]); 
+    }
+
+    }
+
 
 }
 
