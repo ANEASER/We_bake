@@ -15,8 +15,8 @@
         include "omnavbar2.php";
     ?>
     <br>
-    <style>
 
+    <style>
 /* Style the page btn */
    .pagination-container {
        text-align: center;
@@ -25,15 +25,16 @@
 
    .pagination a {
        display: inline-block;
-       padding: 8px 16px;
-       margin: 0 4px;
+       padding: 10px 10px;
+       margin:  4px;
        color: white;
        text-decoration: none;
        border-radius: 4px;
    }
 </style>
-<section style="padding: 2%;">
-    <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
+
+<section style="padding: 0%; width:100% ">
+    <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:0%">
                 <form method="GET" action="<?php echo BASE_URL; ?>OutletControls/searchOrders" style="display: flex; flex-direction:row;">
                     <?php
                         if(isset($_GET['search'])) {
@@ -53,7 +54,7 @@
         <?php
             if($orders !=null){
             
-                $itemsPerPage = 9;
+                $itemsPerPage = 5;
                 $totalOrders = count($orders);
                 $totalPages = ceil($totalOrders / $itemsPerPage);
 
@@ -62,9 +63,9 @@
 
                 $startIndex = ($currentPage - 1) * $itemsPerPage;
                 $endIndex = min($startIndex + $itemsPerPage, $totalOrders);
-
+                
                 echo '<div class="table-container">';
-                echo '<table>';
+                echo '<table style="width: 200%; margin-right: 10px;">'; 
                 echo '<tr>
                     <th>ORDER REF</th>
                     <th>DELIVERY DATE</th>
@@ -101,6 +102,7 @@
 
     </section>
 </section>
+
      <script>
 
         var BASE_URL = "<?php echo BASE_URL; ?>";
@@ -117,17 +119,8 @@
             window.location.href = BASE_URL + "outletControls/purchasehistory/";
         }
 
-
-     
-     </script>
+    </script>
 
 
 </body>
 </html>
-
-
-
-
-
-
-
