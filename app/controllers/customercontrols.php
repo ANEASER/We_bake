@@ -262,8 +262,13 @@
             if(isset($_SESSION["USER"]->Role)){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
+
+
+            if(session_status() == PHP_SESSION_NONE){
+                session_start();
+            }
     
-                if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $currentpassword = $_POST['currentpassword'];
                     $newpassword = $_POST['newpassword'];
                     $confirmpassword = $_POST['confirmpassword'];
@@ -289,10 +294,27 @@
                         }
                     }
                     else{
+
+                        if(isset($_SESSION['loginattempts'])){
+                            $_SESSION['loginattempts'] = $_SESSION['loginattempts'] + 1;
+                        }else{
+                            $_SESSION['loginattempts'] = 1;
+                        }
+
+                        if($_SESSION['loginattempts'] >= 5){
+                            $email = $customerfound[0]->Email;
+                            $subject = "Security Alert";
+                            $message = "There are suspicious activities on your account. Please change your password.";
+                            $mail = new Mail();
+                            $mail->sendMail($email,$subject,$message);
+                            unset($_SESSION['loginattempts']);
+                            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                        }
                         echo $this->view("customer/changepassword",["error"=>"Current password is incorrect"]);
                     }
-                }
-                else{
+
+            }
+            else{
                     echo $this->view("customer/changepassword",["error"=>"Form not submitted!"]);
                 }
         }

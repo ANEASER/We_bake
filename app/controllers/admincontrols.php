@@ -317,14 +317,14 @@ use function PHPSTORM_META\type;
             // Validate NIC
             $patternNIC = '/^\d{9}[vV]$|^\d{12}$/';
             if (!preg_match($patternNIC, $arr["NIC"])) {
-                echo $this->view("admin/AddUserView", ["error" => "Invalid NIC format"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Invalid NIC format"]);
                 return;
             }
         
             // Validate Date of Birth (DOB)
             $patternDOB = '/^\d{4}-\d{2}-\d{2}$/';
             if (!preg_match($patternDOB, $arr["DOB"])) {
-                echo $this->view("admin/AddUserView", ["error" => "Invalid Date of Birth format"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Invalid Date of Birth format"]);
                 return;
             }
         
@@ -332,10 +332,10 @@ use function PHPSTORM_META\type;
             if (!preg_match($patternEmail, $arr["Email"])) {
             $existingUser = $systemuser->where("Email", $arr["Email"]);
             if ($existingUser) {
-                echo $this->view("admin/AddUserView", ["error" => "Email already in use"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Email already in use"]);
                 return;
             }
-                echo $this->view("admin/AddUserView", ["error" => "Invalid Email"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Invalid Email"]);
                 return;
             }
         
@@ -343,23 +343,29 @@ use function PHPSTORM_META\type;
             if (!preg_match($patternContactNo, $arr["contactNo"])) {
             $existingUser = $systemuser->where("contactNo", $arr["contactNo"]);
             if ($existingUser) {
-                echo $this->view("admin/AddUserView", ["error" => "Contact number already in use"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Contact number already in use"]);
                 return;
             }
                 
-                echo $this->view("admin/AddUserView", ["error" => "Invalid contact number"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Invalid contact number"]);
                 return;
             }
 
             $existingUserName = $systemuser->where("UserName", $arr["UserName"]);
             if ($existingUserName) {
-                echo $this->view("admin/AddUserView", ["error" => "Username already in use"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Username already in use"]);
                 return;
             }
         
             $validRoles = ["admin", "billingclerk", "outletmanager", "productionmanager", "receptionist", "storemanager"];
             if (!in_array($arr["Role"], $validRoles)) {
-                echo $this->view("admin/AddUserView", ["error" => "Invalid Role"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Invalid Role"]);
+                return;
+            }
+
+            $existingNIC = $systemuser->where("NIC", $arr["NIC"]);
+            if ($existingNIC) {
+                echo $this->view("admin/addsystemuser", ["error" => "NIC already in use"]);
                 return;
             }
         
@@ -384,7 +390,7 @@ use function PHPSTORM_META\type;
                     $C = "SM";
                     break;
                 default:
-                    echo $this->view("admin/AddUser", ["error" => "Invalid Role"]);
+                    echo $this->view("admin/addsystemuser", ["error" => "Invalid Role"]);
                     return;
             }
         
