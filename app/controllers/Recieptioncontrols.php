@@ -88,8 +88,7 @@ class RecieptionControls extends Controller {
         }
 
         $productorder = new ProductOrder();//load model
-        $orders = $productorder->where("placeby",$_SESSION["USER"]->EmployeeNo);
-        //$omplaceorder = $placeorder->where("placeby","OM00122");
+        $orders = $productorder->ordaerrefalike(); // changed
 
         $this->view("receiptionist/repurchasehistory" ,[ "orders" =>$orders]);//sent to the view
     
@@ -136,7 +135,7 @@ function searchOrders(){
        echo $this->view("receiptionist/repurchasehistory",["orders"=>$orders]);
     
     }else{
-        echo $this->view("receiptionist/repurchasehistory",["orders"=>"No Oders Found"]); 
+        echo $this->view("receiptionist/repurchasehistory",["orders"=>null]); // changed
     }
 
     }

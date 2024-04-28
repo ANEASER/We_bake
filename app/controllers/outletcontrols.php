@@ -170,7 +170,7 @@ class OutletControls extends Controller {
            echo $this->view("outlet/outletpurchasehistory",["orders"=>$orders]);
     
         }else{
-            echo $this->view("outlet/outletpurchasehistory",["orders"=>"No Oders Found"]); 
+            echo $this->view("outlet/outletpurchasehistory",["orders"=>null]); // changed
         }
 
         }

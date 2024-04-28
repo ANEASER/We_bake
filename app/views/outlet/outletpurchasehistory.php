@@ -15,37 +15,39 @@
         include "omnavbar2.php";
     ?>
     <br>
- <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
-            <form method="GET" action="<?php echo BASE_URL; ?>OutletControls/searchOrders" style="display: flex; flex-direction:row;">
-                <?php
-                    if(isset($_GET['search'])) {
-                        echo '<input type="text" id="search" name="search" placeholder="Enter The Order Ref" value="' . $_GET['search'] . '" class="searchbox">';
-                        echo '<input class="searchbutton" style="margin-right:1%" type="submit" value="Search">';
-                        echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
-                    } else {
-                        echo '<input type="text" id="search" name="search" placeholder="Enter The Order Ref" class="searchbox">';
-                        echo '<input class="searchbutton" type="submit" value="Search">';
-                }
-                ?>
-            </form>
-
     <style>
 
-         /* Style the page btn */
-            .pagination-container {
-                text-align: center;
-                margin-top: 10px; /* Adjust as needed */
-            }
+/* Style the page btn */
+   .pagination-container {
+       text-align: center;
+       margin-top: 10px; /* Adjust as needed */
+   }
 
-            .pagination a {
-                display: inline-block;
-                padding: 8px 16px;
-                margin: 0 4px;
-                color: white;
-                text-decoration: none;
-                border-radius: 4px;
-            }
-    </style>
+   .pagination a {
+       display: inline-block;
+       padding: 8px 16px;
+       margin: 0 4px;
+       color: white;
+       text-decoration: none;
+       border-radius: 4px;
+   }
+</style>
+<section style="padding: 2%;">
+    <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
+                <form method="GET" action="<?php echo BASE_URL; ?>OutletControls/searchOrders" style="display: flex; flex-direction:row;">
+                    <?php
+                        if(isset($_GET['search'])) {
+                            echo '<input type="text" id="search" name="search" placeholder="Enter The Order Ref" value="' . $_GET['search'] . '" class="searchbox">';
+                            echo '<input class="searchbutton" style="margin-right:1%" type="submit" value="Search">';
+                            echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
+                        } else {
+                            echo '<input type="text" id="search" name="search" placeholder="Enter The Order Ref" class="searchbox">';
+                            echo '<input class="searchbutton" type="submit" value="Search">';
+                    }
+                    ?>
+                </form>
+    </div>
+    
     
     <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
         <?php
@@ -98,7 +100,7 @@
 
 
     </section>
-
+</section>
      <script>
 
         var BASE_URL = "<?php echo BASE_URL; ?>";
