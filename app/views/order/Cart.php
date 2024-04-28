@@ -25,7 +25,17 @@
             </section>
             <section class="buttongroup" style="margin: 0%;padding:0%">
                 <button class="yellowbutton" onclick="edit()">Edit</button>
-                <button class="greenbutton" onclick="paymentgateway()">Proceed</button>
+
+                <?php 
+                    if(session_status() == PHP_SESSION_NONE){
+                        session_start();
+                    }
+                    if(isset($_SESSION["USER"]->Role)){
+                        echo "<button class='greenbutton' onclick='process()'>Proceed</button>";
+                    }else{
+                        echo "<button class='greenbutton' onclick='paymentgateway()'>Proceed</button>";
+                    }
+                ?>
                 <button class="redbutton" onclick="cancel()">Cancel</button>
                 <button class="bluebutton" onclick="addmore()">Addmore</button>
             </section>
@@ -36,15 +46,7 @@
 
 
         function paymentgateway(){
-            Swal.fire({
-                title: "Payment Gateway",
-                text: "Please wait while we redirect you to the payment gateway.",
-                icon: "info",
-                showConfirmButton: false, 
-                timer: 1000, 
-            }).then((result) => {
                 window.location.href = BASE_URL +"OrderControls/paymentgateway";
-            });
         }
 
         function cancel(){
@@ -86,6 +88,18 @@
 
         function addmore(){
             window.location.href = BASE_URL +"OrderControls/showcategories";
+        }
+
+        function process(){
+            Swal.fire({
+                title: "Order Placed!",
+                text: "Your order has been placed successfully.",
+                icon: "success",
+                showConfirmButton: false, 
+                timer: 1000, 
+            }).then((result) => {
+                window.location.href = BASE_URL +"OrderControls/checkout";
+            });
         }
     </script>
 </body>

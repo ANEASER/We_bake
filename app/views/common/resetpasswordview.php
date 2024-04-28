@@ -60,5 +60,28 @@
 
     </div>
     </section>
+    <script>
+         document.addEventListener("DOMContentLoaded", function() {
+            
+            var password1Input = document.querySelector('input[name="Password1"]');
+            var password2Input = document.querySelector('input[name="Password2"]');
+
+            
+            password1Input.addEventListener("input", validatePassword);
+            password2Input.addEventListener("input", validatePassword);
+        });
+
+        function validatePassword() {
+            var password1 = document.querySelector('input[name="Password1"]').value;
+            var password2 = document.querySelector('input[name="Password2"]').value;
+
+            
+            var isValidPassword = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password1);
+
+            
+            document.querySelector('input[name="Password1"]').setCustomValidity(isValidPassword ? "" : "Password must contain at least 8 characters, including at least one letter, one number, and one special character.");
+            document.querySelector('input[name="Password2"]').setCustomValidity(password1 === password2 ? "" : "Passwords do not match.");
+        }
+    </script>
 </body>
 </html>

@@ -94,12 +94,34 @@
 
 
     <script>
-
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
         function loadLogin() {
             window.location.href = BASE_URL + "CommonControls/loadLoginView";
         }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            // Get reference to password input fields
+            var password1Input = document.querySelector('input[name="Password1"]');
+            var password2Input = document.querySelector('input[name="Password2"]');
+
+            // Add event listeners for input validation
+            password1Input.addEventListener("input", validatePassword);
+            password2Input.addEventListener("input", validatePassword);
+        });
+
+        function validatePassword() {
+            var password1 = document.querySelector('input[name="Password1"]').value;
+            var password2 = document.querySelector('input[name="Password2"]').value;
+
+            // Check if passwords meet criteria
+            var isValidPassword = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(password1);
+
+            // Update input fields' validity status
+            document.querySelector('input[name="Password1"]').setCustomValidity(isValidPassword ? "" : "Password must contain at least 8 characters, including at least one letter, one number, and one special character.");
+            document.querySelector('input[name="Password2"]').setCustomValidity(password1 === password2 ? "" : "Passwords do not match.");
+        }
     </script>
+
 </body>
 </html>
