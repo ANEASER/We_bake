@@ -136,7 +136,7 @@
                         <h1>Our Story</h1>
                         <br>
                         <p>It all began with a passion for baking and a commitment to quality.
-                           our journey started in a humble kitchen, where the aroma of freshly baked breads and pastries filled the air.
+                           Our journey started in a humble kitchen, where the aroma of freshly baked breads and pastries filled the air.
                            With dedication and a relentless pursuit of perfection, we soon garnered a loyal following, 
                            leading us to expand and establish multiple outlets across Colombo.</p>
                 </div>
@@ -190,7 +190,7 @@
                         <br>
                         <p>Join us on our journey as we continue to spread happiness, one delicious treat at a time. 
                                 From our family to yours, we invite you to experience the magic of Web Bake and create unforgettable memories with every bite.</p>
-                        <p>mail your CV <span style="text-decoration: underline;"><u>career@webake.com</u></span></p>
+                        <p>Mail Us Your CV <span style="text-decoration: underline;"><u>career@webake.com</u></span></p>
                 </div>
                <br>
                <hr style="border-top: 2px solid rgb(95, 37, 37); margin: 20px 0;"> 
