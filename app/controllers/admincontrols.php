@@ -7,7 +7,7 @@ use function PHPSTORM_META\type;
         function index($id=null){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             
@@ -46,7 +46,7 @@ use function PHPSTORM_META\type;
         function addproductitem(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -150,9 +150,12 @@ use function PHPSTORM_META\type;
                     echo $this->view("admin/additem", ["error" => $error]);
                 } else {
                     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                       
+                        $_SESSION["message"] = "Item added successfully";
+
                         $arr["imagelink"] = $newfilename;
                         $productitem->insert($arr);
-                        $this->redirect(BASE_URL."CommonControls/loadProductsView");
+                        $this->redirect(BASE_URL."AdminControls/addRawsview");
                     }
                 }
 
@@ -169,7 +172,7 @@ use function PHPSTORM_META\type;
         function loadItemsView(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -184,7 +187,7 @@ use function PHPSTORM_META\type;
         function EditItem($id){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -199,7 +202,7 @@ use function PHPSTORM_META\type;
         function editproduct(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -291,7 +294,7 @@ use function PHPSTORM_META\type;
         function addsystemuser(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -403,7 +406,7 @@ use function PHPSTORM_META\type;
         function loadUsersView(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -418,7 +421,7 @@ use function PHPSTORM_META\type;
         function deletesystemuser($id){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -434,7 +437,7 @@ use function PHPSTORM_META\type;
         function editsystemuser(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -577,7 +580,7 @@ use function PHPSTORM_META\type;
         public function searchUsers() {
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -606,6 +609,15 @@ use function PHPSTORM_META\type;
 
         public function ResetPassword($username){
 
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
             if (session_status() == PHP_SESSION_NONE) {
                 session_start();
             }
@@ -630,7 +642,7 @@ use function PHPSTORM_META\type;
         function AddUser(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -642,6 +654,15 @@ use function PHPSTORM_META\type;
 
         //view edit user page
         function EditUser($id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $systemuser = new Systemuser();
             $data = $systemuser->where("UserID", $id);
 
@@ -662,6 +683,14 @@ use function PHPSTORM_META\type;
         }
 
         function viewUser($id){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $systemuser = new Systemuser();
             $data = $systemuser->where("UserID", $id);
             echo $this->view("admin/viewmoreuser", ["data" => $data[0]]);
@@ -796,7 +825,7 @@ use function PHPSTORM_META\type;
         function AddOutletview(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -836,7 +865,7 @@ use function PHPSTORM_META\type;
         function EditOutletView($id){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -1025,7 +1054,7 @@ use function PHPSTORM_META\type;
         function AddAdvertiesment(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -1156,37 +1185,68 @@ use function PHPSTORM_META\type;
         }
 
         function addRawsview($itemid=null){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $productitem = new Productitem();
             $stockitem = new StockItem();
+            $rawsforitem = new RawsForItem();
 
             $stockitems = $stockitem->getDistinct("Name");
 
             $maxitemid = $productitem->getMinMax("itemid", "max");
             $maxitemid = $maxitemid[0]->{"max(itemid)"};
-            $maxitemid = $maxitemid + 1 ;
+            
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            if(isset($_SESSION["message"])){
+                $message = $_SESSION["message"];
+            }else{
+                $message = null;
+            }
 
             if($itemid != null){
-                echo $this->view("admin/addraws", ["maxitemid" => $itemid, "stockitems" => $stockitems]);
+                $raworderlines = $rawsforitem->where("itemid", $itemid);
+                echo $this->view("admin/addraws", ["maxitemid" => $itemid, "stockitems" => $stockitems ,"raworderlines" => $raworderlines, "message" => $message]);
             }else{
-                echo $this->view("admin/addraws", ["maxitemid" => $maxitemid, "stockitems" => $stockitems]);
+                echo $this->view("admin/addraws", ["maxitemid" => $maxitemid, "stockitems" => $stockitems,"raworderlines" => null, "message" => $message]);
             }
         }
 
         function addRaws(){
-            
-            $rawsforitem = new RawsForItem();
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
 
             $raworderline = $_POST;
 
             for ($i = 0; $i < count($raworderline["itemcode"]); $i++) {
+                $rawsforitem = new RawsForItem();
                 $rawsforitem->insert([
                     "itemid" => $raworderline["itemid"][$i],
                     "RawName" => $raworderline["itemcode"][$i],
                     "quantity" => floatval($raworderline["quantity"][$i]),
                 ]);
             }
+           
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
 
-
+            $_SESSION["message"] = "Raws and Item added successfully";
         }
         
         function loadDeliveryChargesView($message = null){
@@ -1232,6 +1292,28 @@ use function PHPSTORM_META\type;
 
             $this->redirect(BASE_URL."AdminControls/loadDeliveryChargesView/successed");
             
+        }
+
+        function deleteRaw($itemid, $id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $rawsforitem = new RawsForItem();
+            $rawsforitem->delete($id, "id");
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            $_SESSION["message"] = "Raw deleted successfully";
+
+            $this->redirect(BASE_URL."AdminControls/addRawsview/".$itemid);
         }
 
     }
