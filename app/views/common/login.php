@@ -65,9 +65,9 @@
     ?>
 
     <section>  
-    <div class="form-container">
+    <div style="margin-top:10%;" class="form-container">
 
-            <form class="form" method="POST" action="login" class="formisland">
+            <form style="margin-top:10px;" class="form" method="POST" action="login" class="formisland">
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
