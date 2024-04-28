@@ -33,15 +33,30 @@
                 </tr>';
 
                 foreach($supplies as $supplies){
-                    echo '<tr>';
-                    echo '<td>' . $supplies->CustomSupplyID . '</td>';
-                    echo '<td>' . $supplies->CustomStockItemID . '</td>';
-                    echo '<td>' . $supplies->StockItemName . '</td>';
-                    echo '<td>' . $supplies->DeliveredDate . '</td>';
-                    echo '<td>' . $supplies->InvoiceNo . '</td>';
-                    echo '<td>' . $supplies->ExpiryDate . '</td>';
-                    echo '<td>' . $supplies->DeliveredQuantity . '</td>';
-                    echo '</tr>';
+                    $expiryDate = strtotime($supplies->ExpiryDate);
+                    $fourDaysLater = strtotime('+4 days');
+                    if ($expiryDate <= $fourDaysLater){
+                        echo  '<tr style="background-color: red;">';
+                        echo '<td>' . $supplies->CustomSupplyID . '</td>';
+                        echo '<td>' . $supplies->CustomStockItemID . '</td>';
+                        echo '<td>' . $supplies->StockItemName . '</td>';
+                        echo '<td>' . $supplies->DeliveredDate . '</td>';
+                        echo '<td>' . $supplies->InvoiceNo . '</td>';
+                        echo '<td>' . $supplies->ExpiryDate . '</td>';
+                        echo '<td>' . $supplies->DeliveredQuantity . '</td>';
+                        echo '</tr>';
+                    }
+                    else{
+                        echo '<tr>';
+                        echo '<td>' . $supplies->CustomSupplyID . '</td>';
+                        echo '<td>' . $supplies->CustomStockItemID . '</td>';
+                        echo '<td>' . $supplies->StockItemName . '</td>';
+                        echo '<td>' . $supplies->DeliveredDate . '</td>';
+                        echo '<td>' . $supplies->InvoiceNo . '</td>';
+                        echo '<td>' . $supplies->ExpiryDate . '</td>';
+                        echo '<td>' . $supplies->DeliveredQuantity . '</td>';
+                        echo '</tr>';
+                    }
 
                 }
             echo '</table>';
