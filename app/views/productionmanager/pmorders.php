@@ -217,7 +217,7 @@
                     <th>More Details</th>
                 </tr>";
                 
-                foreach (array_slice($productorder, $startIndex, $itemsPerPage) as $ProductOrder){
+                foreach ($productorder as $ProductOrder){
                     if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") ){ //&& $ProductOrder->orderdate == date("Y-m-d", strtotime('+1 day')) 
                         echo "<tr>";
                         echo "<td>".$ProductOrder->orderref."</td>";
