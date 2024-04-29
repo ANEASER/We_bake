@@ -99,7 +99,7 @@
 
                 .add-1 {
                 display: block;
-                background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg1m.jpg') no-repeat center center;
+                background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg1m.jpeg') no-repeat center center;
                 background-size: cover;
                 height: 400px;
                 width: 100%;
