@@ -53,7 +53,7 @@
             </form>
 
             <section class="buttongroup">
-                <button style="width: 200px;" type="submit"  class="bluebutton" onclick="addStockItem(this)">Add New Stocks</button>
+                <button style="width: 200px;padding: 14px;" type="submit"  class="bluebutton" onclick="addStockItem(this)">Add New Stocks</button>
             </section>
 
         </div>
