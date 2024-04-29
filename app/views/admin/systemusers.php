@@ -30,6 +30,62 @@
     <body>
     <?php
         include "adminnav.php";
+
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (isset($_SESSION["error"])){
+            $error = $_SESSION["error"];
+            echo "<script>
+
+            const SwalwithButton = Swal.mixin({
+                customClass: {
+                    confirmButton: 'greenbutton',
+                },
+                buttonsStyling: false
+            });
+
+            
+            if (typeof Swal !== 'undefined') {
+                SwalwithButton.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '$error',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                alert('$error');
+            }
+          </script>";
+          unset($_SESSION['error']);
+        
+        }
+
+        elseif (isset($_SESSION['message'])){
+            $message = $_SESSION['message'];
+            echo "<script>
+
+            const SwalwithButton = Swal.mixin({
+                customClass: {
+                    confirmButton: 'greenbutton',
+                },
+                buttonsStyling: false
+            });
+
+            
+            if (typeof Swal !== 'undefined') {
+                SwalwithButton.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '$message',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                alert('$message');
+            }
+          </script>";}
+          unset($_SESSION['message']);
     ?>
 
     <section style="width: 100%; padding:1%">
@@ -57,28 +113,28 @@
             <section style="display:flex;justify-content:space-around; width:100%">
             <?php
                 if(count($users) > 0) {     
-                echo '<table style="width:100%">';
+                echo '<table style="width:70%">';
                 echo '<tr>
                         <th class="hideonmobile" >Name</th>
-                        <th>NIC</th>
-                        <th class="hideonmobile" >DOB</th>
-                        <th class="hideonmobile" >Contact No</th>
+                        
+                       
+                        <th>Contact No</th>
                         <th>Active State</th>
-                        <th class="hideonmobile" >Address</th>
+                        
                         <th>EmployeeNo</th>
                         <th>Role</th>
                         <th>User Name</th>
-                        <th class="hideonmobile">Email</th>
-                        <th class="hideonmobile">Update</th>
-                        <th class="hideonmobile">Delete</th>
+                        <th >Email</th>
+                        <th >Update</th>
+                        <th>Delete</th>
+                        <th>More</th>
                     </tr>';
 
                     foreach ($users as $user) {
                         if ($user->Role !== 'admin'&& $user->Role !== 'owner'  && (stripos($user->UserName, $searchQuery) !== false || (stripos($user->NIC, $searchQuery) !== false) || (stripos($user->Role, $searchQuery) !== false))) {
                             echo '<tr>';
                             echo '<td class="hideonmobile">' . $user->Name . '</td>';
-                            echo '<td>' . $user->NIC . '</td>';
-                            echo '<td class="hideonmobile">' . $user->DOB . '</td>';
+                           
                             echo '<td class="hideonmobile">' . $user->contactNo . '</td>';
 
                             if($user->ActiveState == 'Active') {
@@ -87,13 +143,13 @@
                                 $ActiveState = 'Inactive';
                             }
                             echo '<td>' . $ActiveState . '</td>';
-                            echo '<td class="hideonmobile">' . $user->Address . '</td>';
                             echo '<td>' . $user->EmployeeNo . '</td>';
                             echo '<td>' . $user->Role . '</td>';
                             echo '<td>' . $user->UserName . '</td>';
-                            echo '<td class="hideonmobile">' . $user->Email . '</td>';
-                            echo '<td class="hideonmobile"><button class="yellowbutton" onclick="edit(' . $user->UserID . ')">Update</button></td>';
-                            echo '<td class="hideonmobile"><button class="redbutton" onclick="del(' . $user->UserID . ')">Delete</button></td>';
+                            echo '<td >' . $user->Email . '</td>';
+                            echo '<td ><button class="yellowbutton" onclick="edit(' . $user->UserID . ')">Update</button></td>';
+                            echo '<td ><button class="redbutton" onclick="del(' . $user->UserID . ')">Revoke</button></td>';
+                            echo '<td><button class="bluebutton" onclick="more(' . $user->UserID . ')">More</button></td>';
                             echo '</tr>';
                         }
                     }
@@ -124,6 +180,10 @@
             window.location.href = BASE_URL + "AdminControls/EditUser/"+user;
         }
 
+        function more(user) {
+            window.location.href = BASE_URL + "AdminControls/ViewUser/"+user;
+        }
+
         function del(user) {
                 const SwalwithButton = Swal.mixin({
                     customClass: {
@@ -134,18 +194,18 @@
                 });
 
                 SwalwithButton.fire({
-                    title: "Are you sure you want to delete this User?",
-                    text: "You won't be able to revert this!",
+                    title: "Are you sure you want to Revoke this user",
+                    text: "You can can revert this by resiting user's password!",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonText: "Delete",
+                    confirmButtonText: "Revoke",
                     cancelButtonText: "Cancel",
                     reverseButtons: true,
                     preConfirm: async () => {
                         try {
                             await SwalwithButton.fire({
-                                title: "Deleted!",
-                                text: "System User has been deleted.",
+                                title: "Revoked!",
+                                text: "System user previlages revoked.",
                                 icon: "success",
                                 confirmButtonText: "OK",
                                 confirmButtonClass: "greenbutton"

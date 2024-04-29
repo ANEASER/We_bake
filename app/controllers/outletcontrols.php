@@ -1,7 +1,7 @@
 <?php
 class OutletControls extends Controller {
     
-    
+    //HOME 
     function index($id = null) {
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -11,10 +11,11 @@ class OutletControls extends Controller {
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
 
+        //(TODAY AVAILABILITIES)
         
         $productorder = new ProductOrder();
 
-        $orders = $productorder->findOnTodaybyUser($_SESSION["USER"]->EmployeeNo);
+        $orders = $productorder->findLastOrderbyUser($_SESSION["USER"]->EmployeeNo);
 
         if($orders == null){
             $this->view("outlet/outletdash",["placefirstorder"=>"Place your first Order"]);
@@ -48,9 +49,9 @@ class OutletControls extends Controller {
                     "total" => $first_order->total,
                     "pickername" => $_SESSION["USER"]->EmployeeNo,
                     "unique_id" => $first_order->unique_id,
-                    "deliverby" => "OP".$max_orderid,
+                    "deliverby" => "outletpickup",
                     "deliver_address" => $first_order->deliver_address,
-                    "orderref" => $first_order->orderref,
+                    "orderref" => "OP".$max_orderid,
                     "paid_amount" => $first_order->paid_amount,
                     "order_type" => "constant"
                 );
@@ -59,7 +60,7 @@ class OutletControls extends Controller {
                 header("Refresh:0");
             }
 
-            foreach ($orders as $order) {
+            foreach ($todayorder as $order) {
                 $uniqueIds[] = $order->unique_id;
             }
             
@@ -70,7 +71,7 @@ class OutletControls extends Controller {
         }
     }
 
-
+//HOME
     function outletdash(){
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -83,7 +84,7 @@ class OutletControls extends Controller {
         echo $this->view("outlet/outletdash");
     }
 
-
+//OUTLET PLACE ORDER
     function placeorder(){
 
         if(!Auth::loggedIn()){
@@ -98,7 +99,29 @@ class OutletControls extends Controller {
         echo $this->view("outlet/outletplaceorder");
     }
 
+    //PURCHASE HISTORY
+    function purchasehistory(){
+        
+        if(!Auth::loggedIn()){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
 
+        if($_SESSION["USER"]->Role != "outletmanager"){
+            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+        }
+
+        if($_SESSION == null){
+            session_start();
+        }
+
+        $productorder = new ProductOrder();
+        $orders = $productorder->findalldescwithplaceby($_SESSION["USER"]->EmployeeNo);
+        echo $this->view("outlet/outletpurchasehistory",["orders"=>$orders]);
+
+     
+    }
+
+    //ORDER SUBMITTION
     function submitorder(){
         
         session_start();
@@ -125,10 +148,9 @@ class OutletControls extends Controller {
         $this->redirect(BASE_URL."OrderControls/showcategories");
 
     }
-    
-     
-    function purchasehistory(){
-        
+
+    function searchOrders(){
+
         if(!Auth::loggedIn()){
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
@@ -137,16 +159,22 @@ class OutletControls extends Controller {
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
 
-        if($_SESSION == null){
-            session_start();
+        $productorder = new ProductOrder();
+
+        $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
+
+        $orderbyref = $productorder->where("orderref", $searchQuery);
+        
+        if($orderbyref != null){
+           $orders = $orderbyref;
+           echo $this->view("outlet/outletpurchasehistory",["orders"=>$orders]);
+    
+        }else{
+            echo $this->view("outlet/outletpurchasehistory",["orders"=>null]); // changed
         }
 
-        $productorder = new ProductOrder();
-        $orders = $productorder->findalldescwithplaceby($_SESSION["USER"]->EmployeeNo);
-        echo $this->view("outlet/outletpurchasehistory",["orders"=>$orders]);
-
-     
-    }
+        }
 
 }
+
 ?>

@@ -97,6 +97,23 @@
             console.log("cancel");
             window.location.href = BASE_URL +"OrderControls/paymentgateway";
         }
+
+        function isValidCardNumber(cardNumber) {
+        // Example validation: Check if card number contains only digits and has a length of 16
+        return /^\d{16}$/.test(cardNumber);
+        }
+
+        // Function to validate security number (CVV)
+        function isValidSecurityNumber(securityNumber) {
+            // Example validation: Check if security number contains only digits and has a length of 3
+            return /^\d{3}$/.test(securityNumber);
+        }
+
+        // Function to validate expiry date
+        function isValidExpiryDate(expiryDate) {
+            // Example validation: Check if expiry date matches MM/YY format
+            return /^\d{2}\/\d{2}$/.test(expiryDate);
+        }
     </script>
 </body>
 </html>

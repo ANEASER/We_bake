@@ -16,7 +16,8 @@
 
 <body>
     <?php
-        include '..\app\views\common\commonnav.php';
+        include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'common' . DIRECTORY_SEPARATOR . 'commonnav.php';
+
         if (isset($error)){
             echo "<script>
 
@@ -64,9 +65,9 @@
     ?>
 
     <section>  
-    <div class="form-container">
+    <div style="margin-top:10%;" class="form-container">
 
-            <form class="form" method="POST" action="login" class="formisland">
+            <form style="margin-top:10px;" class="form" method="POST" action="login" class="formisland">
                 <div class="form-group">
                     <label for="username">Username:</label>
                     <input type="text" id="username" name="username" required>
@@ -86,6 +87,7 @@
 
     </div>
     </section>
+
     <script>
         
         var BASE_URL = "<?php echo BASE_URL; ?>";

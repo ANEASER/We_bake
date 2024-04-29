@@ -13,12 +13,10 @@
         include "ownernavbar.php";
     ?>
 
-    <section style="width: 100%; padding:1%">
-        <div class="content">
-            <h1>Stocks</h1>
-            
-        </div>
-    </section>
+    <div class="content">   
+        <h1>Feedback</h1>
+        
+    </div>
 
 
     <section style="display:flex;justify-content:space-around; width:100%">
@@ -29,19 +27,15 @@
                     <th> Inquiry ID </th>
                     <th> Placed By </th>
                     <th> Address</th>
-                    <th> Subject</th>
-                    <th> Inquiry</th>
                     <th> Comment</th>
                 </tr>';
 
-                foreach($stocks as $stocks){
+                foreach($inquiry as $inquiry){
                     echo '<tr>';
                     echo '<td>' . $inquiry->inquiryid . '</td>';
                     echo '<td>' . $inquiry->placeby . '</td>';
                     echo '<td>' . $inquiry->address . '</td>';
-                    echo '<td>' . $inquiry->inquirysubject . '</td>';
                     echo '<td>' . $inquiry->inquirytext . '</td>';
-                    echo '<td>' . $inquiry->comment . '</td>';
                     echo '</tr>';
 
                 }

@@ -3,7 +3,7 @@
     <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
+
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/profile.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
@@ -13,38 +13,77 @@
 
     <title>Customer Profile</title>
 </head>
+<style>
+    .editsection {
+                width: 74%;
+                display: flex;
+                flex-direction: row;
+                margin: 2% 3% 3% 3%;
+                background-color: antiquewhite;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                color: rgb(95, 37, 37);
+                margin-left: 13%;
+            }
+</style>
 <body>
     <?php
         include 'customernav.php';
     ?>
 
-    <button id="profilebutton" type="button" onclick="viewProfile()"></button>
-    <button id="dashboardbutton" type="button" onclick="viewDashboard()"></button>
-
     <style>
-        .pagination-container {
-            text-align: center;
-            margin-top: 10px; /* Adjust as needed */
-        }
-
-        .pagination a {
-            display: inline-block;
-            padding: 8px 16px;
-            margin: 0 4px;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-        }
         .swal2-actions {
             width: 50%;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+        }
+
+        #profilecard{
+            width:100%; padding-left:3%;display:flex;flex-direction:row;padding:2%;justify-content:flex-start
         }
 
     </style>
+     <section class="editsection">
+        <div id="profilecard" >
+            <div>
+                <?php 
+                if(isset($_SESSION["USER"]->profilepic)){
+                    $profilePic = $_SESSION["USER"]->profilepic;
+                    if (base64_decode($profilePic, true) !== false) {
+                        echo "<img src='data:image/jpeg;base64," . $profilePic . "' height=300px width=255px onclick='enlargeImage(this)'>";
+                    } else {
+                        echo "Invalid base64 encoded image.";
+                    }
+                } else {
+                    echo "<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU' style='border-radius: 80px' alt='propic' height='100px' width='100px'>";
+                }
+                ?>
+            </div>
+            <br>
+            <table style="text-align: left; margin-left:5%;font-size:1.5em; border-collapse: collapse;font-weight:bolder">
+                <tr>
+                    <td style="padding: 10px;">Name  :  </td>
+                    <td style="padding: 10px;"><?php echo $_SESSION["USER"]->Name; ?></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;">Address  :  </td>
+                    <td style="padding: 10px;"><?php echo $_SESSION["USER"]->Address; ?></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;">Contact  :  </td>
+                    <td style="padding: 10px;"><?php echo $_SESSION["USER"]->contactNo; ?></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;">Email  :  </td>
+                    <td style="padding: 10px;"><?php echo $_SESSION["USER"]->Email; ?></td>
+                </tr>
+            </table>
 
-        <section class="content" style="height: 120vh; width:100vw">
-                <section class="dashboard" >
+            <br>
+        
+        </div>
+    </section>
+    <section class="editsection">
                     <section class="stats">
                         <div class="statscard">
                             <h3>Pending Orders</h3>
@@ -103,10 +142,9 @@
                         </div>
                     
                 </section>
-
-
-                <h1 style="text-align: center;color:darkblue">Most Purchaced Items</h1>
-                <section class="stats" style="padding: 1%;z-index:0">
+    </section>
+    <section class="editsection">
+    <section class="stats" style="padding: 1%;z-index:0">
                         <?php
                             if(is_array($mostPurchasedItems) && !empty($mostPurchasedItems)){
                                 foreach($mostPurchasedItems as $item){
@@ -122,101 +160,7 @@
                             }
                         ?>                        
                 </section>
-                
-
-                <section class="pendingorderstable" style="display:flex;justify-content:space-around; padding-top:3%; width:100%;">
-                    <?php
-                        $itemsPerPage = 3;
-                        $totalOrders = count($orders);
-                        $totalPages = ceil($totalOrders / $itemsPerPage);
-
-                        $currentPage = isset($_GET['page']) ? max(1, min((int)$_GET['page'], $totalPages)) : 1;
-
-                        $startIndex = ($currentPage - 1) * $itemsPerPage;
-                        $endIndex = min($startIndex + $itemsPerPage, $totalOrders);
-
-                        echo '<div class="table-container">';
-                        echo '<table>';
-                        echo '<tr>
-                            <th>ORDER REF</th>
-                            <th>DELIVERY DATE</th>
-                            <th class="hideonmobile">DELIVERY STATUS</th>
-                            <th class="hideonmobile">PAYMENT STATUS</th>
-                            <th>TOTAL</th>
-                            <th>CANCEL</th>
-                            <th>MORE</th>
-                        </tr>';
-
-                        for ($i = $startIndex; $i < $endIndex; $i++) {
-                            $order = $orders[$i];
-
-                                if($order->orderstatus != "cancelled" && $order->orderstatus != "finished"){
-                                    echo '<tr>';
-                                    echo '<td>' . $order->orderref. '</td>';
-                                    echo '<td>' . $order->orderdate . '</td>';
-                                    echo '<td class="hideonmobile">' . $order->deliverystatus . '</td>';
-                                    echo '<td class="hideonmobile">' . $order->paymentstatus . '</td>';
-                                    echo '<td>' . $order->total . '</td>';
-                                    if ($order->orderstatus == "pending") {
-                                        echo "<td><button class='redbutton' onclick='cancel(\"" . $order->unique_id . "\")'>Cancel</button></td>";
-                                    } else {
-                                        echo "<td>Not Available</td>";
-                                    }
-                                    echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
-                                    echo '</tr>';
-                                }
-                        }
-
-                        echo '</table>';
-                    ?>
-                    <?php
-                        // Pagination links
-                        echo '<div class="pagination-container">';
-                        echo '<div class="pagination">';
-                        for ($page = 1; $page <= $totalPages; $page++) {
-                            echo '<a class="brownbutton" href="?page=' . $page . '">' . $page . '</a>';
-                        }
-                        echo '</div>';
-                        echo '</div>';
-                    ?>
-
-                </section>
-                
-        </section>
-        <section class="profile" style="font-weight: bolder; padding-left:3%">
-                    <h1 style="font-size:1.5em;text-align:center"><span id="greeting"></span><td>  <?php echo $_SESSION["USER"]->UserName ?></td></h1>
-                    <br>
-                    <br>
-                    <?php 
-                        if(isset($_SESSION["USER"]->profilepic)){
-                            $profilePic = $_SESSION["USER"]->profilepic;
-                            if (base64_decode($profilePic, true) !== false) {
-                                echo "<img src='data:image/jpeg;base64," . $profilePic . "' height=200px width=170px onclick='enlargeImage(this)'>";
-                            } else {
-                                echo "Invalid base64 encoded image.";
-                            }
-                        } else {
-                            echo "<img src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmRLRMXynnc7D6-xfdpeaoEUeon2FaU0XtPg&usqp=CAU' style='border-radius: 80px' alt='propic' height='100px' width='100px'>";
-                        }
-                    ?>
-                    <p></p><br>
-                    <table>
-                        <tr>
-                            <td><?php echo $_SESSION["USER"]->Name; ?></td>
-                        </tr>
-                        <tr>
-                            <td><?php echo $_SESSION["USER"]->Address; ?></td>
-                        </tr>
-                        <tr>
-                            <td><?php echo $_SESSION["USER"]->contactNo; ?></td>
-                        </tr>
-                        <tr>
-                            <td><?php echo $_SESSION["USER"]->Email; ?></td>
-                        </tr>
-                    </table>
-                    <br>
-            </section>
-        </section>
+    </section>
     <script>
     
     var BASE_URL = "<?php echo BASE_URL; ?>";
@@ -268,32 +212,6 @@
 
     function more(unique_id){
             window.location.href = BASE_URL + "OrderControls/moredetails/" + unique_id;
-    }
-
-    function viewProfile() {
-            console.log('view profile');
-            var profileSection = document.querySelector('.profile');
-            var dashboardSection = document.querySelector('.dashboard');
-            var profileButton = document.getElementById('profilebutton');
-            var dashboardButton = document.getElementById('dashboardbutton');
-
-            profileSection.style.display = 'flex';
-            dashboardSection.style.display = 'none';
-            profileButton.style.display = 'none';
-            dashboardButton.style.display = 'block';
-    }
-
-    function viewDashboard() {
-            console.log('view dashboard');
-            var profileSection = document.querySelector('.profile');
-            var dashboardSection = document.querySelector('.dashboard');
-            var profileButton = document.getElementById('profilebutton');
-            var dashboardButton = document.getElementById('dashboardbutton');
-
-            profileSection.style.display = 'none';
-            dashboardSection.style.display = 'block';
-            profileButton.style.display = 'block';
-            dashboardButton.style.display = 'none';
     }
 
     var previousWidth = window.innerWidth;

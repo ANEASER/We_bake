@@ -2,7 +2,22 @@
 class CommonControls extends Controller {
     
     function index($id = null) {
-        $this->view("common/home");
+        
+        $productitem = new ProductItem();
+        $productorderline = new ProductOrderLine();
+        $productorderlines = $productorderline->SumProductItemsGroupByIDandCategory();
+        $mostsellingitems = array_slice($productorderlines, 0, 2);
+
+        $latestaddeditems = $productitem->getlatestProductItems();
+
+        $mostPurchasedItems = [];
+
+        foreach ($mostsellingitems as $item) {
+            $product = $productitem->where("itemid", $item->itemid);
+            array_push($mostPurchasedItems, $product);
+        }
+        $this->view("common/home",["mostPurchasedItems"=>$mostPurchasedItems, "latestaddeditems"=>$latestaddeditems]);
+        
     }
 
     function loadLoginView() {
@@ -19,6 +34,11 @@ class CommonControls extends Controller {
 
 
     function login() {
+
+        if(session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+
         $error = "";
     
         if (count($_POST) > 0) {
@@ -37,6 +57,7 @@ class CommonControls extends Controller {
                             
                             if($user->ActiveState == 'Active'){
                                 Auth::authenticate($user);
+                                unset($_SESSION['loginattempts']);
                                 if ($role == 'admin') {
                                     $this->redirect(BASE_URL."AdminControls");
                                 } elseif ($role == 'storemanager') {
@@ -65,6 +86,24 @@ class CommonControls extends Controller {
                 
                         } else {
                             $error = "Invalid password username or password";
+
+                            if(isset($_SESSION['loginattempts'])){
+                                $_SESSION['loginattempts'] = $_SESSION['loginattempts'] + 1;
+                            }else{
+                                $_SESSION['loginattempts'] = 1;
+                            }
+
+                            if($_SESSION['loginattempts'] >= 5){
+                                $systemuser->update($user->UserName,"UserName",[ "ActiveState" => "Inactive"]);
+                                $error = "User account has been locked";
+                                $email = $user->Email;
+                                $subject = "Account Locked";
+                                $message = "Your account has been locked due to multiple failed login attempts. Please contact the system administrator to unlock your account";
+                                $mail = new Mail();
+                                $mail->sendMail($email,$subject,$message);
+                                unset($_SESSION['loginattempts']);
+                            }
+
                             $this->view("common/login",["error"=>$error]);
                         }
                     } else {
@@ -85,9 +124,27 @@ class CommonControls extends Controller {
                             
                             if ($verifiedpassword ) {
                                 Auth::authenticate($user);
+                                unset($_SESSION['loginattempts']);
                                 $this->redirect(BASE_URL."CustomerControls");
                             } else {
+
                                 $error = "Invalid password";
+
+                                if(isset($_SESSION['loginattempts'])){
+                                    $_SESSION['loginattempts'] = $_SESSION['loginattempts'] + 1;
+                                }else{
+                                    $_SESSION['loginattempts'] = 1;
+                                }
+    
+                                if($_SESSION['loginattempts'] >= 5){
+                                    $email = $user->Email;
+                                    $subject = "Security Alert";
+                                    $message = "There are suspicious activities on your account. Please change your password.";
+                                    $mail = new Mail();
+                                    $mail->sendMail($email,$subject,$message);
+                                    unset($_SESSION['loginattempts']);
+                                }
+                                
                                 $this->view("common/login",["error"=>$error]);
                             }
                         } else {
@@ -123,9 +180,26 @@ class CommonControls extends Controller {
 
         if (isset($_POST["otp"])) {
             if ($_POST["otp"] == $_SESSION['otp']) {
+                unset($_SESSION['otp']);
                 $this->redirect(BASE_URL.$redirect);
             } else {
-                $error = "Invalid OTP"; 
+                
+
+                if(isset($_SESSION['otpattempt'])){
+                    $_SESSION['otpattempt'] = $_SESSION['otpattempt'] + 1;
+                }else{
+                    $_SESSION['otpattempt'] = 1;
+                }
+
+                if($_SESSION['otpattempt'] >= 5){
+                    unset($_SESSION['otpattempt']);
+                    header("Location: ".BASE_URL."CommonControls/otpvalidation");
+                }
+
+                $allowedAttempts = 5 - $_SESSION['otpattempt'];
+
+                $error = "Invalid OTP, You have ".$allowedAttempts." attempts left";
+
                 $this->view("common/otpverification",["error"=>$error]);
             }
         }else{

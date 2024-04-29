@@ -58,7 +58,7 @@
                                             echo '<input type="hidden" name="items[' . $item->itemid . '][name]" value="' . $item->itemname . '">';
                                             echo '<input type="hidden" name="items[' . $item->itemid . '][ipc]" value="' . $item->ipc . '">';
                                             echo '<input type="hidden" name="items[' . $item->itemid . '][price]" value="' . $item->retailprice . '">';
-                                            echo '<p> Price :' . $item->retailprice.'</p>';
+                                            echo '<p>Rs ' . $item->retailprice.'.00</p>';
                                             if ($item->availability == 0) {
                                                 echo '<p style="color:red">Not Available</p>';
                                             } else{

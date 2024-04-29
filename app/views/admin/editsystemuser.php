@@ -35,83 +35,94 @@
             })</script>';
         }
     ?>
+
+
     <section>
-            <div class="form-container">
+            <div class="form-container" style="width: 80%; max-width:none">
+                <div style="display: flex; flex-direction:row" >
 
-            <form class="form" method="POST" action="<?php echo BASE_URL; ?>AdminControls/editsystemuser" onsubmit="return validateForm()">
+                    <div style="width: 50%;">
+                            <form class="form" method="POST" action="<?php echo BASE_URL; ?>AdminControls/editsystemuser" onsubmit="return validateForm()">
 
-            <input type="hidden" name="id" value="<?php echo $data[0]->UserID; ?>">
+                            <input type="hidden" name="id" value="<?php echo $data[0]->UserID; ?>">
 
-            <div class="form-group">
-                <label for="Name">Name:</label>
-                <input type="text" id="Name" name="Name" placeholder="<?php echo $data[0]->Name; ?>">
-            </div>
+                            <div class="form-group">
+                                <label for="Name">Name:</label>
+                                <input type="text" id="Name" name="Name" placeholder="<?php echo $data[0]->Name; ?>">
+                            </div>
 
-            <div class="form-group">
-                <label for="NIC">NIC:</label>
-                <input type="text" id="NIC" name="NIC" placeholder="<?php echo $data[0]->NIC; ?>">
-            </div>
-            
-            <div class="form-group">
-                <label for="DOB">Date of Birth:</label>
-                <input type="date" id="DOB" name="DOB"  max="<?php echo date('Y-m-d', strtotime('-17 years')); ?>" placeholder="<?php echo $data[0]->DOB; ?>">
-            </div>
-                    
-            <div class="form-group">
-                <label for="Email">Email:</label>
-                <input type="email" id="Email" name="Email" placeholder="<?php echo $data[0]->Email; ?>">
-            </div>
-                    
-            <div class="form-group">
-                <label for="contactNo">Contact No:</label>
-                <input type="text" id="contactNo" name="contactNo" placeholder="<?php echo $data[0]->contactNo; ?>">
-            </div>
-                    
-            <div class="form-group">
-                <label for="Address">Address:</label>
-                <input type="text" id="Address" name="Address" placeholder="<?php echo $data[0]->Address; ?>">
-            </div>
-                    
-            <?php
-                if(isset($hasOutlet)){
-                    echo '<div class="form-group">
-                            <label for="Role">Role:</label>
-                            <input type="hidden" id="Role" name="Role" value="'.$data[0]->Role.'">
-                            <p>assigned to outlet</p>   
-                        </div>';
-                    }else{
-                        echo '<div class="form-group">
-                            <label for="Role">Role:</label>
-                            <select id="Role" name="Role" >
-                                    <option value="billingclerk">Billing Clerk</option>
-                                    <option value="outletmanager">Outlet Manager</option>
-                                    <option value="productionmanager">Production Manager</option>
-                                    <option value="receptionist">Receptionist</option>
-                                    <option value="storemanager">Store Manager</option>
-                            </select>
-                        </div>';
-                    }
-            ?>
-                    
-            <div class="form-group">
-                <label for="UserName">Username:</label>
-                <input type="text" id="UserName" name="UserName" placeholder="<?php echo $data[0]->UserName; ?>">
-            </div>
-                    
-            <label for="Password">Enter Admin Password to Submit</label>
-            <div class="form-group">
-                
-                <input type="password" id="Password1" name="Password" required>
-            </div>
-                    
-            <input class="yellowbutton" type="submit" value="Update">
+                            <div class="form-group">
+                                <label for="NIC">NIC:</label>
+                                <input type="text" id="NIC" name="NIC" placeholder="<?php echo $data[0]->NIC; ?>">
+                            </div>
 
-            </form>
-            <br>
-            <div class="buttongroup">
-                <button class="redbutton" onclick="window.location.href='<?php echo BASE_URL; ?>AdminControls/loadUsersView'">Cancel</button>
-                <button class="bluebutton" onclick="window.location.href='<?php echo BASE_URL; ?>AdminControls/ResetPassword/<?php echo $data[0]->UserName; ?>'">Reset Pasword</button>
-            </div>
+                            <div class="form-group">
+                                <label for="DOB">Date of Birth:</label>
+                                <input type="date" id="DOB" name="DOB"  max="<?php echo date('Y-m-d', strtotime('-17 years')); ?>" placeholder="<?php echo $data[0]->DOB; ?>">
+                            </div>
+                                    
+                            <div class="form-group">
+                                <label for="Email">Email:</label>
+                                <input type="email" id="Email" name="Email" placeholder="<?php echo $data[0]->Email; ?>">
+                            </div>
+                                    
+                            <div class="form-group">
+                                <label for="contactNo">Contact No:</label>
+                                <input type="text" id="contactNo" name="contactNo" placeholder="<?php echo $data[0]->contactNo; ?>">
+                            </div>
+                                    
+                    </div>
+                    <div style="width: 50%;">
+                                    <div class="form-group">
+                                        <label for="Address">Address:</label>
+                                        <input type="text" id="Address" name="Address" placeholder="<?php echo $data[0]->Address; ?>">
+                                    </div>
+                                            
+                                    <?php
+                                        if(isset($hasOutlet)){
+                                            echo '<div class="form-group">
+                                                    <label for="Role">Role:</label>
+                                                    <input type="hidden" id="Role" name="Role" value="'.$data[0]->Role.'">
+                                                    <p>assigned to outlet</p>   
+                                                </div>';
+                                            }else{
+                                                echo '<div class="form-group">
+                                                    <label for="Role">Role:</label>
+                                                    <select id="Role" name="Role" >
+                                                            <option value="billingclerk">Billing Clerk</option>
+                                                            <option value="outletmanager">Outlet Manager</option>
+                                                            <option value="productionmanager">Production Manager</option>
+                                                            <option value="receptionist">Receptionist</option>
+                                                            <option value="storemanager">Store Manager</option>
+                                                    </select>
+                                                </div>';
+                                            }
+                                    ?>
+                                            
+                                    <div class="form-group">
+                                        <label for="UserName">Username:</label>
+                                        <input type="text" id="UserName" name="UserName" placeholder="<?php echo $data[0]->UserName; ?>">
+                                    </div>
+                                            
+                                    
+                                    <div class="form-group">
+                                        <label for="Password">Enter Admin Password to Submit</label>
+                                        <input type="password" id="Password1" name="Password" required>
+                                        <br>
+                                        <input class="yellowbutton" type="submit" value="Update">
+                                    </div>
+                                            
+                                    
+
+                            </form>
+                        </div>
+                    </div>
+                            
+                    <br>
+                    <div class="buttongroup">
+                        <button class="redbutton" onclick="window.location.href='<?php echo BASE_URL; ?>AdminControls/loadUsersView'">Cancel</button>
+                        <button class="bluebutton" onclick="window.location.href='<?php echo BASE_URL; ?>AdminControls/ResetPassword/<?php echo $data[0]->UserName; ?>'">Reset Pasword</button>
+                    </div>
             </div>
         </section>
         <script>

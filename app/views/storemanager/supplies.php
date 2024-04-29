@@ -13,13 +13,8 @@
         include "smnavbar.php";
     ?>
 
-    <div class="content">
-        <h1>Supply Records</h1>
-        
-    </div>
-
-    <section style="width: 100%; padding:1%">
-        <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
+    <section style="width: 100%; padding:1%; margin: top 10px;">
+        <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:5px; margin-top:15px;">
             <form method="GET" action="<?php echo BASE_URL; ?>StoreControls/SearchSupply" style="display: flex; flex-direction:row;">
                 <?php
                     if(isset($_GET['search'])) {
@@ -86,7 +81,7 @@
         }
 
         function clearSearch() {
-            window.location.href = BASE_URL + "StoreControls/loadStocksView";
+            window.location.href = BASE_URL + "StoreControls/loadSuppliesView";
         }
 
         function updateSupply(id) {

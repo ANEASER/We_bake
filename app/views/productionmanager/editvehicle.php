@@ -62,7 +62,7 @@
 
         <section>
             <div class="form-container">
-                <form class="form" method="POST" action="<?php echo BASE_URL;?>pmcontols/editVehicle" onsubmit="return validateForm()">
+                <form class="form" method="POST" action="<?php echo BASE_URL;?>pmcontrols/editvehicle" onsubmit="return validateForm()">
                 <input type="hidden" name="id" value="<?php echo $data[0]->vehicleno;?>">
 
                 <div class="form-group">
@@ -147,7 +147,7 @@
                     return false;
                 }
 
-                return true;
+                window.location.href = BASE_URL + "pmcontrols/editVehicle";
                 
             }
         </script>

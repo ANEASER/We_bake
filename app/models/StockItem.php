@@ -5,7 +5,7 @@
 
         public function getDistinct($column)
         {
-            $query = "SELECT DISTINCT $column FROM $this->table";
+            $query = "SELECT DISTINCT $column,UnitOfMeasurement FROM $this->table";
             return $this->query($query, []);
         }
     }

@@ -31,6 +31,7 @@
             background-color: #3498db;
         }
         .yellow{
+            margin-left: 10px;
             background-color: #f1c40f;
         }
     </style>
@@ -41,33 +42,30 @@
     require('pmnavbar.php');
     ?>
 
-
     <div class="searchpanel">
-        <form method="get" action="<?php echo BASE_URL;?>pmcontrols/searchVehicle" style="display:flex; flex-direction:row;">
-        <?php    
-
-        if (isset($_GET['search'])){
-            echo '<input class="searchbox" type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" value="' . $_GET['search'] . '" >';
-            echo '<button class="button view" onclick="viewall()" role="button">View All Vehicles</button>';
+        <form method="GET" action="<?php echo BASE_URL;?>pmcontrols/searchVehicle" class="search" style="display:flex; flex-direction:row;">
+        <?php
+        if(isset($_GET['search'])){
+            echo '<input type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" value="'.$_GET['search'].'" class="searchbox">';
+            echo '<input type="submit" value="Search" class="button green">';
+            echo '<button class="button green" onclick="clearSearch(); return false;">Clear Search</button>';
         }
         else{
-            echo '<input class="searchbox" type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" >';
+            echo '<input type="text" id="search" name="search" placeholder="RegNO, Type or MinCapacity" value="" class="searchbox">';
+            echo '<input type="submit" value="Search" class="button green">';
         }
         ?>
-        
-        <input class="button green" type="submit" value="Search">
         </form>
-    
-    </div>
+        </div>
     <button class="button blue" onclick="addVehicle()" role="button">Add New Vehicle</button>
-       
-
 
     <?php
         $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
     ?>
     <section style="display:flex;justify-content:space-around; width:100%">
     <?php
+  
+    if($vehicles != null){
         echo '<table style="margin:auto; margin-top: 10px;">';
             echo '<tr>
                 <th>Registration Number</th>
@@ -81,7 +79,8 @@
                 <th>Update</th>
                 <th>Delete</th>
             </tr>';
-            foreach ($vehicles as $vehicle){ 
+            foreach($vehicles as $vehicle){ 
+                
                 if ($vehicle->ActiveState == 1){
                     if ($vehicle->availability == 1){ 
                     echo '<tr>';
@@ -115,11 +114,19 @@ echo '</tr>';
                 }
             }
         echo '</table>';
+    }
+    else{
+        echo '<h1 style="margin-left:25%;">No vehicles to show</h1>"';
+    }
     ?>
     </section>
 
 <script>
     var BASE_URL = "<?php echo BASE_URL; ?>";
+
+    function clearSearch(){
+        window.location.href = BASE_URL + "pmcontrols/loadVehiclesView";
+    }
 
     function addVehicle() {
         window.location.href = BASE_URL + "pmcontrols/addVehicleView";
@@ -131,8 +138,33 @@ echo '</tr>';
         window.location.href = BASE_URL + "pmcontrols/editVehicleView/"+ vehicleid;
     }
     function del(vehicleid) {
-            window.location.href = BASE_URL +  "pmControls/deleteVehicle/"+ vehicleid;
-    }
+        const SwalwithButton = Swal.mixin({
+            customClass: {
+                confirmButton: "button yellow",
+                cancelButton: "button yellow"
+            },
+            buttonsStyling: false
+            });
+
+            SwalwithButton.fire({
+                text: "Are you sure you want to delete this vehicle?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Vehicle Deleted Successfully',
+                        text: 'The vehicle has been successfully deleted.',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = BASE_URL +  "pmControls/deleteVehicle/"+ vehicleid;
+    });
+                }
+            });
+            }
 
 </script>
 

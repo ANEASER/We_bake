@@ -297,7 +297,7 @@
             }
             else{
                 $orderref = "C".$orderref;
-                $arr2["placeby"] = $_SESSION["USER"]->customer_id;
+                $arr2["placeby"] = $_SESSION["USER"]->UserName;
                 $arr2["paymentstatus"] = $paymenttype;
                 $arr2["deliver_city"] = $_SESSION["deliver_city"];
                 $arr2["deliver_charges"] =  $_SESSION["delivery_charge"];
@@ -469,6 +469,20 @@
             $this->redirect(BASE_URL."OrderControls/showcategories");
         }
 
+        function moreStockDetails($unique_id){
+                
+                if(!Auth::loggedIn()){
+                    $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                }
+    
+                $stockorder = new StockOrder();
+                $stockorderline = new StockOrderLine();
+                
+                $stockorderlines = $stockorderline->where("unique_id",$unique_id);
+                $this->view("order/morestockdetailsorder",["stockorderlines"=>$stockorderlines]);
+                
+
+        }
 
         
 

@@ -34,9 +34,9 @@
 <section>
     <div class="form-container">
 
-    <form class="form" method="POST" acttion="<?php echo BASE_URL;?>BillingControls/uploadProof" enctype="multipart/form-data">
+    <form class="form" method="POST" action="<?php echo BASE_URL;?>BillingControls/uploadProof" enctype="multipart/form-data">
     <div class="form-group">
-        <label for="AdvancedOrFinal">Advanced or Final Order Payment</label><br>
+        <label for="AdvancedOrFinal">Advance or Final Order Payment</label><br>
 
         <?php
 
@@ -47,8 +47,8 @@
             </div>';
 
             echo '<select name="AdvancedOrFinal" id="AdvancedOrFinal">
-            <option value="advanced">Advanced</option>
-            <option value="paid">Paid</option>
+            <option value="advanced">Advance Payment</option>
+            <option value="paid">Full Payment</option>
             </select>';
         }
         ?>

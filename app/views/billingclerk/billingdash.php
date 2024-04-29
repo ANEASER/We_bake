@@ -66,7 +66,6 @@
 <li style="margin-right:10px;"><a class="hover" onclick="showAdvancedOrders(this)">AdvancedOrders</a></li>
 <li style="margin-right:10px;"><a class="hover" onclick="showPaidOrders(this)">PaidOrders</a></li>
 <li style="margin-right:10px;"><a class="hover" onclick="showCompletedOrders(this)">CompletedOrders</a></li>
-<li style="margin-right:10px;"><a class="hover" onclick="showCancledOrders(this)">CancledOrders</a></li>
 </ul>
 </ul>
 </div>
@@ -225,41 +224,7 @@ echo "<tr>
 echo "</div>"
 ?>
 
-<!-- Cancled Orders -->
 
-<?php
-echo "<div id='CancledOrdersTable'>";
-echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
-echo "<tr>
-        <th>Order REF</th>
-        <th>Placed By</th>
-        <th>Order Date</th>
-        <th>Payment Status</th>
-        <th>Order Status</th>
-        <th>Total</th>
-        <th>Deliver By</th>
-        <th>Unique ID</th>
-        <th>Deliver Address</th>
-        <th>More Details</th>
-    </tr>";
-    foreach($productorder as $ProductOrder){
-        if($ProductOrder->orderstatus=="cancled"){
-            echo "<td>".$ProductOrder->orderref."</td>";
-            echo "<td>".$ProductOrder->placeby."</td>";
-            echo "<td>".$ProductOrder->orderdate."</td>";
-            echo "<td>".$ProductOrder->paymentstatus."</td>";
-            echo "<td>".$ProductOrder->orderstatus."</td>";
-            echo "<td>".$ProductOrder->total."</td>";
-            echo "<td>".$ProductOrder->deliverby."</td>";
-            echo "<td>".$ProductOrder->unique_id."</td>";
-            echo "<td>".$ProductOrder->deliver_address."</td>";
-            echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
-            echo "</tr>";
-        }
-    }
-    echo "</table>";
-echo "</div>"
-?>
 </section>
 
 <script>
@@ -305,8 +270,7 @@ echo "</div>"
         document.getElementById('AdvancedOrdersTable').style.display = 'none';
         document.getElementById('PaidOrdersTable').style.display = 'none';
         document.getElementById('CompletedOrdersTable').style.display = 'none';
-        document.getElementById('CancledOrdersTable').style.display = 'none';
-        document.getElementById('searchedOrdersTable').style.display = 'none';
+        //document.getElementById('searchedOrdersTable').style.display = 'none';
     }
 
     function showAdvancedOrders(link){
@@ -315,8 +279,7 @@ echo "</div>"
         document.getElementById('AdvancedOrdersTable').style.display = 'block';
         document.getElementById('PaidOrdersTable').style.display = 'none';
         document.getElementById('CompletedOrdersTable').style.display = 'none';
-        document.getElementById('CancledOrdersTable').style.display = 'none';
-        document.getElementById('searchedOrdersTable').style.display = 'none';
+        //document.getElementById('searchedOrdersTable').style.display = 'none';
     }
 
     function showPaidOrders(link){
@@ -325,8 +288,7 @@ echo "</div>"
         document.getElementById('AdvancedOrdersTable').style.display = 'none';
         document.getElementById('PaidOrdersTable').style.display = 'block';
         document.getElementById('CompletedOrdersTable').style.display = 'none';
-        document.getElementById('CancledOrdersTable').style.display = 'none';
-        document.getElementById('searchedOrdersTable').style.display = 'none';
+        //document.getElementById('searchedOrdersTable').style.display = 'none';
     }
 
     function showCompletedOrders(link){
@@ -335,8 +297,7 @@ echo "</div>"
         document.getElementById('AdvancedOrdersTable').style.display = 'none';
         document.getElementById('PaidOrdersTable').style.display = 'none';
         document.getElementById('CompletedOrdersTable').style.display = 'block';
-        document.getElementById('CancledOrdersTable').style.display = 'none';
-        document.getElementById('searchedOrdersTable').style.display = 'none';
+        //document.getElementById('searchedOrdersTable').style.display = 'none';
     }
 
     function showCancledOrders(link){
@@ -345,8 +306,7 @@ echo "</div>"
         document.getElementById('AdvancedOrdersTable').style.display = 'none';
         document.getElementById('PaidOrdersTable').style.display = 'none';
         document.getElementById('CompletedOrdersTable').style.display = 'none';
-        document.getElementById('CancledOrdersTable').style.display = 'block';
-        document.getElementById('searchedOrdersTable').style.display = 'none';   
+        //document.getElementById('searchedOrdersTable').style.display = 'none';   
     }
 
 </script>

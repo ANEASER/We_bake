@@ -20,7 +20,7 @@
             echo '<img class="logo" src="' . BASE_URL . 'media/uploads/Content/logo.png" width="200px">';
         ?>
         <ul>
-        <li><a class="navbutton" onclick="home(this)">Production Orders</a></li>
+        <li><a class="navbutton" onclick="home(this)">Customer Orders</a></li>
         <li><a class="navbutton" onclick="logout()">Log Out</a></li>
         </ul>
     </nav>

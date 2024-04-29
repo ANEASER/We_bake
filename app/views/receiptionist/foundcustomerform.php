@@ -36,18 +36,24 @@
         <input type="hidden" id="customerphonenumber" name="customerphonenumber"  value="<?php echo $foundcustomer->contactNo ?>"  required>
 
 
-        <label for="orderdate">Order date:</label>
+        <label for="orderdate">Order date :</label>
         <input type="date" id="orderdate" name="orderdate" required>
         
 
-        <label for="deliveryaddress">Delivery Address:</label>
+        <label for="deliveryaddress">Delivery Address :</label>
         <input type="text" id="deliveryaddress" name="deliveryaddress" required>
 
-        <label for="delivery/Pickup">Delivery/Pickup:</label>
-        <input type="text" id="delivery/Pickup" name="delivery/Pickup" required>
+
+        <div class="form-group">
+                            <label for="deliverystatus">Delivery / Pickup </label>
+                            <select id="deliverystatus" name="deliverystatus" required>
+                                <option value="delivery">Delivery</option>
+                                <option value="pickup">Pickup</option>
+                            </select><br>
+                        </div>
 
         
-        <label for="picker">picker</label>
+        <label for="picker">Order picker :</label>
         <input type="text" id="picker" name="picker" required>
 
 

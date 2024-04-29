@@ -7,21 +7,26 @@ use function PHPSTORM_META\type;
         function index($id=null){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
-            $customer = new Customer();
+            
             $systemuser = new Systemuser();
             $outlet = new Outlet();
             $productitem = new ProductItem();
+            $vehicle = new Vehicle();
+            $productitem = new ProductItem();
+            $stockitem = new StockItem();
 
-            $customercount = $customer->getCustomerCount();
             $systemusercount = $systemuser->getSystemuserCount();
             $outletcount = $outlet->getOutletCount();
-            $productitemcount = $productitem->countProductItemsGroupByCategory();
+            $productitemcountgroupby = $productitem->countProductItemsGroupByCategory();
+            $vehicles = $vehicle->findall();
+            $productitems = $productitem->findall();
+            $stockitems = $stockitem->findall();
+            $systemusergroupbyrole = $systemuser->getSystemuserCountGroupBy();
 
-            
-            echo $this->view("admin/admindash", ["customercount" => $customercount, "systemusercount" => $systemusercount, "outletcount" => $outletcount, "productitemcount" => $productitemcount]);
+            echo $this->view("admin/admindash", [ "systemusercount" => $systemusercount, "outletcount" => $outletcount, "productitemcountgroupby" => $productitemcountgroupby, "vehiclecount" => count($vehicles),"productitemcount" => count($productitems), "stockitemscount" => count($stockitems), "systemusergroupbyrole" => $systemusergroupbyrole]);
         }
 
         //Item functions
@@ -41,7 +46,7 @@ use function PHPSTORM_META\type;
         function addproductitem(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -145,9 +150,12 @@ use function PHPSTORM_META\type;
                     echo $this->view("admin/additem", ["error" => $error]);
                 } else {
                     if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                       
+                        $_SESSION["message"] = "Item added successfully";
+
                         $arr["imagelink"] = $newfilename;
                         $productitem->insert($arr);
-                        $this->redirect(BASE_URL."CommonControls/loadProductsView");
+                        $this->redirect(BASE_URL."AdminControls/addRawsview");
                     }
                 }
 
@@ -164,7 +172,7 @@ use function PHPSTORM_META\type;
         function loadItemsView(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -179,7 +187,7 @@ use function PHPSTORM_META\type;
         function EditItem($id){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -194,7 +202,7 @@ use function PHPSTORM_META\type;
         function editproduct(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -209,7 +217,7 @@ use function PHPSTORM_META\type;
             if (!empty($_POST['retailprice'])){
                 $data['retailprice'] = $_POST['retailprice'];
             }
-            if (!empty($_POST['stockprice'])){
+            if (!empty($_POST['cost'])){
                 $data['cost'] = $_POST['cost'];
             }
             if (!empty($_POST['itemdescription'])){
@@ -275,6 +283,7 @@ use function PHPSTORM_META\type;
             }
 
             echo $productitem->update($id,"itemid",$data);
+            $_SESSION["message"] = "Product updated successfully";
             $this->redirect(BASE_URL."CommonControls/loadProductsView");
         }
 
@@ -285,7 +294,7 @@ use function PHPSTORM_META\type;
         function addsystemuser(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -308,14 +317,14 @@ use function PHPSTORM_META\type;
             // Validate NIC
             $patternNIC = '/^\d{9}[vV]$|^\d{12}$/';
             if (!preg_match($patternNIC, $arr["NIC"])) {
-                echo $this->view("admin/AddUserView", ["error" => "Invalid NIC format"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Invalid NIC format"]);
                 return;
             }
         
             // Validate Date of Birth (DOB)
             $patternDOB = '/^\d{4}-\d{2}-\d{2}$/';
             if (!preg_match($patternDOB, $arr["DOB"])) {
-                echo $this->view("admin/AddUserView", ["error" => "Invalid Date of Birth format"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Invalid Date of Birth format"]);
                 return;
             }
         
@@ -323,10 +332,10 @@ use function PHPSTORM_META\type;
             if (!preg_match($patternEmail, $arr["Email"])) {
             $existingUser = $systemuser->where("Email", $arr["Email"]);
             if ($existingUser) {
-                echo $this->view("admin/AddUserView", ["error" => "Email already in use"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Email already in use"]);
                 return;
             }
-                echo $this->view("admin/AddUserView", ["error" => "Invalid Email"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Invalid Email"]);
                 return;
             }
         
@@ -334,23 +343,29 @@ use function PHPSTORM_META\type;
             if (!preg_match($patternContactNo, $arr["contactNo"])) {
             $existingUser = $systemuser->where("contactNo", $arr["contactNo"]);
             if ($existingUser) {
-                echo $this->view("admin/AddUserView", ["error" => "Contact number already in use"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Contact number already in use"]);
                 return;
             }
                 
-                echo $this->view("admin/AddUserView", ["error" => "Invalid contact number"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Invalid contact number"]);
                 return;
             }
 
             $existingUserName = $systemuser->where("UserName", $arr["UserName"]);
             if ($existingUserName) {
-                echo $this->view("admin/AddUserView", ["error" => "Username already in use"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Username already in use"]);
                 return;
             }
         
             $validRoles = ["admin", "billingclerk", "outletmanager", "productionmanager", "receptionist", "storemanager"];
             if (!in_array($arr["Role"], $validRoles)) {
-                echo $this->view("admin/AddUserView", ["error" => "Invalid Role"]);
+                echo $this->view("admin/addsystemuser", ["error" => "Invalid Role"]);
+                return;
+            }
+
+            $existingNIC = $systemuser->where("NIC", $arr["NIC"]);
+            if ($existingNIC) {
+                echo $this->view("admin/addsystemuser", ["error" => "NIC already in use"]);
                 return;
             }
         
@@ -375,7 +390,7 @@ use function PHPSTORM_META\type;
                     $C = "SM";
                     break;
                 default:
-                    echo $this->view("admin/AddUser", ["error" => "Invalid Role"]);
+                    echo $this->view("admin/addsystemuser", ["error" => "Invalid Role"]);
                     return;
             }
         
@@ -397,7 +412,7 @@ use function PHPSTORM_META\type;
         function loadUsersView(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -412,7 +427,7 @@ use function PHPSTORM_META\type;
         function deletesystemuser($id){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -428,7 +443,7 @@ use function PHPSTORM_META\type;
         function editsystemuser(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -553,10 +568,14 @@ use function PHPSTORM_META\type;
                 $data['UserName'] = $_POST['UserName'];
             }
         
-            if ($_POST['Password'] == $_SESSION["USER"]->Password){
+            $verifiedpassword = password_verify($_POST["Password"], $_SESSION["USER"]->Password);
+
+            if ($verifiedpassword){
                 // Update data in the tables
                 echo $outlets->update($id, "OutletId", ["Manager" => $data["EmployeeNo"]]);
                 echo $systemuser->update($id, "UserID", $data);
+                $_SESSION["message"] = "User updated successfully";
+                
                 $this->redirect(BASE_URL."AdminControls/loadUsersView");
             } else {
                 $data = $systemuser->where("UserID", $id);
@@ -567,7 +586,7 @@ use function PHPSTORM_META\type;
         public function searchUsers() {
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -595,13 +614,33 @@ use function PHPSTORM_META\type;
         }
 
         public function ResetPassword($username){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+        
             $generatedpassword = uniqid();
             $passwordhashed = password_hash($generatedpassword, PASSWORD_DEFAULT);
             $systemuser = new Systemuser();
             $founduser = $systemuser->where("UserName", $username);
             $systemuser->update($username, "UserName", ["Password" => $passwordhashed, "ActiveState" => "FirstLogin"]);
             $mail = new Mail();
-            $mail->sendMail($founduser[0]->Email, "Password Reset", "Your password has been reset. Your new password is : ".$generatedpassword);
+            $emailed = $mail->sendMail($founduser[0]->Email, "Password Reset", "Your password has been reset. Your new password is : ".$generatedpassword);
+
+            if ($emailed){
+                $_SESSION["message"] = "Password reset email sent successfully";
+            } else {
+                $_SESSION["error"] = "Password reset email failed to send";
+            }
             $this->redirect(BASE_URL."AdminControls/loadUsersView");
         }
         
@@ -609,7 +648,7 @@ use function PHPSTORM_META\type;
         function AddUser(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -621,6 +660,15 @@ use function PHPSTORM_META\type;
 
         //view edit user page
         function EditUser($id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
             $systemuser = new Systemuser();
             $data = $systemuser->where("UserID", $id);
 
@@ -638,6 +686,20 @@ use function PHPSTORM_META\type;
             }else{
                 echo $this->view("admin/editsystemuser", ["data" => $data]);
             }
+        }
+
+        function viewUser($id){
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $systemuser = new Systemuser();
+            $data = $systemuser->where("UserID", $id);
+            echo $this->view("admin/viewmoreuser", ["data" => $data[0]]);
         }
 
         
@@ -769,7 +831,7 @@ use function PHPSTORM_META\type;
         function AddOutletview(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -809,7 +871,7 @@ use function PHPSTORM_META\type;
         function EditOutletView($id){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
@@ -951,8 +1013,10 @@ use function PHPSTORM_META\type;
                 $data['Manager'] = $_POST['Manager'];
             }
         
-            if ($_POST['Password'] == $_SESSION["USER"]->Password){
+            $verifiedpassword = password_verify($_POST["Password"], $_SESSION["USER"]->Password);
+            if ($verifiedpassword){
                 echo $outlets->update($id,"OutletID",$data);
+                $_SESSION["message"] = "Outlet updated successfully";
                 $this->redirect(BASE_URL."AdminControls/loadOutletsView");
             } else {
                 $outlets = new Outlet();
@@ -996,14 +1060,24 @@ use function PHPSTORM_META\type;
         function AddAdvertiesment(){
 
             if(!Auth::loggedIn()){
-                $this->redirect("CommonControls/loadLoginView");
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
             if(!Auth::isAdmin()){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
-            echo $this->view("admin/createadvertiesment");
+            if(session_status() == PHP_SESSION_NONE){
+                session_start();
+            }
+
+            if(isset($_SESSION["message"])){
+                $message = $_SESSION["message"];
+                unset($_SESSION["message"]);
+                echo $this->view("admin/createadvertiesment", ["message" => $message]);
+            }else{
+                echo $this->view("admin/createadvertiesment");
+            }
         }
 
         function createAdvertisement1() {
@@ -1025,10 +1099,8 @@ use function PHPSTORM_META\type;
             // Set the new filename based on the type
             if ($type == "Desktop") {
                 $newfilename = "bg1" . "." . $imageFileType;
-                echo $newfilename;
             } elseif ($type == "Mobile") {
                 $newfilename = "bg1m" . "." . $imageFileType;
-                echo $newfilename;
             } else {
                 // Handle other cases if needed
                 return false;
@@ -1036,13 +1108,14 @@ use function PHPSTORM_META\type;
         
             // Construct the final target file path
             $target_file = $target_dir . $newfilename;
-            echo $target_file;
         
             // Perform the upload
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            if ($imageFileType=='jpg' && move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)){
+                $_SESSION["message"] = "Advertiesment added successfully";
                 $this->redirect(BASE_URL."AdminControls/AddAdvertiesment");
             } else {
-                echo "Sorry, there was an error uploading your file.";
+                $error= "Sorry, there was an error uploading your file.this only support .jpg files.";
+                $this->view("admin/createadvertiesment", ["error" => $error]);
             }
         }
 
@@ -1065,10 +1138,8 @@ use function PHPSTORM_META\type;
             // Set the new filename based on the type
             if ($type == "Desktop") {
                 $newfilename = "bg2" . "." . $imageFileType;
-                echo $newfilename;
             } elseif ($type == "Mobile") {
                 $newfilename = "bg2m" . "." . $imageFileType;
-                echo $newfilename;
             } else {
                 // Handle other cases if needed
                 return false;
@@ -1076,13 +1147,14 @@ use function PHPSTORM_META\type;
         
             // Construct the final target file path
             $target_file = $target_dir . $newfilename;
-            echo $target_file;
         
             // Perform the upload
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            if ($imageFileType=='jpg' && move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $_SESSION["message"] = "Advertiesment added successfully";
                 $this->redirect(BASE_URL."AdminControls/AddAdvertiesment");
             } else {
-                echo "Sorry, there was an error uploading your file.";
+                $error = "Sorry, there was an error uploading your file. this only support .jpg files.";
+                $this->view("admin/createadvertiesment", ["error" => $error]);
             }
         }
 
@@ -1105,10 +1177,8 @@ use function PHPSTORM_META\type;
             // Set the new filename based on the type
             if ($type == "Desktop") {
                 $newfilename = "bg3" . "." . $imageFileType;
-                echo $newfilename;
             } elseif ($type == "Mobile") {
                 $newfilename = "bg3m" . "." . $imageFileType;
-                echo $newfilename;
             } else {
                 // Handle other cases if needed
                 return false;
@@ -1116,17 +1186,149 @@ use function PHPSTORM_META\type;
         
             // Construct the final target file path
             $target_file = $target_dir . $newfilename;
-            echo $target_file;
         
             // Perform the upload
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            if ( $imageFileType=='jpg' && move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $_SESSION["message"] = "Advertiesment added successfully";
                 $this->redirect(BASE_URL."AdminControls/AddAdvertiesment");
             } else {
-                echo "Sorry, there was an error uploading your file.";
+                $error = "Sorry, there was an error uploading your file.this only support .jpg files.";
+                $this->view("admin/createadvertiesment", ["error" => $error]);
             }
         }
 
+        function addRawsview($itemid=null){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $productitem = new Productitem();
+            $stockitem = new StockItem();
+            $rawsforitem = new RawsForItem();
+
+            $stockitems = $stockitem->getDistinct("Name");
+
+            $maxitemid = $productitem->getMinMax("itemid", "max");
+            $maxitemid = $maxitemid[0]->{"max(itemid)"};
+            
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+            if(isset($_SESSION["message"])){
+                $message = $_SESSION["message"];
+                unset($_SESSION['message']);
+            }else{
+                $message = null;
+            }
+
+            if($itemid != null){
+                $raworderlines = $rawsforitem->where("itemid", $itemid);
+                echo $this->view("admin/addraws", ["maxitemid" => $itemid, "stockitems" => $stockitems ,"raworderlines" => $raworderlines, "message" => $message]);
+            }else{
+                echo $this->view("admin/addraws", ["maxitemid" => $maxitemid, "stockitems" => $stockitems,"raworderlines" => null, "message" => $message]);
+            }
+        }
+
+        function addRaws(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $raworderline = $_POST;
+
+            for ($i = 0; $i < count($raworderline["itemcode"]); $i++) {
+                $rawsforitem = new RawsForItem();
+                $rawsforitem->insert([
+                    "itemid" => $raworderline["itemid"][$i],
+                    "RawName" => $raworderline["itemcode"][$i],
+                    "quantity" => floatval($raworderline["quantity"][$i]),
+                ]);
+            }
+           
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            $_SESSION["message"] = "Raws and Item added successfully";
+        }
         
+        function loadDeliveryChargesView($message = null){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $deliverycharges = new DeliveryCharges();
+            $deliverycharges = $deliverycharges->findall();
+            if($message == "successed"){
+                echo $this->view("admin/updatedeliverycharges", ["deliverycharges" => $deliverycharges, "message" => "successfully updated"]);
+            }else{
+                echo $this->view("admin/updatedeliverycharges", ["deliverycharges" => $deliverycharges]);
+            }
+        }
+
+        function updateDeliveryCharges(){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
+            $deliverycharges = new DeliveryCharges();
+            $deliverychargesrow = $deliverycharges->where("city", $_POST["city"]);
+            $deliverychargesid = $deliverychargesrow[0]->charge_id ;
+            foreach ($_POST as $key => $value) {
+                if ($value !== "") {
+                    $result[$key] = $value;
+                }
+            }
+
+            $deliverycharges->update($deliverychargesid, "charge_id", $result);
+
+            $this->redirect(BASE_URL."AdminControls/loadDeliveryChargesView/successed");
+            
+        }
+
+        function deleteRaw($itemid, $id){
+
+            if(!Auth::loggedIn()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            if(!Auth::isAdmin()){
+                $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+            $rawsforitem = new RawsForItem();
+            $rawsforitem->delete($id, "id");
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();
+            }
+
+            $_SESSION["message"] = "Raw deleted successfully";
+
+            $this->redirect(BASE_URL."AdminControls/addRawsview/".$itemid);
+        }
 
     }
 ?>

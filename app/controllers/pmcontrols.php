@@ -17,25 +17,6 @@ class PmControls extends Controller
     }
     
                                     // CUSTOMER ORDERS
-    // Views
-   /* // Pending Orders View - customer
-    function pendingOrdersView()
-{
-    if (!Auth::loggedIn()) {
-        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        return;
-    }
-
-    if ($_SESSION["USER"]->Role !== "productionmanager") {
-        $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        return;
-    }
-
-    $ProductOrder = new ProductOrder;
-    $productorder = $ProductOrder->findCustomerOrders();
-    echo $this->view("productionmanager/pmorders", ["productorder" => $productorder]);
-} */
-
 // functions
     // Process Order - customer
     function processOrder($orderid)
@@ -91,7 +72,7 @@ class PmControls extends Controller
     }
 
     // Cancel Order - customer
-    function cancelOrder($orderid)
+   function cancelOrder($orderid)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -103,10 +84,12 @@ class PmControls extends Controller
         $productorder = new ProductOrder;
         $productorder->update($orderid, "orderid", ["orderstatus" => "cancled"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
-    }
+    } 
+
 
                                     //OUTLET ORDERS
-    //VIEWS
+
+//VIEWS
     //Outlet Orders View
     function outletOrdersView(){
         if (!Auth::loggedIn()) {
@@ -124,7 +107,7 @@ class PmControls extends Controller
         echo $this->view("productionmanager/outletorders", ["productorder"=>$productorder]);
     }
 
-    //FUNCTIONS
+//FUNCTIONS
     // Process Order - outlet
     function processOrderOutlet($orderid)
     {
@@ -140,23 +123,9 @@ class PmControls extends Controller
         $this->redirect(BASE_URL . "pmcontrols/outletOrdersView");
     }
 
-    // Complete Production Order - outlet
-    function completeProductionOrderOutlet($orderid)
-    {
-        if (!Auth::loggedIn()) {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-        if ($_SESSION["USER"]->Role != "productionmanager") {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-
-        $productorder = new ProductOrder;
-        $productorder->update($orderid, "orderid", ["orderstatus" => "finishedproduction"]);
-        $this->redirect(BASE_URL . "pmcontrols/index");
-    }
 
     // Complete Order - outlet
-    function completeOrderOutlet($orderid)
+    function completeProductionOrderOutlet($orderid)
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -193,8 +162,9 @@ class PmControls extends Controller
     }
 
 
-                                                            // VEHICLE
-    // VIEWS
+                                                                // VEHICLE
+
+// VIEWS
     // Load Vehicle View
     function loadVehiclesView()
     {
@@ -253,7 +223,7 @@ class PmControls extends Controller
         echo $this->view("productionmanager/editvehicle", ["data"=>$data]);
     }
 
-    // FUNCTIONS
+// FUNCTIONS
     // Create Vehicle
     function createVehicle()
     {
@@ -342,7 +312,7 @@ class PmControls extends Controller
 
         var_dump($data);
         $vehicle->update($vehicleid,"vehicleno",$data);
-        echo $this->redirect("productionmanager/loadVehiclesView");
+        $this->redirect(BASE_URL . "pmcontrols/loadVehiclesView");
     }
 
     // Delete Vehicle
@@ -361,7 +331,7 @@ class PmControls extends Controller
         $this->redirect(BASE_URL . "pmControls/loadVehiclesView");
     }
 
-    // Assign Vehicle - cutomer order
+    // Assign Vehicle - customer order
     function assignVehicle($vehicleno, $orderid)
     {
         if (!Auth::loggedIn()) {
@@ -401,6 +371,7 @@ class PmControls extends Controller
         }else{
             $this->redirect(BASE_URL . "pmcontrols/index");
         } */
+        $this->redirect(BASE_URL . "pmcontrols/index");
     }
 
     // Assign Vehicle - outlet order
@@ -443,6 +414,7 @@ class PmControls extends Controller
         }else{
             $this->redirect(BASE_URL . "pmcontrols/outletOrdersView");
         } */
+        $this->redirect(BASE_URL . "pmcontrols/outletOrdersView");
     }
 
     //Search Vehicle
@@ -463,23 +435,23 @@ class PmControls extends Controller
         $vehicleByCapacity = $vehicle->where("capacity",$searchQuery);
 
         if($vehicleByType){
-            echo $this->view("productionmanager/vehicles",["vehicles",$vehicleByType]);
+            echo $this->view("productionmanager/vehicles",["vehicles"=>$vehicleByType]);
         }
         else if($vehicleByRegNo){
-            echo $this->view("productionmanager/vehicles",["vehicles",$vehicleByRegNo]);
+            echo $this->view("productionmanager/vehicles",["vehicles"=>$vehicleByRegNo]);
         }
         else if($vehicleByCapacity){
-            echo $this->view("productionmanager/vehicles",["vehicles",$vehicleByCapacity]);
+            echo $this->view("productionmanager/vehicles",["vehicles"=>$vehicleByCapacity]);
         }
         else{
-            $this->redirect(BASE_URL."pmcontrols/loadVehiclesView");
+            $this->redirect(BASE_URL . "pmcontrols/loadVehiclesView");
         }
     }
     
 
 
-    // RAW MATERIALS
-    // views
+                                                            // RAW MATERIALS
+// VIEWS
     // Raw Materials Request View
     function rmView()
     {
@@ -490,10 +462,12 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
+        // find tomorrow product order lines 
         $ProductOrder = new ProductOrder;
         $orders = $ProductOrder->tomarrowOrders();
         $productorder = $ProductOrder->findall();
 
+        // get all unique ids of orders tomorrow
         foreach ($orders as $order) {
             $uniqueIds[] = $order->unique_id;
         }
@@ -501,55 +475,136 @@ class PmControls extends Controller
         $productorderline = new ProductOrderLine();
         $productorderlines = $productorderline->productOrderLinesbyUniqueIds($uniqueIds);
 
-        $unique_id = uniqid();
+        // find all items ids in product order lines and calculate raws
+        $rawsforitems = new RawsForItem();
 
+
+        $aggregateArray = [];
+
+        foreach ($productorderlines as $productorderline) {
+
+            $itemid = $productorderline->itemid;
+            $itemquantity = floatval($productorderline->quantity);
+            $rawforitemtomorrow = $rawsforitems->RawsForItemsbyItemIDs($itemid, $itemquantity);
+            
+            // Iterate through each result obtained from RawsForItemsbyItemIDs and append it to the aggregate array
+            foreach ($rawforitemtomorrow as $raw) {
+                $rawName = $raw->RawName; 
+                $subtotalquantity = (float)$raw->subtotalquantity; // without fliat some items get as string
+                // If the RawName already exists in the aggregate array, accumulate the subtotalquantity
+                if (isset($aggregateArray[$rawName])) {
+                    $aggregateArray[$rawName]['subtotalquantity'] += $subtotalquantity;
+                } else { 
+                    $aggregateArray[$rawName] = [
+                        "rawName" => $rawName,
+                        'subtotalquantity' => $subtotalquantity,
+                    ];
+                }
+            }
+         }
+
+        // Round up the quantities
+        $roundedArray = [];
+        $keys = array_keys($aggregateArray);
+
+        $lastKey = end($keys);
+        
+        foreach ($aggregateArray as $rawName => $data) {
+            $roundedQuantity = ceil($data['subtotalquantity']);
+            $roundedArray[$rawName] = [
+                'rawName' => $rawName,
+                'subtotalquantity' => $roundedQuantity,
+            ];
+        }
+        
+        // get all raws for tomorrow
+        $autocalucalatedraws = $roundedArray;
+        
+        
+        //var_dump($rawsfortomorrow);
         $stockitem = new StockItem();
         $stockitems = $stockitem->getDistinct("Name");
 
+
+        // stock order lines
         $tomorrow = date("Y-m-d", strtotime('+1 day'));
         $stockorder = new StockOrder();
         $placedstockorder = $stockorder->where("ondate", $tomorrow);
 
+        // prevent inserting twice autocalculations
+        if($placedstockorder == null){
+            $_SESSION['autocalucalatedraws'] = $autocalucalatedraws;
+        }
+
         $stocorderlines = new StockOrderLine();
+
+        // if there there is placed stock request use the unique ID of that
         if($placedstockorder != null){
             foreach ($placedstockorder as $stockorder) {
                 $StockuniqueIds[] = $stockorder->unique_id;
             }
             $stockorderlines = $stocorderlines->StockOrderLinesbyUniqueIds($StockuniqueIds);
-        
+            $unique_id = $StockuniqueIds[0];
+        }else{
+               // else genrate a new unique id
+              $unique_id = uniqid();
         }
 
         if($productorderlines != null && $placedstockorder != null){
-            echo $this->view("productionmanager/rmrequests", ["productorderlines" => $productorderlines, "unique_id" => $unique_id, "stockitems" => $stockitems, "placedstockorder" => $placedstockorder, "stockorderlines" => $stockorderlines]);
+            echo $this->view("productionmanager/rmrequests", ["productorderlines" => $productorderlines, "unique_id" => $unique_id, "stockitems" => $stockitems, "placedstockorder" => $placedstockorder, "stockorderlines" => $stockorderlines, "autocalucalatedraws" => $autocalucalatedraws]);
         }else{
-            echo $this->view("productionmanager/rmrequests", ["productorderlines" => $productorderlines, "unique_id" => $unique_id, "stockitems" => $stockitems, "placedstockorder" => $placedstockorder]);
+            echo $this->view("productionmanager/rmrequests", ["productorderlines" => $productorderlines, "unique_id" => $unique_id, "stockitems" => $stockitems, "placedstockorder" => $placedstockorder, "autocalucalatedraws" => $autocalucalatedraws]);
         }
-    
-        }
-
-    function InstertRawMaterialRequest(){
-        if (!Auth::loggedIn()) {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-        if ($_SESSION["USER"]->Role != "productionmanager") {
-            $this->redirect(BASE_URL . "CommonControls/loadLoginView");
-        }
-
-        $stockorderlines = $_POST;
         
-        for ($i = 0; $i < count($stockorderlines['itemcode']); $i++) {
-            $stockorderline = new StockOrderLine();
-            $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][$i], "RawName" => $stockorderlines['itemcode'][$i], "quantity" => $stockorderlines['quantity'][$i]]);
         }
 
-        $tomorrow = date("Y-m-d", strtotime('+1 day'));
 
-        $stockorder = new StockOrder();
-        $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow]);
+        // Raw Materials Request
         
-        $this->redirect(BASE_URL . "pmcontrols/rmView");
-    }
-
+        function InstertRawMaterialRequest(){
+            if (!Auth::loggedIn()) {
+                $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+            }
+            if ($_SESSION["USER"]->Role != "productionmanager") {
+                $this->redirect(BASE_URL . "CommonControls/loadLoginView");
+            }
+        
+            $stockorderlines = $_POST;
+            
+            for ($i = 0; $i < count($stockorderlines['itemcode']); $i++) {
+                $stockorderline = new StockOrderLine();
+                if($stockorderlines['itemcode'][$i] == "Select Item" || $stockorderlines['quantity'][$i] == null ){
+                    continue;
+                }else{
+                    $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][$i], "RawName" => $stockorderlines['itemcode'][$i], "quantity" => $stockorderlines['quantity'][$i], 'req_type'=>'custom']);
+                }
+            }
+        
+            $autocalculatedraws = $_SESSION['autocalucalatedraws'];
+            if($autocalculatedraws != null){
+                foreach ($autocalculatedraws as $raw) {
+                    $stockorderline = new StockOrderLine();
+                    $stockorderline->insert(["unique_id" => $stockorderlines['uniqueid'][0], "RawName" => $raw['rawName'], "quantity" => $raw['subtotalquantity'], 'req_type'=>'auto']);
+                }
+            }
+        
+            $tomorrow = date("Y-m-d", strtotime('+1 day'));
+        
+            $stockorder = new StockOrder();
+        
+            if($stockorderlines['comment'] == null){
+                if($stockorderlines['$stockorderlines'] != null){
+                    $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow, "comment" => "customer added"]);
+                }else{
+                    $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow]);
+                }
+            }else{
+                $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow ,'comment' => $stockorderlines['comment']]);
+            }
+            
+            $this->redirect(BASE_URL . "pmcontrols/rmView");
+        }
+        
     //Raw Materials History
     function rmHistoryView()
     {
@@ -560,11 +615,11 @@ class PmControls extends Controller
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
 
-        $ProductOrder = new ProductOrder;
-        $productorder = $ProductOrder->findall();
+        $StockOrder = new StockOrder;
+        $stockorder = $StockOrder->findAllRM();
 
-echo $this->view("productionmanager/rmrequesthistory", ["productorder" => $productorder]);
-}
+        echo $this->view("productionmanager/rmrequesthistory", ["stockorder" => $stockorder]);
+    }
 
 
 }

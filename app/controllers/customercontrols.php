@@ -9,11 +9,28 @@
             }
 
             $customer = new Customer();
-            $data = $customer->where("UserName", $_SESSION["USER"]->UserName);
-            echo $this->view("customer/customerdash",[ "data" => $data]);
-        }
+            $productorder = new ProductOrder();
 
-        function profile(){
+            
+            $productitem = new ProductItem();
+            $productorderline = new ProductOrderLine();
+            $productorderlines = $productorderline->SumProductItemsGroupByIDandCategory();
+            $mostsellingitems = array_slice($productorderlines, 0, 2);
+
+            $latestaddeditems = $productitem->getlatestProductItems();
+
+            $mostPurchasedItems = [];
+
+            foreach ($mostsellingitems as $item) {
+                $product = $productitem->where("itemid", $item->itemid);
+                array_push($mostPurchasedItems, $product);
+            }
+            
+            echo $this->view("customer/customerdash",[ "mostPurchasedItems" => $mostPurchasedItems, "latestaddeditems" => $latestaddeditems]);
+        }
+    
+
+        function profile($message=null){
             if(!Auth::loggedIn()){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
@@ -82,7 +99,7 @@
             } else {
                 $mostPurchasedItems = "No data available.";
             }
-
+            
             echo $this->view("customer/profile",[ "data" => $data, "orders" => $orders, "productorderlines" => $productorderlines, "mostPurchasedItems" => $mostPurchasedItems,"itemQuantities"=>$itemQuantities]);
         }
 
@@ -174,7 +191,7 @@
                         } else {
                             $_SESSION["USER"] = $customer->where("UserName", $_SESSION["USER"]->UserName)[0];
                         }
-                        $this->redirect(BASE_URL."CustomerControls/profile");
+                        $this->redirect(BASE_URL."CustomerControls/profile/success");
                     }
 
                     else{
@@ -249,8 +266,13 @@
             if(isset($_SESSION["USER"]->Role)){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
+
+
+            if(session_status() == PHP_SESSION_NONE){
+                session_start();
+            }
     
-                if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $currentpassword = $_POST['currentpassword'];
                     $newpassword = $_POST['newpassword'];
                     $confirmpassword = $_POST['confirmpassword'];
@@ -276,10 +298,27 @@
                         }
                     }
                     else{
+
+                        if(isset($_SESSION['loginattempts'])){
+                            $_SESSION['loginattempts'] = $_SESSION['loginattempts'] + 1;
+                        }else{
+                            $_SESSION['loginattempts'] = 1;
+                        }
+
+                        if($_SESSION['loginattempts'] >= 5){
+                            $email = $customerfound[0]->Email;
+                            $subject = "Security Alert";
+                            $message = "There are suspicious activities on your account. Please change your password.";
+                            $mail = new Mail();
+                            $mail->sendMail($email,$subject,$message);
+                            unset($_SESSION['loginattempts']);
+                            $this->redirect(BASE_URL."CommonControls/loadLoginView");
+                        }
                         echo $this->view("customer/changepassword",["error"=>"Current password is incorrect"]);
                     }
-                }
-                else{
+
+            }
+            else{
                     echo $this->view("customer/changepassword",["error"=>"Form not submitted!"]);
                 }
         }
@@ -336,7 +375,6 @@
 
            $arr["placeby"] = $_SESSION["USER"]->UserName;
            $arr["address"] = $_SESSION["USER"]->Address;
-           $arr["inquirysubject"] = $_POST["inquirytype"];
            $arr["inquirytext"] = $_POST["inquirytext"];
         
 

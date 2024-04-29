@@ -12,6 +12,7 @@
 
         <?php
                 include 'customernav.php';
+                
         ?>
 
         <?php

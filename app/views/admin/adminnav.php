@@ -26,6 +26,7 @@
             <li><a onclick="loadOutlets(this)">Outlets</a></li>
             <li><a onclick="loadUsers(this)">Users</a></li>
             <li><a onclick="advertiesments(this)">Advertiesments</a></li>
+            <li><a onclick="deliverycahrges(this)">Update Charges</a></li>
             <li><a onclick="logout(this)">logout</a></li>
             
         </ul>
@@ -91,6 +92,11 @@
         function advertiesments(link) {
             changeActive(link);
             window.location.href = BASE_URL + "AdminControls/AddAdvertiesment";
+        }
+
+        function deliverycahrges(link) {
+            changeActive(link);
+            window.location.href = BASE_URL + "AdminControls/loadDeliveryChargesView";
         }
 
         function logout(link) {

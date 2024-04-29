@@ -17,23 +17,14 @@
     <section>
         <div class="form-container">
         <form class="form" action="<?php echo BASE_URL; ?>customercontrols/makeinquiry" method="post">
-            
+            <h1 style="text-align: center;">Place Your Feedbacks</h1>
+            <br>
             <div class="form-group">
-                    <label for="inquirytype">INQUIRY TYPE:</label>
-                    <select id="inquirytype" name="inquirytype" required>
-                        <option value="Complaint">Complaint</option>
-                        <option value="Suggestion">Suggestion</option>
-                        <option value="Inquiry">Inquiry</option>
-                    </select><br>
-            </div>
-
-            <div class="form-group">
-                    <label for="inquirytext">INQUIRY:</label>
                     <textarea id="inquirytext" name="inquirytext" row="10" required></textarea><br>
                     <p id="charCount" style="font-size: 10px;">Characters remaining: 250</p>
             </div>
                 
-                <input class="bluebutton"  type="submit" value="SUBMIT">
+                <input class="bluebutton"  type="submit" value="Submit">
             </form>
         </div>
     </section>

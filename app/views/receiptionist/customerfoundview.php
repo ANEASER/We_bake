@@ -34,7 +34,7 @@
                 }
            </style>
            <section class="buttongroup" style="display:flex; justify-content:center">
-                <button class="greenbutton" onclick="thisisme('<?php echo $customer[0]->Name; ?>')">Yes</button>
+                <button class="greenbutton" onclick="thisisme('<?php echo $customer[0]->UserName; ?>')">Yes</button>
                 <button class="yellowbutton" onclick="thisisnotme()">This Not Me</button>
            </section>
     </div>

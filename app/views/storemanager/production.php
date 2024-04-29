@@ -15,38 +15,35 @@
 
     
 
-    <div class="content">
-        <h1>Production requests</h1>
-        
-    </div>
-
-    <!-- <section style="display:flex;justify-content:space-around; width:100%">
-    <?php //The table structure 
-        if (count($stocks) > 0){
+    <section style="display:flex;justify-content:space-around; width:100%; margin-top: 30px;">
+     <?php //The table structure 
+        if (count($stockorder) > 0){
             echo '<table style="width:90%">';
             echo '<tr>
-                    <th> Item ID </th>
-                    <th> Name </th>
-                    <th> Item Type </th>
-                    <th> Unit of Measurement</th>
-                    <th> Available Stock</th>
-                    <th> Minimum Stock</th>
-                    <th> Critical Stock</th>
-                    <th> Update</th>
-                    <th> Delete</th>
+                    <th> Order ID </th>
+                    <th> Unique ID </th>
+                    <th> Order Date </th>
+                    <th> Comment </th>
+                    <th> Status</th>
+                    <th> View Order</th>
+                    <th> Accept Order</th>
                 </tr>';
 
-                foreach($stocks as $stocks){
+                foreach($stockorder as $stockorder){
                     echo '<tr>';
-                    echo '<td>' . $stocks->ItemID . '</td>';
-                    echo '<td>' . $stocks->Name . '</td>';
-                    echo '<td>' . $stocks->Type . '</td>';
-                    echo '<td>' . $stocks->UnitOfMeasurement . '</td>';
-                    echo '<td>' . $stocks->AvailableStock . '</td>';
-                    echo '<td>' . $stocks->MinimumStock . '</td>';
-                    echo '<td>' . $stocks->CriticalStock . '</td>';
-                    echo '<td> <button class="yellowbutton" onclick="updateStocks(' . $stocks->ItemID . ')">Update</button></td>';
-                    echo '<td class="hideonmobile"><button class="redbutton" onclick="deleteStocks(' . $stocks->ItemID . ')">Delete</button></td>';
+                    echo '<td>' . $stockorder->id . '</td>';
+                    echo '<td>' . $stockorder->unique_id . '</td>';
+                    echo '<td>' . $stockorder->ondate . '</td>';
+                    echo '<td>' . $stockorder->comment . '</td>';
+                    echo '<td>' . $stockorder->status . '</td>';
+                    echo '<td> <button class="yellowbutton" onclick="view(\'' . $stockorder->unique_id . '\')">View</button></td>';
+                    echo '<td>';
+                    if ($stockorder->status == 'pending') {
+                        echo '<button class="greenbutton" onclick="accept(\'' . $stockorder->unique_id .'\')">Accept</button>';
+                    } else {
+                        echo '<button class="bluebutton">Accepted</button>';
+                    }
+                    echo '</td>';
                     echo '</tr>';
 
                 }
@@ -59,22 +56,19 @@
         }
         
     ?>
-    </section> -->
+    </section>
     <script>
 
         var BASE_URL = "<?php echo BASE_URL; ?>";
 
-        // function addStockItem() {
-        //     window.location.href = BASE_URL +  "StoreControls/addStock";
-        // }
+        function view(unique_id) {
+            window.location.href = BASE_URL +  "StoreControls/loadViewOrder/"+unique_id;
+        }
 
-        // function updateStocks() {
-        //     window.location.href = BASE_URL +  "StoreControls/updateStocks";
-        // }
+        function accept(unique_id) {
+            window.location.href = BASE_URL +  "StoreControls/acceptFullOrder/"+unique_id;
+        }
 
-        // function deleteStocks() {
-        //     window.location.href = BASE_URL +  "StoreControls/deleteStocks";
-        // }
 
     </script>
 </body>

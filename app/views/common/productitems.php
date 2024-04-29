@@ -14,7 +14,7 @@
         session_start();
         if(isset($_SESSION["USER"])){
             if($_SESSION["USER"]->Role == 'admin'){
-                include '..\app\views\admin\adminnav.php';
+                include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'admin' . DIRECTORY_SEPARATOR . 'adminnav.php';
             }
             else {
                 include 'commonnav.php';
@@ -25,7 +25,7 @@
         }
     ?>
     
-    <div class="menu-category">
+    <div class="menu-category" style="width: 100%;">
                             <?php
                                 if(isset($_SESSION["USER"]) && ($_SESSION["USER"]->Role == 'admin')){
                                     echo '<div class="menu-item" style="height: 330px;" onclick="add()">
@@ -47,7 +47,7 @@
                                         echo '<input type="hidden" name="items[' . $item->itemid . '][code]" value="' . $item->Itemcode . '">';
                                         echo '<input type="hidden" name="items[' . $item->itemid . '][name]" value="' . $item->itemname . '">';
                                         echo '<input type="hidden" name="items[' . $item->itemid . '][price]" value="' . $item->retailprice . '">';
-                                        echo '<p style="text-align:center"> Price :' . $item->retailprice.'</p>';
+                                        echo '<p style="text-align:center">Rs ' . $item->retailprice.'.00</p>';
                                         if ($item->availability == 0) {
                                             echo '<p style="color:red;text-align:center">Not Available</p>';
                                         } else{
@@ -56,6 +56,7 @@
                                         if($_SESSION["USER"]->Role == 'admin'){
                                             echo '<div style="display:flex;flex-direction:row;justify-content:center">';
                                                 echo '<button style="width: 80px;" onclick="edit(' . $item->itemid . ')">Update</button>';
+                                                echo '<button style="width: 80px;" onclick="addrows(' . $item->itemid . ')">Raws</button>';
                                             echo '</div>';
                                         }
                                         
@@ -76,6 +77,10 @@
 
         function edit(itemid) {
             window.location.href = BASE_URL + "AdminControls/EditItem/"+itemid;
+        }
+
+        function addrows(itemid) { 
+            window.location.href = BASE_URL + "AdminControls/addRawsview/"+itemid;
         }
         
     </script>

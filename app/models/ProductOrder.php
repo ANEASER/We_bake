@@ -12,7 +12,7 @@ class ProductOrder extends Model {
     public function findCustomerOrders() {
         $query = "SELECT * FROM $this->table 
         WHERE orderref LIKE 'C%' OR orderref LIKE 'R%' 
-        ORDER BY orderid DESC";
+        ORDER BY orderdate ASC";
         return $this->query($query, []);
     }
 
@@ -20,9 +20,11 @@ class ProductOrder extends Model {
     public function findOutletOrders(){
         $query = "SELECT * FROM $this->table 
         WHERE orderref LIKE 'OP%'
-        ORDER BY orderid DESC";
+        ORDER BY orderdate ASC";
         return $this->query($query, []);
     }
+
+   
 
     // anuda
     public function findalldescwithplaceby($placeby) {
@@ -53,6 +55,16 @@ class ProductOrder extends Model {
 
     public function tomarrowOrders() {
         $query = "SELECT * FROM $this->table WHERE orderdate = CURDATE() + INTERVAL 1 DAY";
+        return $this->query($query, []);
+    }
+
+    public function findbetweendates($fromdate, $todate) {
+        $query = "SELECT * FROM $this->table WHERE orderdate BETWEEN '$fromdate' AND '$todate'";
+        return $this->query($query, []);
+    }
+
+    public function ordaerrefalike() {
+        $query = "SELECT * FROM $this->table WHERE orderref LIKE 'R%' ";  // find all orders reference number starting with 'R'
         return $this->query($query, []);
     }
 
