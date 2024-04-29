@@ -20,6 +20,51 @@
 <body>
     <?php
         include "smnavbar.php";
+
+        if (isset($error)){
+            echo "<script>
+
+            const SwalwithButton = Swal.mixin({
+                customClass: {
+                    confirmButton: 'greenbutton',
+                },
+                buttonsStyling: false
+            });
+
+            
+            if (typeof Swal !== 'undefined') {
+                SwalwithButton.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '$error',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                alert('$error');
+            }
+          </script>";}
+        elseif (isset($message)){
+            echo "<script>
+
+            const SwalwithButton = Swal.mixin({
+                customClass: {
+                    confirmButton: 'greenbutton',
+                },
+                buttonsStyling: false
+            });
+
+            
+            if (typeof Swal !== 'undefined') {
+                SwalwithButton.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '$message',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                alert('$message');
+            }
+          </script>";}
     ?>
 
     
@@ -36,7 +81,6 @@
             echo '<tr>
                     <th> Item Name </th>
                     <th> Quantity </th>
-                    <th> Unit of Measurement </th>
                     <th> Request Type</th>
                     <th> Accept</th>
                 </tr>';
