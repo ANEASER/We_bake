@@ -61,7 +61,7 @@
             <th>Registration Number</th>
             <th>Vehicle Type</th>
             <th>Model Name</th>
-            <th>Capacity</th>
+            <th>Capacity(No.of Containers)</th>
             <th>Assign Vehicle</th>
         </tr>';
 

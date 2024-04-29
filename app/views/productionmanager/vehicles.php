@@ -74,7 +74,7 @@
                 <th>Vehicle Number</th>
                 <th>Chassi Number</th>
                 <th>Engine Number</th>
-                <th>Capacity</th>
+                <th>Capacity(No.of Containers)</th>
                 <th>Availability</th>
                 <th>Update</th>
                 <th>Delete</th>
