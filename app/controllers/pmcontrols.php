@@ -30,13 +30,18 @@ class PmControls extends Controller
         }
 
         $productorder = new ProductOrder;
+       
+        //Email
         $mail = new Mail();
-
-        $productorderline = $productorder->where("orderid", $orderid);
-        $productorderline = $productorderline[0];
-        $orderemail = $productorderline->Email;
-
+        $customer = new Customer;
+        
+        $productorderlines = $productorder->where("orderid", $orderid);
+        $username = $productorderlines[0]->placeby;
+        $foundcustomer = $customer->where("UserName", $username);
+        $orderemail = $foundcustomer[0]->Email;
         $mail->sendMail($orderemail, "Order Processing", "Your Order is now processing");
+       
+        //Status change  
         $productorder->update($orderid, "orderid", ["orderstatus" => "processing"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
     }
@@ -68,14 +73,26 @@ class PmControls extends Controller
         }
 
         $productorder = new ProductOrder;
-        $vehicle = new Vehicle;
         
+        //Email
+        $mail = new Mail();
+        $customer = new Customer;
+        $productorderlines = $productorder->where("orderid", $orderid);
+        $username = $productorderlines[0]->placeby;
+        $foundcustomer = $customer->where("UserName", $username);
+        $orderemail = $foundcustomer[0]->Email;
+        $mail->sendMail($orderemail, "Order Completed", "Your Order is now completed");
+        
+        
+        $vehicle = new Vehicle;
+
+        //Vehicle avialbility
         $order = $productorder->where("orderid", $orderid);
         $vehicleno = $order[0]->deliverby;
-        
-        $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
         $vehicle->update($vehicleno,"registrationnumber",["availability"=>1]);
 
+        //Status change
+        $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
     }
 
@@ -90,6 +107,17 @@ class PmControls extends Controller
         }
 
         $productorder = new ProductOrder;
+
+        //Email
+        $mail = new Mail();
+        $customer = new Customer;
+        $productorderlines = $productorder->where("orderid", $orderid);
+        $username = $productorderlines[0]->placeby;
+        $foundcustomer = $customer->where("UserName", $username);
+        $orderemail = $foundcustomer[0]->Email;
+        $mail->sendMail($orderemail, "Order Cancled", "Your Order is cancled");
+
+        //Status change
         $productorder->update($orderid, "orderid", ["orderstatus" => "cancled"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
     } 
@@ -201,7 +229,7 @@ class PmControls extends Controller
     }
     
     // Assign Vehicle View 
-    function assignVehicleView($orderid) //, $capacity
+    function assignVehicleView($orderid) 
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -211,8 +239,7 @@ class PmControls extends Controller
         }
 
         $vehicle = new vehicle;
-        //$capacity = $vehicle->where("capacity", $capacity);
-        $vehicles = $vehicle->assignVehicle(); //$capacity
+        $vehicles = $vehicle->assignVehicle(); 
 
         echo $this->view("productionmanager/assignvehicle", ["orderid"=>$orderid, "vehicles"=>$vehicles]);
     }
