@@ -159,7 +159,6 @@
                 <th>Payment Status</th>
                 <th>Order Status</th>
                 <th>Total</th>
-                <th>Deliver By</th>
                 <th>Deliver Address</th>
                 <th>More Details</th>
             </tr>";
@@ -174,7 +173,6 @@
                 echo "<td>".$ProductOrder->paymentstatus."</td>";
                 echo "<td>".$ProductOrder->orderstatus."</td>";
                 echo "<td>".$ProductOrder->total."</td>";
-                echo "<td>".$ProductOrder->deliverby."</td>";
                 echo "<td>".$ProductOrder->deliver_address."</td>";
                 echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                 echo "</tr>";
@@ -195,7 +193,6 @@
                 <th>Payment Status</th>
                 <th>Order Status</th>
                 <th>Total</th>
-                <th>Deliver By</th>
                 <th>Deliver Address</th>
                 <th>More Details</th>
             </tr>";
@@ -210,7 +207,6 @@
                 echo "<td>".$ProductOrder->paymentstatus."</td>";
                 echo "<td>".$ProductOrder->orderstatus."</td>";
                 echo "<td>".$ProductOrder->total."</td>";
-                echo "<td>".$ProductOrder->deliverby."</td>";
                 echo "<td>".$ProductOrder->deliver_address."</td>";
                 echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
                 echo "</tr>";
