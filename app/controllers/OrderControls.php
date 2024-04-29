@@ -266,8 +266,9 @@
             if(isset($_SESSION['USER']->Role)){
                 if($_SESSION['USER']->Role == "outletmanager"){
                     $orderref = "O".$orderref;
-                    $arr2["placeby"] = $_SESSION["USER"]->EmployeeNo;
+                    $arr2["placeby"] = $_SESSION["adress"];
                     $arr2["paymentstatus"] = "paid";
+                    $arr2["order_type"] = $_SESSION["order_type"];
                 }
                 else if($_SESSION['USER']->Role == "receptionist"){
 

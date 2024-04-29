@@ -1260,7 +1260,8 @@ use function PHPSTORM_META\type;
                 session_start();
             }
 
-            $_SESSION["message"] = "Raws and Item added successfully";
+            $_SESSION["message"] = "Successed";
+            //$this->redirect(BASE_URL."CommonControls/loadProductsView");
         }
         
         function loadDeliveryChargesView($message = null){
