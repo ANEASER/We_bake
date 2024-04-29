@@ -69,12 +69,7 @@
 
     
 
-    <div class="content">
-        <h1>Production Order</h1>
-        
-    </div>
-
-    <section style="display:flex;justify-content:space-around; width:100%">
+    <section style="display:flex;justify-content:space-around; width:100%; margin-top:20px;">
     <?php //The table structure 
         if (count($stockorderline) > 0){
             echo '<table style="width:90%">';
@@ -92,7 +87,7 @@
                     echo '<td>' . $stockorderline->req_type . '</td>';
                     echo '<td>';
                     if ($stockorderline->status == 'pending') {
-                        echo '<button class="greenbutton" onclick="acceptOrder(' . $stockorderline->id . ')">Accept</button>';
+                        echo '<button class="green-button-prodorder" onclick="acceptOrder(' . $stockorderline->id . ')">Accept</button>';
                     } else {
                         echo '<button class="bluebutton">Accepted</button>';
                     }
