@@ -625,6 +625,7 @@ class StoreControls extends Controller {
 
             if($stockQty<$requestedqty){
                 echo "<script>alert('Stock is not enough to fulfill the order')</script>";
+                $_SESSION["error"] = "Stock is not enough to fulfill the order, Accept one by one.";
                 $this->redirect(BASE_URL . "StoreControls/loadViewOrder/".$unique_id);
             }
 
