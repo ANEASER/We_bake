@@ -79,7 +79,7 @@
 
         echo '</table>';
         echo'<br>';
-        echo '<p> *note order referecne start by "R" placed through recieptionist</p>';
+        echo '<p> *note order reference start by "R" placed through recieptionist</p>';
         echo'<br>';
     ?>
     <?php
