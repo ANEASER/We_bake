@@ -13,13 +13,8 @@
         include "ownernavbar.php";
     ?>
 
-    <div class="content">   
-        <h1>Feedback</h1>
-        
-    </div>
 
-
-    <section style="display:flex;justify-content:space-around; width:100%">
+    <section style="display:flex;justify-content:space-around; width:100%; margin-top:20px;">
     <?php //The table structure 
         if (count($inquiry) > 0){
             echo '<table style="width:90%">';
