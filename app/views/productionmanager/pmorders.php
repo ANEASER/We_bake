@@ -192,7 +192,12 @@
         }
 
         echo '</div>';
-        echo '</div>';*/
+        echo '</div>';
+        
+        <?php 
+        alert("Order Processed"); 
+        ?>*/
+
         echo "</div>";
     ?>
 
@@ -685,6 +690,11 @@
         window.location.href = BASE_URL + "pmcontrols/index";
     }
 
+   /* 
+    function alert($message) { 
+        alert('$message'); 
+    } 
+    */
     function validateProcess(){
             Swal.fire({
                 icon: 'error',
