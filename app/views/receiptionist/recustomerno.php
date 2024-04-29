@@ -22,18 +22,39 @@
  <section>
  <div class="form-container">
 
-<form class="form" method="POST" action="<?php echo BASE_URL; ?>RecieptionControls/customernumbersearch" class="formisland">
+ <form class="form" id="orderForm" method="POST" action="<?php echo BASE_URL; ?>RecieptionControls/customernumbersearch" class="formisland">
     <div class="form-group">
-        <h1> Place Order </h1>
+        <h1>Place Order</h1>
         <label for="telephoneno">Telephone No:</label>
-        <input type="numbers" id="telephoneno" name="telephoneno" required>
+        <input type="text" id="telephoneno" name="telephoneno" required>
+        <span id="error-message" style="color: red;"></span>
     </div>
-    <button class="greenbutton">Submit</button>
+    <button type="submit" class="greenbutton">Submit</button>
 </form>
 
 </div>
 </section>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var form = document.getElementById('orderForm');
+        form.addEventListener('submit', function(event) {
+            if (!validateForm()) {
+                event.preventDefault();
+            }
+        });
+    });
 
+    function validateForm() {
+        var phoneNumber = document.getElementById("telephoneno").value;
+        var errorMessage = document.getElementById("error-message");
+
+        if (phoneNumber.length < 10) {
+            errorMessage.textContent = "Please enter a valid contact number";
+            return false;
+        }
+        return true;
+    }
+</script>
 </body>
 </html>
 

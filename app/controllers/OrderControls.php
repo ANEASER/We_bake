@@ -1,6 +1,10 @@
 <?php
     class OrderControls extends Controller{
 
+        function index(){
+            $this->redirect(BASE_URL."OrderControls/placeorder");
+        }
+
         function placeorder(){
             if(!Auth::loggedIn()){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
@@ -316,11 +320,11 @@
             unset($_SESSION['unique_id']); 
 
             if($_SESSION['USER']->Role == "outletmanager"){
-                $this->redirect(BASE_URL."OutletControls/index");
+                $this->redirect(BASE_URL."OutletControls/purchasehistory");
             }else if($_SESSION['USER']->Role == "receptionist"){
-                $this->redirect(BASE_URL."RecieptionControls/index");
+                $this->redirect(BASE_URL."RecieptionControls/viewhistory");
             }else{
-                $this->redirect(BASE_URL."OrderControls/placeorder");
+                $this->redirect(BASE_URL."CustomerControls/purchasehistory");
             }
                 
         }
