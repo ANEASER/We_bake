@@ -110,6 +110,7 @@ class StoreControls extends Controller {
 
         $stockItem = new StockItem();
         $stocks = $stockItem->where("ItemID",$id);
+
         echo $this->view("storemanager/updatestock",  ["stocks" => $stocks]);   
     }
 

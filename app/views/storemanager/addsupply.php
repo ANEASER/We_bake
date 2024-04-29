@@ -25,18 +25,18 @@
         
 
             
-            <input type="hidden" id="StockItemID" name="StockItemID" value="<?php echo $stocks[0]->ItemID; ?>" >
+            <input type="hidden" id="StockItemID" name="StockItemID" value="<?php echo $stocks[0]->ItemID; ?>" readonly>
             
 
             <div class="form-group">
                 <label for="CustomStockItemID">Item ID:</label>
-                <input type="text" id="CustomStockItemID" name="CustomStockItemID" value="<?php echo $stocks[0]->CustomItemID; ?>" >
+                <input type="text" id="CustomStockItemID" name="CustomStockItemID" value="<?php echo $stocks[0]->CustomItemID; ?>" readonly>
             </div>
 
 
             <div class="form-group">
                 <label for="stockItemName">Item Name:</label>
-                <input type="text" id="stockItemName" name="stockItemName" value="<?php echo $stocks[0]->Name; ?>" required>
+                <input type="text" id="stockItemName" name="stockItemName" value="<?php echo $stocks[0]->Name; ?>" readonly>
             </div>
 
             <div class="form-group">

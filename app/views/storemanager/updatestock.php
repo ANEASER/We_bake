@@ -53,7 +53,7 @@
 
         <div class="form-group">
                 <label for="Name">Name:</label>
-                <input type="text" id="Name" name="Name" placeholder="<?php echo $stocks[0]->Name; ?>">
+                <input type="text" id="Name" name="Name" placeholder="<?php echo $stocks[0]->Name; ?>" readonly>
         </div>
 
         <div class="form-group">
