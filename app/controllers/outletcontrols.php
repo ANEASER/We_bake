@@ -15,20 +15,26 @@ class OutletControls extends Controller {
         
         $productorder = new ProductOrder();
 
-        $orders = $productorder->findLastOrderbyUser($_SESSION["USER"]->EmployeeNo);
+        $outlet = new Outlet();
+        $foundoutlet = $outlet->where("Manager", $_SESSION["USER"]->EmployeeNo);
+        $outletcode = $foundoutlet[0]->OutletCode;
+
+        
+        $orders = $productorder->findLastOrderbyUser($outletcode);
+        
 
         if($orders == null){
             $this->view("outlet/outletdash",["placefirstorder"=>"Place your first Order"]);
             
         }else{
 
-            $todayorder = $productorder->findOnTodaybyUserConstant($_SESSION["USER"]->EmployeeNo);
+            $todayorder = $productorder->findOnTodaybyUserConstant($outletcode);
 
             if($todayorder == null){
-                $todayorder = $productorder->findLastOrderbyUser($_SESSION["USER"]->EmployeeNo);
+                $todayorder = $productorder->findLastOrderbyUser($outletcode);
             }
 
-            $tommoroworder = $productorder->findOnTommorowbyUser($_SESSION["USER"]->EmployeeNo);
+            $tommoroworder = $productorder->findOnTommorowbyUser($outletcode);
 
             if($tommoroworder == null){
 
@@ -42,12 +48,12 @@ class OutletControls extends Controller {
 
                 $new_order = array(
                     "orderdate" => $tomorrow_date,
-                    "placeby" => $_SESSION["USER"]->EmployeeNo,
+                    "placeby" => $outletcode,
                     "paymentstatus" => "paid", 
                     "deliverystatus" => "outletpickup",
                     "orderstatus" => "pending",
                     "total" => $first_order->total,
-                    "pickername" => $_SESSION["USER"]->EmployeeNo,
+                    "pickername" =>  $outletcode,
                     "unique_id" => $first_order->unique_id,
                     "deliverby" => "outletpickup",
                     "deliver_address" => $first_order->deliver_address,
@@ -114,8 +120,12 @@ class OutletControls extends Controller {
             session_start();
         }
 
+        $outlet = new Outlet();
+        $foundoutlet = $outlet->where("Manager", $_SESSION["USER"]->EmployeeNo);
+        $outletcode = $foundoutlet[0]->OutletCode;
+
         $productorder = new ProductOrder();
-        $orders = $productorder->findalldescwithplaceby($_SESSION["USER"]->EmployeeNo);
+        $orders = $productorder->findalldescwithplaceby($outletcode);
         echo $this->view("outlet/outletpurchasehistory",["orders"=>$orders]);
 
      
@@ -126,9 +136,12 @@ class OutletControls extends Controller {
         
         session_start();
 
+        $outlet = new Outlet();
+        $foundoutlet = $outlet->where("Manager", $_SESSION["USER"]->EmployeeNo);
+
         $_SESSION["date"] = $_POST['orderdate'];
         $_SESSION["deliverstatus"] = "outletpickup";
-        $_SESSION['picker'] = $_SESSION["USER"]->EmployeeNo;
+        $_SESSION['picker'] =  $foundoutlet[0]->OutletCode;
         $_SESSION['order_type'] = $_POST['ordertype'];
 
         
@@ -138,9 +151,6 @@ class OutletControls extends Controller {
          }
 
         $unique_id = uniqid();
-
-        $outlet = new Outlet();
-        $foundoutlet = $outlet->where("Manager", $_SESSION["USER"]->EmployeeNo);
 
         $_SESSION["adress"] = $foundoutlet[0]->OutletCode;
         $_SESSION['unique_id'] = $unique_id;

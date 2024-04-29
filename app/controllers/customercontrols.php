@@ -115,7 +115,7 @@
             }
 
             $productorder = new ProductOrder();
-            $orders = $productorder->findalldescwithplaceby($_SESSION["USER"]->UserName);
+            $orders = $productorder->findOrdersDecendingDate($_SESSION["USER"]->UserName);
             echo $this->view("customer/purchasehistory",[ "orders" => $orders]);
         }
 
