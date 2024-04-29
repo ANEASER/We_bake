@@ -172,7 +172,7 @@
                 session_start();
             }
     
-                if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $customer = new Customer();
 
                     if(!empty($_POST["username"])){
@@ -192,8 +192,17 @@
                     }
                     if(!empty($_POST["email"])){
                         $arr["Email"] = $_POST["email"];
-                    }
+            }
 
+            $customerbyemail = $customer->where("Email",$arr["Email"]);
+            $customerbyusername = $customer->where("UserName",$arr["UserName"]);
+
+            if($customerbyemail){
+                $_SESSION["error"] = "Email already exists";
+                $this->redirect(BASE_URL."CustomerControls/editprofiledetailsview");
+            }else if($customerbyusername){
+                $_SESSION["error"] = "Username already exists";
+                $this->redirect(BASE_URL."CustomerControls/editprofiledetailsview");
                     $verifiedpassword = password_verify($_POST["password"],$_SESSION["USER"]->Password);
                     
                     if($verifiedpassword){
@@ -220,6 +229,7 @@
                     $_SESSION["error"] = "Form not submitted!";
                     $this->redirect(BASE_URL."CustomerControls/editprofiledetailsview");
                 }
+         }
         }
 
         function uploadprofilepicview(){
