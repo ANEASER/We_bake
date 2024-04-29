@@ -18,7 +18,8 @@ class PmControls extends Controller
     
                                     // CUSTOMER ORDERS
 // functions
-    // Process Order - customer
+
+   // Process Order - customer
     function processOrder($orderid)
     {
         if (!Auth::loggedIn()) {
@@ -29,6 +30,13 @@ class PmControls extends Controller
         }
 
         $productorder = new ProductOrder;
+        $mail = new Mail();
+
+        $productorderline = $productorder->where("orderid", $orderid);
+        $productorderline = $productorderline[0];
+        $orderemail = $productorderline->Email;
+
+        $mail->sendMail($orderemail, "Order Processing", "Your Order is now processing");
         $productorder->update($orderid, "orderid", ["orderstatus" => "processing"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
     }
