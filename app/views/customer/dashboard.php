@@ -33,7 +33,7 @@
                 background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg1.jpg') no-repeat center center;
                 background-size: cover;
                 width: 100%;
-                height: 350px;
+                height: 100vh;
         }
 
         .add-2-3 {
@@ -90,8 +90,12 @@
                         margin: 5px 0; /* Add space between paragraphs */
                 }
 
+        .randomgenrated{
+                display: flex;flex-direction:row;width:50%; justify-content:space-around
+        }
 
-        @media only screen and (max-width: 600px) {
+
+        @media only screen and (max-width: 1100px) {
 
                 .add-1 {
                 display: block;
@@ -104,7 +108,7 @@
                 .add-2-3 {
                         display: flex;
                         flex-direction: column;
-                        justify-content: space-between;
+                        height: 60vh;
                 }
 
                 .add-2, .add-3 {
@@ -120,6 +124,13 @@
                 .add-3{
                         background: url('<?php echo BASE_URL ?>media/uploads/Advertiesments/bg3m.jpg') no-repeat center center;
                         background-size: cover;
+                }
+
+                .randomgenrated{
+                        margin-top: 1%;
+                        width: 100%;
+                        height: 30vh; 
+                        margin-bottom: 1%;
                 }
 
         }
@@ -144,7 +155,7 @@
                         <section class="add-2">
 
                         </section>
-                        <div style="display: flex;flex-direction:row;width:50%; justify-content:space-around">
+                        <div class="randomgenrated">
                                 <?php
                                         if (is_array($mostPurchasedItems) && !empty($mostPurchasedItems)) {
                                                 foreach ($mostPurchasedItems as $itemArray) {
@@ -170,7 +181,7 @@
                 </div>
 
                 <section class="add-2-3">
-                        <div style="display: flex;flex-direction:row;width:50%; justify-content:space-around">
+                        <div class="randomgenrated">
                         <?php
                                 foreach ($latestaddeditems as $item) {
                                         $imagelink = $item->imagelink;

@@ -25,7 +25,7 @@
         }
     ?>
     
-    <div class="menu-category">
+    <div class="menu-category" style="width: 100%;">
                             <?php
                                 if(isset($_SESSION["USER"]) && ($_SESSION["USER"]->Role == 'admin')){
                                     echo '<div class="menu-item" style="height: 330px;" onclick="add()">
@@ -56,7 +56,7 @@
                                         if($_SESSION["USER"]->Role == 'admin'){
                                             echo '<div style="display:flex;flex-direction:row;justify-content:center">';
                                                 echo '<button style="width: 80px;" onclick="edit(' . $item->itemid . ')">Update</button>';
-                                                echo '<button style="width: 80px;" onclick="addrows(' . $item->itemid . ')">addrow</button>';
+                                                echo '<button style="width: 80px;" onclick="addrows(' . $item->itemid . ')">Raws</button>';
                                             echo '</div>';
                                         }
                                         

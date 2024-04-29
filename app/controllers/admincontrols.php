@@ -1067,7 +1067,17 @@ use function PHPSTORM_META\type;
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
-            echo $this->view("admin/createadvertiesment");
+            if(session_status() == PHP_SESSION_NONE){
+                session_start();
+            }
+
+            if(isset($_SESSION["message"])){
+                $message = $_SESSION["message"];
+                unset($_SESSION["message"]);
+                echo $this->view("admin/createadvertiesment", ["message" => $message]);
+            }else{
+                echo $this->view("admin/createadvertiesment");
+            }
         }
 
         function createAdvertisement1() {
@@ -1089,10 +1099,8 @@ use function PHPSTORM_META\type;
             // Set the new filename based on the type
             if ($type == "Desktop") {
                 $newfilename = "bg1" . "." . $imageFileType;
-                echo $newfilename;
             } elseif ($type == "Mobile") {
                 $newfilename = "bg1m" . "." . $imageFileType;
-                echo $newfilename;
             } else {
                 // Handle other cases if needed
                 return false;
@@ -1100,13 +1108,14 @@ use function PHPSTORM_META\type;
         
             // Construct the final target file path
             $target_file = $target_dir . $newfilename;
-            echo $target_file;
         
             // Perform the upload
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            if ($imageFileType=='jpg' && move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)){
+                $_SESSION["message"] = "Advertiesment added successfully";
                 $this->redirect(BASE_URL."AdminControls/AddAdvertiesment");
             } else {
-                echo "Sorry, there was an error uploading your file.";
+                $error= "Sorry, there was an error uploading your file.this only support .jpg files.";
+                $this->view("admin/createadvertiesment", ["error" => $error]);
             }
         }
 
@@ -1129,10 +1138,8 @@ use function PHPSTORM_META\type;
             // Set the new filename based on the type
             if ($type == "Desktop") {
                 $newfilename = "bg2" . "." . $imageFileType;
-                echo $newfilename;
             } elseif ($type == "Mobile") {
                 $newfilename = "bg2m" . "." . $imageFileType;
-                echo $newfilename;
             } else {
                 // Handle other cases if needed
                 return false;
@@ -1140,13 +1147,14 @@ use function PHPSTORM_META\type;
         
             // Construct the final target file path
             $target_file = $target_dir . $newfilename;
-            echo $target_file;
         
             // Perform the upload
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            if ($imageFileType=='jpg' && move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $_SESSION["message"] = "Advertiesment added successfully";
                 $this->redirect(BASE_URL."AdminControls/AddAdvertiesment");
             } else {
-                echo "Sorry, there was an error uploading your file.";
+                $error = "Sorry, there was an error uploading your file. this only support .jpg files.";
+                $this->view("admin/createadvertiesment", ["error" => $error]);
             }
         }
 
@@ -1169,10 +1177,8 @@ use function PHPSTORM_META\type;
             // Set the new filename based on the type
             if ($type == "Desktop") {
                 $newfilename = "bg3" . "." . $imageFileType;
-                echo $newfilename;
             } elseif ($type == "Mobile") {
                 $newfilename = "bg3m" . "." . $imageFileType;
-                echo $newfilename;
             } else {
                 // Handle other cases if needed
                 return false;
@@ -1180,13 +1186,14 @@ use function PHPSTORM_META\type;
         
             // Construct the final target file path
             $target_file = $target_dir . $newfilename;
-            echo $target_file;
         
             // Perform the upload
-            if (move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+            if ( $imageFileType=='jpg' && move_uploaded_file($_FILES["image"]["tmp_name"], $target_file)) {
+                $_SESSION["message"] = "Advertiesment added successfully";
                 $this->redirect(BASE_URL."AdminControls/AddAdvertiesment");
             } else {
-                echo "Sorry, there was an error uploading your file.";
+                $error = "Sorry, there was an error uploading your file.this only support .jpg files.";
+                $this->view("admin/createadvertiesment", ["error" => $error]);
             }
         }
 

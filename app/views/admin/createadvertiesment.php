@@ -7,6 +7,8 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
     <title>Create Add</title>
 
     <style>
@@ -20,7 +22,52 @@
 </head>
 <body>
         <?php
-            include "adminnav.php"
+            include "adminnav.php";
+
+            if (isset($error)){
+                echo "<script>
+    
+                const SwalwithButton = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'greenbutton',
+                    },
+                    buttonsStyling: false
+                });
+    
+                
+                if (typeof Swal !== 'undefined') {
+                    SwalwithButton.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: '$error',
+                        confirmButtonText: 'OK',
+                    });
+                } else {
+                    alert('$error');
+                }
+              </script>";}
+            elseif (isset($message)){
+                echo "<script>
+    
+                const SwalwithButton = Swal.mixin({
+                    customClass: {
+                        confirmButton: 'greenbutton',
+                    },
+                    buttonsStyling: false
+                });
+    
+                
+                if (typeof Swal !== 'undefined') {
+                    SwalwithButton.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: '$message',
+                        confirmButtonText: 'OK',
+                    });
+                } else {
+                    alert('$message');
+                }
+              </script>";}
         ?>
         <section class="adds">
             <div>
@@ -33,6 +80,7 @@
             </div>  
                <form class="form" action="<?php echo BASE_URL ?>AdminControls/createAdvertisement1" method="post" enctype="multipart/form-data">
                     <label for="image">Update Section 1</label>
+                    <p>*recommended size 1080px x 1920 with .jpg format</p>
                     <select name="type" id="">
                         <option value="Desktop">Desktop</option>
                         <option value="Mobile">Mobile</option>
@@ -52,6 +100,7 @@
             </div>         
                <form class="form" action="<?php echo BASE_URL ?>AdminControls/createAdvertisement2" method="post" enctype="multipart/form-data">
                     <label for="image">Update Section 2</label>
+                    <p>*recommended size 1080px x 1920 with .jpg format</p>
                     <select name="type" id="">
                         <option value="Desktop">Desktop</option>
                         <option value="Mobile">Mobile</option>
@@ -71,6 +120,7 @@
             </div> 
                <form class="form" action="<?php echo BASE_URL ?>AdminControls/createAdvertisement3" method="post" enctype="multipart/form-data">
                     <label for="image">Update Section 3</label>
+                    <p>*recommended size 1080px x 1920 with .jpg format</p>
                     <select name="type" id="">
                         <option value="Desktop">Desktop</option>
                         <option value="Mobile">Mobile</option>
