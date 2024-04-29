@@ -104,6 +104,7 @@
     <section class="maindiv"  style="padding:3%; width:90%;margin-left:7%">
 
         <section class="subdiv" style="display:flex;flex-direction:column">
+        <h2 style='text-align:center'>Product Items</h2>
         <?php
                 $itemsPerPage = 6;
                 $totalOrders = count($productorderlines);
@@ -141,7 +142,7 @@
                 echo'<br>';
 
                 // Pagination links
-                echo '<div class="pagination-container">';
+                echo '<div class="pagination-container" style="margin-top:-25px">';
                 echo '<div class="pagination">';
                 
                 // Previous page arrow
@@ -161,7 +162,7 @@
                 echo '</div>'; // Close pagination container
             ?>
             <br>
-            <h2 style='text-align:center'>Filter Orders and Download Report</h2>
+            <h2 style='text-align:center'>Filter Items and Download Report</h2>
             <br>
             <form method="post" class="form-container" action="<?php echo BASE_URL; ?>OwnerControls/ProductItemReport" style="text-align:center;"> <!-- Change action attribute to your actual backend endpoint -->
                 <label for="timeslot">Period : </label>
@@ -182,7 +183,7 @@
                 </select>
                 
                 <!-- Submit button wrapped in a div with styling -->
-                <div style="margin-top: 20px;">
+                <div style="margin-top: 10px;">
                     <input class="greenbutton" type="submit" value="Submit" style="margin: auto;">
                 </div>
             </form>
@@ -194,6 +195,7 @@
         </section>
 
         <section class="subdiv" style="display:flex;flex-direction:column">
+        <h2 style='text-align:center'>Product Orders</h2>
         <?php
             $itemsPerPage = 5;
             $totalOrders = count($orders);
@@ -266,7 +268,7 @@
                 </select>
                 
                 <!-- Wrap the submit button in a div and apply styling -->
-                <div style="margin-top: 20px;">
+                <div style="margin-top: 10px;">
                     <input class="greenbutton" type="submit" value="Submit" style="margin: auto;">
                 </div>
             </form>
