@@ -45,7 +45,6 @@
                     echo '<tr>';
                     echo '<td>' . $stockorderline->RawName . '</td>';
                     echo '<td>' . $stockorderline->quantity . '</td>';
-                    echo '<td>' . $stockorderline->UnitOfMeasurement . '</td>';
                     echo '<td>' . $stockorderline->req_type . '</td>';
                     echo '<td>';
                     if ($stockorderline->status == 'pending') {
