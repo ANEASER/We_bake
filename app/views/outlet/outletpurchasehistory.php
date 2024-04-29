@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,67 +8,51 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/cart.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <title>Purchase History</title>
-
-    <style> /*search-panel css*/
-
-        /* Style the search panel */
-        .search-panel {
-            padding: 10px;
-            border-radius: 5px;
-        }
-
-        /* Style the search input */
-        .search-input {
-            width: 200px;
-            padding: 15px;
-            border-radius: 3px;
-            border: 1px solid #ccc;
-        }
-
-        /* Style the search button */
-        .search-btn {
-            padding: 15px 10px;
-            border: none;
-            border-radius: 3px;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-        }
-    </style>
-
 </head>
 
 <body>
        <?php
         include "omnavbar2.php";
     ?>
-
-<div class="search-panel">
-    <form method="GET" action="search.php">
-        <input type="text" name="query" class="search-input" placeholder="Enter The Date...">
-        <button type="submit" class="search-btn">Search</button>
-    </form>
-</div>
-
+    <br>
     <style>
-         /* Style the page btn */
-            .pagination-container {
-                text-align: center;
-                margin-top: 10px; /* Adjust as needed */
-            }
 
-            .pagination a {
-                display: inline-block;
-                padding: 8px 16px;
-                margin: 0 4px;
-                color: white;
-                text-decoration: none;
-                border-radius: 4px;
-            }
-    </style>
+/* Style the page btn */
+   .pagination-container {
+       text-align: center;
+       margin-top: 10px; /* Adjust as needed */
+   }
+
+   .pagination a {
+       display: inline-block;
+       padding: 8px 16px;
+       margin: 0 4px;
+       color: white;
+       text-decoration: none;
+       border-radius: 4px;
+   }
+</style>
+<section style="padding: 2%;">
+    <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
+                <form method="GET" action="<?php echo BASE_URL; ?>OutletControls/searchOrders" style="display: flex; flex-direction:row;">
+                    <?php
+                        if(isset($_GET['search'])) {
+                            echo '<input type="text" id="search" name="search" placeholder="Enter The Order Ref" value="' . $_GET['search'] . '" class="searchbox">';
+                            echo '<input class="searchbutton" style="margin-right:1%" type="submit" value="Search">';
+                            echo '<button class="searchbutton" onclick="clearSearch(); return false;">Clear Search</button>';
+                        } else {
+                            echo '<input type="text" id="search" name="search" placeholder="Enter The Order Ref" class="searchbox">';
+                            echo '<input class="searchbutton" type="submit" value="Search">';
+                    }
+                    ?>
+                </form>
+    </div>
+    
     
     <section style="display:flex;justify-content:space-around; padding-top:3%; width:100%">
         <?php
+            if($orders !=null){
+            
                 $itemsPerPage = 9;
                 $totalOrders = count($orders);
                 $totalPages = ceil($totalOrders / $itemsPerPage);
@@ -85,10 +68,6 @@
                 echo '<tr>
                     <th>ORDER REF</th>
                     <th>DELIVERY DATE</th>
-                    <th class="hideonmobile">DELIVERY ADDRESS</th>
-                    <th class="hideonmobile">DELIVERY STATUS</th>
-                    <th class="hideonmobile">ORDER STATUS</th>
-                    <th class="hideonmobile">PAYMENT STATUS</th>
                     <th>TOTAL(Rs)</th>
                     <th>MORE</th>
                 </tr>';
@@ -98,18 +77,14 @@
                     echo '<tr>';
                     echo '<td>' . $order->orderref. '</td>';
                     echo '<td>' . $order->orderdate . '</td>';
-                    echo '<td class="hideonmobile">' . $order->deliver_address . '</td>';
-                    echo '<td class="hideonmobile">' . $order->deliverystatus . '</td>';
-                    echo '<td class="hideonmobile">' . $order->orderstatus . '</td>';
-                    echo '<td class="hideonmobile">' . $order->paymentstatus . '</td>';
                     echo '<td>' . $order->total . '.00</td>';
                     echo "<td><button class='bluebutton' onclick='more(\"" . $order->unique_id . "\")'>More</button></td>";
                     echo '</tr>';
                 }
 
                 echo '</table>';
-        ?>
-        <?php
+        
+    
             echo '<div class="pagination-container">';
             echo '<div class="pagination">';
             for ($page = 1; $page <= $totalPages; $page++) {
@@ -117,10 +92,15 @@
             }
             echo '</div>';
             echo '</div>';
+
+        }else{
+            echo '<h1>No Orders Found<?h1>';
+        }
         ?>
 
-    </section>
 
+    </section>
+</section>
      <script>
 
         var BASE_URL = "<?php echo BASE_URL; ?>";
@@ -132,12 +112,22 @@
         function more(unique_id){
             window.location.href = BASE_URL + "OrderControls/moredetails/" + unique_id;
         }
+
+        function clearSearch(){
+            window.location.href = BASE_URL + "outletControls/purchasehistory/";
+        }
+
+
      
      </script>
 
 
 </body>
 </html>
+
+
+
+
 
 
 

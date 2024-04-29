@@ -20,23 +20,62 @@
 <body>
     <?php
         include "smnavbar.php";
+
+        if (isset($error)){
+            echo "<script>
+
+            const SwalwithButton = Swal.mixin({
+                customClass: {
+                    confirmButton: 'greenbutton',
+                },
+                buttonsStyling: false
+            });
+
+            
+            if (typeof Swal !== 'undefined') {
+                SwalwithButton.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '$error',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                alert('$error');
+            }
+          </script>";}
+        elseif (isset($message)){
+            echo "<script>
+
+            const SwalwithButton = Swal.mixin({
+                customClass: {
+                    confirmButton: 'greenbutton',
+                },
+                buttonsStyling: false
+            });
+
+            
+            if (typeof Swal !== 'undefined') {
+                SwalwithButton.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '$message',
+                    confirmButtonText: 'OK',
+                });
+            } else {
+                alert('$message');
+            }
+          </script>";}
     ?>
 
     
 
-    <div class="content">
-        <h1>Production Order</h1>
-        
-    </div>
-
-    <section style="display:flex;justify-content:space-around; width:100%">
+    <section style="display:flex;justify-content:space-around; width:100%; margin-top:20px;">
     <?php //The table structure 
         if (count($stockorderline) > 0){
             echo '<table style="width:90%">';
             echo '<tr>
                     <th> Item Name </th>
                     <th> Quantity </th>
-                    <th> Unit of Measurement </th>
                     <th> Request Type</th>
                     <th> Accept</th>
                 </tr>';
@@ -45,11 +84,10 @@
                     echo '<tr>';
                     echo '<td>' . $stockorderline->RawName . '</td>';
                     echo '<td>' . $stockorderline->quantity . '</td>';
-                    echo '<td>' . $stockorderline->UnitOfMeasurement . '</td>';
                     echo '<td>' . $stockorderline->req_type . '</td>';
                     echo '<td>';
                     if ($stockorderline->status == 'pending') {
-                        echo '<button class="greenbutton" onclick="acceptOrder(' . $stockorderline->id . ')">Accept</button>';
+                        echo '<button class="green-button-prodorder" onclick="acceptOrder(' . $stockorderline->id . ')">Accept</button>';
                     } else {
                         echo '<button class="bluebutton">Accepted</button>';
                     }

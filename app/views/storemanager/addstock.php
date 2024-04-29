@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/form.css">
-    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/button.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
+    <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.all.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.3/dist/sweetalert2.min.css" rel="stylesheet">
@@ -21,18 +21,20 @@
     <?php
         include "smnavbar.php";
     ?>
-    <div class="content">
-        <h1>Add Stock Items</h1>
 
-        <form method="post" action="<?php echo BASE_URL; ?>StoreControls/addStockItem" onsubmit="return validateForm()" >
-        <div class="form-container">
+    <section style="margin-top:10px;">
+
+    <div class="form-container">
+
+        <form class="form" method="post" action="<?php echo BASE_URL; ?>StoreControls/addStockItem" onsubmit="return validateForm()" >
+        
             <div class="form-group">
                 <label for="stockItemName">Item Name:</label>
-                <input type="text" id="stockItemName" name="Name" required>
+                <input type="text" id="stockItemName" name="Name">
             </div>
             <div class="form-group">
                 <label for="stockItemType">Item Type:</label>
-                <select id="stockItemType" name="Type" required>
+                <select id="stockItemType" name="Type">
                     <option value="">Select Item Type</option>
                     <option value="Flour">Flour</option>
                     <option value="Sugar">Sugar</option>
@@ -56,7 +58,7 @@
             </div>
             <div class="form-group">
                 <label for="stockItemUnit">Unit of Measurement:</label>
-                <select id="stockItemUnit" name="UnitOfMeasurement" required>
+                <select id="stockItemUnit" name="UnitOfMeasurement">
                     <option value="">Select Unit of Measurement</option>
                     <option value="Grams (g)">Grams (g)</option>
                     <option value="Kilograms (kg)">Kilograms (kg)</option>
@@ -75,22 +77,19 @@
 
             <div class="form-group">
                 <label for="stockItemMin">Minimum Amount:</label>
-                <input type="text" id="stockItemMin" name="MinimumStock" required>
+                <input type="text" id="stockItemMin" name="MinimumStock">
             </div>
 
             <div class="form-group">
                 <label for="stockItemCritical">Critical Amount:</label>
-                <input type="text" id="stockItemCritical" name="CriticalStock" required>
+                <input type="text" id="stockItemCritical" name="CriticalStock">
             </div>
 
             
-
-            <div class="button-container">
-                <button class="brownbutton" type="submit">Save</button>
-            </div>
+            <input class="bluebutton" type="submit" value="Save">
         </form>
-        </div>
     </div>
+    </section>
     <script>
 
         function validateForm() {
@@ -165,6 +164,7 @@
                 });
                 return false;
             }
+
 
             return true; // Form is valid
         }

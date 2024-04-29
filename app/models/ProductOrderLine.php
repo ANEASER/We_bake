@@ -16,5 +16,16 @@
             return $result;
         }
 
+        function SumProductItemsGroupByIDandCategory() {
+
+            $sql = "SELECT pi.itemid, pi.category, SUM(p.quantity) as quantity, SUM(p.totalprice) as totalprice 
+                    FROM productorderline p 
+                    INNER JOIN productitem pi ON p.itemid = pi.itemid 
+                    GROUP BY pi.category ORDER BY p.quantity DESC";
+
+            $result = $this->query($sql);
+            return $result;
+        }
+
     }
 ?>

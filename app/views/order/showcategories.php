@@ -64,7 +64,7 @@
                 ?>
                 <div>
                     <button class="greenbutton" type="button" onclick="veiwcart()">checkout</button>
-                    <button class="yellowbutton" onclick="edit()">edit</button>      
+                    <button class="yellowbutton" onclick="edit()">Edit</button>      
                 </div>
         </section>
     </section>

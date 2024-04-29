@@ -1,182 +1,187 @@
-button, input[type="submit"] {
-    padding: 8px 12px; 
-    white-space: nowrap;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    max-width: 200px;
-    min-width: 100px;
+button,
+input[type="submit"] {
+  padding: 8px 12px;
+  white-space: nowrap;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  max-width: 200px;
+  min-width: 100px;
 }
 
-
 .bluebutton {
-    margin: 0% 5%;
+  margin: 0% 5%;
 
-    background-color: #3498db;
-    color: white;
+  background-color: #3498db;
+  color: white;
 }
 
 .bluebutton:hover {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }
 
+.green-button-prodorder {
+  margin: 0% 5%;
+  color: white;
+  background-color: #2ecc71;
+}
 
 .greenbutton {
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  justify-content: center;
+  align-items: right;
+  font-size: 16px;
+  border-radius: 9px;
 
-    border: none;
-            color: white;
-            padding: 10px;
-            text-align: center;
-            text-decoration: none; 
-            justify-content: center;
-            align-items: right;
-            font-size: 16px;
-            border-radius:9px;
-
-    background-color: #2ecc71;
+  background-color: #2ecc71;
 }
 
 .greenbutton:hover {
-    background-color: #27ae60;
+  background-color: #27ae60;
 }
 
-
 .redbutton {
-    margin: 0% 5%;
+  margin: 0% 5%;
 
-    background-color: #e74c3c;
-    color: white;
+  background-color: #e74c3c;
+  color: white;
 }
 
 .redbutton:hover {
-    background-color: #c0392b;
+  background-color: #c0392b;
 }
 
-
 .yellowbutton {
-    margin: 0% 5%;
-    background-color: #f1c40f;
-    color: white;
+  margin: 0% 5%;
+  background-color: #f1c40f;
+  color: white;
 }
 
 .yellowbutton:hover {
-    background-color: #f39c12;
+  background-color: #b8a107;
 }
 
 .orangebutton {
-    margin: 0% 5%;
-    background-color: #e8953c;
-    color: white;
+  margin: 0% 5%;
+  background-color: #e8953c;
+  color: white;
 }
 
 .orangebutton:hover {
-    background-color: #f39c12;
+  background-color: #f39c12;
 }
 
 #cartbutton {
-    margin: 5%;
-    background-image: url("../uploads/Content/Cart.png");
-    width: 75px;
-    height: 75px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    border: solid 4px black;
-    border-radius:  4px ;
-    cursor: pointer;
+  margin: 5%;
+  background-image: url("../uploads/Content/Cart.png");
+  width: 75px;
+  height: 75px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: solid 4px black;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .brownbutton {
-    margin: 1% 5%;
-    background-color: #41201f;
-    color: #ffffff;
+  margin: 1% 5%;
+  background-color: #41201f;
+  color: #ffffff;
 }
 
 .brownbutton:hover {
-    background-color: #5d3a38;
+  background-color: #5d3a38;
 }
 
-
 .searchbutton {
-    background-color: #4CAF50; 
-    color: #fff; 
-    border: none;
-    border-radius: 4px; 
-    cursor: pointer;
-    height: 40px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 40px;
 }
 
 .searchbox {
-    padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-right: 5px;white-space: nowrap;height: 40px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 5px;
+  white-space: nowrap;
+  height: 40px;
 }
 
 .yellowbutton2 {
-    margin: 5%;
-    background-color: #f1c40f;
-    color: white;
-
+  margin: 5%;
+  background-color: #f1c40f;
+  color: white;
 }
 
 /* Store Manager Button CSS*/
 
 .add-stocks-button {
-    position: absolute; 
-    top: 200px; 
-    right: 20px; 
-    padding: 10px 20px;
-    background-color: #351a07;
-    color: antiquewhite;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
+  position: absolute;
+  top: 200px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #351a07;
+  color: antiquewhite;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .add-stocks-button:hover {
-    background-color: antiquewhite;
-    color: #351a07;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); 
+  background-color: antiquewhite;
+  color: #351a07;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .add-supplier-button {
-    position: absolute;
-    top: 90px; /* Adjust this value as needed */
-    right: 20px; /* Adjust this value as needed */
-    padding: 10px 20px;
-    background-color: #351a07;
-    color: antiquewhite;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); 
+  position: absolute;
+  top: 90px; /* Adjust this value as needed */
+  right: 20px; /* Adjust this value as needed */
+  padding: 10px 20px;
+  background-color: #351a07;
+  color: antiquewhite;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .add-supplier-button:hover {
-    background-color: antiquewhite;
-    color: #351a07;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); 
+  background-color: antiquewhite;
+  color: #351a07;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
 }
 
-.formbutton{
-    position: absolute;
-    padding: 10px 20px;
-    background-color: #351a07;
-    color: antiquewhite;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-    border: none;
-    cursor: pointer;
+.formbutton {
+  position: absolute;
+  padding: 10px 20px;
+  background-color: #351a07;
+  color: antiquewhite;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
 }
 
 .formbutton:hover {
-    background-color: #56312c; 
+  background-color: #56312c;
 }
 
 .swal2-actions {
-    width: 100% !important;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+  width: 100% !important;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 }

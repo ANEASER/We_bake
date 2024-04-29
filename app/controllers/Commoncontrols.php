@@ -2,7 +2,22 @@
 class CommonControls extends Controller {
     
     function index($id = null) {
-        $this->view("common/home");
+        
+        $productitem = new ProductItem();
+        $productorderline = new ProductOrderLine();
+        $productorderlines = $productorderline->SumProductItemsGroupByIDandCategory();
+        $mostsellingitems = array_slice($productorderlines, 0, 2);
+
+        $latestaddeditems = $productitem->getlatestProductItems();
+
+        $mostPurchasedItems = [];
+
+        foreach ($mostsellingitems as $item) {
+            $product = $productitem->where("itemid", $item->itemid);
+            array_push($mostPurchasedItems, $product);
+        }
+        $this->view("common/home",["mostPurchasedItems"=>$mostPurchasedItems, "latestaddeditems"=>$latestaddeditems]);
+        
     }
 
     function loadLoginView() {

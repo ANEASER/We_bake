@@ -148,7 +148,7 @@
                             echo '<td>' . $user->UserName . '</td>';
                             echo '<td >' . $user->Email . '</td>';
                             echo '<td ><button class="yellowbutton" onclick="edit(' . $user->UserID . ')">Update</button></td>';
-                            echo '<td ><button class="redbutton" onclick="del(' . $user->UserID . ')">Delete</button></td>';
+                            echo '<td ><button class="redbutton" onclick="del(' . $user->UserID . ')">Revoke</button></td>';
                             echo '<td><button class="bluebutton" onclick="more(' . $user->UserID . ')">More</button></td>';
                             echo '</tr>';
                         }
@@ -194,18 +194,18 @@
                 });
 
                 SwalwithButton.fire({
-                    title: "Are you sure you want to delete this User?",
-                    text: "You won't be able to revert this!",
+                    title: "Are you sure you want to Revoke this user",
+                    text: "You can can revert this by resiting user's password!",
                     icon: "warning",
                     showCancelButton: true,
-                    confirmButtonText: "Delete",
+                    confirmButtonText: "Revoke",
                     cancelButtonText: "Cancel",
                     reverseButtons: true,
                     preConfirm: async () => {
                         try {
                             await SwalwithButton.fire({
-                                title: "Deleted!",
-                                text: "System User has been deleted.",
+                                title: "Revoked!",
+                                text: "System user previlages revoked.",
                                 icon: "success",
                                 confirmButtonText: "OK",
                                 confirmButtonClass: "greenbutton"

@@ -62,7 +62,7 @@
     <?php
         $searchQuery = isset($_GET['search']) ? $_GET['search'] : '';
     ?>
-    <section style="display:flex;justify-content:space-around; width:100%">
+    <section style="display:flex;justify-content:space-around;width:100%">
     <?php
   
     if($vehicles != null){
@@ -74,7 +74,7 @@
                 <th>Vehicle Number</th>
                 <th>Chassi Number</th>
                 <th>Engine Number</th>
-                <th>Capacity</th>
+                <th>Capacity(No.of Containers)</th>
                 <th>Availability</th>
                 <th>Update</th>
                 <th>Delete</th>

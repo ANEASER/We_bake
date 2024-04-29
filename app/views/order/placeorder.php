@@ -8,11 +8,12 @@
 </head>
 <body>
 
-    <?php
+<?php
     if (isset($_SESSION["USER"]) && !isset($_SESSION["USER"]->role)) {
-        include '..\app\views\customer\customernav.php';
+        include '..' . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR . 'customer' . DIRECTORY_SEPARATOR . 'customernav.php';
     }    
-    ?>
+?>
+
     
     <section>
         <div class="form-container">

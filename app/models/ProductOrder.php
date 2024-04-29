@@ -63,6 +63,17 @@ class ProductOrder extends Model {
         return $this->query($query, []);
     }
 
+    public function ordaerrefalike() {
+        $query = "SELECT * FROM $this->table WHERE orderref LIKE 'R%' ";  // find all orders reference number starting with 'R'
+        return $this->query($query, []);
+    }
+
+    public function findOrdersDecendingDate($user) {
+        $query = "SELECT * FROM $this->table WHERE placeby ='$user'ORDER BY orderid DESC";
+        return $this->query($query, []);
+    }
+
+
 
 }
 ?>

@@ -15,8 +15,8 @@
 
     
 
-    <section style="display:flex;justify-content:space-around; width:100%; margin: top 10px;">
-    <?php //The table structure 
+    <section style="display:flex;justify-content:space-around; width:100%; margin-top: 30px;">
+     <?php //The table structure 
         if (count($stockorder) > 0){
             echo '<table style="width:90%">';
             echo '<tr>
@@ -39,7 +39,7 @@
                     echo '<td> <button class="yellowbutton" onclick="view(\'' . $stockorder->unique_id . '\')">View</button></td>';
                     echo '<td>';
                     if ($stockorder->status == 'pending') {
-                        echo '<button class="greenbutton" onclick="accept(\'' . $stockorder->unique_id .'\')">Accept</button>';
+                        echo '<button class="green-button-prodorder" onclick="accept(\'' . $stockorder->unique_id .'\')">Accept</button>';
                     } else {
                         echo '<button class="bluebutton">Accepted</button>';
                     }

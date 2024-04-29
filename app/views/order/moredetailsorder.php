@@ -112,7 +112,7 @@
         } else if (user.Role === "receptionist") {
             window.location.href = BASE_URL + "RecieptionControls/viewhistory";
         } else if (user.Role === "outletmanager") {
-            window.location.href = BASE_URL + "outletcontrols";
+            window.location.href = BASE_URL + "outletcontrols/purchasehistory";
         } else {
             window.location.href = BASE_URL + "CommonControls/logout";
         }

@@ -24,9 +24,9 @@
                 ?>
             </section>
             <section class="buttongroup" style="margin: 0%;padding:0%">
-                <button class="greenbutton" onclick="cashondelivery()">cash on delivery</button>
-                <button class="greenbutton" onclick="payonline()">pay online</button>
-                <button class="redbutton" onclick="cancel()">cancel</button>
+                <button class="greenbutton" onclick="cashondelivery()">Cash On Delivery</button>
+                <button class="greenbutton" onclick="payonline()">Pay Online</button>
+                <button class="redbutton" onclick="cancel()">Cancel</button>
             </section>
         </section>
 

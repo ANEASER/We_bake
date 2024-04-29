@@ -8,5 +8,11 @@
             $result = $this->query($sql);
             return $result;
         }
+
+        function getlatestProductItems() {
+            $sql = "SELECT * FROM productitem ORDER BY itemid DESC LIMIT 2";
+            $result = $this->query($sql);
+            return $result;
+        }
     }
 ?>
