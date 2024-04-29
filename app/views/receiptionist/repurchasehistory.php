@@ -10,7 +10,23 @@
    <title>Purchase History</title>
 </head>
   
-    
+<style>
+
+/* Style the page btn */
+   .pagination-container {
+       text-align: center;
+       margin-top: 10px; /* Adjust as needed */
+   }
+
+   .pagination a {
+       display: inline-block;
+       padding: 8px 16px;
+       margin: 0 4px;
+       color: white;
+       text-decoration: none;
+       border-radius: 4px;
+   }
+</style>
 
 <body>
     <?php
@@ -18,6 +34,7 @@
     ?>
     
     <br>
+    <section style="padding: 3%;">
     <div style="display: flex; flex-direction:row; justify-content:space-between; margin-bottom:2%">
                 <form method="GET" action="<?php echo BASE_URL; ?>RecieptionControls/searchOrders" style="display: flex; flex-direction:row;">
                     <?php
@@ -32,12 +49,23 @@
                     ?>
                 </form>
     </div>
-        
-        <section style="display:flex;justify-content:space-around; padding-top:4%; width:100%">
+    
+        <section style="display:flex;justify-content:space-around; padding-top:4%; width:100%;flex-direction:column">
         <?php
             if($orders == null){
                 echo "<h1>No Orders Found</h1>";
             } else {
+
+                $itemsPerPage = 9;
+                $totalOrders = count($orders);
+                $totalPages = ceil($totalOrders / $itemsPerPage);
+
+                // Assuming you have a page parameter in your URL, e.g., ?page=2
+                $currentPage = isset($_GET['page']) ? max(1, min((int)$_GET['page'], $totalPages)) : 1;
+
+                $startIndex = ($currentPage - 1) * $itemsPerPage;
+                $endIndex = min($startIndex + $itemsPerPage, $totalOrders);
+
             
                 echo "<table>";
                 echo "<tr>
@@ -71,11 +99,18 @@
                     }       
                 
                 echo "</table>";
+
+                echo '<div class="pagination-container">';
+                echo '<div class="pagination">';
+                for ($page = 1; $page <= $totalPages; $page++) {
+                    echo '<a class="brownbutton" href="?page=' . $page . '">' . $page . '</a>';
+                }
+                echo '</div>';
+                echo '</div>';
             }
         ?>
         </section>
-    </div>
-
+    </section>
     <script>
         var BASE_URL = "<?php echo BASE_URL; ?>";
 

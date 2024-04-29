@@ -13,6 +13,34 @@
 <body>
     <?php
         include 'customernav.php';
+
+        if (isset($error)) {
+            echo "<script>
+                const showAlert = async () => {
+                    const SwalwithButton = Swal.mixin({
+                        customClass: {
+                            confirmButton: 'greenbutton',
+                        },
+                        buttonsStyling: false
+                    });
+    
+                    if (typeof Swal !== 'undefined') {
+                        await SwalwithButton.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: '$error',
+                            confirmButtonText: 'OK',
+                        });
+    
+                    } else {
+                        alert('$error');
+                    }
+                };
+    
+                // Call the async function to show the alert
+                showAlert();
+            </script>";
+        }
     ?>
 
     <style>

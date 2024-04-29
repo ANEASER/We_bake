@@ -26,7 +26,7 @@
     <h1> <b><span style="color:green;">Customer Found</span></b> </h1> <br>
 
 
-<h4> Customer name: <?php echo $foundcustomer->UserName ?> </h4>
+<h4> Customer username: <?php echo $foundcustomer->UserName ?> </h4>
 <h4> Customer Email: <?php echo $foundcustomer->Email?> </h4>
 <h4> Customer Telephone Number: <?php echo $foundcustomer->contactNo ?>  </h4> <br>
 

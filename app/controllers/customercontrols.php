@@ -143,7 +143,18 @@
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
-            echo $this->view("customer/editprofiledetails");
+            if(session_status() == PHP_SESSION_NONE){
+                session_start();
+            }
+
+            if(isset($_SESSION["error"])){
+                $error = $_SESSION["error"];
+                unset($_SESSION["error"]);
+                echo $this->view("customer/editprofiledetails",["error"=>$error]);
+            }
+            else{
+                echo $this->view("customer/editprofiledetails");
+            }
         }
 
         function editprofile(){
@@ -154,6 +165,11 @@
 
             if(isset($_SESSION["USER"]->Role)){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
+            }
+
+
+            if(session_status() == PHP_SESSION_NONE){
+                session_start();
             }
     
                 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -195,12 +211,14 @@
                     }
 
                     else{
-                        echo "Current password is incorrect";
+                        $_SESSION["error"] = "Password is incorrect";
+                        $this->redirect(BASE_URL."CustomerControls/editprofiledetailsview");
                     }
 
                 }
                 else{
-                    echo "Form not submitted!";
+                    $_SESSION["error"] = "Form not submitted!";
+                    $this->redirect(BASE_URL."CustomerControls/editprofiledetailsview");
                 }
         }
 

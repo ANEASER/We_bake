@@ -1326,7 +1326,7 @@ use function PHPSTORM_META\type;
                 session_start();
             }
 
-            $_SESSION["message"] = "Raw deleted successfully";
+            //$_SESSION["message"] = "Raw deleted successfully";
 
             $this->redirect(BASE_URL."AdminControls/addRawsview/".$itemid);
         }
