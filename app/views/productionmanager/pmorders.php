@@ -40,6 +40,21 @@
             background-color: #f1c40f;
             margin-left: 10px;
         }
+        .pagination-container {
+            text-align: center;
+            margin-top: 10px; 
+            max-width: 620px;
+            margin-left: 30%;
+        }
+
+        .pagination a {
+            display: inline-block;
+            padding: 8px 16px;
+            margin: 0 4px;
+            color: rgb(95, 37, 37);
+            text-decoration: none;
+            border-radius: 4px;
+        }
         
     </style>
     <title>Customer Orders</title>
@@ -110,8 +125,18 @@
     <section style="display:flex;justify-content:space-around; width:100%">
         
         <!-- Pending Orders -->
+        
         <?php
-        echo "<div id='PendingOrdersTable' style='display:none'>";
+        
+       /* $itemsPerPage = 10;
+        $totalorders = count($productorder);
+        $totalPages = ceil($totalorders/ $itemsPerPage);
+        $currentPage = isset($_GET['page']) ? max(1, min((int)$_GET['page'], $totalPages)) : 1;
+
+        $startIndex = ($currentPage - 1) * $itemsPerPage;
+        $endIndex = min($startIndex + $itemsPerPage, $totalorders); */
+
+        echo "<div id='PendingOrdersTable'>"; 
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<tr>
                 <th>Order REF</th>
@@ -126,38 +151,56 @@
                 <th>Cancel Order</th>
                 <th>More Details</th>
             </tr>";
-            
-            foreach ($productorder as $ProductOrder){
-                if ($ProductOrder->orderstatus == "pending" && $ProductOrder->orderdate >= date('Y-m-d')){
-                    echo "<tr>";
-                    echo "<td>".$ProductOrder->orderref."</td>";
-                    echo "<td>".$ProductOrder->placeby."</td>";
-                    echo "<td>".$ProductOrder->orderdate."</td>";
-                    echo "<td>".$ProductOrder->paymentstatus."</td>";
-                    echo "<td>".$ProductOrder->orderstatus."</td>";
-                    echo "<td>".$ProductOrder->total."</td>";
-                    echo "<td>".$ProductOrder->order_cap."</td>";
-                    echo "<td>".$ProductOrder->deliver_address."</td>";
-                    if($ProductOrder->paymentstatus === "paid" || $ProductOrder->paymentstatus === "advanced"){
-                        echo "<td><button class='button green' onclick='process(".$ProductOrder->orderid.")'>Process</button></td>";
-                    }
-                    else{
-                        echo "<td><button class='button green' onclick='validateProcess()'>Process</button></td>";
-                    
-                    }
-                    echo "<td><button class='button red' onclick='cancel(".$ProductOrder->orderid.")'>Cancel</button></td>";
-                    echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
-                    echo "</tr>";
+
+        foreach ($productorder as $ProductOrder) { //array_slice($productorder, $startIndex, $itemsPerPage)
+
+            if ($ProductOrder->orderstatus == "pending" && $ProductOrder->orderdate >= date('Y-m-d')) {
+                echo "<tr>";
+                echo "<td>" . $ProductOrder->orderref . "</td>";
+                echo "<td>" . $ProductOrder->placeby . "</td>";
+                echo "<td>" . $ProductOrder->orderdate . "</td>";
+                echo "<td>" . $ProductOrder->paymentstatus . "</td>";
+                echo "<td>" . $ProductOrder->orderstatus . "</td>";
+                echo "<td>" . $ProductOrder->total . "</td>";
+                echo "<td>" . $ProductOrder->order_cap . "</td>";
+                echo "<td>" . $ProductOrder->deliver_address . "</td>";
+                if ($ProductOrder->paymentstatus === "paid" || $ProductOrder->paymentstatus === "advanced") {
+                    echo "<td><button class='button green' onclick='process(" . $ProductOrder->orderid . ")'>Process</button></td>";
+                } else {
+                    echo "<td><button class='button green' onclick='validateProcess()'>Process</button></td>";
                 }
+                echo "<td><button class='button red' onclick='cancel(" . $ProductOrder->orderid . ")'>Cancel</button></td>";
+                echo "<td><button class='button blue' onclick='more(\"" . $ProductOrder->unique_id . "\")'>More</button></td>";
+                echo "</tr>";
             }
+        }
         echo "</table>";
+        /*echo '<br>';
+        echo '<br>';
+
+        echo '<div class="pagination-container">';
+        echo '<div class="pagination">';
+
+        if ($currentPage > 1) {
+            echo '<a href="' . BASE_URL . 'pmcontrols/index?page=' . ($currentPage - 1) . '">Previous</a>';
+        }
+
+        echo '<span> Page ' . $currentPage . ' of ' . $totalPages . '</span>';
+
+        if ($currentPage < $totalPages) {
+            echo '<a href="' . BASE_URL . 'pmcontrols/index?page=' . ($currentPage + 1) . '">Next</a>';
+        }
+
+        echo '</div>';
+        echo '</div>';*/
         echo "</div>";
-        ?>
+    ?>
+
 
 
     <!-- Processing Orders -->
     <?php
-            echo "<div id='ProcessingOrdersTable' style='display:none'>";
+            echo "<div id='ProcessingOrdersTable'>";
             echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
             echo "<tr>
                     <th>Order REF</th>
@@ -174,7 +217,7 @@
                     <th>More Details</th>
                 </tr>";
                 
-                foreach ($productorder as $ProductOrder){
+                foreach (array_slice($productorder, $startIndex, $itemsPerPage) as $ProductOrder){
                     if ($ProductOrder->orderstatus == "processing" && ($ProductOrder->paymentstatus == "paid" || $ProductOrder->paymentstatus == "advanced") ){ //&& $ProductOrder->orderdate == date("Y-m-d", strtotime('+1 day')) 
                         echo "<tr>";
                         echo "<td>".$ProductOrder->orderref."</td>";
@@ -192,13 +235,15 @@
                     }
                 }
             echo "</table>";
+            echo '<br>';
+        echo '<br>';
             echo "</div>";
             ?>
 
         <!-- Pickup Orders -->
 
         <?php
-        echo "<div id='PickupOrderTable' style='display:none'>";
+        echo "<div id='PickupOrderTable'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<tr>
                 <th>Order REF</th>
@@ -234,13 +279,15 @@
                 }
             }
         echo "</table>";
+        echo '<br>';
+        echo '<br>';
         echo "</div>";
         ?>
 
         <!-- Delivery Orders -->
 
         <?php
-        echo "<div id='DeliveryOrderTable' style='display:none'>";
+        echo "<div id='DeliveryOrderTable'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<th>Order REF</th>
                 <th>Placed By</th>
@@ -275,13 +322,15 @@
                 }    
             }
             echo "</table>";
+            echo '<br>';
+        echo '<br>';
             echo "</div>";
         ?>
 
         <!-- On Delivery Orders -->
 
         <?php
-        echo "<div id='OnDeliveryOrderTable' style='display:none'>";
+        echo "<div id='OnDeliveryOrderTable'>";
         echo "<table style='margin:auto; margin-top: 20px; font-size:15px;'>";
         echo "<th>Order REF</th>
                 <th>Placed By</th>
@@ -318,6 +367,8 @@
             }    
         }
         echo "</table>";
+        echo '<br>';
+        echo '<br>';
         echo "</div>";
         ?>
 
@@ -356,6 +407,8 @@
             }
         }
         echo "</table>";
+        echo '<br>';
+        echo '<br>';
         echo "</div>";
         ?>
 
@@ -397,6 +450,8 @@
             }
         }
         echo "</table>";
+        echo '<br>';
+        echo '<br>';
         echo "</div>";
         ?>
     </section>
@@ -645,3 +700,5 @@
     </script>
 </body>
 </html>
+
+
