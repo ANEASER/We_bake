@@ -125,7 +125,7 @@ class OutletControls extends Controller {
         $outletcode = $foundoutlet[0]->OutletCode;
 
         $productorder = new ProductOrder();
-        $orders = $productorder->findalldescwithplaceby($outletcode);
+        $orders = $productorder->findOrdersDecendingDate($outletcode);
         echo $this->view("outlet/outletpurchasehistory",["orders"=>$orders]);
 
      

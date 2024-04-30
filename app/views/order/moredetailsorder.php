@@ -40,6 +40,12 @@
     <section class="content">
         <section class="cart" style="padding : 2%;font-size: 1em;">
                 <?php
+                    if(session_status() == PHP_SESSION_NONE) {
+                        session_start();
+                    }
+
+
+
                     echo "<h1>Order : ".$order[0]->orderref."</h1>";
                     echo "<h1>Order Status : ".$order[0]->orderstatus."</h1>";
                     echo "<h1>Order Delivery Date : ".$order[0]->orderdate."</h1>";
@@ -51,6 +57,23 @@
                     echo "<h1>Delivery Charges : Rs.".$order[0]->deliver_charges.".00</h1>";
                     echo "<h1>Order Total : Rs.".$order[0]->total."</h1>";
                     echo "<h1>Order Paid Amount : Rs. ".$order[0]->paid_amount.".00</h1>";
+                     
+                    if(isset($_SESSION["USER"])){
+                        if($_SESSION["USER"]->Role == "billingclerk"){
+                            echo "<h1>Customer Name : ".$customer[0]->Name."</h1>";
+                            echo "<h1>Customer Email : ".$customer[0]->Email."</h1>";
+                            echo "<h1>Customer Contact : ".$customer[0]->ContactNo."</h1>";
+                        }
+                        elseif($_SESSION["USER"]->Role == "receptionist"){
+                            echo "<h1>Customer Name : ".$customer[0]->Name."</h1>";
+                            echo "<h1>Customer Email : ".$customer[0]->Email."</h1>";
+                            echo "<h1>Customer Contact : ".$customer[0]->contactNo."</h1>";
+                        }elseif($_SESSION["USER"]->Role == "outletmanager"){
+                            echo "<h1>Order Tyepe : ".$order[0]->order_type."</h1>";
+                        }
+                    }
+                        
+                    
 
                     echo "<br>";
                     echo "<table>";

@@ -412,12 +412,14 @@
             $productorderline = new ProductOrderLine();
             $productorder = new ProductOrder();
             $payment = new PaymentProof();
+            $customer = new Customer();
 
             $order = $productorder->where("unique_id",$unique_id);
             $proofs = $payment->where("orderid",$order[0]->orderid);
             $productorderlines = $productorderline->where("unique_id",$unique_id);
+            $placedbycustomer = $customer->where("UserName",$order[0]->placeby);
             
-            echo $this->view("order/moredetailsorder",["productorderlines"=>$productorderlines,"order"=>$order,"proofs"=>$proofs]);
+            echo $this->view("order/moredetailsorder",["productorderlines"=>$productorderlines,"order"=>$order,"proofs"=>$proofs,"customer"=>$placedbycustomer]);
         }
 
         function deletecartitem($id){
