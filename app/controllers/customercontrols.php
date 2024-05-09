@@ -446,13 +446,35 @@
 
            $arr["placeby"] = $_SESSION["USER"]->UserName;
            $arr["address"] = $_SESSION["USER"]->Address;
-           $arr["inquirytext"] = $_POST["inquirytext"];
-        
 
-           $makeinquiry->insert($arr);
+           $json_data = [
+            "text" => $_POST["inquirytext"]
+           ];
+
+           $json_encoded = json_encode($json_data);
+
+           try {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, 'http://127.0.0.1:8081/predict/');
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $json_encoded);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+                $response = curl_exec($ch);
+                $response_decoded = json_decode($response, true);
+                $feedback = $response_decoded["sentiment"];
+               
+                $arr["category"] = $feedback;
+
+           }catch(Exception $e){
+            $arr["category"] = "None";
+           }
+
+          $makeinquiry->insert($arr);
 
             
-            $this->redirect(BASE_URL."CustomerControls/profile");
+          $this->redirect(BASE_URL."CustomerControls/profile");
         }
 
         // cancel order
