@@ -90,17 +90,60 @@
                             "ItemCode" => $productInfo[0]->Itemcode,
                             "Quantity" => $quantity,
                             "Link" => $productInfo[0]->imagelink,
-                            // Add other properties you want to include
                         ];
 
                         $mostPurchasedItems[] = $mostPurchasedItem;
                     }
                 }
+
+                $names = [];
+                foreach ($mostPurchasedItems as $item) {
+                    $names[] = $item->Name;
+                }
+
+                $json_data = [
+                    "items" => $names
+                ];
+
+                if(!empty($names)){
+                    $json_encoded = json_encode($json_data);
+                    $ch = curl_init();
+                    
+                    try {
+                        curl_setopt($ch, CURLOPT_URL, 'http://127.0.0.1:8000/recommend/');
+                        curl_setopt($ch, CURLOPT_POST, 1);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $json_encoded);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+                        $response = curl_exec($ch);
+                        $RecommendedItemsArray = json_decode($response, true);
+
+                        if (empty($RecommendedItemsArray)) {
+                            $RecommendedProducts = "No data available.";
+                        }else{
+                        $RecommendedProducts = [];
+
+                        $RecommendedItemsArray = $RecommendedItemsArray["recommendation"];
+                        foreach ($RecommendedItemsArray as $item) {
+                            $product = $produictitem->where("itemname", $item);
+                            array_push($RecommendedProducts, $product);
+                        } 
+                    }
+                    } catch (Exception $e) {
+                        $RecommendedProducts = "No data available.";
+                    }
+
+                }else{
+                    $RecommendedProducts = "No data available.";
+                }
+                
             } else {
                 $mostPurchasedItems = "No data available.";
+                $RecommendedProducts = "No data available.";    
             }
             
-            echo $this->view("customer/profile",[ "data" => $data, "orders" => $orders, "productorderlines" => $productorderlines, "mostPurchasedItems" => $mostPurchasedItems,"itemQuantities"=>$itemQuantities]);
+            echo $this->view("customer/profile",[ "data" => $data, "orders" => $orders, "productorderlines" => $productorderlines, "mostPurchasedItems" => $mostPurchasedItems,"itemQuantities"=>$itemQuantities,"RecommendedProducts"=>$RecommendedProducts,"message"=>$message]);
         }
 
         // Views
