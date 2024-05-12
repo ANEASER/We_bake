@@ -1,7 +1,6 @@
 import numpy as np
 import mysql.connector as mysql
 import pandas as pd
-import trainer
 
 
 connection = mysql.connect(host='localhost', user='root', password='', database='we bake')
@@ -11,13 +10,6 @@ df = pd.read_sql(query, connection)
 df["index"] = df.index 
 
 cosine_sim_loaded = np.load('output.txt')
-
-previous_count = cosine_sim_loaded.shape[0]
-current_count = len(df.index)
-
-if previous_count != current_count:
-    trainer.train(df)
-   
 
 def get_name_from_index(index):
     return df[df.index	 == index]["itemname"].values[0]

@@ -1261,7 +1261,21 @@ use function PHPSTORM_META\type;
             }
 
             $_SESSION["message"] = "Successed";
-            //$this->redirect(BASE_URL."CommonControls/loadProductsView");
+            
+            try {
+                $response = file_get_contents('http://127.0.0.1:8000/train/');
+                if(!$response){
+                    echo "error";
+                }else
+                {
+                    var_dump($response);
+                    //$this->redirect(BASE_URL."CommonControls/loadProductsView");
+                }
+            } catch (Exception $e) {
+                echo 'Error: ' . $e->getMessage();
+            }
+            
+
         }
         
         function loadDeliveryChargesView($message = null){
