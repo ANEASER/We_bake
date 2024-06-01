@@ -6,6 +6,11 @@
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/main.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/buttons.css">
     <link rel = "stylesheet" type = "text/css" href = "<?php echo BASE_URL; ?>media/css/tables.css">
+
+    <!-- SweetAlert CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
     <title>Store Manager_Stocks</title>
 </head>
 <body>
@@ -48,7 +53,7 @@
             </form>
 
             <section class="buttongroup">
-                <button style="width: 200px;" type="submit"  class="bluebutton" onclick="addStockItem(this)">Add New Stocks</button>
+                <button style="width: 200px;padding: 14px;" type="submit"  class="bluebutton" onclick="addStockItem(this)">Add New Stocks</button>
             </section>
 
         </div>

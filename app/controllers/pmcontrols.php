@@ -18,7 +18,8 @@ class PmControls extends Controller
     
                                     // CUSTOMER ORDERS
 // functions
-    // Process Order - customer
+
+   // Process Order - customer
     function processOrder($orderid)
     {
         if (!Auth::loggedIn()) {
@@ -29,6 +30,18 @@ class PmControls extends Controller
         }
 
         $productorder = new ProductOrder;
+       
+        //Email
+        $mail = new Mail();
+        $customer = new Customer;
+        
+        $productorderlines = $productorder->where("orderid", $orderid);
+        $username = $productorderlines[0]->placeby;
+        $foundcustomer = $customer->where("UserName", $username);
+        $orderemail = $foundcustomer[0]->Email;
+        $mail->sendMail($orderemail, "Order Processing", "Your Order is now processing");
+       
+        //Status change  
         $productorder->update($orderid, "orderid", ["orderstatus" => "processing"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
     }
@@ -60,14 +73,26 @@ class PmControls extends Controller
         }
 
         $productorder = new ProductOrder;
-        $vehicle = new Vehicle;
         
+        //Email
+        $mail = new Mail();
+        $customer = new Customer;
+        $productorderlines = $productorder->where("orderid", $orderid);
+        $username = $productorderlines[0]->placeby;
+        $foundcustomer = $customer->where("UserName", $username);
+        $orderemail = $foundcustomer[0]->Email;
+        $mail->sendMail($orderemail, "Order Completed", "Your Order is now completed");
+        
+        
+        $vehicle = new Vehicle;
+
+        //Vehicle avialbility
         $order = $productorder->where("orderid", $orderid);
         $vehicleno = $order[0]->deliverby;
-        
-        $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
         $vehicle->update($vehicleno,"registrationnumber",["availability"=>1]);
 
+        //Status change
+        $productorder->update($orderid,"orderid",["orderstatus"=>"finished"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
     }
 
@@ -82,6 +107,17 @@ class PmControls extends Controller
         }
 
         $productorder = new ProductOrder;
+
+        //Email
+        $mail = new Mail();
+        $customer = new Customer;
+        $productorderlines = $productorder->where("orderid", $orderid);
+        $username = $productorderlines[0]->placeby;
+        $foundcustomer = $customer->where("UserName", $username);
+        $orderemail = $foundcustomer[0]->Email;
+        $mail->sendMail($orderemail, "Order Cancled", "Your Order is cancled");
+
+        //Status change
         $productorder->update($orderid, "orderid", ["orderstatus" => "cancled"]);
         $this->redirect(BASE_URL . "pmcontrols/index");
     } 
@@ -193,7 +229,7 @@ class PmControls extends Controller
     }
     
     // Assign Vehicle View 
-    function assignVehicleView($orderid) //, $capacity
+    function assignVehicleView($orderid) 
     {
         if (!Auth::loggedIn()) {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
@@ -203,8 +239,7 @@ class PmControls extends Controller
         }
 
         $vehicle = new vehicle;
-        //$capacity = $vehicle->where("capacity", $capacity);
-        $vehicles = $vehicle->assignVehicle(); //$capacity
+        $vehicles = $vehicle->assignVehicle(); 
 
         echo $this->view("productionmanager/assignvehicle", ["orderid"=>$orderid, "vehicles"=>$vehicles]);
     }
@@ -310,7 +345,7 @@ class PmControls extends Controller
             }
         }
 
-        var_dump($data);
+        //var_dump($data);
         $vehicle->update($vehicleid,"vehicleno",$data);
         $this->redirect(BASE_URL . "pmcontrols/loadVehiclesView");
     }
@@ -345,12 +380,12 @@ class PmControls extends Controller
 
         $productorder = new ProductOrder;
         $vehicle = new vehicle;
-        $customer = new Customer;
+        //$customer = new Customer;
 
         $vehicleassign = $vehicle->where("vehicleno",$vehicleno);
         $registrationnumber = $vehicleassign[0]->registrationnumber;
 
-        $order = $productorder->where("orderid",$orderid);
+        //$order = $productorder->where("orderid",$orderid);
        // $placedby = $order[0]->placeby;
          /* $placedcustomer = $customer->where("UserName",$placedby);
 
@@ -388,12 +423,12 @@ class PmControls extends Controller
 
         $productorder = new ProductOrder;
         $vehicle = new vehicle;
-        $customer = new Customer;
+        //$customer = new Customer;
 
         $vehicleassign = $vehicle->where("vehicleno",$vehicleno);
         $registrationnumber = $vehicleassign[0]->registrationnumber;
 
-        $order = $productorder->where("orderid",$orderid);
+        //$order = $productorder->where("orderid",$orderid);
        // $placedby = $order[0]->placeby;
         /* $placedcustomer = $customer->where("UserName",$placedby);
 
@@ -461,11 +496,11 @@ class PmControls extends Controller
         if ($_SESSION["USER"]->Role != "productionmanager") {
             $this->redirect(BASE_URL . "CommonControls/loadLoginView");
         }
-
+    //products table
         // find tomorrow product order lines 
         $ProductOrder = new ProductOrder;
         $orders = $ProductOrder->tomarrowOrders();
-        $productorder = $ProductOrder->findall();
+        //$productorder = $ProductOrder->findall();
 
         // get all unique ids of orders tomorrow
         foreach ($orders as $order) {
@@ -478,7 +513,6 @@ class PmControls extends Controller
         // find all items ids in product order lines and calculate raws
         $rawsforitems = new RawsForItem();
 
-
         $aggregateArray = [];
 
         foreach ($productorderlines as $productorderline) {
@@ -490,7 +524,7 @@ class PmControls extends Controller
             // Iterate through each result obtained from RawsForItemsbyItemIDs and append it to the aggregate array
             foreach ($rawforitemtomorrow as $raw) {
                 $rawName = $raw->RawName; 
-                $subtotalquantity = (float)$raw->subtotalquantity; // without fliat some items get as string
+                $subtotalquantity = (float)$raw->subtotalquantity; // without float some items get as string
                 // If the RawName already exists in the aggregate array, accumulate the subtotalquantity
                 if (isset($aggregateArray[$rawName])) {
                     $aggregateArray[$rawName]['subtotalquantity'] += $subtotalquantity;
@@ -516,15 +550,13 @@ class PmControls extends Controller
                 'subtotalquantity' => $roundedQuantity,
             ];
         }
-        
+    //raws table    
         // get all raws for tomorrow
         $autocalucalatedraws = $roundedArray;
-        
         
         //var_dump($rawsfortomorrow);
         $stockitem = new StockItem();
         $stockitems = $stockitem->getDistinct("Name");
-
 
         // stock order lines
         $tomorrow = date("Y-m-d", strtotime('+1 day'));
@@ -594,7 +626,7 @@ class PmControls extends Controller
         
             if($stockorderlines['comment'] == null){
                 if($stockorderlines['$stockorderlines'] != null){
-                    $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow, "comment" => "customer added"]);
+                    $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow, "comment" => "custom added"]);
                 }else{
                     $stockorder->insert(["unique_id" => $stockorderlines['uniqueid'][0], "ondate" => $tomorrow]);
                 }

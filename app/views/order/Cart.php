@@ -37,7 +37,7 @@
                     }
                 ?>
                 <button class="redbutton" onclick="cancel()">Cancel</button>
-                <button class="bluebutton" onclick="addmore()">Addmore</button>
+                <button class="bluebutton" onclick="addmore()">Add More</button>
             </section>
         </section>
 

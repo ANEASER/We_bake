@@ -143,6 +143,7 @@
                     
                 </section>
     </section>
+    <h2 style="text-align: center;">Most Purchased Items</h2>
     <section class="editsection">
     <section class="stats" style="padding: 1%;z-index:0">
                         <?php
@@ -160,6 +161,27 @@
                             }
                         ?>                        
                 </section>
+    </section>
+    <h2 style="text-align: center;">Recommended For You</h2>
+    <section class="editsection">
+        <section class="stats" style="padding: 1%;z-index:0">
+            <?php
+            if (is_array($RecommendedProducts) && !empty($RecommendedProducts)) {
+                foreach ($RecommendedProducts as $items) {
+                    foreach ($items as $item) {
+                        echo "<div class='statscard' style='background-image: url(" . BASE_URL . 'media/uploads/Product/' . $item->imagelink . "); background-size: cover; background-repeat: no-repeat; background-position: center;'>";
+                        echo "<div style='top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(255, 255, 255, 0.7); display:flex;flex-direction:column;justify-content:center; font-weight:bolder'>";
+                        echo "<h4>".$item->itemname."</h4>";
+                        echo "</div>";
+                        echo "</div>";
+                    }
+                }
+            } else {
+                echo "<h3 style='text-align:center;'>No Data Available</h3>";
+            }
+            ?>                        
+        </section>
+
     </section>
     <script>
     

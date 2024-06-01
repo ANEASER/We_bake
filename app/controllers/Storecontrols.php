@@ -110,6 +110,7 @@ class StoreControls extends Controller {
 
         $stockItem = new StockItem();
         $stocks = $stockItem->where("ItemID",$id);
+
         echo $this->view("storemanager/updatestock",  ["stocks" => $stocks]);   
     }
 
@@ -517,10 +518,22 @@ class StoreControls extends Controller {
             $this->redirect(BASE_URL."CommonControls/loadLoginView");
         }
 
+        if(session_status() == PHP_SESSION_NONE){
+            session_start();
+        }
+
+       
+
         $stockorder=new StockOrder();
         $stockorderline=new StockOrderLine();
         $stockorderline = $stockorderline->where("unique_id",$unique_id);
-        echo $this->view("storemanager/prodorder",  ["stockorderline" => $stockorderline]);
+        if(isset($_SESSION["error"])){
+            $error = $_SESSION["error"];
+            unset($_SESSION["error"]);
+            echo $this->view("storemanager/prodorder",  ["stockorderline" => $stockorderline, "error" => $error]);
+        }else{
+            echo $this->view("storemanager/prodorder",  ["stockorderline" => $stockorderline]);
+        }
     }
 
     function viewOrder(){
@@ -562,6 +575,7 @@ class StoreControls extends Controller {
 
         if($stockQty<$requestedqty){
             echo "<script>alert('Stock is not enough to fulfill the order')</script>";
+            $_SESSION["error"] = "Stock is not enough to fulfill the order";
             $this->redirect(BASE_URL . "StoreControls/loadViewOrder/".$orderID);
         }
 
@@ -611,6 +625,7 @@ class StoreControls extends Controller {
 
             if($stockQty<$requestedqty){
                 echo "<script>alert('Stock is not enough to fulfill the order')</script>";
+                $_SESSION["error"] = "Stock is not enough to fulfill the order, Accept one by one.";
                 $this->redirect(BASE_URL . "StoreControls/loadViewOrder/".$unique_id);
             }
 

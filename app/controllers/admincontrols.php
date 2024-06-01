@@ -1260,7 +1260,22 @@ use function PHPSTORM_META\type;
                 session_start();
             }
 
-            $_SESSION["message"] = "Raws and Item added successfully";
+            $_SESSION["message"] = "Successed";
+            
+            try {
+                $response = file_get_contents('http://127.0.0.1:8000/train/');
+                if(!$response){
+                    echo "error";
+                }else
+                {
+                    var_dump($response);
+                    //$this->redirect(BASE_URL."CommonControls/loadProductsView");
+                }
+            } catch (Exception $e) {
+                echo 'Error: ' . $e->getMessage();
+            }
+            
+
         }
         
         function loadDeliveryChargesView($message = null){
@@ -1325,7 +1340,7 @@ use function PHPSTORM_META\type;
                 session_start();
             }
 
-            $_SESSION["message"] = "Raw deleted successfully";
+            //$_SESSION["message"] = "Raw deleted successfully";
 
             $this->redirect(BASE_URL."AdminControls/addRawsview/".$itemid);
         }

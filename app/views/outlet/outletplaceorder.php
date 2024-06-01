@@ -21,7 +21,7 @@
                     <form class="form" action="<?php echo BASE_URL; ?>OutletControls/submitorder" method="post">
                         <div class="form-group">
                             <label for="orderdate"><br>Order Date:</label>
-                            <input type="date" id="orderdate"  min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" name="orderdate" required>
+                            <input type="date" id="orderdate"  min="<?php echo date('Y-m-d', strtotime('+2 day')); ?>" name="orderdate" required>
                         </div>
                         <div class="form-group">
                             <label for="ordertype"><br>Order Type</label>

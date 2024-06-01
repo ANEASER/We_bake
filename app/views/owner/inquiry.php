@@ -13,14 +13,9 @@
         include "ownernavbar.php";
     ?>
 
-    <div class="content">   
-        <h1>Feedback</h1>
-        
-    </div>
 
-
-    <section style="display:flex;justify-content:space-around; width:100%">
-    <?php //The table structure 
+    <section style="display:flex;justify-content:space-around; width:100%; margin-top:20px;">
+    <?php 
         if (count($inquiry) > 0){
             echo '<table style="width:90%">';
             echo '<tr>
@@ -28,6 +23,7 @@
                     <th> Placed By </th>
                     <th> Address</th>
                     <th> Comment</th>
+                    <th> Category </th>
                 </tr>';
 
                 foreach($inquiry as $inquiry){
@@ -36,6 +32,7 @@
                     echo '<td>' . $inquiry->placeby . '</td>';
                     echo '<td>' . $inquiry->address . '</td>';
                     echo '<td>' . $inquiry->inquirytext . '</td>';
+                    echo '<td>' . $inquiry->category . '</td>';
                     echo '</tr>';
 
                 }

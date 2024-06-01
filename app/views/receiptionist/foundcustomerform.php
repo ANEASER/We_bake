@@ -26,7 +26,7 @@
     <h1> <b><span style="color:green;">Customer Found</span></b> </h1> <br>
 
 
-<h4> Customer name: <?php echo $foundcustomer->UserName ?> </h4>
+<h4> Customer username: <?php echo $foundcustomer->UserName ?> </h4>
 <h4> Customer Email: <?php echo $foundcustomer->Email?> </h4>
 <h4> Customer Telephone Number: <?php echo $foundcustomer->contactNo ?>  </h4> <br>
 
@@ -37,7 +37,7 @@
 
 
         <label for="orderdate">Order date :</label>
-        <input type="date" id="orderdate" name="orderdate" required>
+        <input type="date" id="orderdate" name="orderdate" min="<?php echo date('Y-m-d', strtotime('+2 day')); ?>" required>
         
 
         <label for="deliveryaddress">Delivery Address :</label>
@@ -65,23 +65,6 @@
 </section>
 
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var today = new Date();
-            today.setDate(today.getDate() + 1); // Set to the tomorrow
-
-            var dd = String(today.getDate()).padStart(2, '0');
-            var mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
-            var yyyy = today.getFullYear();
-
-            var dayAfterTomorrow = yyyy + '-' + mm + '-' + dd;
-            document.getElementById('orderdate').setAttribute('min', dayAfterTomorrow);
-        });
-
-        var deliverystatus = document.getElementById('deliverystatus');
-        var deliverAddressGroup = document.getElementById('deliverAddressGroup');
-        var deliverCityGroup = document.getElementById('deliverCityGroup');
-        var deliverAddress = document.getElementById('deliver_address');
-        var deliverCity = document.getElementById('deliver_city');
 
        
         deliverystatus.addEventListener('change', function () {

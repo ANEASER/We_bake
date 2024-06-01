@@ -90,17 +90,60 @@
                             "ItemCode" => $productInfo[0]->Itemcode,
                             "Quantity" => $quantity,
                             "Link" => $productInfo[0]->imagelink,
-                            // Add other properties you want to include
                         ];
 
                         $mostPurchasedItems[] = $mostPurchasedItem;
                     }
                 }
+
+                $names = [];
+                foreach ($mostPurchasedItems as $item) {
+                    $names[] = $item->Name;
+                }
+
+                $json_data = [
+                    "items" => $names
+                ];
+
+                if(!empty($names)){
+                    $json_encoded = json_encode($json_data);
+                    $ch = curl_init();
+                    
+                    try {
+                        curl_setopt($ch, CURLOPT_URL, 'http://127.0.0.1:8000/recommend/');
+                        curl_setopt($ch, CURLOPT_POST, 1);
+                        curl_setopt($ch, CURLOPT_POSTFIELDS, $json_encoded);
+                        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+                        $response = curl_exec($ch);
+                        $RecommendedItemsArray = json_decode($response, true);
+
+                        if (empty($RecommendedItemsArray)) {
+                            $RecommendedProducts = "No data available.";
+                        }else{
+                        $RecommendedProducts = [];
+
+                        $RecommendedItemsArray = $RecommendedItemsArray["recommendation"];
+                        foreach ($RecommendedItemsArray as $item) {
+                            $product = $produictitem->where("itemname", $item);
+                            array_push($RecommendedProducts, $product);
+                        } 
+                    }
+                    } catch (Exception $e) {
+                        $RecommendedProducts = "No data available.";
+                    }
+
+                }else{
+                    $RecommendedProducts = "No data available.";
+                }
+                
             } else {
                 $mostPurchasedItems = "No data available.";
+                $RecommendedProducts = "No data available.";    
             }
             
-            echo $this->view("customer/profile",[ "data" => $data, "orders" => $orders, "productorderlines" => $productorderlines, "mostPurchasedItems" => $mostPurchasedItems,"itemQuantities"=>$itemQuantities]);
+            echo $this->view("customer/profile",[ "data" => $data, "orders" => $orders, "productorderlines" => $productorderlines, "mostPurchasedItems" => $mostPurchasedItems,"itemQuantities"=>$itemQuantities,"RecommendedProducts"=>$RecommendedProducts,"message"=>$message]);
         }
 
         // Views
@@ -115,7 +158,7 @@
             }
 
             $productorder = new ProductOrder();
-            $orders = $productorder->findalldescwithplaceby($_SESSION["USER"]->UserName);
+            $orders = $productorder->findOrdersDecendingDate($_SESSION["USER"]->UserName);
             echo $this->view("customer/purchasehistory",[ "orders" => $orders]);
         }
 
@@ -143,7 +186,18 @@
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
 
-            echo $this->view("customer/editprofiledetails");
+            if(session_status() == PHP_SESSION_NONE){
+                session_start();
+            }
+
+            if(isset($_SESSION["error"])){
+                $error = $_SESSION["error"];
+                unset($_SESSION["error"]);
+                echo $this->view("customer/editprofiledetails",["error"=>$error]);
+            }
+            else{
+                echo $this->view("customer/editprofiledetails");
+            }
         }
 
         function editprofile(){
@@ -155,8 +209,13 @@
             if(isset($_SESSION["USER"]->Role)){
                 $this->redirect(BASE_URL."CommonControls/loadLoginView");
             }
+
+
+            if(session_status() == PHP_SESSION_NONE){
+                session_start();
+            }
     
-                if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $customer = new Customer();
 
                     if(!empty($_POST["username"])){
@@ -176,8 +235,17 @@
                     }
                     if(!empty($_POST["email"])){
                         $arr["Email"] = $_POST["email"];
-                    }
+            }
 
+            $customerbyemail = $customer->where("Email",$arr["Email"]);
+            $customerbyusername = $customer->where("UserName",$arr["UserName"]);
+
+            if($customerbyemail){
+                $_SESSION["error"] = "Email already exists";
+                $this->redirect(BASE_URL."CustomerControls/editprofiledetailsview");
+            }else if($customerbyusername){
+                $_SESSION["error"] = "Username already exists";
+                $this->redirect(BASE_URL."CustomerControls/editprofiledetailsview");
                     $verifiedpassword = password_verify($_POST["password"],$_SESSION["USER"]->Password);
                     
                     if($verifiedpassword){
@@ -195,13 +263,16 @@
                     }
 
                     else{
-                        echo "Current password is incorrect";
+                        $_SESSION["error"] = "Password is incorrect";
+                        $this->redirect(BASE_URL."CustomerControls/editprofiledetailsview");
                     }
 
                 }
                 else{
-                    echo "Form not submitted!";
+                    $_SESSION["error"] = "Form not submitted!";
+                    $this->redirect(BASE_URL."CustomerControls/editprofiledetailsview");
                 }
+         }
         }
 
         function uploadprofilepicview(){
@@ -375,13 +446,35 @@
 
            $arr["placeby"] = $_SESSION["USER"]->UserName;
            $arr["address"] = $_SESSION["USER"]->Address;
-           $arr["inquirytext"] = $_POST["inquirytext"];
-        
 
-           $makeinquiry->insert($arr);
+           $json_data = [
+            "text" => $_POST["inquirytext"]
+           ];
+
+           $json_encoded = json_encode($json_data);
+
+           try {
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, 'http://127.0.0.1:8081/predict/');
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $json_encoded);
+                curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+                $response = curl_exec($ch);
+                $response_decoded = json_decode($response, true);
+                $feedback = $response_decoded["sentiment"];
+               
+                $arr["category"] = $feedback;
+
+           }catch(Exception $e){
+            $arr["category"] = "None";
+           }
+
+          $makeinquiry->insert($arr);
 
             
-            $this->redirect(BASE_URL."CustomerControls/profile");
+          $this->redirect(BASE_URL."CustomerControls/profile");
         }
 
         // cancel order

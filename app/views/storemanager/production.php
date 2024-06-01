@@ -39,7 +39,7 @@
                     echo '<td> <button class="yellowbutton" onclick="view(\'' . $stockorder->unique_id . '\')">View</button></td>';
                     echo '<td>';
                     if ($stockorder->status == 'pending') {
-                        echo '<button class="greenbutton" onclick="accept(\'' . $stockorder->unique_id .'\')">Accept</button>';
+                        echo '<button class="green-button-prodorder" onclick="accept(\'' . $stockorder->unique_id .'\')">Accept</button>';
                     } else {
                         echo '<button class="bluebutton">Accepted</button>';
                     }

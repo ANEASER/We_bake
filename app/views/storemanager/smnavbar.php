@@ -18,7 +18,7 @@
             <div class="bar3"> <i id="sidebar_btn"></i> </div>
         </label>
         <?php
-            echo '<img class="logo" src="' . BASE_URL . 'media/uploads/Content/logoo.png" width="200px">';
+            echo '<img class="logo" src="' . BASE_URL . 'media/uploads/Content/logo.png" width="200px">';
         ?>
         <ul>
             <li><a class="navbutton" onclick="home(this)">Home</a></li>
